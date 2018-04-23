@@ -2,6 +2,7 @@ export * from './components/Button';
 export * from './components/Card';
 export * from './components/DatePicker';
 export * from './components/DropDown';
+export * from './components/FilePicker';
 export * from './components/Footer';
 export * from './components/Header';
 export * from './components/ImageButton';
