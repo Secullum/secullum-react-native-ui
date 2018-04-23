@@ -1,6 +1,7 @@
 export * from './components/Button';
 export * from './components/DatePicker';
 export * from './components/ImageButton';
+export * from './components/Link';
 export * from './components/Message';
 export * from './components/Modal';
 export * from './components/RangeDatePicker';
