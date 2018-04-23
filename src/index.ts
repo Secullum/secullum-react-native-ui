@@ -4,6 +4,7 @@ export * from './components/DatePicker';
 export * from './components/DropDown';
 export * from './components/ImageButton';
 export * from './components/Link';
+export * from './components/Menu';
 export * from './components/Message';
 export * from './components/Modal';
 export * from './components/RadioGroup';
