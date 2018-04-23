@@ -1,0 +1,30 @@
+{
+  "name": "secullum-react-native-ui",
+  "version": "0.1.0",
+  "description": "Some react-native components",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Secullum/secullum-react-native-ui.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf lib && tsc --declaration",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+  },
+  "devDependencies": {
+    "@types/react": "^16.0.40",
+    "@types/react-native": "^0.52.19",
+    "prettier": "^1.12.1",
+    "rimraf": "^2.6.2",
+    "typescript": "^2.8.3"
+  },
+  "peerDependencies": {
+    "react": "^16.2.0",
+    "react-native": "^0.52.0"
+  }
+}
