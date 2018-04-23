@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-export interface SpaceProps {
+export interface SpaceProperties {
   height?: number;
   width?: number;
 }
 
-export class Space extends React.Component<SpaceProps> {
+export class Space extends React.Component<SpaceProperties> {
   static defaultProps = {
     height: 16
   };
