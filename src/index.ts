@@ -7,6 +7,7 @@ export * from './components/Modal';
 export * from './components/RangeDatePicker';
 export * from './components/Space';
 export * from './components/StatusBar';
+export * from './components/Table';
 export * from './components/TextBox';
 export * from './components/TimePicker';
 export * from './modules/format';
