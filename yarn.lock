@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@types/react-native-elevated-view@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-elevated-view/-/react-native-elevated-view-0.0.0.tgz#c68dcb8158a232a756e60bc6d446eda21009d72f"
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
 "@types/react-native-vector-icons@^4.6.0":
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-4.6.0.tgz#121bfcedffca18ffdf25f7db8ab9a8d88c932666"
@@ -416,6 +423,10 @@ react-native-animatable@^1.2.3:
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.2.4.tgz#b5fb7657e8f6edadbc26697057a327fb920b3039"
   dependencies:
     prop-types "^15.5.10"
+
+react-native-elevated-view@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-elevated-view/-/react-native-elevated-view-0.0.6.tgz#560cc9ab16cfd5cb5ea821521558fc711e57e231"
 
 react-native-modal-datetime-picker@^4.13.0:
   version "4.13.0"

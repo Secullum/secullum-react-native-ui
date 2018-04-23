@@ -1,4 +1,5 @@
 export * from './components/Button';
+export * from './components/Card';
 export * from './components/DatePicker';
 export * from './components/ImageButton';
 export * from './components/Link';
