@@ -1,5 +1,6 @@
 export * from './components/Button';
 export * from './components/DatePicker';
+export * from './components/Modal';
 export * from './components/Space';
 export * from './components/StatusBar';
 export * from './components/TextBox';
