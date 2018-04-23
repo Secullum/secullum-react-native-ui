@@ -16,9 +16,15 @@
     "build": "rimraf lib && tsc --declaration",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
+  "dependencies": {
+    "date-fns": "^1.29.0",
+    "react-native-modal-datetime-picker": "^4.13.0",
+    "react-native-vector-icons": "^4.5.0"
+  },
   "devDependencies": {
     "@types/react": "^16.0.40",
     "@types/react-native": "^0.52.19",
+    "@types/react-native-vector-icons": "^4.6.0",
     "prettier": "^1.12.1",
     "rimraf": "^2.6.2",
     "typescript": "^2.8.3"
