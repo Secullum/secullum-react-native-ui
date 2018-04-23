@@ -2,34 +2,34 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { getTheme } from '../modules/theme';
 
-export interface RadioGroupProperties<T> {
-  items: Array<{ label: string; value: T }>;
-  selectedItem: T;
-  onSelectedChange: (value: T) => void;
+export interface RadioGroupProperties {
+  items: Array<{ label: string; value: string }>;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-export class RadioGroup<T> extends React.Component<RadioGroupProperties<T>> {
+export class RadioGroup extends React.Component<RadioGroupProperties> {
   render() {
-    const { items, selectedItem, onSelectedChange } = this.props;
+    const { items, value, onChange } = this.props;
 
     return (
       <View style={styles.container}>
         {items.map((item, index) => (
           <TouchableWithoutFeedback
             key={index}
-            onPress={() => onSelectedChange(item.value)}
+            onPress={() => onChange(item.value)}
           >
             <View
               style={[
                 styles.item,
                 { borderRightWidth: index === items.length - 1 ? 0 : 1 },
-                item.value === selectedItem ? styles.selectedItem : null
+                item.value === value ? styles.selectedItem : null
               ]}
             >
               <Text
                 style={[
                   styles.itemText,
-                  item.value === selectedItem ? styles.selectedItemText : null
+                  item.value === value ? styles.selectedItemText : null
                 ]}
               >
                 {item.label}
