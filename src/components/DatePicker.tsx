@@ -1,14 +1,23 @@
 import * as React from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
 
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle
+} from 'react-native';
+
 export interface DatePickerProperties {
   label: string;
   value: Date;
   onChange: (value: Date) => void;
+  style?: StyleProp<ViewStyle>;
 }
 
 export interface DatePickerState {
@@ -37,18 +46,20 @@ export class DatePicker extends React.Component<
   };
 
   render() {
+    const { label, value, style } = this.props;
+
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
-        <View style={styles.container}>
+        <View style={[styles.container, style]}>
           <View>
-            <Text style={styles.label}>{this.props.label}</Text>
+            <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>
-              {formatDate(this.props.value, 'dddd, DD/MM/YYYY')}
+              {formatDate(value, 'dddd, DD/MM/YYYY')}
             </Text>
           </View>
           <FontAwesome name="calendar" style={styles.icon} />
           <DateTimePicker
-            date={this.props.value}
+            date={value}
             isVisible={this.state.showModal}
             onConfirm={this.handleConfirm}
             onCancel={this.handleCancel}

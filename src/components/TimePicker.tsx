@@ -1,13 +1,22 @@
 import * as React from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
+
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle
+} from 'react-native';
 
 export interface TimePickerProperties {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  style?: StyleProp<ViewStyle>;
 }
 
 export interface TimePickerState {
@@ -36,9 +45,11 @@ export class TimePicker extends React.Component<
   };
 
   render() {
+    const { label, value, style } = this.props;
+
     const date = new Date();
     const hourRegex = /(\d{2}):(\d{2})/;
-    const matches = hourRegex.exec(this.props.value);
+    const matches = hourRegex.exec(value);
 
     if (matches) {
       date.setHours(parseInt(matches[1], 10));
@@ -47,10 +58,10 @@ export class TimePicker extends React.Component<
 
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
-        <View style={styles.container}>
+        <View style={[styles.container, style]}>
           <View>
-            <Text style={styles.label}>{this.props.label}</Text>
-            <Text style={styles.value}>{this.props.value}</Text>
+            <Text style={styles.label}>{label}</Text>
+            <Text style={styles.value}>{value}</Text>
           </View>
           <DateTimePicker
             mode="time"
