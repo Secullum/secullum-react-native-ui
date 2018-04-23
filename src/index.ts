@@ -6,6 +6,7 @@ export * from './components/ImageButton';
 export * from './components/Link';
 export * from './components/Message';
 export * from './components/Modal';
+export * from './components/RadioGroup';
 export * from './components/RangeDatePicker';
 export * from './components/Space';
 export * from './components/StatusBar';
