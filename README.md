@@ -25,3 +25,9 @@ yarn run build
 ```
 npm publish
 ```
+
+5. Push incremented version on git
+
+```
+git push
+```
