@@ -137,12 +137,12 @@ const styles = StyleSheet.create({
   menuContainer: {
     paddingLeft: 20,
     paddingVertical: 20,
-    flex: 1,
-    justifyContent: 'space-around'
+    flex: 1
   },
   menuText: {
     color: theme.textColor1,
     fontFamily: 'Lato-Bold',
-    fontSize: 16
+    fontSize: 16,
+    paddingVertical: 14
   }
 });
