@@ -2,20 +2,27 @@ import * as React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 export interface FooterProperties {
-  text: string;
+  text?: string;
   logoSource: any;
+  logoStyle?: any;
+  renderText?: () => React.ReactNode;  
 }
 
 export class Footer extends React.Component<FooterProperties> {
   static height = 48;
 
   render() {
-    const { text, logoSource } = this.props;
+    const { text, logoSource, logoStyle, renderText } = this.props;
 
     return (
       <View style={styles.container}>
-        <Image source={logoSource} style={styles.logo} />
-        <Text style={styles.text}>{text}</Text>
+        <Image source={logoSource} style={logoStyle ? logoStyle : styles.logo} />
+
+        {renderText ? (
+          renderText()
+        ) : (
+          <Text style={styles.text}>{text}</Text>
+        )} 
       </View>
     );
   }

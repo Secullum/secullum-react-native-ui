@@ -18,8 +18,8 @@ interface DropDownItemProperties {
   first: boolean;
   last: boolean;
   label: string;
-  value: string;
-  onPress: (value: string) => void;
+  value: any;
+  onPress: (value: any) => void;
 }
 
 class DropDownItem extends React.PureComponent<DropDownItemProperties> {
@@ -45,9 +45,9 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
 
 export interface DropDownProperties {
   label: string;
-  items: Array<{ label: string; value: string }>;
-  value: string | null;
-  onChange: (value: string) => void;
+  items: Array<{ label: string; value: any }>;
+  value: any | null;
+  onChange: (value: any) => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -63,7 +63,7 @@ export class DropDown extends React.Component<
     modalOpen: false
   };
 
-  handleItemPress = (value: string) => {
+  handleItemPress = (value: any) => {
     const { onChange } = this.props;
 
     this.setState({ modalOpen: false });
@@ -94,7 +94,7 @@ export class DropDown extends React.Component<
               <FlatList
                 data={items}
                 initialNumToRender={items.length}
-                keyExtractor={item => item.value}
+                keyExtractor={item => item.value.toString()}
                 renderItem={({ item, index }) => {
                   return (
                     <DropDownItem

@@ -12,12 +12,14 @@ import {
 } from 'react-native';
 
 export interface MenuProperties {
-  title: string;
+  title?: string;
   logoSource: any;
+  logoStyle?: any;
   menu: Array<{ path: string; text: string }>;
   children: React.ReactNode;
   onMenuPress: (path: string) => void;
   renderUserData: () => React.ReactNode;
+  renderTitle?: () => React.ReactNode;
 }
 
 export interface MenuState {
@@ -61,13 +63,28 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
   };
 
   renderNavigationView = () => {
-    const { title, logoSource, menu, onMenuPress, renderUserData } = this.props;
+    const {
+      title,
+      logoSource,
+      menu,
+      onMenuPress,
+      renderUserData,
+      renderTitle,
+      logoStyle
+    } = this.props;
 
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>
-          <Image source={logoSource} style={styles.logoImage} />
-          <Text style={styles.logoText}>{title}</Text>
+          <Image
+            source={logoSource}
+            style={logoStyle ? logoStyle : styles.logoImage}
+          />
+          {renderTitle ? (
+            renderTitle()
+          ) : (
+            <Text style={styles.logoText}>{title}</Text>
+          )}
         </View>
         <View style={styles.userContainer}>{renderUserData()}</View>
         <View style={styles.menuContainer}>
