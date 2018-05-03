@@ -52,7 +52,7 @@ export class CardSection extends React.Component<ViewProperties> {
 
 export interface CardProperties {
   children: React.ReactNode;
-  style?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>;
 }
 
 export class Card extends React.Component<CardProperties> {
@@ -76,7 +76,10 @@ export class Card extends React.Component<CardProperties> {
     });
 
     return (
-      <ElevatedView elevation={5} style={[cardStyles.container, this.props.style]}>
+      <ElevatedView
+        elevation={5}
+        style={[cardStyles.container, this.props.style]}
+      >
         {children}
       </ElevatedView>
     );
