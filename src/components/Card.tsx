@@ -10,7 +10,8 @@ import {
   TextStyle,
   TouchableOpacity,
   View,
-  ViewProperties
+  ViewProperties,
+  ViewStyle
 } from 'react-native';
 
 export interface CardHeaderProperties {
@@ -51,6 +52,7 @@ export class CardSection extends React.Component<ViewProperties> {
 
 export interface CardProperties {
   children: React.ReactNode;
+  style?: StyleProp<ViewStyle>
 }
 
 export class Card extends React.Component<CardProperties> {
@@ -74,7 +76,7 @@ export class Card extends React.Component<CardProperties> {
     });
 
     return (
-      <ElevatedView elevation={5} style={cardStyles.container}>
+      <ElevatedView elevation={5} style={[cardStyles.container, this.props.style]}>
         {children}
       </ElevatedView>
     );
