@@ -5,7 +5,7 @@ export interface FooterProperties {
   text?: string;
   logoSource: any;
   logoStyle?: any;
-  renderText?: () => React.ReactNode;  
+  renderText?: () => React.ReactNode;
 }
 
 export class Footer extends React.Component<FooterProperties> {
@@ -16,13 +16,12 @@ export class Footer extends React.Component<FooterProperties> {
 
     return (
       <View style={styles.container}>
-        <Image source={logoSource} style={logoStyle ? logoStyle : styles.logo} />
+        <Image
+          source={logoSource}
+          style={logoStyle ? logoStyle : styles.logo}
+        />
 
-        {renderText ? (
-          renderText()
-        ) : (
-          <Text style={styles.text}>{text}</Text>
-        )} 
+        {renderText ? renderText() : <Text style={styles.text}>{text}</Text>}
       </View>
     );
   }

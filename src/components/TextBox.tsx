@@ -47,6 +47,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
 
     return (
       <TouchableWithoutFeedback
+        disabled={!editable}
         onPress={() => {
           if (this.input) {
             this.input.focus();
@@ -54,15 +55,15 @@ export class TextBox extends React.Component<TextBoxProperties> {
         }}
       >
         <View
-          style={[styles.container, style, editable ? {} : styles.readonly]}
+          style={[styles.container, style, editable ? null : styles.readonly]}
         >
-          <Text style={[styles.label, style, editable ? {} : styles.readonly]}>
+          <Text style={[styles.label, editable ? null : styles.readonly]}>
             {label}
           </Text>
           <TextInput
             value={value}
             onChangeText={onChange}
-            style={[styles.input, style, editable ? {} : styles.readonly]}
+            style={[styles.input, editable ? {} : styles.readonly]}
             underlineColorAndroid="transparent"
             secureTextEntry={secureTextEntry}
             multiline={multiline}
@@ -105,6 +106,6 @@ const styles = StyleSheet.create({
     margin: 0
   },
   readonly: {
-    backgroundColor: '#dddddd'
+    backgroundColor: theme.disabled
   }
 });

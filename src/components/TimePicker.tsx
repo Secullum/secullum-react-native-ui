@@ -63,17 +63,13 @@ export class TimePicker extends React.Component<
     return (
       <TouchableWithoutFeedback disabled={disabled} onPress={this.handlePress}>
         <View
-          style={[styles.container, style, disabled ? styles.readonly : {}]}
+          style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           <View>
-            <Text
-              style={[styles.label, style, disabled ? styles.readonly : {}]}
-            >
+            <Text style={[styles.label, disabled ? styles.readonly : null]}>
               {label}
             </Text>
-            <Text
-              style={[styles.value, style, disabled ? styles.readonly : {}]}
-            >
+            <Text style={[styles.value, disabled ? styles.readonly : null]}>
               {value}
             </Text>
           </View>
@@ -115,6 +111,6 @@ const styles = StyleSheet.create({
     lineHeight: 22
   },
   readonly: {
-    backgroundColor: '#dddddd'
+    backgroundColor: theme.disabled
   }
 });

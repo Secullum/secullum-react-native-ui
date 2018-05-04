@@ -4,7 +4,6 @@ import { getTheme } from '../modules/theme';
 
 import {
   BackHandler,
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,14 +11,11 @@ import {
 } from 'react-native';
 
 export interface MenuProperties {
-  title?: string;
-  logoSource: any;
-  logoStyle?: any;
+  renderLogo: () => React.ReactNode;
   menu: Array<{ path: string; text: string }>;
   children: React.ReactNode;
   onMenuPress: (path: string) => void;
   renderUserData: () => React.ReactNode;
-  renderTitle?: () => React.ReactNode;
 }
 
 export interface MenuState {
@@ -63,29 +59,11 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
   };
 
   renderNavigationView = () => {
-    const {
-      title,
-      logoSource,
-      menu,
-      onMenuPress,
-      renderUserData,
-      renderTitle,
-      logoStyle
-    } = this.props;
+    const { renderLogo, menu, onMenuPress, renderUserData } = this.props;
 
     return (
       <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image
-            source={logoSource}
-            style={logoStyle ? logoStyle : styles.logoImage}
-          />
-          {renderTitle ? (
-            renderTitle()
-          ) : (
-            <Text style={styles.logoText}>{title}</Text>
-          )}
-        </View>
+        <View style={styles.logoContainer}>{renderLogo()}</View>
         <View style={styles.userContainer}>{renderUserData()}</View>
         <View style={styles.menuContainer}>
           {menu.map((menuItem, index) => (
@@ -134,16 +112,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     flexDirection: 'row',
     alignItems: 'center'
-  },
-  logoImage: {
-    width: 64,
-    height: 64
-  },
-  logoText: {
-    color: theme.textColor1,
-    fontFamily: 'MankSans-Medium',
-    fontSize: 22,
-    marginLeft: 10
   },
   userContainer: {
     paddingVertical: 10,

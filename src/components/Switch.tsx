@@ -25,16 +25,17 @@ export class Switch extends React.Component<SwitchProperties> {
 
     return (
       <TouchableWithoutFeedback
+        disabled={disabled}
         onPress={() => {
-          if (onChange && !disabled) {
+          if (onChange) {
             onChange(!value);
           }
         }}
       >
         <View
-          style={[styles.container, style, disabled ? styles.readonly : {}]}
+          style={[styles.container, style, disabled ? styles.readonly : null]}
         >
-          <Text style={[styles.label, style, disabled ? styles.readonly : {}]}>
+          <Text style={[styles.label, disabled ? styles.readonly : null]}>
             {label}
           </Text>
           <ReactNativeSwitch
@@ -68,6 +69,6 @@ const styles = StyleSheet.create({
     lineHeight: 16
   },
   readonly: {
-    backgroundColor: '#dddddd'
+    backgroundColor: theme.disabled
   }
 });

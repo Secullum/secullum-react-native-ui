@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { getTheme } from '../modules/theme';
+import { getTheme } from 'secullum-react-native-ui';
 
 export interface HeaderButton {
   icon: string;
@@ -53,7 +53,7 @@ export class Header extends React.Component<HeaderProperties> {
       type === 'left' ? { marginRight: 'auto' } : { marginLeft: 'auto' }
     ];
 
-    return <TouchableOpacity style={style} />;
+    return <View style={style} />;
   };
 
   render() {
