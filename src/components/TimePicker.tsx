@@ -15,7 +15,8 @@ import {
 export interface TimePickerProperties {
   label: string;
   value: string;
-  onChange: (value: string) => void;
+  disabled?: boolean;
+  onChange?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -36,7 +37,10 @@ export class TimePicker extends React.Component<
   };
 
   handleConfirm = (value: Date) => {
-    this.props.onChange(formatDate(value, 'HH:mm'));
+    if (this.props.onChange) {
+      this.props.onChange(formatDate(value, 'HH:mm'));
+    }
+
     this.handleCancel();
   };
 
@@ -45,7 +49,7 @@ export class TimePicker extends React.Component<
   };
 
   render() {
-    const { label, value, style } = this.props;
+    const { label, value, style, disabled } = this.props;
 
     const date = new Date();
     const hourRegex = /(\d{2}):(\d{2})/;
@@ -57,8 +61,10 @@ export class TimePicker extends React.Component<
     }
 
     return (
-      <TouchableWithoutFeedback onPress={this.handlePress}>
-        <View style={[styles.container, style]}>
+      <TouchableWithoutFeedback disabled={disabled} onPress={this.handlePress}>
+        <View
+          style={[styles.container, style, disabled ? styles.readonly : null]}
+        >
           <View>
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>{value}</Text>
@@ -99,5 +105,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
     fontSize: 16,
     lineHeight: 22
+  },
+  readonly: {
+    backgroundColor: theme.disabledColor
   }
 });

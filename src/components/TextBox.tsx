@@ -21,10 +21,16 @@ export interface TextBoxProperties {
   multiline?: boolean;
   keyboardType?: KeyboardType;
   style?: StyleProp<ViewStyle>;
+  editable?: boolean;
+  maxLength?: number;
 }
 
 export class TextBox extends React.Component<TextBoxProperties> {
   input: TextInputStatic | null = null;
+
+  static defaultProps = {
+    editable: true
+  };
 
   render() {
     const {
@@ -34,27 +40,34 @@ export class TextBox extends React.Component<TextBoxProperties> {
       secureTextEntry,
       multiline,
       keyboardType,
-      style
+      style,
+      editable,
+      maxLength
     } = this.props;
 
     return (
       <TouchableWithoutFeedback
+        disabled={!editable}
         onPress={() => {
           if (this.input) {
             this.input.focus();
           }
         }}
       >
-        <View style={[styles.container, style]}>
+        <View
+          style={[styles.container, style, editable ? null : styles.readonly]}
+        >
           <Text style={styles.label}>{label}</Text>
           <TextInput
             value={value}
             onChangeText={onChange}
-            style={styles.input}
+            style={[styles.input, editable ? null : styles.readonly]}
             underlineColorAndroid="transparent"
             secureTextEntry={secureTextEntry}
             multiline={multiline}
+            editable={editable}
             keyboardType={keyboardType}
+            maxLength={maxLength}
             ref={input => {
               // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16318
               this.input = input as TextInputStatic | null;
@@ -86,6 +99,11 @@ const styles = StyleSheet.create({
     color: theme.textColor1,
     fontFamily: 'Lato-Bold',
     fontSize: 16,
-    minHeight: 22
+    minHeight: 22,
+    padding: 0,
+    margin: 0
+  },
+  readonly: {
+    backgroundColor: theme.disabledColor
   }
 });

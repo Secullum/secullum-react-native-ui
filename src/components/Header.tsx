@@ -11,8 +11,8 @@ export interface HeaderButton {
 
 export interface HeaderProperties {
   title: string;
-  leftButton: HeaderButton;
-  rightButton: HeaderButton;
+  leftButton?: HeaderButton;
+  rightButton?: HeaderButton;
 }
 
 export class Header extends React.Component<HeaderProperties> {
@@ -47,14 +47,27 @@ export class Header extends React.Component<HeaderProperties> {
     );
   };
 
+  renderButtonInvisible = (type: 'left' | 'right') => {
+    const style = [
+      styles.button,
+      type === 'left' ? { marginRight: 'auto' } : { marginLeft: 'auto' }
+    ];
+
+    return <View style={style} />;
+  };
+
   render() {
     const { title, leftButton, rightButton } = this.props;
 
     return (
       <View style={styles.header}>
-        {this.renderButton(leftButton, 'left')}
+        {leftButton
+          ? this.renderButton(leftButton, 'left')
+          : this.renderButtonInvisible('left')}
         <Text style={styles.title}>{title}</Text>
-        {this.renderButton(rightButton, 'right')}
+        {rightButton
+          ? this.renderButton(rightButton, 'right')
+          : this.renderButtonInvisible('right')}
       </View>
     );
   }

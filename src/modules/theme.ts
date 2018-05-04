@@ -11,6 +11,7 @@ export const getTheme = () => {
     statusBarColor: '#0047a9', // blue
     successColor: '#2ec562', // green
     warningColor: '#f5a623', // yellow
-    errorColor: '#d62729' // red
+    errorColor: '#d62729', // red
+    disabledColor: '#dddddd' // gray
   };
 };
