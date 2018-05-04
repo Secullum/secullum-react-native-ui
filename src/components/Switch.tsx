@@ -26,7 +26,7 @@ export class Switch extends React.Component<SwitchProperties> {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
-          if (onChange) {
+          if (onChange && !disabled) {
             onChange(!value);
           }
         }}
@@ -37,7 +37,11 @@ export class Switch extends React.Component<SwitchProperties> {
           <Text style={[styles.label, style, disabled ? styles.readonly : {}]}>
             {label}
           </Text>
-          <ReactNativeSwitch value={value} onValueChange={onChange} />
+          <ReactNativeSwitch
+            disabled={disabled}
+            value={value}
+            onValueChange={onChange}
+          />
         </View>
       </TouchableWithoutFeedback>
     );
