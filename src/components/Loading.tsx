@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
-class Loading extends React.Component {
+export class Loading extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -19,5 +19,3 @@ const styles = StyleSheet.create({
     padding: 10
   }
 });
-
-export default Loading;
