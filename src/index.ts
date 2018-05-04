@@ -5,7 +5,6 @@ export * from './components/Details';
 export * from './components/DetailsHeader';
 export * from './components/DropDown';
 export * from './components/FilePicker';
-export * from './components/Footer';
 export * from './components/Header';
 export * from './components/ImageButton';
 export * from './components/Link';
