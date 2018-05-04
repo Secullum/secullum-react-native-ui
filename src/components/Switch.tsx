@@ -35,9 +35,7 @@ export class Switch extends React.Component<SwitchProperties> {
         <View
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
-          <Text style={[styles.label, disabled ? styles.readonly : null]}>
-            {label}
-          </Text>
+          <Text style={styles.label}>{label}</Text>
           <ReactNativeSwitch
             disabled={disabled}
             value={value}
@@ -69,6 +67,6 @@ const styles = StyleSheet.create({
     lineHeight: 16
   },
   readonly: {
-    backgroundColor: theme.disabled
+    backgroundColor: theme.disabledColor
   }
 });

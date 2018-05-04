@@ -12,6 +12,6 @@ export const getTheme = () => {
     successColor: '#2ec562', // green
     warningColor: '#f5a623', // yellow
     errorColor: '#d62729', // red
-    disabled: '#dddddd'
+    disabledColor: '#dddddd' // gray
   };
 };

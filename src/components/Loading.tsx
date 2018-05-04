@@ -1,17 +1,11 @@
 import * as React from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 
-interface Props {
-  animating: boolean;
-}
-
-class Loading extends React.Component<Props> {
+class Loading extends React.Component {
   render() {
-    const { animating } = this.props;
-
     return (
-      <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" animating={animating} />
+      <View style={styles.container}>
+        <ActivityIndicator size="large" />
       </View>
     );
   }
@@ -20,9 +14,6 @@ class Loading extends React.Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
-  },
-  horizontal: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 10

@@ -66,9 +66,7 @@ export class TimePicker extends React.Component<
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           <View>
-            <Text style={[styles.label, disabled ? styles.readonly : null]}>
-              {label}
-            </Text>
+            <Text style={styles.label}>{label}</Text>
             <Text style={[styles.value, disabled ? styles.readonly : null]}>
               {value}
             </Text>
@@ -111,6 +109,6 @@ const styles = StyleSheet.create({
     lineHeight: 22
   },
   readonly: {
-    backgroundColor: theme.disabled
+    backgroundColor: theme.disabledColor
   }
 });
