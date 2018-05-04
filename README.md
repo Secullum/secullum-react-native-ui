@@ -26,8 +26,8 @@ yarn run build
 npm publish
 ```
 
-5. Push incremented version on git
+5. Push incremented version and tags to git
 
 ```
-git push
+git push --follow-tags
 ```
