@@ -67,9 +67,7 @@ export class TimePicker extends React.Component<
         >
           <View>
             <Text style={styles.label}>{label}</Text>
-            <Text style={[styles.value, disabled ? styles.readonly : null]}>
-              {value}
-            </Text>
+            <Text style={styles.value}>{value}</Text>
           </View>
           <DateTimePicker
             mode="time"
