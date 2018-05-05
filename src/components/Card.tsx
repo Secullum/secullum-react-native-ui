@@ -50,7 +50,7 @@ export class CardSection extends React.Component<ViewProperties> {
   }
 }
 
-export interface CardProperties {
+export interface CardProperties extends ViewProperties {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
@@ -60,7 +60,9 @@ export class Card extends React.Component<CardProperties> {
   static Section = CardSection;
 
   render() {
-    const children = React.Children.map(this.props.children, (child, index) => {
+    const { children, style, ...otherProps } = this.props;
+
+    const childrenMapped = React.Children.map(children, (child, index) => {
       if (index === 0) {
         return child;
       }
@@ -69,6 +71,7 @@ export class Card extends React.Component<CardProperties> {
         <>
           <View
             style={{ borderTopColor: theme.borderColor1, borderTopWidth: 1 }}
+            {...otherProps}
           />
           {child}
         </>
@@ -78,9 +81,9 @@ export class Card extends React.Component<CardProperties> {
     return (
       <ElevatedView
         elevation={5}
-        style={[cardStyles.container, this.props.style]}
+        style={[cardStyles.container, style]}
       >
-        {children}
+        {childrenMapped}
       </ElevatedView>
     );
   }

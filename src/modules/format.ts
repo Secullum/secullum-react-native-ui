@@ -13,6 +13,14 @@ const fixWeekdayLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('sábado', 'Sábado');
   formattedDate = formattedDate.replace('domingo', 'Domingo');
 
+  formattedDate = formattedDate.replace('seg', 'Seg');
+  formattedDate = formattedDate.replace('ter', 'Ter');
+  formattedDate = formattedDate.replace('qua', 'Qua');
+  formattedDate = formattedDate.replace('qui', 'Qui');
+  formattedDate = formattedDate.replace('sex', 'Sex');
+  formattedDate = formattedDate.replace('sáb', 'Sáb');
+  formattedDate = formattedDate.replace('dom', 'Dom');
+  
   return formattedDate;
 };
 
