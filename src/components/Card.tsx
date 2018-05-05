@@ -79,10 +79,7 @@ export class Card extends React.Component<CardProperties> {
     });
 
     return (
-      <ElevatedView
-        elevation={5}
-        style={[cardStyles.container, style]}
-      >
+      <ElevatedView elevation={5} style={[cardStyles.container, style]}>
         {childrenMapped}
       </ElevatedView>
     );

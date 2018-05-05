@@ -20,7 +20,7 @@ const fixWeekdayLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('sex', 'Sex');
   formattedDate = formattedDate.replace('sáb', 'Sáb');
   formattedDate = formattedDate.replace('dom', 'Dom');
-  
+
   return formattedDate;
 };
 
