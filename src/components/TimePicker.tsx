@@ -1,5 +1,6 @@
 import * as React from 'react';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { ImageButton } from './ImageButton';
 import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
 
@@ -48,6 +49,12 @@ export class TimePicker extends React.Component<
     this.setState({ showModal: false });
   };
 
+  handleClear = () => {
+    if (this.props.onChange) {
+      this.props.onChange('');
+    }
+  }
+
   render() {
     const { label, value, style, disabled } = this.props;
 
@@ -61,23 +68,30 @@ export class TimePicker extends React.Component<
     }
 
     return (
-      <TouchableWithoutFeedback disabled={disabled} onPress={this.handlePress}>
-        <View
-          style={[styles.container, style, disabled ? styles.readonly : null]}
-        >
-          <View>
-            <Text style={styles.label}>{label}</Text>
-            <Text style={styles.value}>{value}</Text>
+      <>
+        <TouchableWithoutFeedback disabled={disabled} onPress={this.handlePress}>
+          <View
+            style={[styles.container, style, disabled ? styles.readonly : null]}
+          >
+            <View>
+              <Text style={styles.label}>{label}</Text>
+              <Text style={styles.value}>{value}</Text>
+            </View>
+            <DateTimePicker
+              mode="time"
+              date={date}
+              isVisible={this.state.showModal}
+              onConfirm={this.handleConfirm}
+              onCancel={this.handleCancel}
+            />
           </View>
-          <DateTimePicker
-            mode="time"
-            date={date}
-            isVisible={this.state.showModal}
-            onConfirm={this.handleConfirm}
-            onCancel={this.handleCancel}
-          />
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+        <ImageButton
+          icon="times"
+          style={styles.icon}
+          onPress={this.handleClear}
+        />
+      </>
     );
   }
 }
@@ -104,9 +118,15 @@ const styles = StyleSheet.create({
     color: theme.textColor1,
     fontFamily: 'Lato-Bold',
     fontSize: 16,
-    lineHeight: 22
+    lineHeight: 22,
+    minHeight: 22
   },
   readonly: {
     backgroundColor: theme.disabledColor
+  },
+  icon: {
+    marginLeft: 'auto',
+    color: '#6d819c',
+    fontSize: 22
   }
 });
