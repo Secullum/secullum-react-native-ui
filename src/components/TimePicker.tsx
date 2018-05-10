@@ -53,7 +53,7 @@ export class TimePicker extends React.Component<
     if (this.props.onChange) {
       this.props.onChange('');
     }
-  }
+  };
 
   render() {
     const { label, value, style, disabled } = this.props;
@@ -69,7 +69,10 @@ export class TimePicker extends React.Component<
 
     return (
       <>
-        <TouchableWithoutFeedback disabled={disabled} onPress={this.handlePress}>
+        <TouchableWithoutFeedback
+          disabled={disabled}
+          onPress={this.handlePress}
+        >
           <View
             style={[styles.container, style, disabled ? styles.readonly : null]}
           >
@@ -126,7 +129,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 'auto',
-    color: '#6d819c',
-    fontSize: 22
+    borderWidth: 0,
+    marginTop: -48,
+    marginRight: 5
   }
 });

@@ -12,12 +12,14 @@ import {
 export interface ImageButtonProperties {
   icon: string;
   style?: StyleProp<ViewStyle>;
+  iconColor?: string;
+
   onPress: () => void;
 }
 
 export class ImageButton extends React.Component<ImageButtonProperties> {
   render() {
-    const { icon, style, onPress } = this.props;
+    const { icon, style, iconColor, onPress } = this.props;
 
     return (
       <TouchableOpacity
@@ -25,7 +27,11 @@ export class ImageButton extends React.Component<ImageButtonProperties> {
         activeOpacity={0.5}
         style={[styles.container, style]}
       >
-        <FontAwesome name={icon} size={20} color={theme.textColor1} />
+        <FontAwesome
+          name={icon}
+          size={20}
+          color={iconColor || theme.textColor1}
+        />
       </TouchableOpacity>
     );
   }
