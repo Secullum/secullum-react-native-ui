@@ -6,7 +6,7 @@ export interface Props {
   style?: StyleProp<TextStyle>;
 }
 
-class ErrorMessage extends React.Component<Props> {
+export class ErrorMessage extends React.Component<Props> {
   render() {
     const { message, style } = this.props;
 
@@ -19,5 +19,3 @@ const styles = StyleSheet.create({
     color: 'red'
   }
 });
-
-export default ErrorMessage;
