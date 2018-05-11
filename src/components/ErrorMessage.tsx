@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
 
-interface Props {
+export interface Props {
   message?: string | null;
   style?: StyleProp<TextStyle>;
 }
