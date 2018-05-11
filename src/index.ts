@@ -20,5 +20,6 @@ export * from './components/Switch';
 export * from './components/Table';
 export * from './components/TextBox';
 export * from './components/TimePicker';
+export * from './components/ErrorMessage';
 export * from './modules/format';
 export * from './modules/theme';
