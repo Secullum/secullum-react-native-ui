@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: theme.textColor1,
     minWidth: 40,
-    textAlign: 'center'
+    textAlign: 'left'
   },
   lineValueContainer: {
     flexDirection: 'row',
