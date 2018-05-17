@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Lato-Bold',
     fontSize: 13,
-    paddingHorizontal: 13,
+    paddingHorizontal: 11,
     color: theme.textColor1
   },
   textPrimary: {
