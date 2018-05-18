@@ -10,7 +10,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  Platform
 } from 'react-native';
 
 export interface RangeDatePickerProperties {
@@ -84,18 +85,39 @@ export class RangeDatePicker extends React.Component<
             <Text style={styles.value}>{displayText}</Text>
           </View>
           <FontAwesome name="calendar" style={styles.icon} />
-          <DateTimePicker
-            date={startDate}
-            isVisible={showStartDateModal}
-            onConfirm={this.handleStartDateConfirm}
-            onCancel={this.handleStartDateCancel}
-          />
-          <DateTimePicker
-            date={endDate}
-            isVisible={showEndDateModal}
-            onConfirm={this.handleEndDateConfirm}
-            onCancel={this.handleEndDateCancel}
-          />
+
+          {Platform.OS === 'ios' ? (
+            showStartDateModal ? (
+              <DateTimePicker
+                date={startDate}
+                isVisible={true}
+                onConfirm={this.handleStartDateConfirm}
+                onCancel={this.handleStartDateCancel}
+              />
+            ) : showEndDateModal ? (
+              <DateTimePicker
+                date={endDate}
+                isVisible={true}
+                onConfirm={this.handleEndDateConfirm}
+                onCancel={this.handleEndDateCancel}
+              />
+            ) : null
+          ) : (
+            <>
+              <DateTimePicker
+                date={startDate}
+                isVisible={showStartDateModal}
+                onConfirm={this.handleStartDateConfirm}
+                onCancel={this.handleStartDateCancel}
+              />
+              <DateTimePicker
+                date={endDate}
+                isVisible={showEndDateModal}
+                onConfirm={this.handleEndDateConfirm}
+                onCancel={this.handleEndDateCancel}
+              />
+            </>
+          )}
         </View>
       </TouchableWithoutFeedback>
     );
