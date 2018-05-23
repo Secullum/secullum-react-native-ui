@@ -38,6 +38,18 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
   }
 }
 
+export class CardFooter extends React.Component<ViewProperties> {
+  render() {
+    const { children, ...otherProps } = this.props;
+
+    return (
+      <View style={[cardFooterStyles.container]} {...otherProps}>
+        {children}
+      </View>
+    );
+  }
+}
+
 export class CardSection extends React.Component<ViewProperties> {
   render() {
     const { children, style, ...otherProps } = this.props;
@@ -58,6 +70,7 @@ export interface CardProperties extends ViewProperties {
 export class Card extends React.Component<CardProperties> {
   static Header = CardHeader;
   static Section = CardSection;
+  static Footer = CardFooter;
 
   render() {
     const { children, style, ...otherProps } = this.props;
@@ -120,6 +133,12 @@ const cardHeaderStyles = StyleSheet.create({
 });
 
 const cardSectionStyles = StyleSheet.create({
+  container: {
+    padding: 16
+  }
+});
+
+const cardFooterStyles = StyleSheet.create({
   container: {
     padding: 16
   }

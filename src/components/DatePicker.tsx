@@ -3,6 +3,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
+import { ImageButton } from 'secullum-react-native-ui';
 
 import {
   StyleProp,
@@ -15,8 +16,8 @@ import {
 
 export interface DatePickerProperties {
   label: string;
-  value: Date;
-  onChange: (value: Date) => void;
+  value?: Date;
+  onChange: (value?: Date) => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -45,6 +46,10 @@ export class DatePicker extends React.Component<
     this.setState({ showModal: false });
   };
 
+  handleClear = () => {
+    this.props.onChange(undefined);
+  };
+
   render() {
     const { label, value, style } = this.props;
 
@@ -54,7 +59,7 @@ export class DatePicker extends React.Component<
           <View>
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>
-              {formatDate(value, 'dddd, DD/MM/YYYY')}
+              {value != undefined ? formatDate(value, 'dddd, DD/MM/YYYY') : ''}
             </Text>
           </View>
           <FontAwesome name="calendar" style={styles.icon} />
@@ -63,6 +68,11 @@ export class DatePicker extends React.Component<
             isVisible={this.state.showModal}
             onConfirm={this.handleConfirm}
             onCancel={this.handleCancel}
+          />
+          <ImageButton
+            icon="times"
+            style={{ borderWidth: 0 }}
+            onPress={this.handleClear}
           />
         </View>
       </TouchableWithoutFeedback>
@@ -74,7 +84,8 @@ const theme = getTheme();
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    paddingLeft: 16,
+    paddingRight: 6,
     paddingVertical: 8,
     borderWidth: 1,
     borderColor: theme.borderColor1,
@@ -92,7 +103,8 @@ const styles = StyleSheet.create({
     color: theme.textColor1,
     fontFamily: 'Lato-Bold',
     fontSize: 16,
-    lineHeight: 22
+    lineHeight: 22,
+    minHeight: 22
   },
   icon: {
     marginLeft: 'auto',
