@@ -47,7 +47,7 @@ export class DatePicker extends React.Component<
   };
 
   handleClear = () => {
-      this.props.onChange(undefined);
+    this.props.onChange(undefined);
   };
 
   render() {
@@ -69,9 +69,9 @@ export class DatePicker extends React.Component<
             onConfirm={this.handleConfirm}
             onCancel={this.handleCancel}
           />
-         <ImageButton
+          <ImageButton
             icon="times"
-            style={{borderWidth: 0}}
+            style={{ borderWidth: 0 }}
             onPress={this.handleClear}
           />
         </View>
