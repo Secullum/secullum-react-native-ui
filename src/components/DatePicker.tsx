@@ -3,7 +3,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
-import { ImageButton } from 'secullum-react-native-ui';
+import { ImageButton } from './ImageButton';
 
 import {
   StyleProp,
