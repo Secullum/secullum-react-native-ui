@@ -28,7 +28,7 @@ export interface TimePickerState {
 export class TimePicker extends React.Component<
   TimePickerProperties,
   TimePickerState
-> {
+  > {
   state: TimePickerState = {
     showModal: false
   };
@@ -87,13 +87,13 @@ export class TimePicker extends React.Component<
               onConfirm={this.handleConfirm}
               onCancel={this.handleCancel}
             />
+            <ImageButton
+              icon="times"
+              style={styles.icon}
+              onPress={this.handleClear}
+            />
           </View>
         </TouchableWithoutFeedback>
-        <ImageButton
-          icon="times"
-          style={styles.icon}
-          onPress={this.handleClear}
-        />
       </>
     );
   }
@@ -103,14 +103,13 @@ const theme = getTheme();
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    paddingLeft: 16,
     paddingVertical: 8,
     borderWidth: 1,
     borderColor: theme.borderColor1,
     borderRadius: 3,
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 5
+    alignItems: 'center'
   },
   label: {
     color: theme.textColor2,
@@ -130,8 +129,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 'auto',
-    borderWidth: 0,
-    marginTop: -48,
-    marginRight: 5
+    borderWidth: 0
   }
 });
