@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
     borderColor: theme.borderColor1,
     borderRadius: 3,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 5
   },
   label: {
     color: theme.textColor2,
