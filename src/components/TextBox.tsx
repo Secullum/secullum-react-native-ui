@@ -17,6 +17,7 @@ export interface TextBoxProperties {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  onBlur?: () => void;
   secureTextEntry?: boolean;
   multiline?: boolean;
   keyboardType?: KeyboardType;
@@ -37,6 +38,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
       label,
       value,
       onChange,
+      onBlur,
       secureTextEntry,
       multiline,
       keyboardType,
@@ -61,6 +63,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
           <TextInput
             value={value}
             onChangeText={onChange}
+            onBlur={onBlur}
             style={[styles.input, editable ? null : styles.readonly]}
             underlineColorAndroid="transparent"
             secureTextEntry={secureTextEntry}
