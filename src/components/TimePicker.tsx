@@ -28,7 +28,7 @@ export interface TimePickerState {
 export class TimePicker extends React.Component<
   TimePickerProperties,
   TimePickerState
-  > {
+> {
   state: TimePickerState = {
     showModal: false
   };
