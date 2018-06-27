@@ -16,6 +16,7 @@ import {
 export interface TimePickerProperties {
   label: string;
   value: string;
+  clearable?: boolean;
   disabled?: boolean;
   onChange?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
@@ -29,6 +30,10 @@ export class TimePicker extends React.Component<
   TimePickerProperties,
   TimePickerState
 > {
+  static defaultProps = {
+    clearable: true
+  };
+
   state: TimePickerState = {
     showModal: false
   };
@@ -56,7 +61,7 @@ export class TimePicker extends React.Component<
   };
 
   render() {
-    const { label, value, style, disabled } = this.props;
+    const { label, value, clearable, style, disabled } = this.props;
 
     const date = new Date();
     const hourRegex = /(\d{2}):(\d{2})/;
@@ -87,11 +92,13 @@ export class TimePicker extends React.Component<
               onConfirm={this.handleConfirm}
               onCancel={this.handleCancel}
             />
-            <ImageButton
-              icon="times"
-              style={styles.icon}
-              onPress={this.handleClear}
-            />
+            {clearable && (
+              <ImageButton
+                icon="times"
+                style={styles.clearIcon}
+                onPress={this.handleClear}
+              />
+            )}
           </View>
         </TouchableWithoutFeedback>
       </>
@@ -103,7 +110,7 @@ const theme = getTheme();
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 16,
+    paddingHorizontal: 16,
     paddingVertical: 8,
     borderWidth: 1,
     borderColor: theme.borderColor1,
@@ -127,8 +134,10 @@ const styles = StyleSheet.create({
   readonly: {
     backgroundColor: theme.disabledColor
   },
-  icon: {
+  clearIcon: {
+    borderWidth: 0,
     marginLeft: 'auto',
-    borderWidth: 0
+    height: 'auto',
+    width: 'auto'
   }
 });

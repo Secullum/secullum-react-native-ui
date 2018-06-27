@@ -17,6 +17,7 @@ import {
 export interface DatePickerProperties {
   label: string;
   value?: Date;
+  clearable?: boolean;
   onChange: (value?: Date) => void;
   style?: StyleProp<ViewStyle>;
 }
@@ -29,6 +30,10 @@ export class DatePicker extends React.Component<
   DatePickerProperties,
   DatePickerState
 > {
+  static defaultProps = {
+    clearable: true
+  };
+
   state: DatePickerState = {
     showModal: false
   };
@@ -51,7 +56,7 @@ export class DatePicker extends React.Component<
   };
 
   render() {
-    const { label, value, style } = this.props;
+    const { label, value, clearable, style } = this.props;
 
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
@@ -62,18 +67,20 @@ export class DatePicker extends React.Component<
               {value != undefined ? formatDate(value, 'dddd, DD/MM/YYYY') : ''}
             </Text>
           </View>
-          <FontAwesome name="calendar" style={styles.icon} />
+          <FontAwesome name="calendar" style={styles.calendarIcon} />
           <DateTimePicker
             date={value}
             isVisible={this.state.showModal}
             onConfirm={this.handleConfirm}
             onCancel={this.handleCancel}
           />
-          <ImageButton
-            icon="times"
-            style={{ borderWidth: 0 }}
-            onPress={this.handleClear}
-          />
+          {clearable && (
+            <ImageButton
+              icon="times"
+              style={styles.clearIcon}
+              onPress={this.handleClear}
+            />
+          )}
         </View>
       </TouchableWithoutFeedback>
     );
@@ -84,8 +91,7 @@ const theme = getTheme();
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 16,
-    paddingRight: 6,
+    paddingHorizontal: 16,
     paddingVertical: 8,
     borderWidth: 1,
     borderColor: theme.borderColor1,
@@ -106,9 +112,15 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     minHeight: 22
   },
-  icon: {
+  calendarIcon: {
     marginLeft: 'auto',
     color: theme.textColor2,
     fontSize: 22
+  },
+  clearIcon: {
+    borderWidth: 0,
+    marginLeft: 10,
+    height: 'auto',
+    width: 'auto'
   }
 });
