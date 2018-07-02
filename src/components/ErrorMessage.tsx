@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
+import { getTheme } from '../modules/theme';
 
 export interface Props {
   message?: string | null;
@@ -14,8 +15,10 @@ export class ErrorMessage extends React.Component<Props> {
   }
 }
 
+const theme = getTheme();
+
 const styles = StyleSheet.create({
   errorMessage: {
-    color: 'red'
+    color: theme.errorColor
   }
 });
