@@ -1,23 +1,18 @@
 import { format as dfnsFormat } from 'date-fns';
 
-let locale: string = 'pt';
-
-export const setLocale = (loc: string) => {
-  locale = loc;
+const locales = {
+  pt: require('date-fns/locale/pt'),
+  en: require('date-fns/locale/en'),
+  es: require('date-fns/locale/es')
 };
 
-const getLocale = () => {
-  switch (locale) {
-    case 'pt':
-      return require('date-fns/locale/pt');
-    case 'es':
-      return require('date-fns/locale/es');
-    default:
-      return require('date-fns/locale/en');
-  }
+let currentLocale: string = 'pt';
+
+export const setLocale = (locale: string) => {
+  currentLocale = locale;
 };
 
-const fixWeekdayLowercase = (formattedDate: string) => {
+const fixPortugueseWeekdayLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('segunda-feira', 'Segunda-Feira');
   formattedDate = formattedDate.replace('terça-feira', 'Terça-Feira');
   formattedDate = formattedDate.replace('quarta-feira', 'Quarta-Feira');
@@ -37,7 +32,7 @@ const fixWeekdayLowercase = (formattedDate: string) => {
   return formattedDate;
 };
 
-const fixEspanishWeekdayLowercase = (formattedDate: string) => {
+const fixSpanishWeekdayLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('lunes', 'Lunes');
   formattedDate = formattedDate.replace('martes', 'Martes');
   formattedDate = formattedDate.replace('miércoles', 'Miércoles');
@@ -58,16 +53,16 @@ const fixEspanishWeekdayLowercase = (formattedDate: string) => {
 };
 
 export const formatDate = (date: Date, format: string) => {
-  switch (locale) {
+  switch (currentLocale) {
     case 'pt':
-      return fixWeekdayLowercase(
-        dfnsFormat(date, format, { locale: getLocale() })
+      return fixPortugueseWeekdayLowercase(
+        dfnsFormat(date, format, { locale: locales.pt })
       );
     case 'es':
-      return fixEspanishWeekdayLowercase(
-        dfnsFormat(date, format, { locale: getLocale() })
+      return fixSpanishWeekdayLowercase(
+        dfnsFormat(date, format, { locale: locales.es })
       );
     default:
-      return dfnsFormat(date, format, { locale: getLocale() });
+      return dfnsFormat(date, format, { locale: locales.en });
   }
 };
