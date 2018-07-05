@@ -6,9 +6,11 @@ const locales = {
   es: require('date-fns/locale/es')
 };
 
-let currentLocale: string = 'pt';
+export type Locale = 'pt' | 'en' | 'es';
 
-export const setLocale = (locale: string) => {
+let currentLocale: Locale = 'pt';
+
+export const setLocale = (locale: Locale) => {
   currentLocale = locale;
 };
 
