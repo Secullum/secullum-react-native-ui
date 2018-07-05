@@ -1,5 +1,8 @@
 # secullum-react-native-ui
 
+![npm](https://img.shields.io/npm/v/secullum-react-native-ui.svg)
+![npm](https://img.shields.io/npm/l/secullum-react-native-ui.svg)
+
 ## Publishing a new version
 
 1. Ensure the code is formatted correctly
