@@ -71,7 +71,6 @@ export class TextBox extends React.Component<TextBoxProperties> {
       editable: this.props.editable,
       keyboardType: this.props.keyboardType,
       maxLength: this.props.maxLength,
-      autoCapitalize: 'characters',
       ref: (input: any) => {
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16318
         this.input = input as TextInputStatic | null;
