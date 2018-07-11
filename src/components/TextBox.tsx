@@ -7,13 +7,17 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TextInputStatic,
   TextStyle,
   TouchableWithoutFeedback,
   View,
   ViewStyle,
-  TextInputProps
+  TextInputProps,
+  ReturnKeyTypeOptions
 } from 'react-native';
+
+export interface TextBoxInputProps extends TextInputProps {
+  ref: (ref: any) => void;
+}
 
 export interface TextBoxProperties {
   label: string;
@@ -31,14 +35,11 @@ export interface TextBoxProperties {
   editable?: boolean;
   maxLength?: number;
   autoCapitalize?: "none" | "sentences" | "words" | "characters";
-}
-
-interface TextBoxInputProps extends TextInputProps {
-  ref: (ref: any) => void;
+  returnKeyType?: ReturnKeyTypeOptions;
 }
 
 export class TextBox extends React.Component<TextBoxProperties> {
-  input: TextInputStatic | null = null;
+  input: TextInput | null = null;
 
   static defaultProps = {
     editable: true
@@ -71,9 +72,9 @@ export class TextBox extends React.Component<TextBoxProperties> {
       editable: this.props.editable,
       keyboardType: this.props.keyboardType,
       maxLength: this.props.maxLength,
-      ref: (input: any) => {
-        // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16318
-        this.input = input as TextInputStatic | null;
+      returnKeyType: this.props.returnKeyType,
+      ref: (input: TextInput) => {
+        this.input = input;
         if (inputRef) inputRef(input);
       },
       onSubmitEditing: () => {
