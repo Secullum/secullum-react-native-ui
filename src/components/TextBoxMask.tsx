@@ -20,7 +20,6 @@ export class TextBoxMask extends React.Component<TextBoxMaskProperties> {
 
     return (
       <TextBox
-        autoCapitalize={'characters'}
         {...textBoxProps}
         renderInput={props => {
           const { ref, ...otherProps } = props;
@@ -28,6 +27,8 @@ export class TextBoxMask extends React.Component<TextBoxMaskProperties> {
           return (
             <TextInputMask
               {...otherProps}
+              // Waiting for typing
+              // https://github.com/benhurott/react-native-masked-text/pull/74
               // @ts-ignore
               refInput={ref}
               type={type}

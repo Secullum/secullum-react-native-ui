@@ -24,9 +24,9 @@ export interface TextBoxProperties {
   value: string;
   onChange: (value: string) => void;
   onBlur?: () => void;
-  renderInput?: (props: TextBoxInputProps) => void;
-  onEnter?: () => void;
-  inputRef?: (value: any) => void;
+  renderInput?: (props: TextBoxInputProps) => JSX.Element;
+  onSubmitEditing?: () => void;
+  inputRef?: (value: TextInput) => void;
   secureTextEntry?: boolean;
   multiline?: boolean;
   keyboardType?: KeyboardType;
@@ -34,7 +34,7 @@ export interface TextBoxProperties {
   inputStyle?: StyleProp<TextStyle>;
   editable?: boolean;
   maxLength?: number;
-  autoCapitalize?: "none" | "sentences" | "words" | "characters";
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   returnKeyType?: ReturnKeyTypeOptions;
 }
 
@@ -48,14 +48,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
   renderInput = (props: TextInputProps) => <TextInput {...props} />;
 
   render() {
-    const {
-      label,
-      style,
-      editable,
-      inputRef,
-      onEnter,
-      renderInput
-    } = this.props;
+    const { label, style, editable, inputRef, renderInput } = this.props;
 
     const incomingProps: TextBoxInputProps = {
       value: this.props.value,
@@ -73,12 +66,10 @@ export class TextBox extends React.Component<TextBoxProperties> {
       keyboardType: this.props.keyboardType,
       maxLength: this.props.maxLength,
       returnKeyType: this.props.returnKeyType,
+      onSubmitEditing: this.props.onSubmitEditing,
       ref: (input: TextInput) => {
         this.input = input;
         if (inputRef) inputRef(input);
-      },
-      onSubmitEditing: () => {
-        if (onEnter) onEnter();
       }
     };
 
