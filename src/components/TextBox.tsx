@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 
 export interface TextBoxInputProps extends TextInputProps {
-  ref: (ref: any) => void;
+  ref: (ref: TextInput) => void;
 }
 
 export interface TextBoxProperties {
