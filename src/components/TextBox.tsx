@@ -67,6 +67,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
       maxLength: this.props.maxLength,
       returnKeyType: this.props.returnKeyType,
       onSubmitEditing: this.props.onSubmitEditing,
+      autoCapitalize: this.props.autoCapitalize,
       ref: (input: TextInput) => {
         this.input = input;
         if (inputRef) inputRef(input);
