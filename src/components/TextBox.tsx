@@ -20,6 +20,7 @@ export interface TextBoxInputProps extends TextInputProps {
 }
 
 export interface TextBoxProperties {
+  autoFocus?: boolean;
   label: string;
   value: string;
   onChange: (value: string) => void;
@@ -51,6 +52,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
     const { label, style, editable, inputRef, renderInput } = this.props;
 
     const incomingProps: TextBoxInputProps = {
+      autoFocus: this.props.autoFocus,
       value: this.props.value,
       onChangeText: this.props.onChange,
       onBlur: this.props.onBlur,
