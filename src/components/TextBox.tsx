@@ -34,6 +34,7 @@ export interface TextBoxProperties {
   style?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
   editable?: boolean;
+  autoCorrect?: boolean;
   maxLength?: number;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   returnKeyType?: ReturnKeyTypeOptions;
@@ -43,7 +44,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
   input: TextInput | null = null;
 
   static defaultProps = {
-    editable: true
+    editable: true,
+    autoCorrect: false
   };
 
   renderInput = (props: TextInputProps) => <TextInput {...props} />;
@@ -70,6 +72,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
       returnKeyType: this.props.returnKeyType,
       onSubmitEditing: this.props.onSubmitEditing,
       autoCapitalize: this.props.autoCapitalize,
+      autoCorrect: this.props.autoCorrect,
       ref: (input: TextInput) => {
         this.input = input;
         if (inputRef) inputRef(input);
