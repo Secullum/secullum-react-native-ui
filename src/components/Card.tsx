@@ -27,12 +27,14 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
     return (
       <View style={cardHeaderStyles.container}>
         <Text style={[cardHeaderStyles.title, titleStyle]}>{title}</Text>
-        <TouchableOpacity onPress={onHelpPress} style={cardHeaderStyles.help}>
-          <FontAwesome
-            name="question-circle"
-            style={cardHeaderStyles.helpIcon}
-          />
-        </TouchableOpacity>
+        {onHelpPress && (
+          <TouchableOpacity onPress={onHelpPress} style={cardHeaderStyles.help}>
+            <FontAwesome
+              name="question-circle"
+              style={cardHeaderStyles.helpIcon}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }

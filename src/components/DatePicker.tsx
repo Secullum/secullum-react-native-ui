@@ -1,6 +1,5 @@
 import * as React from 'react';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
 import { ImageButton } from './ImageButton';
@@ -67,20 +66,19 @@ export class DatePicker extends React.Component<
               {value != undefined ? formatDate(value, 'dddd, DD/MM/YYYY') : ''}
             </Text>
           </View>
-          <FontAwesome name="calendar" style={styles.calendarIcon} />
+
           <DateTimePicker
             date={value}
             isVisible={this.state.showModal}
             onConfirm={this.handleConfirm}
             onCancel={this.handleCancel}
           />
-          {clearable && (
-            <ImageButton
-              icon="times"
-              style={styles.clearIcon}
-              onPress={this.handleClear}
-            />
-          )}
+          <ImageButton
+            icon={value && clearable ? 'times' : 'calendar'}
+            style={styles.clearIcon}
+            iconColor={value && clearable ? theme.textColor1 : theme.textColor2}
+            onPress={value && clearable ? this.handleClear : this.handlePress}
+          />
         </View>
       </TouchableWithoutFeedback>
     );
@@ -91,7 +89,8 @@ const theme = getTheme();
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    paddingLeft: 16,
+    paddingRight: 4,
     paddingVertical: 8,
     borderWidth: 1,
     borderColor: theme.borderColor1,
@@ -119,8 +118,6 @@ const styles = StyleSheet.create({
   },
   clearIcon: {
     borderWidth: 0,
-    marginLeft: 10,
-    height: 'auto',
-    width: 'auto'
+    marginLeft: 'auto'
   }
 });

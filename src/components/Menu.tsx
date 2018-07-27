@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 
 export interface MenuProperties {
@@ -65,7 +66,7 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
       <View style={styles.container}>
         <View style={styles.logoContainer}>{renderLogo()}</View>
         <View style={styles.userContainer}>{renderUserData()}</View>
-        <View style={styles.menuContainer}>
+        <ScrollView style={styles.menuContainer}>
           {menu.map((menuItem, index) => (
             <TouchableOpacity
               key={index}
@@ -77,7 +78,7 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
               <Text style={styles.menuText}>{menuItem.text}</Text>
             </TouchableOpacity>
           ))}
-        </View>
+        </ScrollView>
       </View>
     );
   };
@@ -121,7 +122,6 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     paddingLeft: 20,
-    paddingVertical: 20,
     flex: 1
   },
   menuText: {

@@ -92,13 +92,14 @@ export class TimePicker extends React.Component<
               onConfirm={this.handleConfirm}
               onCancel={this.handleCancel}
             />
-            {clearable && (
-              <ImageButton
-                icon="times"
-                style={styles.clearIcon}
-                onPress={this.handleClear}
-              />
-            )}
+            <ImageButton
+              icon={value && clearable ? 'times' : 'clock-o'}
+              style={styles.clearIcon}
+              iconColor={
+                value && clearable ? theme.textColor1 : theme.textColor2
+              }
+              onPress={value && clearable ? this.handleClear : this.handlePress}
+            />
           </View>
         </TouchableWithoutFeedback>
       </>
