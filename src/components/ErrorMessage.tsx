@@ -11,7 +11,7 @@ export class ErrorMessage extends React.Component<Props> {
   render() {
     const { message, style } = this.props;
 
-    if (message == null) {
+    if (!message) {
       return null;
     }
 
