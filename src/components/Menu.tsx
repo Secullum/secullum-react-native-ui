@@ -1,6 +1,6 @@
 import * as React from 'react';
 import DrawerLayout from 'react-native-drawer-layout';
-import { getTheme } from '../modules/theme';
+import { getTheme } from 'secullum-react-native-ui';
 
 import {
   BackHandler,
@@ -17,6 +17,7 @@ export interface MenuProperties {
   children: React.ReactNode;
   onMenuPress: (path: string) => void;
   renderUserData: () => React.ReactNode;
+  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
 }
 
 export interface MenuState {
@@ -86,6 +87,7 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
   render() {
     return (
       <DrawerLayout
+        drawerLockMode={this.props.drawerLockMode}
         ref={drawer => (this.drawer = drawer)}
         drawerBackgroundColor={theme.backgroundColor1}
         drawerWidth={300}
