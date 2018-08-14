@@ -1,6 +1,6 @@
 import * as React from 'react';
 import DrawerLayout from 'react-native-drawer-layout';
-import { getTheme } from 'secullum-react-native-ui';
+import { getTheme } from '../modules/theme';
 
 import {
   BackHandler,
