@@ -10,7 +10,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  TextStyle
 } from 'react-native';
 
 export interface DatePickerProperties {
@@ -19,6 +20,8 @@ export interface DatePickerProperties {
   clearable?: boolean;
   onChange: (value?: Date) => void;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  iconStyle?: string;
 }
 
 export interface DatePickerState {
@@ -55,13 +58,13 @@ export class DatePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style } = this.props;
+    const { label, value, clearable, style, textStyle, iconStyle } = this.props;
 
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
         <View style={[styles.container, style]}>
           <View>
-            <Text style={styles.label}>{label}</Text>
+            <Text style={[styles.label, textStyle]}>{label}</Text>
             <Text style={styles.value}>
               {value != undefined ? formatDate(value, 'dddd, DD/MM/YYYY') : ''}
             </Text>
@@ -76,7 +79,11 @@ export class DatePicker extends React.Component<
           <ImageButton
             icon={value && clearable ? 'times' : 'calendar'}
             style={styles.clearIcon}
-            iconColor={value && clearable ? theme.textColor1 : theme.textColor2}
+            iconColor={
+              value && clearable
+                ? theme.textColor1
+                : iconStyle || theme.textColor2
+            }
             onPress={value && clearable ? this.handleClear : this.handlePress}
           />
         </View>

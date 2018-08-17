@@ -11,7 +11,8 @@ import {
   TouchableHighlight,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  TextStyle
 } from 'react-native';
 
 interface DropDownItemProperties {
@@ -49,6 +50,7 @@ export interface DropDownProperties {
   value: any | null;
   onChange: (value: any) => void;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export interface DropDownState {
@@ -72,7 +74,7 @@ export class DropDown extends React.Component<
 
   render() {
     const { modalOpen } = this.state;
-    const { label, items, value, style } = this.props;
+    const { label, items, value, style, textStyle } = this.props;
     const selectedItem = items.find(x => x.value === value);
 
     return (
@@ -80,7 +82,7 @@ export class DropDown extends React.Component<
         onPress={() => this.setState({ modalOpen: true })}
       >
         <View style={[styles.container, style]}>
-          <Text style={styles.label}>{label}</Text>
+          <Text style={[styles.label, textStyle]}>{label}</Text>
           <Text style={styles.text}>
             {selectedItem ? selectedItem.label : '-'}
           </Text>

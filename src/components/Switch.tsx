@@ -7,7 +7,8 @@ import {
   TouchableWithoutFeedback,
   Switch as ReactNativeSwitch,
   View,
-  ViewStyle
+  ViewStyle,
+  TextStyle
 } from 'react-native';
 
 import { getTheme } from '../modules/theme';
@@ -18,11 +19,12 @@ export interface SwitchProperties {
   onChange?: (value: boolean) => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export class Switch extends React.Component<SwitchProperties> {
   render() {
-    const { label, value, onChange, style, disabled } = this.props;
+    const { label, value, onChange, style, textStyle, disabled } = this.props;
 
     return (
       <TouchableWithoutFeedback
@@ -36,7 +38,7 @@ export class Switch extends React.Component<SwitchProperties> {
         <View
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
-          <Text style={styles.label}>{label}</Text>
+          <Text style={[styles.label, textStyle]}>{label}</Text>
           <ReactNativeSwitch
             disabled={disabled}
             value={value}

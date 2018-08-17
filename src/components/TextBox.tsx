@@ -32,6 +32,7 @@ export interface TextBoxProperties {
   multiline?: boolean;
   keyboardType?: KeyboardType;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   inputStyle?: StyleProp<TextStyle>;
   editable?: boolean;
   autoCorrect?: boolean;
@@ -51,7 +52,14 @@ export class TextBox extends React.Component<TextBoxProperties> {
   renderInput = (props: TextInputProps) => <TextInput {...props} />;
 
   render() {
-    const { label, style, editable, inputRef, renderInput } = this.props;
+    const {
+      label,
+      style,
+      textStyle,
+      editable,
+      inputRef,
+      renderInput
+    } = this.props;
 
     const incomingProps: TextBoxInputProps = {
       autoFocus: this.props.autoFocus,
@@ -91,7 +99,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
         <View
           style={[styles.container, style, editable ? null : styles.readonly]}
         >
-          <Text style={styles.label}>{label}</Text>
+          <Text style={[styles.label, textStyle]}>{label}</Text>
           {renderInput
             ? renderInput(incomingProps)
             : this.renderInput(incomingProps)}

@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleProp,
+  ViewStyle
+} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 
@@ -11,6 +18,7 @@ export interface HeaderButton {
 
 export interface HeaderProperties {
   title: string;
+  style?: StyleProp<ViewStyle>;
   leftButton?: HeaderButton;
   rightButton?: HeaderButton;
 }
@@ -57,10 +65,10 @@ export class Header extends React.Component<HeaderProperties> {
   };
 
   render() {
-    const { title, leftButton, rightButton } = this.props;
+    const { title, style, leftButton, rightButton } = this.props;
 
     return (
-      <View style={styles.header}>
+      <View style={[styles.header, style]}>
         {leftButton
           ? this.renderButton(leftButton, 'left')
           : this.renderButtonInvisible('left')}

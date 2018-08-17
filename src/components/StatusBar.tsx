@@ -4,15 +4,23 @@ import { getTheme } from '../modules/theme';
 import {
   StatusBar as ReactNativeStatusBar,
   StyleSheet,
-  View
+  View,
+  StyleProp,
+  ViewStyle
 } from 'react-native';
 
-export class StatusBar extends React.Component {
+export interface StatusBarProperties {
+  style?: StyleProp<ViewStyle>;
+}
+
+export class StatusBar extends React.Component<StatusBarProperties> {
   static height = ReactNativeStatusBar.currentHeight || 20;
 
   render() {
+    const { style } = this.props;
+
     return (
-      <View style={styles.statusBar}>
+      <View style={[styles.statusBar, style]}>
         <ReactNativeStatusBar
           backgroundColor="transparent"
           barStyle="light-content"
@@ -27,7 +35,7 @@ const theme = getTheme();
 
 const styles = StyleSheet.create({
   statusBar: {
-    backgroundColor: theme.statusBarColor,
+    backgroundColor: theme.statusBarColor1,
     height: StatusBar.height
   }
 });

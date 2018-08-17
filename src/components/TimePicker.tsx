@@ -10,7 +10,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  TextStyle
 } from 'react-native';
 
 export interface TimePickerProperties {
@@ -20,6 +21,8 @@ export interface TimePickerProperties {
   disabled?: boolean;
   onChange?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  iconStyle?: string;
 }
 
 export interface TimePickerState {
@@ -61,7 +64,15 @@ export class TimePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style, disabled } = this.props;
+    const {
+      label,
+      value,
+      clearable,
+      style,
+      textStyle,
+      iconStyle,
+      disabled
+    } = this.props;
 
     const date = new Date();
     const hourRegex = /(\d{2}):(\d{2})/;
@@ -82,7 +93,7 @@ export class TimePicker extends React.Component<
             style={[styles.container, style, disabled ? styles.readonly : null]}
           >
             <View>
-              <Text style={styles.label}>{label}</Text>
+              <Text style={[styles.label, textStyle]}>{label}</Text>
               <Text style={styles.value}>{value}</Text>
             </View>
             <DateTimePicker
@@ -96,7 +107,9 @@ export class TimePicker extends React.Component<
               icon={value && clearable ? 'times' : 'clock-o'}
               style={styles.clearIcon}
               iconColor={
-                value && clearable ? theme.textColor1 : theme.textColor2
+                value && clearable
+                  ? theme.textColor1
+                  : iconStyle || theme.textColor2
               }
               onPress={value && clearable ? this.handleClear : this.handlePress}
             />
