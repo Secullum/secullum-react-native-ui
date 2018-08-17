@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
   userContainer: {
     paddingVertical: 10,
     paddingLeft: 20,
+    paddingRight: 10,
     borderBottomColor: theme.borderColor1,
     borderBottomWidth: 1
   },
