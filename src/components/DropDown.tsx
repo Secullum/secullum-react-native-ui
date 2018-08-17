@@ -48,6 +48,7 @@ export interface DropDownProperties {
   items: Array<{ label: string; value: any }>;
   value: any | null;
   onChange: (value: any) => void;
+  emptyMessage?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -59,6 +60,10 @@ export class DropDown extends React.Component<
   DropDownProperties,
   DropDownState
 > {
+  static defaultProps = {
+    emptyMessage: 'Não há registros cadastrados'
+  };
+
   state: DropDownState = {
     modalOpen: false
   };
@@ -72,7 +77,7 @@ export class DropDown extends React.Component<
 
   render() {
     const { modalOpen } = this.state;
-    const { label, items, value, style } = this.props;
+    const { label, items, value, emptyMessage, style } = this.props;
     const selectedItem = items.find(x => x.value === value);
 
     return (
@@ -91,22 +96,33 @@ export class DropDown extends React.Component<
             overlayStyle={styles.modalOverlay}
           >
             <View style={styles.modalContainer}>
-              <FlatList
-                data={items}
-                initialNumToRender={items.length}
-                keyExtractor={item => item.value.toString()}
-                renderItem={({ item, index }) => {
-                  return (
-                    <DropDownItem
-                      first={index === 0}
-                      last={index === items.length - 1}
-                      label={item.label}
-                      value={item.value}
-                      onPress={this.handleItemPress}
-                    />
-                  );
-                }}
-              />
+              {items.length > 0 ? (
+                <FlatList
+                  data={items}
+                  initialNumToRender={items.length}
+                  keyExtractor={item => item.value.toString()}
+                  renderItem={({ item, index }) => {
+                    return (
+                      <DropDownItem
+                        first={index === 0}
+                        last={index === items.length - 1}
+                        label={item.label}
+                        value={item.value}
+                        onPress={this.handleItemPress}
+                      />
+                    );
+                  }}
+                />
+              ) : (
+                <View style={styles.emptyMessageContainer}>
+                  <FontAwesome
+                    name="warning"
+                    color={theme.warningColor}
+                    size={24}
+                  />
+                  <Text style={styles.modalItem}>{emptyMessage}</Text>
+                </View>
+              )}
             </View>
           </Modal>
         </View>
@@ -157,5 +173,10 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     fontFamily: 'Lato-Bold',
     fontSize: 16
+  },
+  emptyMessageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16
   }
 });
