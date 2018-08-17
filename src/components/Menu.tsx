@@ -17,6 +17,7 @@ export interface MenuProperties {
   children: React.ReactNode;
   onMenuPress: (path: string) => void;
   renderUserData: () => React.ReactNode;
+  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
 }
 
 export interface MenuState {
@@ -86,6 +87,7 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
   render() {
     return (
       <DrawerLayout
+        drawerLockMode={this.props.drawerLockMode}
         ref={drawer => (this.drawer = drawer)}
         drawerBackgroundColor={theme.backgroundColor1}
         drawerWidth={300}
