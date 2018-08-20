@@ -10,7 +10,22 @@ import {
 export class StatusBar extends React.Component {
   static height = ReactNativeStatusBar.currentHeight || 20;
 
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      statusBar: {
+        backgroundColor: theme.statusBarColor,
+        height: ReactNativeStatusBar.currentHeight || 20
+      }
+    });
+
+    return styles;
+  };
+
   render() {
+    const styles = this.getStyles();
+
     return (
       <View style={styles.statusBar}>
         <ReactNativeStatusBar
@@ -22,12 +37,3 @@ export class StatusBar extends React.Component {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  statusBar: {
-    backgroundColor: theme.statusBarColor,
-    height: StatusBar.height
-  }
-});

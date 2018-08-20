@@ -21,18 +21,43 @@ export interface CardHeaderProperties {
 }
 
 export class CardHeader extends React.Component<CardHeaderProperties> {
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        padding: 16
+      },
+      title: {
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontSize: 18,
+        marginRight: 10
+      },
+      help: {
+        position: 'absolute',
+        right: 5,
+        top: 5
+      },
+      helpIcon: {
+        fontSize: 20,
+        color: '#6d819c'
+      }
+    });
+
+    return styles;
+  };
   render() {
     const { title, titleStyle, onHelpPress } = this.props;
 
+    const styles = this.getStyles();
+
     return (
-      <View style={cardHeaderStyles.container}>
-        <Text style={[cardHeaderStyles.title, titleStyle]}>{title}</Text>
+      <View style={styles.container}>
+        <Text style={[styles.title, titleStyle]}>{title}</Text>
         {onHelpPress && (
-          <TouchableOpacity onPress={onHelpPress} style={cardHeaderStyles.help}>
-            <FontAwesome
-              name="question-circle"
-              style={cardHeaderStyles.helpIcon}
-            />
+          <TouchableOpacity onPress={onHelpPress} style={styles.help}>
+            <FontAwesome name="question-circle" style={styles.helpIcon} />
           </TouchableOpacity>
         )}
       </View>
@@ -74,8 +99,27 @@ export class Card extends React.Component<CardProperties> {
   static Section = CardSection;
   static Footer = CardFooter;
 
+  getStyles = () => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        borderRadius: 3,
+        backgroundColor: theme.backgroundColor1
+      },
+      cardChild: {
+        borderTopColor: theme.borderColor1,
+        borderTopWidth: 1
+      }
+    });
+
+    return styles;
+  };
+
   render() {
     const { children, style, ...otherProps } = this.props;
+
+    const styles = this.getStyles();
 
     const childrenMapped = React.Children.map(children, (child, index) => {
       if (index === 0) {
@@ -84,9 +128,7 @@ export class Card extends React.Component<CardProperties> {
 
       return (
         <>
-          <View
-            style={{ borderTopColor: theme.borderColor1, borderTopWidth: 1 }}
-          />
+          <View style={styles.cardChild} />
           {child}
         </>
       );
@@ -95,7 +137,7 @@ export class Card extends React.Component<CardProperties> {
     return (
       <ElevatedView
         elevation={5}
-        style={[cardStyles.container, style]}
+        style={[styles.container, style]}
         {...otherProps}
       >
         {childrenMapped}
@@ -103,36 +145,6 @@ export class Card extends React.Component<CardProperties> {
     );
   }
 }
-
-const theme = getTheme();
-
-const cardStyles = StyleSheet.create({
-  container: {
-    borderRadius: 3,
-    backgroundColor: theme.backgroundColor1
-  }
-});
-
-const cardHeaderStyles = StyleSheet.create({
-  container: {
-    padding: 16
-  },
-  title: {
-    color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
-    fontSize: 18,
-    marginRight: 10
-  },
-  help: {
-    position: 'absolute',
-    right: 5,
-    top: 5
-  },
-  helpIcon: {
-    fontSize: 20,
-    color: '#6d819c'
-  }
-});
 
 const cardSectionStyles = StyleSheet.create({
   container: {

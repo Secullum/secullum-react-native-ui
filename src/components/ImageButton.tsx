@@ -13,7 +13,6 @@ export interface ImageButtonProperties {
   icon: string;
   style?: StyleProp<ViewStyle>;
   iconColor?: string;
-
   onPress: () => void;
 }
 

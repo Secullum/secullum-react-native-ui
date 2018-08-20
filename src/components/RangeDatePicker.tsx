@@ -66,6 +66,41 @@ export class RangeDatePicker extends React.Component<
     });
   };
 
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderWidth: 1,
+        borderColor: theme.borderColor1,
+        borderRadius: 3,
+        flexDirection: 'row',
+        alignItems: 'center'
+      },
+      label: {
+        color: theme.textColor2,
+        fontFamily: 'Lato-Regular',
+        fontSize: 12,
+        lineHeight: 16
+      },
+      value: {
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16,
+        lineHeight: 22
+      },
+      icon: {
+        marginLeft: 'auto',
+        color: theme.textColor2,
+        fontSize: 22
+      }
+    });
+
+    return styles;
+  };
+
   render() {
     const { label, startDate, endDate, style } = this.props;
     const { showStartDateModal, showEndDateModal } = this.state;
@@ -76,6 +111,8 @@ export class RangeDatePicker extends React.Component<
       formatDate(startDate, displayFormat) +
       ' - ' +
       formatDate(endDate, displayFormat);
+
+    const styles = this.getStyles();
 
     return (
       <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
@@ -123,34 +160,3 @@ export class RangeDatePicker extends React.Component<
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: theme.borderColor1,
-    borderRadius: 3,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  label: {
-    color: theme.textColor2,
-    fontFamily: 'Lato-Regular',
-    fontSize: 12,
-    lineHeight: 16
-  },
-  value: {
-    color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    lineHeight: 22
-  },
-  icon: {
-    marginLeft: 'auto',
-    color: theme.textColor2,
-    fontSize: 22
-  }
-});

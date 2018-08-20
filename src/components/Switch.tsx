@@ -21,8 +21,38 @@ export interface SwitchProperties {
 }
 
 export class Switch extends React.Component<SwitchProperties> {
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderWidth: 1,
+        borderColor: theme.borderColor1,
+        borderRadius: 3,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      },
+      label: {
+        color: theme.textColor2,
+        fontFamily: 'Lato-Regular',
+        fontSize: 12,
+        lineHeight: 16
+      },
+      readonly: {
+        backgroundColor: theme.disabledColor
+      }
+    });
+
+    return styles;
+  };
+
   render() {
     const { label, value, onChange, style, disabled } = this.props;
+
+    const styles = this.getStyles();
 
     return (
       <TouchableWithoutFeedback
@@ -47,27 +77,3 @@ export class Switch extends React.Component<SwitchProperties> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: theme.borderColor1,
-    borderRadius: 3,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  label: {
-    color: theme.textColor2,
-    fontFamily: 'Lato-Regular',
-    fontSize: 12,
-    lineHeight: 16
-  },
-  readonly: {
-    backgroundColor: theme.disabledColor
-  }
-});
