@@ -28,7 +28,7 @@ export class Header extends React.Component<HeaderProperties> {
     const styles = StyleSheet.create({
       header: {
         backgroundColor: theme.backgroundColor3,
-        height: Header.height,
+        height: Header.height || 40,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
