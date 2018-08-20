@@ -54,8 +54,53 @@ export class DatePicker extends React.Component<
     this.props.onChange(undefined);
   };
 
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        paddingLeft: 16,
+        paddingRight: 4,
+        paddingVertical: 8,
+        borderWidth: 1,
+        borderColor: theme.borderColor1,
+        borderRadius: 3,
+        flexDirection: 'row',
+        alignItems: 'center'
+      },
+      label: {
+        color: theme.textColor2,
+        fontFamily: 'Lato-Regular',
+        fontSize: 12,
+        lineHeight: 16
+      },
+      value: {
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16,
+        lineHeight: 22,
+        minHeight: 22
+      },
+      calendarIcon: {
+        marginLeft: 'auto',
+        color: theme.textColor2,
+        fontSize: 22
+      },
+      clearIcon: {
+        borderWidth: 0,
+        marginLeft: 'auto'
+      }
+    });
+
+    return styles;
+  };
+
   render() {
     const { label, value, clearable, style } = this.props;
+
+    const styles = this.getStyles();
+
+    const theme = getTheme();
 
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
@@ -84,40 +129,3 @@ export class DatePicker extends React.Component<
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  container: {
-    paddingLeft: 16,
-    paddingRight: 4,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: theme.borderColor1,
-    borderRadius: 3,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  label: {
-    color: theme.textColor2,
-    fontFamily: 'Lato-Regular',
-    fontSize: 12,
-    lineHeight: 16
-  },
-  value: {
-    color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    lineHeight: 22,
-    minHeight: 22
-  },
-  calendarIcon: {
-    marginLeft: 'auto',
-    color: theme.textColor2,
-    fontSize: 22
-  },
-  clearIcon: {
-    borderWidth: 0,
-    marginLeft: 'auto'
-  }
-});

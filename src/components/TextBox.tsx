@@ -48,10 +48,45 @@ export class TextBox extends React.Component<TextBoxProperties> {
     autoCorrect: false
   };
 
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderWidth: 1,
+        borderColor: theme.borderColor1,
+        borderRadius: 3
+      },
+      label: {
+        color: theme.textColor2,
+        fontFamily: 'Lato-Regular',
+        fontSize: 12,
+        lineHeight: 16
+      },
+      input: {
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16,
+        minHeight: 22,
+        padding: 0,
+        margin: 0
+      },
+      readonly: {
+        backgroundColor: theme.disabledColor
+      }
+    });
+
+    return styles;
+  };
+
   renderInput = (props: TextInputProps) => <TextInput {...props} />;
 
   render() {
     const { label, style, editable, inputRef, renderInput } = this.props;
+
+    const styles = this.getStyles();
 
     const incomingProps: TextBoxInputProps = {
       autoFocus: this.props.autoFocus,
@@ -100,32 +135,3 @@ export class TextBox extends React.Component<TextBoxProperties> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: theme.borderColor1,
-    borderRadius: 3
-  },
-  label: {
-    color: theme.textColor2,
-    fontFamily: 'Lato-Regular',
-    fontSize: 12,
-    lineHeight: 16
-  },
-  input: {
-    color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    minHeight: 22,
-    padding: 0,
-    margin: 0
-  },
-  readonly: {
-    backgroundColor: theme.disabledColor
-  }
-});

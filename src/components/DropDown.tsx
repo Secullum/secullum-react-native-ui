@@ -26,6 +26,8 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
   render() {
     const { first, last, label, value, onPress } = this.props;
 
+    const theme = getTheme();
+
     return (
       <TouchableHighlight
         onPress={() => onPress(value)}
@@ -37,7 +39,7 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
           borderBottomRightRadius: last ? 5 : 0
         }}
       >
-        <Text style={styles.modalItem}>{label}</Text>
+        <Text style={stylesModal.modalItem}>{label}</Text>
       </TouchableHighlight>
     );
   }
@@ -75,10 +77,68 @@ export class DropDown extends React.Component<
     onChange(value);
   };
 
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderWidth: 1,
+        borderColor: theme.borderColor1,
+        borderRadius: 3
+      },
+      label: {
+        color: theme.textColor2,
+        fontFamily: 'Lato-Regular',
+        fontSize: 12,
+        lineHeight: 16
+      },
+      text: {
+        height: 22,
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16
+      },
+      seta: {
+        color: theme.textColor1,
+        fontSize: 16,
+        position: 'absolute',
+        bottom: 10,
+        right: 16
+      },
+      modalOverlay: {
+        justifyContent: 'center'
+      },
+      modalContainer: {
+        borderRadius: 5,
+        backgroundColor: theme.backgroundColor1,
+        margin: 16
+      },
+      modalItem: {
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16
+      },
+      emptyMessageContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 16
+      }
+    });
+
+    return styles;
+  };
+
   render() {
     const { modalOpen } = this.state;
     const { label, items, value, emptyMessage, style } = this.props;
     const selectedItem = items.find(x => x.value === value);
+
+    const styles = this.getStyles();
+
+    const theme = getTheme();
 
     return (
       <TouchableWithoutFeedback
@@ -120,7 +180,7 @@ export class DropDown extends React.Component<
                     color={theme.warningColor}
                     size={24}
                   />
-                  <Text style={styles.modalItem}>{emptyMessage}</Text>
+                  <Text style={stylesModal.modalItem}>{emptyMessage}</Text>
                 </View>
               )}
             </View>
@@ -131,52 +191,11 @@ export class DropDown extends React.Component<
   }
 }
 
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: theme.borderColor1,
-    borderRadius: 3
-  },
-  label: {
-    color: theme.textColor2,
-    fontFamily: 'Lato-Regular',
-    fontSize: 12,
-    lineHeight: 16
-  },
-  text: {
-    height: 22,
-    color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
-    fontSize: 16
-  },
-  seta: {
-    color: theme.textColor1,
-    fontSize: 16,
-    position: 'absolute',
-    bottom: 10,
-    right: 16
-  },
-  modalOverlay: {
-    justifyContent: 'center'
-  },
-  modalContainer: {
-    borderRadius: 5,
-    backgroundColor: theme.backgroundColor1,
-    margin: 16
-  },
+const stylesModal = StyleSheet.create({
   modalItem: {
     paddingHorizontal: 16,
     paddingVertical: 16,
     fontFamily: 'Lato-Bold',
     fontSize: 16
-  },
-  emptyMessageContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16
   }
 });

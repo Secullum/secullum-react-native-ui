@@ -16,8 +16,24 @@ export interface LinkProperties {
 }
 
 export class Link extends React.Component<LinkProperties> {
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      link: {
+        fontFamily: 'Lato-Regular',
+        fontSize: 14,
+        color: theme.textColor2
+      }
+    });
+
+    return styles;
+  };
+
   render() {
     const { text, style, onPress } = this.props;
+
+    const styles = this.getStyles();
 
     return (
       <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
@@ -26,13 +42,3 @@ export class Link extends React.Component<LinkProperties> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  link: {
-    fontFamily: 'Lato-Regular',
-    fontSize: 14,
-    color: theme.textColor2
-  }
-});

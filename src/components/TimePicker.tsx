@@ -60,12 +60,55 @@ export class TimePicker extends React.Component<
     }
   };
 
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderWidth: 1,
+        borderColor: theme.borderColor1,
+        borderRadius: 3,
+        flexDirection: 'row',
+        alignItems: 'center'
+      },
+      label: {
+        color: theme.textColor2,
+        fontFamily: 'Lato-Regular',
+        fontSize: 12,
+        lineHeight: 16
+      },
+      value: {
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16,
+        lineHeight: 22,
+        minHeight: 22
+      },
+      readonly: {
+        backgroundColor: theme.disabledColor
+      },
+      clearIcon: {
+        borderWidth: 0,
+        marginLeft: 'auto',
+        height: 'auto',
+        width: 'auto'
+      }
+    });
+
+    return styles;
+  };
+
   render() {
     const { label, value, clearable, style, disabled } = this.props;
 
     const date = new Date();
     const hourRegex = /(\d{2}):(\d{2})/;
     const matches = hourRegex.exec(value);
+
+    const styles = this.getStyles();
+    const theme = getTheme();
 
     if (matches) {
       date.setHours(parseInt(matches[1], 10));
@@ -106,39 +149,3 @@ export class TimePicker extends React.Component<
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: theme.borderColor1,
-    borderRadius: 3,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  label: {
-    color: theme.textColor2,
-    fontFamily: 'Lato-Regular',
-    fontSize: 12,
-    lineHeight: 16
-  },
-  value: {
-    color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    lineHeight: 22,
-    minHeight: 22
-  },
-  readonly: {
-    backgroundColor: theme.disabledColor
-  },
-  clearIcon: {
-    borderWidth: 0,
-    marginLeft: 'auto',
-    height: 'auto',
-    width: 'auto'
-  }
-});

@@ -22,7 +22,34 @@ export class Header extends React.Component<HeaderProperties> {
 
   static height = 50;
 
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      header: {
+        backgroundColor: theme.backgroundColor3,
+        height: Header.height,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      title: {
+        color: theme.textColor4,
+        fontFamily: 'Lato-Bold',
+        fontSize: 18
+      },
+      button: {
+        padding: 10
+      }
+    });
+
+    return styles;
+  };
+
   renderButton = (button: HeaderButton, type: 'left' | 'right') => {
+    const styles = this.getStyles();
+    const theme = getTheme();
+
     const icon = (
       <FontAwesome
         name={button.icon}
@@ -48,6 +75,8 @@ export class Header extends React.Component<HeaderProperties> {
   };
 
   renderButtonInvisible = (type: 'left' | 'right') => {
+    const styles = this.getStyles();
+
     const style = [
       styles.button,
       type === 'left' ? { marginRight: 'auto' } : { marginLeft: 'auto' }
@@ -58,6 +87,8 @@ export class Header extends React.Component<HeaderProperties> {
 
   render() {
     const { title, leftButton, rightButton } = this.props;
+
+    const styles = this.getStyles();
 
     return (
       <View style={styles.header}>
@@ -72,23 +103,3 @@ export class Header extends React.Component<HeaderProperties> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: theme.backgroundColor3,
-    height: Header.height,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  title: {
-    color: theme.textColor4,
-    fontFamily: 'Lato-Bold',
-    fontSize: 18
-  },
-  button: {
-    padding: 10
-  }
-});

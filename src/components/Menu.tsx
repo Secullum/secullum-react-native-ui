@@ -60,8 +60,47 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
     }
   };
 
+  getStyles = (): any => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1
+      },
+      logoContainer: {
+        paddingVertical: 5,
+        paddingLeft: 20,
+        borderBottomColor: theme.borderColor1,
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        alignItems: 'center'
+      },
+      userContainer: {
+        paddingVertical: 10,
+        paddingLeft: 20,
+        paddingRight: 10,
+        borderBottomColor: theme.borderColor1,
+        borderBottomWidth: 1
+      },
+      menuContainer: {
+        paddingLeft: 20,
+        flex: 1
+      },
+      menuText: {
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16,
+        paddingVertical: 14
+      }
+    });
+
+    return styles;
+  };
+
   renderNavigationView = () => {
     const { renderLogo, menu, onMenuPress, renderUserData } = this.props;
+
+    const styles = this.getStyles();
 
     return (
       <View style={styles.container}>
@@ -85,6 +124,8 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
   };
 
   render() {
+    const theme = getTheme();
+
     return (
       <DrawerLayout
         drawerLockMode={this.props.drawerLockMode}
@@ -101,36 +142,3 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  logoContainer: {
-    paddingVertical: 5,
-    paddingLeft: 20,
-    borderBottomColor: theme.borderColor1,
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  userContainer: {
-    paddingVertical: 10,
-    paddingLeft: 20,
-    paddingRight: 10,
-    borderBottomColor: theme.borderColor1,
-    borderBottomWidth: 1
-  },
-  menuContainer: {
-    paddingLeft: 20,
-    flex: 1
-  },
-  menuText: {
-    color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
-    fontSize: 16,
-    paddingVertical: 14
-  }
-});
