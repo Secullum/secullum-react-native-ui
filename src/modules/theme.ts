@@ -1,3 +1,19 @@
+export interface Theme {
+  textColor1?: string;
+  textColor2?: string;
+  textColor3?: string;
+  textColor4?: string;
+  backgroundColor1?: string;
+  backgroundColor2?: string;
+  backgroundColor3?: string;
+  borderColor1?: string;
+  statusBarColor?: string;
+  successColor?: string;
+  warningColor?: string;
+  errorColor?: string;
+  disabledColor?: string;
+}
+
 let theme = {
   textColor1: '#282c37', // black
   textColor2: '#0c65c7', // blue
@@ -14,10 +30,10 @@ let theme = {
   disabledColor: '#dddddd' // gray
 };
 
-export const setTheme = (newTheme: any) => {
+export const setTheme = (newTheme: Theme) => {
   theme = { ...theme, ...newTheme };
 };
 
-export const getTheme = () => {
+export const getTheme = (): Theme => {
   return theme;
 };
