@@ -29,7 +29,7 @@ export interface TimePickerState {
 export class TimePicker extends React.Component<
   TimePickerProperties,
   TimePickerState
-> {
+  > {
   static defaultProps = {
     clearable: true
   };
@@ -135,14 +135,16 @@ export class TimePicker extends React.Component<
               onConfirm={this.handleConfirm}
               onCancel={this.handleCancel}
             />
-            <ImageButton
-              icon={value && clearable ? 'times' : 'clock-o'}
-              style={styles.clearIcon}
-              iconColor={
-                value && clearable ? theme.textColor1 : theme.textColor2
-              }
-              onPress={value && clearable ? this.handleClear : this.handlePress}
-            />
+            {!disabled && (
+              <ImageButton
+                icon={value && clearable ? 'times' : 'clock-o'}
+                style={styles.clearIcon}
+                iconColor={
+                  value && clearable ? theme.textColor1 : theme.textColor2
+                }
+                onPress={value && clearable ? this.handleClear : this.handlePress}
+              />
+            )}
           </View>
         </TouchableWithoutFeedback>
       </>
