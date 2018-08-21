@@ -29,7 +29,7 @@ export interface TimePickerState {
 export class TimePicker extends React.Component<
   TimePickerProperties,
   TimePickerState
-  > {
+> {
   static defaultProps = {
     clearable: true
   };
@@ -142,7 +142,9 @@ export class TimePicker extends React.Component<
                 iconColor={
                   value && clearable ? theme.textColor1 : theme.textColor2
                 }
-                onPress={value && clearable ? this.handleClear : this.handlePress}
+                onPress={
+                  value && clearable ? this.handleClear : this.handlePress
+                }
               />
             )}
           </View>
