@@ -38,6 +38,7 @@ export interface TextBoxProperties {
   maxLength?: number;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   returnKeyType?: ReturnKeyTypeOptions;
+  blurOnSubmit?: boolean;
 }
 
 export class TextBox extends React.Component<TextBoxProperties> {
@@ -45,7 +46,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
 
   static defaultProps = {
     editable: true,
-    autoCorrect: false
+    autoCorrect: false,
+    blurOnSubmit: true
   };
 
   getStyles = (): any => {
