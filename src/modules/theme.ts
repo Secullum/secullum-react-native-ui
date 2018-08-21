@@ -1,17 +1,17 @@
 export interface Theme {
-  textColor1?: string;
-  textColor2?: string;
-  textColor3?: string;
-  textColor4?: string;
-  backgroundColor1?: string;
-  backgroundColor2?: string;
-  backgroundColor3?: string;
-  borderColor1?: string;
-  statusBarColor?: string;
-  successColor?: string;
-  warningColor?: string;
-  errorColor?: string;
-  disabledColor?: string;
+  textColor1: string;
+  textColor2: string;
+  textColor3: string;
+  textColor4: string;
+  backgroundColor1: string;
+  backgroundColor2: string;
+  backgroundColor3: string;
+  borderColor1: string;
+  statusBarColor: string;
+  successColor: string;
+  warningColor: string;
+  errorColor: string;
+  disabledColor: string;
 }
 
 let theme = {
@@ -30,7 +30,7 @@ let theme = {
   disabledColor: '#dddddd' // gray
 };
 
-export const setTheme = (newTheme: Theme) => {
+export const setTheme = (newTheme: { [K in keyof Theme]?: string }) => {
   theme = { ...theme, ...newTheme };
 };
 
