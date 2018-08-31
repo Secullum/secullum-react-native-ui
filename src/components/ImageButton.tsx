@@ -14,11 +14,12 @@ export interface ImageButtonProperties {
   style?: StyleProp<ViewStyle>;
   iconColor?: string;
   onPress: () => void;
+  iconSize?: number;
 }
 
 export class ImageButton extends React.Component<ImageButtonProperties> {
   render() {
-    const { icon, style, iconColor, onPress } = this.props;
+    const { icon, style, iconColor, onPress, iconSize } = this.props;
 
     return (
       <TouchableOpacity
@@ -28,7 +29,7 @@ export class ImageButton extends React.Component<ImageButtonProperties> {
       >
         <FontAwesome
           name={icon}
-          size={20}
+          size={iconSize || 20}
           color={iconColor || theme.textColor1}
         />
       </TouchableOpacity>
