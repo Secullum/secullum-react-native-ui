@@ -14,7 +14,7 @@ export const setLocale = (locale: Locale) => {
   currentLocale = locale;
 };
 
-const fixPortugueseWeekdayLowercase = (formattedDate: string) => {
+const fixPortugueseLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('segunda-feira', 'Segunda-Feira');
   formattedDate = formattedDate.replace('terça-feira', 'Terça-Feira');
   formattedDate = formattedDate.replace('quarta-feira', 'Quarta-Feira');
@@ -31,10 +31,23 @@ const fixPortugueseWeekdayLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('sáb', 'Sáb');
   formattedDate = formattedDate.replace('dom', 'Dom');
 
+  formattedDate = formattedDate.replace('janeiro', 'Janeiro');
+  formattedDate = formattedDate.replace('fevereiro', 'Fevereiro');
+  formattedDate = formattedDate.replace('março', 'Março');
+  formattedDate = formattedDate.replace('abril', 'Abril');
+  formattedDate = formattedDate.replace('maio', 'Maio');
+  formattedDate = formattedDate.replace('junho', 'Junho');
+  formattedDate = formattedDate.replace('julho', 'Julho');
+  formattedDate = formattedDate.replace('agosto', 'Agosto');
+  formattedDate = formattedDate.replace('setembro', 'Setembro');
+  formattedDate = formattedDate.replace('outubro', 'Outubro');
+  formattedDate = formattedDate.replace('novembro', 'Novembro');
+  formattedDate = formattedDate.replace('dezembro', 'Dezembro');
+
   return formattedDate;
 };
 
-const fixSpanishWeekdayLowercase = (formattedDate: string) => {
+const fixSpanishLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('lunes', 'Lunes');
   formattedDate = formattedDate.replace('martes', 'Martes');
   formattedDate = formattedDate.replace('miércoles', 'Miércoles');
@@ -51,17 +64,30 @@ const fixSpanishWeekdayLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('sáb', 'Sáb');
   formattedDate = formattedDate.replace('dom', 'Dom');
 
+  formattedDate = formattedDate.replace('enero', 'Enero');
+  formattedDate = formattedDate.replace('febrero', 'Febrero');
+  formattedDate = formattedDate.replace('marzo', 'Marzo');
+  formattedDate = formattedDate.replace('abril', 'Abril');
+  formattedDate = formattedDate.replace('mayo', 'Mayo');
+  formattedDate = formattedDate.replace('junio', 'Junio');
+  formattedDate = formattedDate.replace('julio', 'Julio');
+  formattedDate = formattedDate.replace('agosto', 'Agosto');
+  formattedDate = formattedDate.replace('septiembre', 'Septiembre');
+  formattedDate = formattedDate.replace('octubre', 'Octubre');
+  formattedDate = formattedDate.replace('noviembre', 'Noviembre');
+  formattedDate = formattedDate.replace('diciembre', 'Diciembre');
+
   return formattedDate;
 };
 
 export const formatDate = (date: Date, format: string) => {
   switch (currentLocale) {
     case 'pt':
-      return fixPortugueseWeekdayLowercase(
+      return fixPortugueseLowercase(
         dfnsFormat(date, format, { locale: locales.pt })
       );
     case 'es':
-      return fixSpanishWeekdayLowercase(
+      return fixSpanishLowercase(
         dfnsFormat(date, format, { locale: locales.es })
       );
     default:
