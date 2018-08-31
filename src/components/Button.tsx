@@ -6,13 +6,15 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  ViewStyle
+  ViewStyle,
+  TextStyle
 } from 'react-native';
 
 export interface ButtonProperties {
   text: string;
   primary?: boolean;
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   onPress: () => void;
 }
 
@@ -53,7 +55,7 @@ export class Button extends React.Component<ButtonProperties> {
   };
 
   render() {
-    const { text, primary, style, onPress } = this.props;
+    const { text, primary, style, textStyle, onPress } = this.props;
 
     const styles = this.getStyles();
 
@@ -63,7 +65,9 @@ export class Button extends React.Component<ButtonProperties> {
         style={[styles.touchable, primary && styles.touchablePrimary, style]}
         onPress={onPress}
       >
-        <Text style={[styles.text, primary && styles.textPrimary]}>{text}</Text>
+        <Text style={[styles.text, primary && styles.textPrimary, textStyle]}>
+          {text}
+        </Text>
       </TouchableOpacity>
     );
   }
