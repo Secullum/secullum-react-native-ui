@@ -1,6 +1,7 @@
 import * as React from 'react';
 import DrawerLayout from 'react-native-drawer-layout';
 import { getTheme } from '../modules/theme';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {
   BackHandler,
@@ -13,26 +14,41 @@ import {
 
 export interface MenuProperties {
   renderLogo: () => React.ReactNode;
-  menu: Array<{ path: string; text: string }>;
+  menu: Array<{
+    path?: string;
+    text: string;
+    childRoutes?: Array<{ path: string; text: string }>;
+  }>;
   children: React.ReactNode;
   onMenuPress: (path: string) => void;
   renderUserData: () => React.ReactNode;
   drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
+  actualRouteName: string;
 }
 
 export interface MenuState {
   opened: boolean;
+  indexMenuOpened: number;
 }
 
 export class Menu extends React.Component<MenuProperties, MenuState> {
   state: MenuState = {
-    opened: false
+    opened: false,
+    indexMenuOpened: -1
   };
 
   drawer: DrawerLayout | null = null;
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+
+    this.setState({
+      indexMenuOpened: this.props.menu.findIndex(
+        x =>
+          x.childRoutes != undefined &&
+          x.childRoutes.some(y => y.path === this.props.actualRouteName)
+      )
+    });
   }
 
   componentWillUnmount() {
@@ -91,10 +107,33 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
         fontFamily: 'Lato-Bold',
         fontSize: 16,
         paddingVertical: 14
+      },
+      submenuText: {
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16,
+        paddingLeft: 20,
+        paddingVertical: 8
+      },
+      icon: {
+        paddingTop: 15,
+        paddingRight: 10
+      },
+      titleItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        paddingRight: 10
       }
     });
 
     return styles;
+  };
+
+  handleParentMenuPress = (index: number) => {
+    this.setState({
+      indexMenuOpened: this.state.indexMenuOpened === index ? -1 : index
+    });
   };
 
   renderNavigationView = () => {
@@ -107,17 +146,61 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
         <View style={styles.logoContainer}>{renderLogo()}</View>
         <View style={styles.userContainer}>{renderUserData()}</View>
         <ScrollView style={styles.menuContainer}>
-          {menu.map((menuItem, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => {
-                this.close();
-                onMenuPress(menuItem.path);
-              }}
-            >
-              <Text style={styles.menuText}>{menuItem.text}</Text>
-            </TouchableOpacity>
-          ))}
+          {menu.map((menuItem, index) => {
+            if (!menuItem.childRoutes) {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => {
+                    this.close();
+                    onMenuPress(menuItem.path || '');
+                  }}
+                >
+                  <Text style={styles.menuText}>{menuItem.text}</Text>
+                </TouchableOpacity>
+              );
+            }
+
+            const menuIsOpen = this.state.indexMenuOpened === index;
+
+            return (
+              <View key={index}>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => {
+                    this.handleParentMenuPress(index);
+                  }}
+                >
+                  <View style={styles.titleItem}>
+                    <Text style={styles.menuText}>{menuItem.text}</Text>
+                    <FontAwesome
+                      name={menuIsOpen ? 'caret-up' : 'caret-down'}
+                      style={styles.icon}
+                      size={20}
+                    />
+                  </View>
+                </TouchableOpacity>
+
+                <View
+                  style={{
+                    height: menuIsOpen ? menuItem.childRoutes.length * 40 : 0
+                  }}
+                >
+                  {menuItem.childRoutes.map((item, indice) => (
+                    <TouchableOpacity
+                      key={indice}
+                      onPress={() => {
+                        this.close();
+                        onMenuPress(item.path);
+                      }}
+                    >
+                      <Text style={styles.submenuText}>{item.text}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+            );
+          })}
         </ScrollView>
       </View>
     );
