@@ -23,7 +23,7 @@ export interface MenuProperties {
   onMenuPress: (path: string) => void;
   renderUserData: () => React.ReactNode;
   drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
-  actualRouteName: string;
+  actualRouteName?: string;
 }
 
 export interface MenuState {
