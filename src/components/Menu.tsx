@@ -9,7 +9,9 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ScrollView
+  ScrollView,
+  TextStyle,
+  StyleProp
 } from 'react-native';
 
 export interface MenuProperties {
@@ -21,9 +23,10 @@ export interface MenuProperties {
   }>;
   children: React.ReactNode;
   onMenuPress: (path: string) => void;
-  renderUserData: () => React.ReactNode;
+  renderUserData?: () => React.ReactNode;
   drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
   actualRouteName?: string;
+  menuTextStyle?: StyleProp<TextStyle>;
 }
 
 export interface MenuState {
@@ -137,14 +140,22 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
   };
 
   renderNavigationView = () => {
-    const { renderLogo, menu, onMenuPress, renderUserData } = this.props;
+    const {
+      renderLogo,
+      menu,
+      onMenuPress,
+      renderUserData,
+      menuTextStyle
+    } = this.props;
 
     const styles = this.getStyles();
 
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>{renderLogo()}</View>
-        <View style={styles.userContainer}>{renderUserData()}</View>
+        {renderUserData ? (
+          <View style={styles.userContainer}>{renderUserData()}</View>
+        ) : null}
         <ScrollView style={styles.menuContainer}>
           {menu.map((menuItem, index) => {
             if (!menuItem.childRoutes) {
@@ -156,7 +167,9 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
                     onMenuPress(menuItem.path || '');
                   }}
                 >
-                  <Text style={styles.menuText}>{menuItem.text}</Text>
+                  <Text style={[styles.menuText, menuTextStyle]}>
+                    {menuItem.text}
+                  </Text>
                 </TouchableOpacity>
               );
             }
@@ -172,7 +185,9 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
                   }}
                 >
                   <View style={styles.titleItem}>
-                    <Text style={styles.menuText}>{menuItem.text}</Text>
+                    <Text style={[styles.menuText, menuTextStyle]}>
+                      {menuItem.text}
+                    </Text>
                     <FontAwesome
                       name={menuIsOpen ? 'caret-up' : 'caret-down'}
                       style={styles.icon}
@@ -194,7 +209,9 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
                         onMenuPress(item.path);
                       }}
                     >
-                      <Text style={styles.submenuText}>{item.text}</Text>
+                      <Text style={[styles.submenuText, menuTextStyle]}>
+                        {item.text}
+                      </Text>
                     </TouchableOpacity>
                   ))}
                 </View>
