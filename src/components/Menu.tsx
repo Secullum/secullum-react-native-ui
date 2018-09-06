@@ -5,13 +5,13 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {
   BackHandler,
+  ScrollView,
+  StyleProp,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
-  ScrollView,
   TextStyle,
-  StyleProp
+  TouchableOpacity,
+  View
 } from 'react-native';
 
 export interface MenuProperties {
@@ -19,14 +19,15 @@ export interface MenuProperties {
   menu: Array<{
     path?: string;
     text: string;
-    childRoutes?: Array<{ path: string; text: string }>;
+    submenu?: Array<{ path: string; text: string }>;
   }>;
   children: React.ReactNode;
   onMenuPress: (path: string) => void;
   renderUserData?: () => React.ReactNode;
   drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
-  actualRouteName?: string;
+  currentMenuPath?: string;
   menuTextStyle?: StyleProp<TextStyle>;
+  submenuTextStyle?: StyleProp<TextStyle>;
 }
 
 export interface MenuState {
@@ -48,8 +49,8 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
     this.setState({
       indexMenuOpened: this.props.menu.findIndex(
         x =>
-          x.childRoutes != undefined &&
-          x.childRoutes.some(y => y.path === this.props.actualRouteName)
+          x.submenu != undefined &&
+          x.submenu.some(y => y.path === this.props.currentMenuPath)
       )
     });
   }
@@ -118,11 +119,11 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
         paddingLeft: 20,
         paddingVertical: 8
       },
-      icon: {
+      submenuTitleIcon: {
         paddingTop: 15,
         paddingRight: 10
       },
-      titleItem: {
+      submenuTitleContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
@@ -145,7 +146,8 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
       menu,
       onMenuPress,
       renderUserData,
-      menuTextStyle
+      menuTextStyle,
+      submenuTextStyle
     } = this.props;
 
     const styles = this.getStyles();
@@ -153,12 +155,14 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>{renderLogo()}</View>
+
         {renderUserData ? (
           <View style={styles.userContainer}>{renderUserData()}</View>
         ) : null}
+
         <ScrollView style={styles.menuContainer}>
           {menu.map((menuItem, index) => {
-            if (!menuItem.childRoutes) {
+            if (!menuItem.submenu) {
               return (
                 <TouchableOpacity
                   key={index}
@@ -179,29 +183,25 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
             return (
               <View key={index}>
                 <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    this.handleParentMenuPress(index);
-                  }}
+                  onPress={() => this.handleParentMenuPress(index)}
+                  style={styles.submenuTitleContainer}
                 >
-                  <View style={styles.titleItem}>
-                    <Text style={[styles.menuText, menuTextStyle]}>
-                      {menuItem.text}
-                    </Text>
-                    <FontAwesome
-                      name={menuIsOpen ? 'caret-up' : 'caret-down'}
-                      style={styles.icon}
-                      size={20}
-                    />
-                  </View>
+                  <Text style={[styles.menuText, menuTextStyle]}>
+                    {menuItem.text}
+                  </Text>
+                  <FontAwesome
+                    name={menuIsOpen ? 'caret-up' : 'caret-down'}
+                    style={styles.submenuTitleIcon}
+                    size={20}
+                  />
                 </TouchableOpacity>
 
                 <View
                   style={{
-                    height: menuIsOpen ? menuItem.childRoutes.length * 40 : 0
+                    height: menuIsOpen ? 'auto' : 0
                   }}
                 >
-                  {menuItem.childRoutes.map((item, indice) => (
+                  {menuItem.submenu.map((item, indice) => (
                     <TouchableOpacity
                       key={indice}
                       onPress={() => {
@@ -209,7 +209,7 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
                         onMenuPress(item.path);
                       }}
                     >
-                      <Text style={[styles.submenuText, menuTextStyle]}>
+                      <Text style={[styles.submenuText, submenuTextStyle]}>
                         {item.text}
                       </Text>
                     </TouchableOpacity>
@@ -228,8 +228,8 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
 
     return (
       <DrawerLayout
-        drawerLockMode={this.props.drawerLockMode}
         ref={drawer => (this.drawer = drawer)}
+        drawerLockMode={this.props.drawerLockMode}
         drawerBackgroundColor={theme.backgroundColor1}
         drawerWidth={300}
         drawerPosition={DrawerLayout.positions.Left}
