@@ -198,7 +198,8 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
 
                 <View
                   style={{
-                    height: menuIsOpen ? 'auto' : 0
+                    height: menuIsOpen ? 'auto' : 0,
+                    overflow: 'hidden'
                   }}
                 >
                   {menuItem.submenu.map((item, indice) => (
