@@ -56,7 +56,9 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Lato-Bold',
     fontSize: 18,
-    color: theme.textColor1
+    color: theme.textColor1,
+    width: '80%',
+    textAlign: 'center'
   },
   button: {
     height: 24,
