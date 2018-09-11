@@ -23,7 +23,7 @@ export interface TextBoxProperties {
   autoFocus?: boolean;
   label: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   onBlur?: () => void;
   renderInput?: (props: TextBoxInputProps) => JSX.Element;
   onSubmitEditing?: () => void;
