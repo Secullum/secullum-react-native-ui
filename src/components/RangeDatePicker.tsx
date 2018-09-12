@@ -44,6 +44,10 @@ export class RangeDatePicker extends React.Component<
   };
 
   handleStartDateConfirm = (date: Date) => {
+    if (date > this.props.endDate) {
+      this.props.onEndDateChange(date);
+    }
+
     this.props.onStartDateChange(date);
     this.handleStartDateCancel();
   };
@@ -149,6 +153,7 @@ export class RangeDatePicker extends React.Component<
               />
               <DateTimePicker
                 date={endDate}
+                minimumDate={startDate}
                 isVisible={showEndDateModal}
                 onConfirm={this.handleEndDateConfirm}
                 onCancel={this.handleEndDateCancel}
