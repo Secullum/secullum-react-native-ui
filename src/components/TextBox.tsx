@@ -84,6 +84,12 @@ export class TextBox extends React.Component<TextBoxProperties> {
     return styles;
   };
 
+  focus = () => {
+    if (this.input) {
+      this.input.focus();
+    }
+  };
+
   renderInput = (props: TextInputProps) => <TextInput {...props} />;
 
   render() {
@@ -128,9 +134,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
       <TouchableWithoutFeedback
         disabled={!editable}
         onPress={() => {
-          if (this.input) {
-            this.input.focus();
-          }
+          this.focus();
         }}
       >
         <View
