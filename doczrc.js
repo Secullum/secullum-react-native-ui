@@ -4,6 +4,7 @@ import { reactNative } from 'docz-plugin-react-native';
 export default {
   title: 'secullum-react-native-ui',
   src: './docs/',
+  base: '/secullum-react-native-ui/',
   typescript: true,
   plugins: [reactNative()],
   wrapper: 'docs/Wrapper.js',

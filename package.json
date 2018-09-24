@@ -13,7 +13,9 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf lib && tsc --declaration",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "docs:dev": "docz dev",
+    "docs:build": "docz build && gh-pages -d .docz/dist"
   },
   "dependencies": {
     "date-fns": "^1.29.0",
@@ -32,6 +34,7 @@
     "@types/react-native-vector-icons": "^4.6.0",
     "docz": "^0.11.2",
     "docz-plugin-react-native": "^0.11.2",
+    "gh-pages": "^2.0.0",
     "prettier": "^1.12.1",
     "react": "^16.2.0",
     "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55",
