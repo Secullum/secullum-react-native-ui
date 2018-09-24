@@ -1,0 +1,40 @@
+---
+name: Switch
+route: /switch
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Switch } from '../../src/components/Switch.tsx';
+
+# Switch
+
+## Properties
+
+<PropsTable of={Switch} />
+
+## Example
+
+<Playground>
+  {() => {
+    class SwitchExample extends React.Component {
+      constructor() {
+        this.state = {
+          value: false
+        };
+      }
+
+      render() {
+        return (
+          <Switch
+            label="label"
+            value={this.state.value}
+            onChange={value => this.setState({ value })}
+          />
+        )
+      }
+    }
+
+    return <SwitchExample />;
+  }}
+</Playground>

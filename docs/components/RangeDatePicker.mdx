@@ -1,0 +1,26 @@
+---
+name: RangeDatePicker
+route: /range-date-picker
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { RangeDatePicker } from '../../src/components/RangeDatePicker.tsx';
+
+# RangeDatePicker
+
+## Properties
+
+<PropsTable of={RangeDatePicker} />
+
+## Example
+
+<Playground>
+  <RangeDatePicker
+    label="label"
+    startDate={new Date(1990, 9, 1)}
+    endDate={new Date(1990, 9, 31)}
+    onStartDateChange={startDate => alert(startDate)}
+    onEndDateChange={endDate => alert(endDate)}
+  />
+</Playground>

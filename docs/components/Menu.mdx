@@ -1,0 +1,43 @@
+---
+name: Menu
+route: /menu
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Text, View } from 'react-native';
+import { Menu } from '../../src/components/Menu.tsx';
+
+# Menu
+
+## Properties
+
+<PropsTable of={Menu} />
+
+## Example
+
+<Playground>
+  <View style={{ height: 600, width: 400, borderWidth: 1, overflow: 'hidden' }}>
+    <Menu
+      ref={menu => menu && menu.open()}
+      renderLogo={() => (
+        <View>
+          <Text style={{ fontFamily: 'Lato-Bold', fontSize: 40 }}>My App</Text>
+        </View>
+      )}
+      menu={[
+        { text: 'Home', path: 'Home' },
+        {
+          text: 'Settings',
+          path: 'Settings',
+          submenu: [
+            { text: 'Basic Settings', path: 'BasicSettings' },
+            { text: 'Advanced Settings', path: 'AdvancedSettings' }
+          ]
+        },
+        { text: 'About', path: 'About' }
+      ]}
+      onMenuPress={path => alert(path)}
+    />
+  </View>
+</Playground>

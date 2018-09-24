@@ -1,0 +1,24 @@
+---
+name: Button
+route: /button
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { View } from 'react-native';
+import { Button } from '../../src/components/Button.tsx';
+
+# Button
+
+## Properties
+
+<PropsTable of={Button} />
+
+## Example
+
+<Playground>
+  <View style={{ flexDirection: 'row' }}>
+    <Button text="Click me" onPress={() => alert('Hello')} />
+    <Button text="Click me too" onPress={() => alert('Hello 2')} primary={false} style={{ marginLeft: 20 }} />
+  </View>
+</Playground>

@@ -1,0 +1,29 @@
+---
+name: TimePicker
+route: /time-picker
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Space } from '../../src/components/Space.tsx';
+import { TimePicker } from '../../src/components/TimePicker.tsx';
+
+# TimePicker
+
+## Properties
+
+<PropsTable of={TimePicker} />
+
+## Example
+
+<Playground>
+  <TimePicker
+    label="Time"
+  />
+  <Space />
+  <TimePicker
+    label="Time"
+    value="13:00"
+    onChange={value => alert(value)}
+  />
+</Playground>

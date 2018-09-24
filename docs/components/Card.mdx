@@ -1,0 +1,41 @@
+---
+name: Card
+route: /card
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Text, View } from 'react-native';
+import { Card } from '../../src/components/Card.tsx';
+
+# Card
+
+## Properties
+
+### Card
+
+<PropsTable of={Card} />
+
+### Card.Header
+
+<PropsTable of={Card.Header} />
+
+### Card.Section
+
+<PropsTable of={Card.Section} />
+
+## Example
+
+<Playground>
+  <View style={{ padding: 20, backgroundColor: '#ccc' }}>
+    <Card>
+      <Card.Header title="Title" onHelpPress={() => alert('Help!')} />
+      <Card.Section>
+        <Text>Text...</Text>
+      </Card.Section>
+      <Card.Section>
+        <Text>Another text...</Text>
+      </Card.Section>
+    </Card>
+  </View>
+</Playground>

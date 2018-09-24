@@ -1,0 +1,24 @@
+---
+name: TextBoxMask
+route: /text-box-mask
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { TextBoxMask } from '../../src/components/TextBoxMask.tsx';
+
+# TextBoxMask
+
+## Properties
+
+<PropsTable of={TextBoxMask} />
+
+## Example
+
+<Playground>
+  <TextBoxMask
+    label="Zip Code"
+    value="93700-000"
+    type="zip-code"
+  />
+</Playground>

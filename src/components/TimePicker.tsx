@@ -5,6 +5,7 @@ import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
 
 import {
+  Platform,
   StyleProp,
   StyleSheet,
   Text,
@@ -128,13 +129,17 @@ export class TimePicker extends React.Component<
               <Text style={styles.label}>{label}</Text>
               <Text style={styles.value}>{value}</Text>
             </View>
-            <DateTimePicker
-              mode="time"
-              date={date}
-              isVisible={this.state.showModal}
-              onConfirm={this.handleConfirm}
-              onCancel={this.handleCancel}
-            />
+
+            {Platform.OS !== 'web' && (
+              <DateTimePicker
+                mode="time"
+                date={date}
+                isVisible={this.state.showModal}
+                onConfirm={this.handleConfirm}
+                onCancel={this.handleCancel}
+              />
+            )}
+
             {!disabled && (
               <ImageButton
                 icon={value && clearable ? 'times' : 'clock-o'}

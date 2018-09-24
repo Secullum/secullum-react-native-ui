@@ -1,0 +1,56 @@
+---
+name: Modal
+route: /modal
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Text, View } from 'react-native';
+import { Modal } from '../../src/components/Modal.tsx';
+
+# Modal
+
+## Properties
+
+<PropsTable of={Modal} />
+
+## Example
+
+<Playground>
+  {() => {
+    class ModalExample extends React.Component {
+      constructor() {
+        this.state = {
+          modalVisible: true
+        };
+      }
+
+      render() {
+        return (
+          <Modal
+            visible={this.state.modalVisible}
+            onRequestClose={() => this.setState({ modalVisible: false })}
+          >
+            <View
+              style={{
+                margin: 'auto',
+                width: 400,
+                height: 200,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <Text style={{ color: 'blue', fontFamily: 'Lato-Bold', fontSize: 42 }}>
+                Modal content
+              </Text>
+            </View>
+          </Modal>
+        );
+      }
+    }
+
+    return <ModalExample />;
+  }}
+</Playground>

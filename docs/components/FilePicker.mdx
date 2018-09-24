@@ -1,0 +1,20 @@
+---
+name: FilePicker
+route: /file-picker
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { FilePicker } from '../../src/components/FilePicker.tsx';
+
+# FilePicker
+
+## Properties
+
+<PropsTable of={FilePicker} />
+
+## Example
+
+<Playground>
+  <FilePicker label="label" onPress={() => alert('select file')} />
+</Playground>

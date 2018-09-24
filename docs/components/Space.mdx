@@ -1,0 +1,25 @@
+---
+name: Space
+route: /space
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Space } from '../../src/components/Space.tsx';
+import { TextBox } from '../../src/components/TextBox.tsx';
+
+# Space
+
+## Properties
+
+<PropsTable of={Space} />
+
+## Example
+
+<Playground>
+  <TextBox label="label" value="value" />
+  <Space />
+  <TextBox label="label" value="value" />
+  <Space height={70} />
+  <TextBox label="label" value="value" />
+</Playground>

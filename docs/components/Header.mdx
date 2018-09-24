@@ -1,0 +1,30 @@
+---
+name: Header
+route: /header
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Header } from '../../src/components/Header.tsx';
+
+# Header
+
+## Properties
+
+<PropsTable of={Header} />
+
+## Example
+
+<Playground>
+  <Header
+    title="App Title"
+    leftButton={{
+      icon: 'arrow-left',
+      onPress: () => alert('left')
+    }}
+    rightButton={{
+      icon: 'bell',
+      disabled: true
+    }}
+  />
+</Playground>

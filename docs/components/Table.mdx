@@ -1,0 +1,31 @@
+---
+name: Table
+route: /table
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Table } from '../../src/components/Table.tsx';
+
+# Table
+
+## Properties
+
+<PropsTable of={Table} />
+
+## Example
+
+<Playground>
+  <Table
+    idAttribute="id"
+    data={[
+      { id: 1, name: 'Fernando', favoriteColor: 'Red' },
+      { id: 2, name: 'Alex', favoriteColor: 'Green' },
+      { id: 3, name: 'João', favoriteColor: 'Blue' }
+    ]}
+    columns={[
+      { key: 'name', title: 'Name', width: 200 },
+      { key: 'favoriteColor', title: 'Favorite Color', width: 100 }
+    ]}
+  />
+</Playground>

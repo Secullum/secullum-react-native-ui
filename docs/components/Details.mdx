@@ -1,0 +1,57 @@
+---
+name: Details
+route: /details
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { View } from 'react-native';
+import { Details } from '../../src/components/Details.tsx';
+import { DetailsHeader } from '../../src/components/DetailsHeader.tsx';
+import { Space } from '../../src/components/Space.tsx';
+
+# Details
+
+## Properties
+
+### Details
+
+<PropsTable of={Details} />
+
+### DetailsHeader
+
+<PropsTable of={DetailsHeader} />
+
+## Example
+
+<Playground>
+  <View style={{ padding: 20, backgroundColor: '#ccc' }}>
+    <DetailsHeader
+      text="Title"
+      onLeftPress={() => alert('left')}
+      onRightPress={() => alert('right')}
+    />
+    <Space />
+    <Details
+      title="Another title"
+      lines={[
+        {
+          title: 'Line 1',
+          value: 'Value 1',
+          icons: [
+            { name: 'cog', color: 'red', size: 20, onPress: () => alert('config') },
+            { name: 'facebook', color: 'blue', size: 20, onPress: () => alert('facebook') },
+          ]
+        },
+        {
+          title: 'Line 2',
+          value: 'Value 2'
+        },
+        {
+          title: 'Line 3',
+          value: 'Value 3'
+        }
+      ]}
+    />
+  </View>
+</Playground>

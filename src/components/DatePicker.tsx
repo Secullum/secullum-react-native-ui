@@ -5,6 +5,7 @@ import { getTheme } from '../modules/theme';
 import { ImageButton } from './ImageButton';
 
 import {
+  Platform,
   StyleProp,
   StyleSheet,
   Text,
@@ -112,12 +113,15 @@ export class DatePicker extends React.Component<
             </Text>
           </View>
 
-          <DateTimePicker
-            date={value}
-            isVisible={this.state.showModal}
-            onConfirm={this.handleConfirm}
-            onCancel={this.handleCancel}
-          />
+          {Platform.OS !== 'web' && (
+            <DateTimePicker
+              date={value}
+              isVisible={this.state.showModal}
+              onConfirm={this.handleConfirm}
+              onCancel={this.handleCancel}
+            />
+          )}
+
           <ImageButton
             icon={value && clearable ? 'times' : 'calendar'}
             style={styles.clearIcon}

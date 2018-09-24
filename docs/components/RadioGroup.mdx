@@ -1,0 +1,28 @@
+---
+name: RadioGroup
+route: /radio-group
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { RadioGroup } from '../../src/components/RadioGroup.tsx';
+
+# RadioGroup
+
+## Properties
+
+<PropsTable of={RadioGroup} />
+
+## Example
+
+<Playground>
+  <RadioGroup
+    items={[
+      { label: 'Item 1', value: 'item1' },
+      { label: 'Item 2', value: 'item2' },
+      { label: 'Item 3', value: 'item3' }
+    ]}
+    value="item1"
+    onChange={value => alert(value)}
+  />
+</Playground>

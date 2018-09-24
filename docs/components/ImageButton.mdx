@@ -1,0 +1,25 @@
+---
+name: ImageButton
+route: /image-button
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { View } from 'react-native';
+import { ImageButton } from '../../src/components/ImageButton.tsx';
+
+# ImageButton
+
+## Properties
+
+<PropsTable of={ImageButton} />
+
+## Example
+
+<Playground>
+  <View style={{ flexDirection: 'row' }}>
+    <ImageButton icon="arrow-left" onPress={() => alert('arrow-left')} />
+    <ImageButton icon="cog" onPress={() => alert('cog')} style={{ marginLeft: 20 }} />
+    <ImageButton icon="bell" onPress={() => alert('bell')} style={{ marginLeft: 'auto' }} />
+  </View>
+</Playground>

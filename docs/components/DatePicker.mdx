@@ -1,0 +1,29 @@
+---
+name: DatePicker
+route: /date-picker
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Space } from '../../src/components/Space.tsx';
+import { DatePicker } from '../../src/components/DatePicker.tsx';
+
+# DatePicker
+
+## Properties
+
+<PropsTable of={DatePicker} />
+
+## Example
+
+<Playground>
+  <DatePicker
+    label="Date"
+  />
+  <Space />
+  <DatePicker
+    label="Date"
+    value={new Date(2018, 9, 29)}
+    onChange={value => alert(value)}
+  />
+</Playground>

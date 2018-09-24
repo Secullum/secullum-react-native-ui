@@ -1,0 +1,41 @@
+---
+name: Message
+route: /message
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Message } from '../../src/components/Message.tsx';
+
+# Message
+
+## Properties
+
+<PropsTable of={Message} />
+
+## Example
+
+<Playground>
+  {() => {
+    class MessageExample extends React.Component {
+      constructor() {
+        this.state = {
+          messageVisible: true
+        };
+      }
+
+      render() {
+        return (
+          <Message
+            message="This is a message"
+            type="warning"
+            visible={this.state.messageVisible}
+            onRequestClose={() => this.setState({ messageVisible: false })}
+          />
+        );
+      }
+    }
+
+    return <MessageExample />;
+  }}
+</Playground>

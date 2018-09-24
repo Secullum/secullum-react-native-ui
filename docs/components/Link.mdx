@@ -1,0 +1,20 @@
+---
+name: Link
+route: /link
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { Link } from '../../src/components/Link.tsx';
+
+# Link
+
+## Properties
+
+<PropsTable of={Link} />
+
+## Example
+
+<Playground>
+  <Link text="Go to..." onPress={() => alert('press')} />
+</Playground>
