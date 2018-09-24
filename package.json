@@ -15,7 +15,7 @@
     "build": "rimraf lib && tsc --declaration",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "docs:dev": "docz dev",
-    "docs:build": "docz build && gh-pages -d .docz/dist"
+    "docs:publish": "docz build && gh-pages -d .docz/dist"
   },
   "dependencies": {
     "date-fns": "^1.29.0",
