@@ -89,7 +89,7 @@ export class DropDown extends React.Component<
         borderRadius: 3
       },
       label: {
-        color: theme.textColor2,
+        color: 'red',
         fontFamily: 'Lato-Regular',
         fontSize: 12,
         lineHeight: 16
