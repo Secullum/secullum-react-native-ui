@@ -78,7 +78,7 @@ export class TimePicker extends React.Component<
       label: {
         color: theme.textColor2,
         fontFamily: 'Lato-Regular',
-        fontSize: isTablet()?15:12,
+        fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       value: {

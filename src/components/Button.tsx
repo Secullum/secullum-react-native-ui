@@ -33,7 +33,7 @@ export class Button extends React.Component<ButtonProperties> {
         borderColor: theme.borderColor1,
         borderWidth: 1,
         borderRadius: 3,
-        height: isTablet()?45:40,
+        height: isTablet() ? 45 : 40,
         alignItems: 'center',
         justifyContent: 'center'
       },
@@ -43,7 +43,7 @@ export class Button extends React.Component<ButtonProperties> {
       },
       text: {
         fontFamily: 'Lato-Bold',
-        fontSize: isTablet?18:13,
+        fontSize: isTablet ? 18 : 13,
         paddingHorizontal: 11,
         color: theme.textColor1
       },
