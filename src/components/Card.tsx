@@ -13,6 +13,7 @@ import {
   ViewProperties,
   ViewStyle
 } from 'react-native';
+import { isTablet } from '../modules/layout';
 
 export interface CardHeaderProperties {
   title: string;
@@ -31,7 +32,7 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
       title: {
         color: theme.textColor1,
         fontFamily: 'Lato-Bold',
-        fontSize: 18,
+        fontSize: isTablet()?22:18,
         marginRight: 10
       },
       help: {
@@ -40,7 +41,7 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
         top: 5
       },
       helpIcon: {
-        fontSize: 20,
+        fontSize: isTablet()?24:20,
         color: '#6d819c'
       }
     });
