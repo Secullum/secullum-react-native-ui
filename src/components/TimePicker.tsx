@@ -13,6 +13,7 @@ import {
   View,
   ViewStyle
 } from 'react-native';
+import { isTablet } from '../modules/layout';
 
 export interface TimePickerProperties {
   label: string;
@@ -77,7 +78,7 @@ export class TimePicker extends React.Component<
       label: {
         color: theme.textColor2,
         fontFamily: 'Lato-Regular',
-        fontSize: 12,
+        fontSize: isTablet()?15:12,
         lineHeight: 16
       },
       value: {

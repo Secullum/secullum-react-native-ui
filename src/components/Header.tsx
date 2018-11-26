@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
+import { isTablet } from '../modules/layout';
 
 export interface HeaderButton {
   icon: string;
@@ -20,7 +21,7 @@ export class Header extends React.Component<HeaderProperties> {
     leftButtonType: 'menu'
   };
 
-  static height = 50;
+  static height = isTablet()?65:50;
 
   getStyles = (): any => {
     const theme = getTheme();
@@ -28,7 +29,7 @@ export class Header extends React.Component<HeaderProperties> {
     const styles = StyleSheet.create({
       header: {
         backgroundColor: theme.backgroundColor3,
-        height: Header.height || 40,
+        height: Header.height || isTablet()?60:40,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
@@ -36,10 +37,10 @@ export class Header extends React.Component<HeaderProperties> {
       title: {
         color: theme.textColor4,
         fontFamily: 'Lato-Bold',
-        fontSize: 18
+        fontSize: isTablet()?25:18
       },
       button: {
-        padding: 10
+        padding: isTablet()?14:10
       }
     });
 
@@ -53,7 +54,7 @@ export class Header extends React.Component<HeaderProperties> {
     const icon = (
       <FontAwesome
         name={button.icon}
-        size={20}
+        size={isTablet()?30:20}
         color={button.disabled ? theme.textColor1 : theme.textColor4}
       />
     );
