@@ -98,7 +98,7 @@ const theme = getTheme();
 const styles = StyleSheet.create({
   title: {
     fontFamily: 'Lato-Bold',
-    fontSize: isTablet()?22:18,
+    fontSize: isTablet() ? 22:18,
     color: theme.textColor1
   },
   lineSection: {
