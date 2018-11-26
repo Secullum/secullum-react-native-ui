@@ -56,14 +56,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Lato-Bold',
-    fontSize: isTablet()?22:18,
+    fontSize: isTablet() ? 22 : 18,
     color: theme.textColor1,
     width: '80%',
     textAlign: 'center'
   },
   button: {
-    height: isTablet()?28:24,
-    width: isTablet()?28:24,
+    height: isTablet() ? 28 : 24,
+    width: isTablet() ? 28 : 24,
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: theme.borderColor1,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: 24
   },
   buttonPlaceholder: {
-    height: isTablet()?28:24,
-    width: isTablet()?28:24
+    height: isTablet() ? 28 : 24,
+    width: isTablet() ? 28 : 24
   }
 });
