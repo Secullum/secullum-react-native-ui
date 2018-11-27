@@ -43,7 +43,7 @@ export class Button extends React.Component<ButtonProperties> {
       },
       text: {
         fontFamily: 'Lato-Bold',
-        fontSize: isTablet ? 18 : 13,
+        fontSize: isTablet() ? 18 : 13,
         paddingHorizontal: 11,
         color: theme.textColor1
       },
