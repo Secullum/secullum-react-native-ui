@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import { isTablet } from '../modules/layout';
 
 export interface MenuProperties {
   renderLogo: () => React.ReactNode;
@@ -232,7 +233,7 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
         ref={drawer => (this.drawer = drawer)}
         drawerLockMode={this.props.drawerLockMode}
         drawerBackgroundColor={theme.backgroundColor1}
-        drawerWidth={300}
+        drawerWidth={isTablet() ? 450 : 300}
         drawerPosition={DrawerLayout.positions.Left}
         renderNavigationView={this.renderNavigationView}
         onDrawerOpen={() => this.setState({ opened: true })}

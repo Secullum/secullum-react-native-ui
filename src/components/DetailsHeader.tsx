@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Card } from './Card';
 import { getTheme } from '../modules/theme';
+import { isTablet } from '../modules/layout';
 
 export interface DetailsHeaderProperties {
   text: string;
@@ -55,14 +56,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Lato-Bold',
-    fontSize: 18,
+    fontSize: isTablet() ? 22 : 18,
     color: theme.textColor1,
     width: '80%',
     textAlign: 'center'
   },
   button: {
-    height: 24,
-    width: 24,
+    height: isTablet() ? 28 : 24,
+    width: isTablet() ? 28 : 24,
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: theme.borderColor1,
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: 24
   },
   buttonPlaceholder: {
-    height: 24,
-    width: 24
+    height: isTablet() ? 28 : 24,
+    width: isTablet() ? 28 : 24
   }
 });

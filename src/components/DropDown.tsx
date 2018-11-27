@@ -13,6 +13,7 @@ import {
   View,
   ViewStyle
 } from 'react-native';
+import { isTablet } from '../modules/layout';
 
 interface DropDownItemProperties {
   first: boolean;
@@ -91,7 +92,7 @@ export class DropDown extends React.Component<
       label: {
         color: theme.textColor2,
         fontFamily: 'Lato-Regular',
-        fontSize: 12,
+        fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       text: {

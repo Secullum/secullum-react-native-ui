@@ -4,6 +4,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Card } from './Card';
 import { Space } from './Space';
 import { getTheme } from '../modules/theme';
+import { isTablet } from '../modules/layout';
 
 export interface DetailsIcon {
   name: string;
@@ -97,7 +98,7 @@ const theme = getTheme();
 const styles = StyleSheet.create({
   title: {
     fontFamily: 'Lato-Bold',
-    fontSize: 18,
+    fontSize: isTablet() ? 22 : 18,
     color: theme.textColor1
   },
   lineSection: {
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
   },
   lineTitle: {
     fontFamily: 'Lato-Bold',
-    fontSize: 14,
+    fontSize: isTablet() ? 18 : 14,
     color: theme.textColor1,
     minWidth: 40,
     textAlign: 'left'

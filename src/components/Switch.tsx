@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import { getTheme } from '../modules/theme';
+import { isTablet } from '../modules/layout';
 
 export interface SwitchProperties {
   label: string;
@@ -38,7 +39,7 @@ export class Switch extends React.Component<SwitchProperties> {
       label: {
         color: theme.textColor2,
         fontFamily: 'Lato-Regular',
-        fontSize: 12,
+        fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       readonly: {
