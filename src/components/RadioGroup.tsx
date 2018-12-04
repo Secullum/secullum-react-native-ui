@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { getTheme } from '../modules/theme';
+import { isTablet } from '../modules/layout';
 
 export interface RadioGroupProperties {
   items: Array<{ label: string; value: string }>;
@@ -22,15 +23,15 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
         justifyContent: 'space-around'
       },
       item: {
-        paddingVertical: 5,
+        paddingVertical: isTablet() ? 10 : 5,
         borderColor: theme.borderColor1,
         flex: 1,
         alignItems: 'center'
       },
       itemText: {
         fontFamily: 'Lato-Bold',
-        fontSize: 12,
-        lineHeight: 16
+        fontSize: isTablet() ? 16 : 12,
+        lineHeight: isTablet() ? 20 : 16
       },
       selectedItem: {
         backgroundColor: theme.backgroundColor3
