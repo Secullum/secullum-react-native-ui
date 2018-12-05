@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Modal } from './Modal';
 import { getTheme } from '../modules/theme';
+import { isTablet } from '../modules/layout';
 
 export interface MessageProperties {
   message: string;
@@ -29,7 +30,7 @@ export class Message extends React.Component<MessageProperties> {
           <FontAwesome
             name={type === 'warning' ? 'warning' : 'check-circle'}
             color={type === 'warning' ? theme.warningColor : theme.successColor}
-            size={42}
+            size={isTablet() ? 52 : 42}
           />
           <Text style={styles.text}>{message}</Text>
         </View>
@@ -47,16 +48,16 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.backgroundColor1,
     borderRadius: 6,
-    padding: 16,
-    width: 250,
-    marginTop: 140,
+    padding: isTablet() ? 25 : 16,
+    width: isTablet() ? 350 : 250,
+    marginTop: isTablet() ? 250 : 140,
     alignItems: 'center'
   },
   text: {
     color: theme.textColor1,
     fontFamily: 'Lato-Bold',
-    fontSize: 16,
+    fontSize: isTablet() ? 25 : 16,
     textAlign: 'center',
-    marginTop: 5
+    marginTop: isTablet() ? 15 : 5
   }
 });
