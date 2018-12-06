@@ -52,6 +52,7 @@ export interface DropDownProperties {
   value: any | null;
   onChange: (value: any) => void;
   emptyMessage?: string;
+  disabled?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -126,6 +127,9 @@ export class DropDown extends React.Component<
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 16
+      },
+      readonly: {
+        backgroundColor: theme.disabledColor
       }
     });
 
@@ -134,7 +138,7 @@ export class DropDown extends React.Component<
 
   render() {
     const { modalOpen } = this.state;
-    const { label, items, value, emptyMessage, style } = this.props;
+    const { label, items, value, emptyMessage, style, disabled } = this.props;
     const selectedItem = items.find(x => x.value === value);
 
     const styles = this.getStyles();
@@ -144,8 +148,11 @@ export class DropDown extends React.Component<
     return (
       <TouchableWithoutFeedback
         onPress={() => this.setState({ modalOpen: true })}
+        disabled={disabled}
       >
-        <View style={[styles.container, style]}>
+        <View
+          style={[styles.container, style, disabled ? styles.readonly : null]}
+        >
           <Text style={styles.label}>{label}</Text>
           <Text style={styles.text}>
             {selectedItem ? selectedItem.label : '-'}
