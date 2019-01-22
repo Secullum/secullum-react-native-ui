@@ -29,7 +29,7 @@ export class Header extends React.Component<HeaderProperties> {
     const styles = StyleSheet.create({
       header: {
         backgroundColor: theme.backgroundColor3,
-        height: Header.height,
+        height: isTablet() ? 65 : 50,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
