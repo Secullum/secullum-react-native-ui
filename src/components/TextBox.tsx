@@ -12,7 +12,8 @@ import {
   View,
   ViewStyle,
   TextInputProps,
-  ReturnKeyTypeOptions
+  ReturnKeyTypeOptions,
+  Platform
 } from 'react-native';
 import { isTablet } from '../modules/layout';
 
@@ -121,10 +122,15 @@ export class TextBox extends React.Component<TextBoxProperties> {
       editable: this.props.editable,
       keyboardType: this.props.keyboardType,
       maxLength: this.props.maxLength,
-      returnKeyType: this.props.returnKeyType,
       onSubmitEditing: this.props.onSubmitEditing,
       autoCapitalize: this.props.autoCapitalize,
       autoCorrect: this.props.autoCorrect,
+      returnKeyType:
+        Platform.OS === 'ios' &&
+        this.props.keyboardType === 'numeric' &&
+        this.props.returnKeyType === 'next'
+          ? 'done'
+          : this.props.returnKeyType,
       ref: (input: TextInput) => {
         this.input = input;
         if (inputRef) inputRef(input);
