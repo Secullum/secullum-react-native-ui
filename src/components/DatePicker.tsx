@@ -128,6 +128,7 @@ export class DatePicker extends React.Component<
             style={styles.clearIcon}
             iconColor={value && clearable ? theme.textColor1 : theme.textColor2}
             onPress={value && clearable ? this.handleClear : this.handlePress}
+            hitBoxSize={30}
           />
         </View>
       </TouchableWithoutFeedback>
