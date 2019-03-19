@@ -15,17 +15,35 @@ export interface ImageButtonProperties {
   iconColor?: string;
   onPress: () => void;
   iconSize?: number;
+  hitBoxSize?: number;
 }
 
 export class ImageButton extends React.Component<ImageButtonProperties> {
   render() {
-    const { icon, style, iconColor, onPress, iconSize } = this.props;
+    const {
+      icon,
+      style,
+      iconColor,
+      onPress,
+      iconSize,
+      hitBoxSize
+    } = this.props;
 
     return (
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.5}
         style={[styles.container, style]}
+        hitSlop={
+          hitBoxSize
+            ? {
+                top: hitBoxSize,
+                bottom: hitBoxSize,
+                left: hitBoxSize,
+                right: hitBoxSize
+              }
+            : undefined
+        }
       >
         <FontAwesome
           name={icon}

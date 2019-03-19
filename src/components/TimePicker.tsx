@@ -151,6 +151,7 @@ export class TimePicker extends React.Component<
                 onPress={
                   value && clearable ? this.handleClear : this.handlePress
                 }
+                hitBoxSize={30}
               />
             )}
           </View>
