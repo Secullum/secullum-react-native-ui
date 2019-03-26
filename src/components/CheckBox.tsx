@@ -33,7 +33,8 @@ export class CheckBox extends React.Component<Props> {
         color: disabled ? theme.disabledColor : theme.textColor1,
         fontSize: 24,
         height: 24,
-        width: 24
+        width: 24,
+        lineHeight: 24
       },
       label: {
         color: disabled ? theme.disabledColor : theme.textColor1,
