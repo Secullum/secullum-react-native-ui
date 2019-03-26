@@ -1,5 +1,6 @@
 export * from './components/Button';
 export * from './components/Card';
+export * from './components/CheckBox';
 export * from './components/DatePicker';
 export * from './components/Details';
 export * from './components/DetailsHeader';
