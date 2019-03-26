@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { getTheme } from '../modules/theme';
+import { isTablet } from '../modules/layout';
 
 import {
   KeyboardType,
+  Platform,
   StyleProp,
   StyleSheet,
   Text,
@@ -12,10 +14,8 @@ import {
   View,
   ViewStyle,
   TextInputProps,
-  ReturnKeyTypeOptions,
-  Platform
+  ReturnKeyTypeOptions
 } from 'react-native';
-import { isTablet } from '../modules/layout';
 
 export interface TextBoxInputProps extends TextInputProps {
   ref: (ref: TextInput) => void;
@@ -76,7 +76,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
         fontSize: 16,
         minHeight: 22,
         padding: 0,
-        margin: 0
+        margin: 0,
+        outline: 0
       },
       readonly: {
         backgroundColor: theme.disabledColor
@@ -139,6 +140,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
 
     return (
       <TouchableWithoutFeedback
+        accessible={false}
         disabled={!editable}
         onPress={() => {
           this.focus();
