@@ -56,6 +56,20 @@ export class TextBox extends React.Component<TextBoxProperties> {
   getStyles = (): any => {
     const theme = getTheme();
 
+    const inputStyle = {
+      color: theme.textColor1,
+      fontFamily: 'Lato-Bold',
+      fontSize: 16,
+      minHeight: 22,
+      padding: 0,
+      margin: 0,
+      outline: '0'
+    };
+
+    if (Platform.OS !== 'web') {
+      delete inputStyle.outline;
+    }
+
     const styles = StyleSheet.create({
       container: {
         paddingHorizontal: 16,
@@ -70,15 +84,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
-      input: {
-        color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
-        fontSize: 16,
-        minHeight: 22,
-        padding: 0,
-        margin: 0,
-        outline: 0
-      },
+      input: inputStyle,
       readonly: {
         backgroundColor: theme.disabledColor
       }
