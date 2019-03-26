@@ -1,0 +1,40 @@
+---
+name: CheckBox
+route: /check-box
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { CheckBox } from '../../src/components/CheckBox.tsx';
+
+# CheckBox
+
+## Properties
+
+<PropsTable of={CheckBox} />
+
+## Example
+
+<Playground>
+  {() => {
+    class CheckBoxExample extends React.Component {
+      constructor() {
+        this.state = {
+          value: false
+        };
+      }
+
+      render() {
+        return (
+          <CheckBox
+            label="label"
+            value={this.state.value}
+            onChange={value => this.setState({ value })}
+          />
+        )
+      }
+    }
+
+    return <CheckBoxExample />;
+  }}
+</Playground>
