@@ -19,7 +19,7 @@ interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
-class CheckBox extends React.Component<Props> {
+export class CheckBox extends React.Component<Props> {
   getStyles = () => {
     const theme = getTheme();
     const { disabled } = this.props;
@@ -67,5 +67,3 @@ class CheckBox extends React.Component<Props> {
     );
   }
 }
-
-export default CheckBox;
