@@ -31,10 +31,10 @@ export class CheckBox extends React.Component<Props> {
       },
       icon: {
         color: disabled ? theme.disabledColor : theme.textColor1,
-        fontSize: 24,
-        height: 24,
+        fontSize: 20,
+        height: 20,
         width: 24,
-        lineHeight: 24
+        lineHeight: 20
       },
       label: {
         color: disabled ? theme.disabledColor : theme.textColor1,
