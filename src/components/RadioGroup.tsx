@@ -7,6 +7,7 @@ export interface RadioGroupProperties {
   items: Array<{ label: string; value: string }>;
   value: string;
   onChange: (value: string) => void;
+  disabled?: Array<string>;
 }
 
 export class RadioGroup extends React.Component<RadioGroupProperties> {
@@ -38,6 +39,9 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
       },
       selectedItemText: {
         color: theme.textColor4
+      },
+      readonly: {
+        backgroundColor: theme.disabledColor
       }
     });
 
@@ -45,7 +49,7 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
   };
 
   render() {
-    const { items, value, onChange } = this.props;
+    const { items, value, onChange, disabled } = this.props;
 
     const styles = this.getStyles();
 
@@ -54,13 +58,17 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
         {items.map((item, index) => (
           <TouchableWithoutFeedback
             key={index}
+            disabled={disabled && disabled.includes(item.value)}
             onPress={() => onChange(item.value)}
           >
             <View
               style={[
                 styles.item,
                 { borderRightWidth: index === items.length - 1 ? 0 : 1 },
-                item.value === value ? styles.selectedItem : null
+                item.value === value ? styles.selectedItem : null,
+                disabled && disabled.includes(item.value)
+                  ? styles.readonly
+                  : null
               ]}
             >
               <Text

@@ -20,6 +20,7 @@ export interface RangeDatePickerProperties {
   endDate: Date;
   onStartDateChange: (date: Date) => void;
   onEndDateChange: (date: Date) => void;
+  onEndDateCancel?: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -61,10 +62,17 @@ export class RangeDatePicker extends React.Component<
 
   handleEndDateConfirm = (date: Date) => {
     this.props.onEndDateChange(date);
-    this.handleEndDateCancel();
+
+    this.setState({
+      showEndDateModal: false
+    });
   };
 
   handleEndDateCancel = () => {
+    if (this.props.onEndDateCancel) {
+      this.props.onEndDateCancel();
+    }
+
     this.setState({
       showEndDateModal: false
     });
