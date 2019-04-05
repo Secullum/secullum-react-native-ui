@@ -39,7 +39,7 @@
     "react": "^16.2.0",
     "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55",
     "rimraf": "^2.6.2",
-    "typescript": "^2.8.3"
+    "typescript": "^3.3.3333"
   },
   "peerDependencies": {
     "react": "^16.2.0",
