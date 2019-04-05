@@ -16,7 +16,8 @@ import {
 } from 'react-native';
 
 export interface AppShellProperties {
-  logo: ImageSourcePropType;
+  logoHeader: ImageSourcePropType;
+  logoMenu: ImageSourcePropType;
   title: string;
   greeting?: string;
   screenTitle: string;
@@ -78,7 +79,7 @@ export class AppShell extends React.Component<AppShellProperties> {
   renderMobile = () => {
     const {
       title,
-      logo,
+      logoMenu,
       screenTitle,
       renderUserData,
       menu,
@@ -97,7 +98,7 @@ export class AppShell extends React.Component<AppShellProperties> {
         currentMenuPath={currentMenuPath}
         renderLogo={() => (
           <>
-            <Image source={logo} style={styles.logoImage} />
+            <Image source={logoMenu} style={styles.logoImage} />
             <Text style={styles.logoText}>{title}</Text>
           </>
         )}
@@ -118,7 +119,7 @@ export class AppShell extends React.Component<AppShellProperties> {
   renderDesktop = () => {
     const {
       title,
-      logo,
+      logoHeader,
       greeting,
       menu,
       onMenuPress,
@@ -130,7 +131,7 @@ export class AppShell extends React.Component<AppShellProperties> {
 
     return (
       <>
-        <HeaderDesktop title={title} logo={logo} greeting={greeting} />
+        <HeaderDesktop title={title} logo={logoHeader} greeting={greeting} />
         <View style={styles.container}>
           <MenuDesktop
             menu={menu}
