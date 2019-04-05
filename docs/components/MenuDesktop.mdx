@@ -1,0 +1,28 @@
+---
+name: MenuDesktop
+route: /menu-desktop
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { MenuDesktop } from '../../src/components/MenuDesktop.tsx';
+
+# MenuDesktop
+
+## Properties
+
+<PropsTable of={MenuDesktop} />
+
+## Example
+
+<Playground>
+  <MenuDesktop
+    menu={[
+      { text: 'Home', path: 'Home' },
+      { text: 'Settings', path: 'Settings' },
+      { text: 'About', path: 'About' }
+    ]}
+    onMenuPress={path => alert(path)}
+    currentMenuPath="Home"
+  />
+</Playground>

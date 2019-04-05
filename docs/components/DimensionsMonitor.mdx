@@ -1,0 +1,24 @@
+---
+name: DimensionsMonitor
+route: /dimensions-monitor
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { DimensionsMonitor } from '../../src/components/DimensionsMonitor.tsx';
+
+# DimensionsMonitor
+
+## Properties
+
+### DimensionsMonitor
+
+<PropsTable of={DimensionsMonitor} />
+
+## Example
+
+<Playground>
+  <DimensionsMonitor>
+    {({ isDesktop }) => isDesktop.toString()}
+  </DimensionsMonitor>
+</Playground>

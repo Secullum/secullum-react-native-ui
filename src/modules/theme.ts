@@ -7,6 +7,7 @@ export interface Theme {
   backgroundColor2: string;
   backgroundColor3: string;
   borderColor1: string;
+  shadowColor1: string;
   statusBarColor: string;
   successColor: string;
   warningColor: string;
@@ -23,6 +24,7 @@ let theme = {
   backgroundColor2: '#eef1f6', // gray
   backgroundColor3: '#0c65c7', // blue
   borderColor1: '#c2c2c2', // gray
+  shadowColor1: '#aabec6', // gray
   statusBarColor: '#0047a9', // blue
   successColor: '#2ec562', // green
   warningColor: '#f5a623', // yellow

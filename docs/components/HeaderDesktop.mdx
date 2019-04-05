@@ -1,0 +1,25 @@
+---
+name: HeaderDesktop
+route: /header-desktop
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { HeaderDesktop } from '../../src/components/HeaderDesktop.tsx';
+import logo from '../img/logo.png';
+
+# HeaderDesktop
+
+## Properties
+
+<PropsTable of={HeaderDesktop} />
+
+## Example
+
+<Playground>
+  <HeaderDesktop
+    logo={logo}
+    title="App Title"
+    greeting="Hello, user."
+  />
+</Playground>

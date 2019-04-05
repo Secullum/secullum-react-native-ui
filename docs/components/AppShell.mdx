@@ -1,0 +1,33 @@
+---
+name: AppShell
+route: /app-shell
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { AppShell } from '../../src/components/AppShell.tsx';
+import logo from '../img/logo.png';
+
+# AppShell
+
+## Properties
+
+<PropsTable of={AppShell} />
+
+## Example
+
+<Playground>
+  <AppShell
+    logo={logo}
+    title="App Title"
+    greeting="Hello, user."
+    screenTitle="Screen Title"
+    menu={[
+      { text: 'Home', path: 'Home' },
+      { text: 'Settings', path: 'Settings' },
+      { text: 'About', path: 'About' }
+    ]}
+    onMenuPress={path => alert(path)}
+    currentMenuPath="Home"
+  />
+</Playground>
