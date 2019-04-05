@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
     fontSize: isTablet() ? 25 : 16,
     textAlign: 'center',
-    marginTop: isTablet() ? 15 : 5
+    marginTop: isTablet() ? 15 : 5,
+    width: '100%'
   }
 });
