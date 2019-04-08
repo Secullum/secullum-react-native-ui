@@ -9,7 +9,7 @@ export interface MessageProperties {
   message: string;
   visible: boolean;
   type?: 'info' | 'warning';
-  onRequestClose: () => void;
+  onRequestClose?: () => void;
 }
 
 export class Message extends React.Component<MessageProperties> {

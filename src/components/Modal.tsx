@@ -13,7 +13,7 @@ export interface ModalProperties {
   children: React.ReactNode;
   visible: boolean;
   overlayStyle?: StyleProp<ViewStyle>;
-  onRequestClose: () => void;
+  onRequestClose?: () => void;
 }
 
 export class Modal extends React.Component<ModalProperties> {
