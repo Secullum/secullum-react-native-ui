@@ -13,6 +13,8 @@ export interface Theme {
   warningColor: string;
   errorColor: string;
   disabledColor: string;
+  counterBackgroundColor: string,
+  counterTextColor: string
 }
 
 let theme = {
@@ -29,7 +31,10 @@ let theme = {
   successColor: '#2ec562', // green
   warningColor: '#f5a623', // yellow
   errorColor: '#d62729', // red
-  disabledColor: '#dddddd' // gray
+  disabledColor: '#dddddd', // gray
+  counterBackgroundColor: '#34bf6d', // light green
+  counterTextColor: '#ffffff' // white
+
 };
 
 export const setTheme = (newTheme: { [K in keyof Theme]?: string }) => {

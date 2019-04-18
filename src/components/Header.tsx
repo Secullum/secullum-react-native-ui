@@ -45,7 +45,7 @@ export class Header extends React.Component<HeaderProperties> {
       },
       counterContainer: {
         position: 'absolute',
-        backgroundColor: '#34bf6d',
+        backgroundColor: theme.counterBackgroundColor,
         height: isTablet() ? 20 : 15,
         width: isTablet() ? 20 : 15,
         top: 5,
@@ -54,7 +54,7 @@ export class Header extends React.Component<HeaderProperties> {
       },
       counterText: {
         textAlign: 'center',
-        color: 'white',
+        color: theme.counterTextColor,
         fontSize: isTablet() ? 15 : 10
       }
     });
