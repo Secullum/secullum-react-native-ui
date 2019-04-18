@@ -7,6 +7,7 @@ import { isTablet } from '../modules/layout';
 export interface HeaderButton {
   icon: string;
   disabled?: boolean;
+  counter?: number;
   onPress: () => void;
 }
 
@@ -41,6 +42,20 @@ export class Header extends React.Component<HeaderProperties> {
       },
       button: {
         padding: isTablet() ? 14 : 10
+      },
+      counterContainer: {
+        position: 'absolute',
+        backgroundColor: theme.counterBackgroundColor,
+        height: isTablet() ? 20 : 15,
+        width: isTablet() ? 20 : 15,
+        top: 5,
+        left: 18,
+        borderRadius: 50
+      },
+      counterText: {
+        textAlign: 'center',
+        color: theme.counterTextColor,
+        fontSize: isTablet() ? 15 : 10
       }
     });
 
@@ -52,11 +67,18 @@ export class Header extends React.Component<HeaderProperties> {
     const theme = getTheme();
 
     const icon = (
-      <FontAwesome
-        name={button.icon}
-        size={isTablet() ? 30 : 20}
-        color={button.disabled ? theme.textColor1 : theme.textColor4}
-      />
+      <>
+        <FontAwesome
+          name={button.icon}
+          size={isTablet() ? 30 : 20}
+          color={button.disabled ? theme.textColor1 : theme.textColor4}
+        />
+        {button.counter && (
+          <View style={styles.counterContainer}>
+            <Text style={styles.counterText}>{button.counter}</Text>
+          </View>
+        )}
+      </>
     );
 
     const style = [
