@@ -16,7 +16,7 @@ yarn run docs:publish
 
 ## Publishing a new version
 
-1. Ensure the code is formatted correctly
+1. Ensure that the code is formatted correctly
 
 ```
 yarn run format
