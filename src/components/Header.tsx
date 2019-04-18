@@ -7,7 +7,7 @@ import { isTablet } from '../modules/layout';
 export interface HeaderButton {
   icon: string;
   disabled?: boolean;
-  counter?: number,
+  counter?: number;
   onPress: () => void;
 }
 
@@ -41,20 +41,20 @@ export class Header extends React.Component<HeaderProperties> {
         fontSize: isTablet() ? 25 : 18
       },
       button: {
-        padding: isTablet() ? 14 : 10       
+        padding: isTablet() ? 14 : 10
       },
       counterContainer: {
-        position: "absolute",
-        backgroundColor: "#34bf6d",
-        height: isTablet() ? 20: 15,
+        position: 'absolute',
+        backgroundColor: '#34bf6d',
+        height: isTablet() ? 20 : 15,
         width: isTablet() ? 20 : 15,
         top: 5,
         left: 18,
-        borderRadius:50
+        borderRadius: 50
       },
       counterText: {
-        textAlign: "center",
-        color: "white",
+        textAlign: 'center',
+        color: 'white',
         fontSize: isTablet() ? 15 : 10
       }
     });
@@ -68,16 +68,16 @@ export class Header extends React.Component<HeaderProperties> {
 
     const icon = (
       <>
-      <FontAwesome
-        name={button.icon}
-        size={isTablet() ? 30 : 20}
-        color={button.disabled ? theme.textColor1 : theme.textColor4}
-      />
-      {button.counter && (
-        <View style={styles.counterContainer}>
-          <Text style={styles.counterText}>{button.counter}</Text>
-        </View>
-      )}
+        <FontAwesome
+          name={button.icon}
+          size={isTablet() ? 30 : 20}
+          color={button.disabled ? theme.textColor1 : theme.textColor4}
+        />
+        {button.counter && (
+          <View style={styles.counterContainer}>
+            <Text style={styles.counterText}>{button.counter}</Text>
+          </View>
+        )}
       </>
     );
 
