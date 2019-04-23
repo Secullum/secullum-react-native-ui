@@ -4,7 +4,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "styles"
   ],
   "repository": {
     "type": "git",
@@ -24,14 +25,16 @@
     "react-native-masked-text": "^1.7.2",
     "react-native-modal-datetime-picker": "^4.13.0",
     "react-native-vector-icons": "^4.5.0",
-    "react-native-web-modal": "^1.0.1"
+    "react-native-web-modal": "^1.0.1",
+    "react-date-range": "^1.0.0-beta"
   },
   "devDependencies": {
     "@types/react": "^16.4.4",
-    "@types/react-native": "^0.55.27",
+    "@types/react-native": "^0.57.47",
     "@types/react-native-drawer-layout": "^1.3.3",
-    "@types/react-native-elevated-view": "^0.0.0",
-    "@types/react-native-vector-icons": "^4.6.0",
+    "@types/react-native-elevated-view": "^0.0.2",
+    "@types/react-native-vector-icons": "^6.4.0",
+    "@types/react-dom": "^16.0.11",
     "docz": "^0.11.2",
     "docz-plugin-react-native": "^0.11.2",
     "gh-pages": "^2.0.0",
@@ -43,7 +46,8 @@
   },
   "peerDependencies": {
     "react": "^16.2.0",
-    "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55"
+    "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55",
+    "react-dom": "^16.5.1"
   },
   "resolutions": {
     "docz-plugin-react-native/react-native-web": "^0.9.0"

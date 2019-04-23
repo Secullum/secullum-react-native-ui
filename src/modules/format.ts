@@ -14,6 +14,10 @@ export const setLocale = (locale: Locale) => {
   currentLocale = locale;
 };
 
+export const getLocale = () => {
+  return currentLocale;
+};
+
 const fixPortugueseLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('segunda-feira', 'Segunda-Feira');
   formattedDate = formattedDate.replace('terça-feira', 'Terça-Feira');

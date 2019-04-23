@@ -1,8 +1,13 @@
 import * as React from 'react';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { formatDate } from '../modules/format';
+import { formatDate, getLocale } from '../modules/format';
 import { getTheme } from '../modules/theme';
+import { DateRange, SelectedRanges } from 'react-date-range';
+import * as ReactDOM from 'react-dom';
+
+import 'react-date-range/dist/styles.css';
+import { pt, es, enUS } from 'react-date-range/dist/locale';
 
 import {
   StyleProp,
@@ -13,7 +18,13 @@ import {
   ViewStyle,
   Platform
 } from 'react-native';
+
 import { isTablet } from '../modules/layout';
+
+if (Platform.OS === 'web') {
+  require('../../styles/RangeDatePicker.css');
+}
+
 export interface RangeDatePickerProperties {
   label: string;
   startDate: Date;
@@ -27,6 +38,7 @@ export interface RangeDatePickerProperties {
 export interface RangeDatePickerState {
   showStartDateModal: boolean;
   showEndDateModal: boolean;
+  count: number;
 }
 
 export class RangeDatePicker extends React.Component<
@@ -35,7 +47,24 @@ export class RangeDatePicker extends React.Component<
 > {
   state: RangeDatePickerState = {
     showStartDateModal: false,
-    showEndDateModal: false
+    showEndDateModal: false,
+    count: 0
+  };
+
+  private ref = React.createRef<HTMLDivElement>();
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick = (event: MouseEvent) => {
+    if (this.ref.current && !this.ref.current.contains(event.target as Node)) {
+      this.setState({ showStartDateModal: false, count: 0 });
+    }
   };
 
   handleDatePickerPress = () => {
@@ -51,6 +80,21 @@ export class RangeDatePicker extends React.Component<
 
     this.props.onStartDateChange(date);
     this.handleStartDateCancel();
+  };
+
+  handleRangeDateConfirm = (ranges: SelectedRanges) => {
+    if (this.state.count == 1) {
+      this.props.onStartDateChange(ranges.selection.startDate);
+
+      // This timeout is becouse the setState method is async and sometimes
+      // the component is not ready.
+      setTimeout(() => this.props.onEndDateChange(ranges.selection.endDate), 1);
+      this.setState({ showStartDateModal: false, count: 0 });
+
+      return;
+    }
+    this.props.onStartDateChange(ranges.selection.startDate);
+    this.setState({ count: 1 });
   };
 
   handleStartDateCancel = () => {
@@ -76,6 +120,17 @@ export class RangeDatePicker extends React.Component<
     this.setState({
       showEndDateModal: false
     });
+  };
+
+  getCalendarLocale = () => {
+    switch (getLocale()) {
+      case 'pt':
+        return pt;
+      case 'es':
+        return es;
+      default:
+        return enUS;
+    }
   };
 
   getStyles = (): any => {
@@ -129,13 +184,40 @@ export class RangeDatePicker extends React.Component<
     return (
       <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
         <View style={[styles.container, style]}>
-          <View>
+          <View nativeID={'range-date-picker'}>
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>{displayText}</Text>
           </View>
           <FontAwesome name="calendar" style={styles.icon} />
 
-          {Platform.OS === 'web' ? null : Platform.OS === 'ios' ? (
+          {Platform.OS === 'web' ? (
+            showStartDateModal &&
+            ReactDOM.createPortal(
+              <div
+                ref={this.ref}
+                style={{
+                  position: 'fixed',
+                  paddingTop: '50px',
+                  marginLeft: '-10px'
+                }}
+              >
+                <DateRange
+                  locale={this.getCalendarLocale()}
+                  showDateDisplay={false}
+                  showMonthAndYearPickers={false}
+                  ranges={[
+                    {
+                      startDate: startDate,
+                      endDate: endDate,
+                      key: 'selection'
+                    }
+                  ]}
+                  onChange={this.handleRangeDateConfirm}
+                />
+              </div>,
+              document.getElementById('range-date-picker') as Element
+            )
+          ) : Platform.OS === 'ios' ? (
             showStartDateModal ? (
               <DateTimePicker
                 date={startDate}

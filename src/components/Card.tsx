@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ElevatedView from 'react-native-elevated-view';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { Platform } from 'react-native';
 import { getTheme } from '../modules/theme';
 
 import {
@@ -106,7 +107,9 @@ export class Card extends React.Component<CardProperties> {
     const styles = StyleSheet.create({
       container: {
         borderRadius: 3,
-        backgroundColor: theme.backgroundColor1
+        backgroundColor: theme.backgroundColor1,
+        shadowOpacity: 0.15,
+        shadowRadius: 5
       },
       cardChild: {
         borderTopColor: theme.borderColor1,
@@ -135,7 +138,11 @@ export class Card extends React.Component<CardProperties> {
       );
     });
 
-    return (
+    return Platform.OS == 'web' ? (
+      <View style={[styles.container, style]} {...otherProps}>
+        {childrenMapped}
+      </View>
+    ) : (
       <ElevatedView
         elevation={5}
         style={[styles.container, style]}

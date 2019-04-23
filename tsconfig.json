@@ -3,7 +3,10 @@
     "target": "es6",
     "module": "commonjs",
     "jsx": "react",
-    "lib": ["es2018"],
+    "lib": [
+      "dom",
+      "es2018"
+    ],
     "rootDir": "./src",
     "outDir": "./lib",
     "strict": true,
