@@ -1,9 +1,8 @@
 import * as React from 'react';
 import ElevatedView from 'react-native-elevated-view';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { Platform } from 'react-native';
 import { getTheme } from '../modules/theme';
-
+import { isTablet } from '../modules/layout';
 import {
   StyleProp,
   StyleSheet,
@@ -12,9 +11,9 @@ import {
   TouchableOpacity,
   View,
   ViewProperties,
-  ViewStyle
+  ViewStyle,
+  Platform
 } from 'react-native';
-import { isTablet } from '../modules/layout';
 
 export interface CardHeaderProperties {
   title: string;
