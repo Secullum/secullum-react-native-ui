@@ -135,7 +135,7 @@ export class RangeDatePicker extends React.Component<
           </View>
           <FontAwesome name="calendar" style={styles.icon} />
 
-          {Platform.OS === 'web' ? null : Platform.OS === 'ios' ? (
+          {Platform.OS === 'ios' ? (
             showStartDateModal ? (
               <DateTimePicker
                 date={startDate}

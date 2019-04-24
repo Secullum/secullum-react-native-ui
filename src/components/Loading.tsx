@@ -18,12 +18,20 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     opacity: 0.6,
-    backgroundColor: '#ccc'
+    backgroundColor: '#ccc',
+    top: 0, // IE fix
+    bottom: 0, // IE fix
+    left: 0, // IE fix
+    right: 0 // IE fix
   },
   indicator: {
     position: 'absolute',
     width: '100%',
     height: '100%',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    top: 0, // IE fix
+    bottom: 0, // IE fix
+    left: 0, // IE fix
+    right: 0 // IE fix
   }
 });
