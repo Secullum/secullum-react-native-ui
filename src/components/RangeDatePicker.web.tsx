@@ -17,7 +17,7 @@ import {
   ViewStyle
 } from 'react-native';
 
-require('../../styles/RangeDatePicker.css');
+import '../../styles/RangeDatePicker.css';
 
 export interface RangeDatePickerProperties {
   label: string;
@@ -72,9 +72,10 @@ export class RangeDatePicker extends React.Component<
     if (this.state.count == 1) {
       this.props.onStartDateChange(ranges.selection.startDate);
 
-      // This timeout is becouse the setState method is async and sometimes
-      // the component is not ready.
+      // Sometimes the parent component is not ready because the setState method
+      // is async, so we wait a little.
       setTimeout(() => this.props.onEndDateChange(ranges.selection.endDate), 1);
+
       this.setState({ showStartDateModal: false, count: 0 });
 
       return;
@@ -124,8 +125,7 @@ export class RangeDatePicker extends React.Component<
         marginLeft: 'auto',
         color: theme.textColor2,
         fontSize: 22
-      },
-      calendar: 
+      }
     });
 
     return styles;
