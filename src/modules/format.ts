@@ -1,8 +1,8 @@
 import { format as dfnsFormat } from 'date-fns';
 
-const locales = {
+const dfnslocales = {
   pt: require('date-fns/locale/pt'),
-  en: require('date-fns/locale/en'),
+  en: require('date-fns/locale/en-US'),
   es: require('date-fns/locale/es')
 };
 
@@ -14,8 +14,15 @@ export const setLocale = (locale: Locale) => {
   currentLocale = locale;
 };
 
-export const getLocale = () => {
-  return currentLocale;
+export const getDateFnsLocale = () => {
+  switch (currentLocale) {
+    case 'pt':
+      return dfnslocales.pt;
+    case 'es':
+      return dfnslocales.es;
+    default:
+      return dfnslocales.en;
+  }
 };
 
 const fixPortugueseLowercase = (formattedDate: string) => {
@@ -85,16 +92,16 @@ const fixSpanishLowercase = (formattedDate: string) => {
 };
 
 export const formatDate = (date: Date, format: string) => {
+  const formattedDate = dfnsFormat(date, format, {
+    locale: getDateFnsLocale()
+  });
+
   switch (currentLocale) {
     case 'pt':
-      return fixPortugueseLowercase(
-        dfnsFormat(date, format, { locale: locales.pt })
-      );
+      return fixPortugueseLowercase(formattedDate);
     case 'es':
-      return fixSpanishLowercase(
-        dfnsFormat(date, format, { locale: locales.es })
-      );
+      return fixSpanishLowercase(formattedDate);
     default:
-      return dfnsFormat(date, format, { locale: locales.en });
+      return formattedDate;
   }
 };

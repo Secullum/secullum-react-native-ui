@@ -5,7 +5,8 @@ menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
-import { RangeDatePicker } from '../../src/components/RangeDatePicker.tsx';
+import { View } from 'react-native';
+import { RangeDatePicker } from '../../src/components/RangeDatePicker.web.tsx';
 
 # RangeDatePicker
 
@@ -16,11 +17,13 @@ import { RangeDatePicker } from '../../src/components/RangeDatePicker.tsx';
 ## Example
 
 <Playground>
-  <RangeDatePicker
-    label="label"
-    startDate={new Date(1990, 9, 1)}
-    endDate={new Date(1990, 9, 31)}
-    onStartDateChange={startDate => alert(startDate)}
-    onEndDateChange={endDate => alert(endDate)}
-  />
+  <View style={{ height: 350 }}>
+    <RangeDatePicker
+      label="label"
+      startDate={new Date(1990, 9, 1)}
+      endDate={new Date(1990, 9, 31)}
+      onStartDateChange={startDate => alert(startDate)}
+      onEndDateChange={endDate => alert(endDate)}
+    />
+  </View>
 </Playground>

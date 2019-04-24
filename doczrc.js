@@ -1,4 +1,5 @@
 import path from 'path';
+import { css } from 'docz-plugin-css';
 import { reactNative } from 'docz-plugin-react-native';
 
 export default {
@@ -6,7 +7,7 @@ export default {
   src: './docs/',
   base: '/secullum-react-native-ui/',
   typescript: true,
-  plugins: [reactNative()],
+  plugins: [css(), reactNative()],
   wrapper: 'docs/Wrapper.js',
   modifyBundlerConfig: config => {
     const jsRule = config.module.rules.find(rule => rule.test.test('*.js'));

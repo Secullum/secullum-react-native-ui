@@ -1,11 +1,10 @@
 import * as React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { formatDate, getLocale } from '../modules/format';
+import { formatDate, getDateFnsLocale } from '../modules/format';
 import { getTheme } from '../modules/theme';
 import { DateRange, SelectedRanges } from 'react-date-range';
 import * as ReactDOM from 'react-dom';
 import { isTablet } from '../modules/layout';
-import { pt, es, enUS } from 'react-date-range/dist/locale';
 import 'react-date-range/dist/styles.css';
 
 import {
@@ -85,17 +84,6 @@ export class RangeDatePicker extends React.Component<
     this.setState({ count: 1 });
   };
 
-  getCalendarLocale = () => {
-    switch (getLocale()) {
-      case 'pt':
-        return pt;
-      case 'es':
-        return es;
-      default:
-        return enUS;
-    }
-  };
-
   getStyles = (): any => {
     const theme = getTheme();
 
@@ -147,7 +135,9 @@ export class RangeDatePicker extends React.Component<
     return (
       <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
         <View style={[styles.container, style]}>
-          <View nativeID="range-date-picker">
+          <View
+            ref={ref => ref && ref.setNativeProps({ id: 'range-date-picker' })}
+          >
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>{displayText}</Text>
           </View>
@@ -157,13 +147,13 @@ export class RangeDatePicker extends React.Component<
               <div
                 ref={this.calendarRef}
                 style={{
-                  position: 'fixed',
+                  position: 'absolute',
                   paddingTop: '50px',
                   marginLeft: '-10px'
                 }}
               >
                 <DateRange
-                  locale={this.getCalendarLocale()}
+                  locale={getDateFnsLocale()}
                   showDateDisplay={false}
                   showMonthAndYearPickers={false}
                   ranges={[

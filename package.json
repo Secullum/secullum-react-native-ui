@@ -19,7 +19,7 @@
     "docs:publish": "docz build && gh-pages -d .docz/dist"
   },
   "dependencies": {
-    "date-fns": "^1.29.0",
+    "date-fns": "2.0.0-alpha.7",
     "react-date-range": "^1.0.0-beta",
     "react-native-drawer-layout": "^2.0.0",
     "react-native-elevated-view": "^0.0.6",
@@ -36,6 +36,7 @@
     "@types/react-native-elevated-view": "^0.0.2",
     "@types/react-native-vector-icons": "^6.4.0",
     "docz": "^0.11.2",
+    "docz-plugin-css": "^0.11.0",
     "docz-plugin-react-native": "^0.11.2",
     "gh-pages": "^2.0.0",
     "prettier": "^1.12.1",
