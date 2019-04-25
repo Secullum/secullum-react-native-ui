@@ -133,43 +133,47 @@ export class RangeDatePicker extends React.Component<
     const styles = this.getStyles();
 
     return (
-      <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
-        <View style={[styles.container, style]}>
-          <View
-            ref={ref => ref && ref.setNativeProps({ id: 'range-date-picker' })}
-          >
-            <Text style={styles.label}>{label}</Text>
-            <Text style={styles.value}>{displayText}</Text>
+      <>
+        <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
+          <View style={[styles.container, style]}>
+            <View
+              ref={ref =>
+                ref && ref.setNativeProps({ id: 'range-date-picker' })
+              }
+            >
+              <Text style={styles.label}>{label}</Text>
+              <Text style={styles.value}>{displayText}</Text>
+            </View>
+            <FontAwesome name="calendar" style={styles.icon} />
           </View>
-          <FontAwesome name="calendar" style={styles.icon} />
-          {showStartDateModal &&
-            ReactDOM.createPortal(
-              <div
-                ref={this.calendarRef}
-                style={{
-                  position: 'absolute',
-                  paddingTop: '50px',
-                  marginLeft: '-10px'
-                }}
-              >
-                <DateRange
-                  locale={getDateFnsLocale()}
-                  showDateDisplay={false}
-                  showMonthAndYearPickers={false}
-                  ranges={[
-                    {
-                      startDate: startDate,
-                      endDate: endDate,
-                      key: 'selection'
-                    }
-                  ]}
-                  onChange={this.handleRangeDateConfirm}
-                />
-              </div>,
-              document.getElementById('range-date-picker') as Element
-            )}
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+        {showStartDateModal &&
+          ReactDOM.createPortal(
+            <div
+              ref={this.calendarRef}
+              style={{
+                position: 'absolute',
+                paddingTop: '50px',
+                marginLeft: '-10px'
+              }}
+            >
+              <DateRange
+                locale={getDateFnsLocale()}
+                showDateDisplay={false}
+                showMonthAndYearPickers={false}
+                ranges={[
+                  {
+                    startDate: startDate,
+                    endDate: endDate,
+                    key: 'selection'
+                  }
+                ]}
+                onChange={this.handleRangeDateConfirm}
+              />
+            </div>,
+            document.getElementById('range-date-picker') as Element
+          )}
+      </>
     );
   }
 }
