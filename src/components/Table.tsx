@@ -15,7 +15,8 @@ import {
 export interface TableColumn {
   key: string;
   title: string;
-  width: number;
+  headerStyle?: StyleProp<TextStyle>;
+  style?: StyleProp<TextStyle>;
   type: 'text' | 'icon';
 }
 
@@ -47,7 +48,8 @@ export class Table extends React.Component<TableProperties> {
                 style={[
                   styles.cell,
                   styles.cellHeader,
-                  { width: column.width }
+                  column.style,
+                  column.headerStyle
                 ]}
               >
                 {column.title}
@@ -77,12 +79,12 @@ export class Table extends React.Component<TableProperties> {
                   <FontAwesome
                     key={column.key}
                     name={row[column.key].toString()}
-                    style={[styles.cellIcon, style, { width: column.width }]}
+                    style={[styles.cellIcon, style, column.style]}
                   />
                 ) : (
                   <Text
                     key={column.key}
-                    style={[styles.cell, style, { width: column.width }]}
+                    style={[styles.cell, style, column.style]}
                   >
                     {row[column.key].toString()}
                   </Text>
