@@ -18,6 +18,18 @@
   }
 }
 
+@media (max-width: 480px) {
+  .rdrCalendarWrapper {
+    width: 240px;
+  }
+  .rdrMonth {
+    width: 210px;
+  }
+  .rdrDay {
+    height: 30px !important;
+  }
+}
+
 .rdrDateDisplay {
   background-color: #eff2f7;
   padding: 0.833em;
