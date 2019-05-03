@@ -62,8 +62,7 @@
 .rdrMonthAndYearWrapper {
   align-items: center;
   height: 60px;
-  padding-top: 10px;
-  background-color: #3d91ff;
+  background-color: #0c65c7;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -107,7 +106,6 @@
   background: transparent;
 }
 .rdrNextPrevButton:hover {
-  background: #e1e7f0;
   opacity: 0.6;
 }
 .rdrNextPrevButton i {
@@ -123,13 +121,13 @@
 
 .rdrPprevButton i {
   border-width: 8px 10px 8px 8px;
-  border-color: transparent #34495e transparent transparent;
+  border-color: transparent white transparent transparent;
   transform: translate(-6px, 0px);
 }
 
 .rdrNextButton i {
   border-width: 8px 10px 8px 8px;
-  border-color: transparent transparent transparent #34495e;
+  border-color: transparent transparent transparent white;
   transform: translate(6px, 0px);
 }
 
@@ -195,7 +193,7 @@
   width: 18px;
   height: 2px;
   border-radius: 2px;
-  background: #3d91ff;
+  background: #0c65c7;
 }
 
 .rdrDayToday .rdrInRange ~ .rdrDayNumber span:after,

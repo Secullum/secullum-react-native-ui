@@ -17,6 +17,7 @@ declare module 'react-date-range' {
     showMonthAndYearPickers?: boolean;
     onChange: (ranges: any) => void;
     ranges: Range[];
+    rangeColors?: string[];
     locale?: object;
   }
 

@@ -130,6 +130,7 @@ export class RangeDatePicker extends React.Component<
       ' - ' +
       formatDate(endDate, displayFormat);
 
+    const theme = getTheme();
     const styles = this.getStyles();
 
     return (
@@ -168,6 +169,7 @@ export class RangeDatePicker extends React.Component<
                     key: 'selection'
                   }
                 ]}
+                rangeColors={[theme.backgroundColor3]}
                 onChange={this.handleRangeDateConfirm}
               />
             </div>,
