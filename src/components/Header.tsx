@@ -73,11 +73,11 @@ export class Header extends React.Component<HeaderProperties> {
           size={isTablet() ? 30 : 20}
           color={button.disabled ? theme.textColor1 : theme.textColor4}
         />
-        {button.counter && (
+        {button.counter ? (
           <View style={styles.counterContainer}>
             <Text style={styles.counterText}>{button.counter}</Text>
           </View>
-        )}
+        ) : null}
       </>
     );
 
