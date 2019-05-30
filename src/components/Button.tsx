@@ -17,6 +17,7 @@ export interface ButtonProperties {
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   onPress: () => void;
+  disabled?: boolean;
 }
 
 export class Button extends React.Component<ButtonProperties> {
@@ -49,6 +50,12 @@ export class Button extends React.Component<ButtonProperties> {
       },
       textPrimary: {
         color: theme.textColor4
+      },
+      disabled: {
+        backgroundColor: theme.backgroundColor2
+      },
+      textDisabled: {
+        color: 'silver'
       }
     });
 
@@ -56,17 +63,30 @@ export class Button extends React.Component<ButtonProperties> {
   };
 
   render() {
-    const { text, primary, style, textStyle, onPress } = this.props;
+    const { text, primary, style, textStyle, onPress, disabled } = this.props;
 
     const styles = this.getStyles();
 
     return (
       <TouchableOpacity
         activeOpacity={0.7}
-        style={[styles.touchable, primary && styles.touchablePrimary, style]}
+        style={[
+          styles.touchable,
+          primary && styles.touchablePrimary,
+          style,
+          disabled ? styles.disabled : ''
+        ]}
         onPress={onPress}
+        disabled={disabled}
       >
-        <Text style={[styles.text, primary && styles.textPrimary, textStyle]}>
+        <Text
+          style={[
+            styles.text,
+            primary && styles.textPrimary,
+            textStyle,
+            disabled ? styles.textDisabled : ''
+          ]}
+        >
           {text}
         </Text>
       </TouchableOpacity>
