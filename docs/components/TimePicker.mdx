@@ -5,8 +5,7 @@ menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
-import { Space } from '../../src/components/Space.tsx';
-import { TimePicker } from '../../src/components/TimePicker.tsx';
+import { TimePicker } from '../../src/components/TimePicker.web.tsx';
 
 # TimePicker
 
@@ -17,13 +16,26 @@ import { TimePicker } from '../../src/components/TimePicker.tsx';
 ## Example
 
 <Playground>
-  <TimePicker
-    label="Time"
-  />
-  <Space />
-  <TimePicker
-    label="Time"
-    value="13:00"
-    onChange={value => alert(value)}
-  />
+  {() => {
+    class TimePickerExample extends React.Component {
+      constructor() {
+        this.state = {
+          value: '08:00',
+          endDate: new Date(1990, 9, 31)
+        };
+      }
+
+      render() {
+        return (
+          <TimePicker
+            label="Time"
+            value={this.state.value}
+            onChange={value => this.setState({ value })}
+          />
+        );
+      }
+    }
+
+    return <TimePickerExample />;
+  }}
 </Playground>

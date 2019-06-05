@@ -5,8 +5,8 @@ menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
-import { Space } from '../../src/components/Space.tsx';
-import { DatePicker } from '../../src/components/DatePicker.tsx';
+import { View } from 'react-native';
+import { DatePicker } from '../../src/components/DatePicker.web.tsx';
 
 # DatePicker
 
@@ -17,13 +17,27 @@ import { DatePicker } from '../../src/components/DatePicker.tsx';
 ## Example
 
 <Playground>
-  <DatePicker
-    label="Date"
-  />
-  <Space />
-  <DatePicker
-    label="Date"
-    value={new Date(2018, 9, 29)}
-    onChange={value => alert(value)}
-  />
+  {() => {
+    class DatePickerExample extends React.Component {
+      constructor() {
+        this.state = {
+          date: new Date(1990, 9, 1)
+        };
+      }
+
+      render() {
+        return (
+          <View style={{ height: 350 }}>
+            <DatePicker
+              label="Date"
+              value={this.state.date}
+              onChange={date => this.setState({ date })}
+            />
+          </View>
+        );
+      }
+    }
+
+    return <DatePickerExample />;
+  }}
 </Playground>

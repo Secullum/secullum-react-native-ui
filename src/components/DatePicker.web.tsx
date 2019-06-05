@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 
 import 'react-date-range/dist/styles.css';
+import '../../styles/RangeDatePicker.css';
 
 export interface DatePickerProperties {
   label: string;
@@ -68,6 +69,10 @@ export class DatePicker extends React.Component<
     this.setState({ showModal: true });
   };
 
+  handleClear = () => {
+    this.props.onChange(undefined);
+  };
+
   handleConfirm = (value: any) => {
     this.props.onChange(value);
     this.setState({ showModal: false });
@@ -103,11 +108,6 @@ export class DatePicker extends React.Component<
       clearIcon: {
         borderWidth: 0,
         marginLeft: 'auto'
-      },
-      calendar: {
-        position: 'absolute',
-        paddingTop: 20,
-        marginLeft: -150
       }
     });
 
@@ -125,29 +125,32 @@ export class DatePicker extends React.Component<
       <>
         <TouchableWithoutFeedback onPress={this.handlePress}>
           <View style={[styles.container, style]}>
-            <View>
+            <View ref={ref => ref && ref.setNativeProps({ id: 'date-picker' })}>
               <Text style={styles.label}>{label}</Text>
               <Text style={styles.value}>
                 {value != undefined ? formatDate(value, dateFormat) : ''}
               </Text>
             </View>
-            <View
-              ref={ref => ref && ref.setNativeProps({ id: 'date-picker' })}
-            />
             <ImageButton
               icon={value && clearable ? 'times' : 'calendar'}
               style={styles.clearIcon}
               iconColor={
                 value && clearable ? theme.textColor1 : theme.textColor2
               }
-              onPress={this.handlePress}
+              onPress={value && clearable ? this.handleClear : this.handlePress}
               hitBoxSize={30}
             />
           </View>
         </TouchableWithoutFeedback>
         {this.state.showModal &&
           ReactDOM.createPortal(
-            <div ref={this.calendarRef} style={styles.calendar}>
+            <div
+              ref={this.calendarRef}
+              style={{
+                position: 'absolute',
+                paddingTop: '32px'
+              }}
+            >
               <Calendar
                 showMonthAndYearPickers={false}
                 date={value}
