@@ -21,5 +21,12 @@ declare module 'react-date-range' {
     locale?: object;
   }
 
+  interface CalendarProps {
+    showMonthAndYearPickers?: boolean;
+    date: Date | undefined;
+    onChange: (date: Date) => void;
+  }
+
   export class DateRange extends React.Component<DateRangeProps> {}
+  export class Calendar extends React.Component<CalendarProps> {}
 }
