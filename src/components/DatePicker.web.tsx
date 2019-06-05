@@ -25,6 +25,7 @@ export interface DatePickerProperties {
   clearable?: boolean;
   onChange: (value?: Date) => void;
   style?: StyleProp<ViewStyle>;
+  dateFormat: string;
 }
 
 export interface DatePickerState {
@@ -36,7 +37,8 @@ export class DatePicker extends React.Component<
   DatePickerState
 > {
   static defaultProps = {
-    clearable: true
+    clearable: true,
+    dateFormat: 'dddd, DD/MM/YYYY'
   };
 
   state: DatePickerState = {
@@ -113,7 +115,7 @@ export class DatePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style } = this.props;
+    const { label, value, clearable, style, dateFormat } = this.props;
 
     const styles = this.getStyles();
 
@@ -126,9 +128,7 @@ export class DatePicker extends React.Component<
             <View>
               <Text style={styles.label}>{label}</Text>
               <Text style={styles.value}>
-                {value != undefined
-                  ? formatDate(value, 'dddd, DD/MM/YYYY')
-                  : ''}
+                {value != undefined ? formatDate(value, dateFormat) : ''}
               </Text>
             </View>
             <View
