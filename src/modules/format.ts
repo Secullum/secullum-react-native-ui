@@ -1,4 +1,4 @@
-import { format as dfnsFormat } from 'date-fns';
+import { format as dfnsFormat, parse as dfnsParse } from 'date-fns';
 
 const dfnslocales = {
   pt: require('date-fns/locale/pt'),
@@ -12,6 +12,10 @@ let currentLocale: Locale = 'pt';
 
 export const setLocale = (locale: Locale) => {
   currentLocale = locale;
+};
+
+export const parseDate = (date: string, format: string) => {
+  return dfnsParse(date, format, new Date());
 };
 
 export const getDateFnsLocale = () => {
