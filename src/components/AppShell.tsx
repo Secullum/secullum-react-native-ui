@@ -22,7 +22,12 @@ export interface AppShellProperties {
   greeting?: string;
   screenTitle: string;
   renderUserData?: () => React.ReactNode;
-  menu: Array<{ path: string; text: string }>;
+  menu: Array<{
+    path: string;
+    text: string;
+    disabled?: boolean;
+    subText?: string;
+  }>;
   onMenuPress: (path: string) => void;
   currentMenuPath?: string;
 }

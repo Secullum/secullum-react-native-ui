@@ -10,7 +10,12 @@ import {
 } from 'react-native';
 
 export interface MenuDesktopProperties {
-  menu: Array<{ path: string; text: string }>;
+  menu: Array<{
+    path: string;
+    text: string;
+    disabled?: boolean;
+    subText?: string;
+  }>;
   onMenuPress: (path: string) => void;
   currentMenuPath?: string;
   headerHeight: number;
@@ -45,6 +50,9 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
       },
       itemTextSelected: {
         color: theme.textColor2
+      },
+      itemTextDisabled: {
+        color: theme.borderColor1
       }
     });
 
@@ -62,17 +70,25 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
 
           const textStyles = [
             styles.itemText,
-            selected ? styles.itemTextSelected : null
+            selected ? styles.itemTextSelected : null,
+            menuItem.disabled && styles.itemTextDisabled
           ];
 
           return (
             <TouchableOpacity
               key={menuItem.path}
               onPress={() => onMenuPress(menuItem.path)}
-              disabled={selected}
+              disabled={selected || menuItem.disabled}
               style={styles.itemContainer}
             >
-              <Text style={textStyles}>{menuItem.text}</Text>
+              <Text style={textStyles}>
+                {menuItem.text}
+                {menuItem.subText && (
+                  <Text style={{ fontSize: 12, marginLeft: 5 }}>
+                    {menuItem.subText}
+                  </Text>
+                )}
+              </Text>
             </TouchableOpacity>
           );
         })}

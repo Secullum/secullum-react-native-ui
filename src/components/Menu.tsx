@@ -20,6 +20,8 @@ export interface MenuProperties {
   menu: Array<{
     path?: string;
     text: string;
+    disabled?: boolean;
+    subText?: string;
     submenu?: Array<{ path: string; text: string }>;
   }>;
   children: React.ReactNode;
@@ -113,6 +115,9 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
         fontSize: isTablet() ? 20 : 16,
         paddingVertical: isTablet() ? 15 : 14
       },
+      menuTextDisabled: {
+        color: theme.borderColor1
+      },
       submenuText: {
         color: theme.textColor1,
         fontFamily: 'Lato-Bold',
@@ -167,13 +172,25 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
               return (
                 <TouchableOpacity
                   key={index}
+                  disabled={menuItem.disabled}
                   onPress={() => {
                     this.close();
                     onMenuPress(menuItem.path || '');
                   }}
                 >
-                  <Text style={[styles.menuText, menuTextStyle]}>
+                  <Text
+                    style={[
+                      styles.menuText,
+                      menuItem.disabled && styles.menuTextDisabled,
+                      menuTextStyle
+                    ]}
+                  >
                     {menuItem.text}
+                    {menuItem.subText && (
+                      <Text style={{ fontSize: 12, marginLeft: 5 }}>
+                        {menuItem.subText}
+                      </Text>
+                    )}
                   </Text>
                 </TouchableOpacity>
               );
