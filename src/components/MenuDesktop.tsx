@@ -17,7 +17,7 @@ export interface MenuDesktopProperties {
     subText?: string;
   }>;
   onMenuPress: (path: string) => void;
-  currentMenuPath?: string;
+  isCurrentMenuPath?: (path: string) => boolean;
   headerHeight: number;
 }
 
@@ -60,13 +60,15 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
   };
 
   render() {
-    const { menu, onMenuPress, currentMenuPath } = this.props;
+    const { menu, onMenuPress, isCurrentMenuPath } = this.props;
     const styles = this.getStyles();
 
     return (
       <View style={styles.container}>
         {menu.map(menuItem => {
-          const selected = menuItem.path === currentMenuPath;
+          const selected = isCurrentMenuPath
+            ? isCurrentMenuPath(menuItem.path)
+            : false;
 
           const textStyles = [
             styles.itemText,

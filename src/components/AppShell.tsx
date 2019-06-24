@@ -30,6 +30,7 @@ export interface AppShellProperties {
   }>;
   onMenuPress: (path: string) => void;
   currentMenuPath?: string;
+  isCurrentMenuPath?: (path: string) => boolean;
 }
 
 export class AppShell extends React.Component<AppShellProperties> {
@@ -128,7 +129,7 @@ export class AppShell extends React.Component<AppShellProperties> {
       greeting,
       menu,
       onMenuPress,
-      currentMenuPath,
+      isCurrentMenuPath,
       children
     } = this.props;
 
@@ -142,7 +143,7 @@ export class AppShell extends React.Component<AppShellProperties> {
             menu={menu}
             headerHeight={HeaderDesktop.height}
             onMenuPress={onMenuPress}
-            currentMenuPath={currentMenuPath}
+            isCurrentMenuPath={isCurrentMenuPath}
           />
           <View style={styles.content}>{children}</View>
         </View>
