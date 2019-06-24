@@ -66,7 +66,9 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
     return (
       <View style={styles.container}>
         {menu.map(menuItem => {
-          const selected = isCurrentMenuPath!(menuItem.path);
+          const selected = isCurrentMenuPath
+            ? isCurrentMenuPath(menuItem.path)
+            : false;
 
           const textStyles = [
             styles.itemText,
