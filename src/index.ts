@@ -11,6 +11,7 @@ export * from './components/FilePicker';
 export * from './components/Header';
 export * from './components/HeaderDesktop';
 export * from './components/ImageButton';
+export * from './components/KeyboardAvoidingView';
 export * from './components/Link';
 export * from './components/Loading';
 export * from './components/Menu';
