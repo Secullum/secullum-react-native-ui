@@ -130,8 +130,11 @@ export class KeyboardAvoidingView extends React.Component<
   };
 
   render() {
+    // Android devices with notch will report less `availableHeight` than it should
+    // That's because of this: https://github.com/facebook/react-native/issues/23693
+    // If I change it to 'screen', Android devices with virtual buttons will report more than it should
     const availableHeight =
-      Dimensions.get('screen').height -
+      Dimensions.get('window').height -
       this.state.keyboardHeight -
       this.props.extraWindowHeight;
 
