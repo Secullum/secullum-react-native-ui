@@ -166,12 +166,12 @@ export class DropDown extends React.Component<
           >
             <View
               style={[
-                styles.modalContainer,
                 Platform.OS === 'web' && {
                   margin: 'auto',
                   width: '90%',
                   maxWidth: 450
-                }
+                },
+                styles.modalContainer
               ]}
             >
               {items.length > 0 ? (
