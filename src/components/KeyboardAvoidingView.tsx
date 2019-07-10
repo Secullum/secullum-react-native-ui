@@ -131,7 +131,7 @@ export class KeyboardAvoidingView extends React.Component<
 
   render() {
     const availableHeight =
-      Dimensions.get('window').height -
+      Dimensions.get('screen').height -
       this.state.keyboardHeight -
       this.props.extraWindowHeight;
 
