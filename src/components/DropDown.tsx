@@ -11,7 +11,8 @@ import {
   TouchableHighlight,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  Platform
 } from 'react-native';
 import { isTablet } from '../modules/layout';
 
@@ -163,7 +164,16 @@ export class DropDown extends React.Component<
             onRequestClose={() => this.setState({ modalOpen: false })}
             overlayStyle={styles.modalOverlay}
           >
-            <View style={styles.modalContainer}>
+            <View
+              style={[
+                Platform.OS === 'web' && {
+                  margin: 'auto',
+                  width: '90%',
+                  maxWidth: 450
+                },
+                styles.modalContainer
+              ]}
+            >
               {items.length > 0 ? (
                 <FlatList
                   data={items}
