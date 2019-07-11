@@ -170,7 +170,10 @@ export class DropDown extends React.Component<
                 Platform.OS === 'web' && {
                   margin: 'auto',
                   width: '90%',
-                  maxWidth: 450
+                  maxWidth: 450,
+                  justifyContent: 'center',
+                  marginBottom: '10px',
+                  marginTop: '10px'
                 }
               ]}
             >
