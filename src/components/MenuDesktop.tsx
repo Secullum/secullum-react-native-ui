@@ -45,7 +45,7 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
       },
       itemText: {
         fontFamily: 'Lato-Bold',
-        fontSize: 18,
+        fontSize: 16,
         color: theme.textColor1
       },
       itemTextSelected: {
