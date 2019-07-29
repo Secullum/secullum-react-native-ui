@@ -1,5 +1,12 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 
-export const isTablet = () =>
-  Dimensions.get('window').height >= 800 &&
-  Dimensions.get('window').width >= 500;
+export const isTablet = () => {
+  if (Platform.OS === 'web') {
+    return false;
+  }
+
+  return (
+    Dimensions.get('window').height >= 800 &&
+    Dimensions.get('window').width >= 500
+  );
+};
