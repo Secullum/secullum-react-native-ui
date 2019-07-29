@@ -76,6 +76,11 @@ export class KeyboardAvoidingView extends React.Component<
     }
 
     const currentlyFocusedField = TextInput.State.currentlyFocusedField();
+
+    if (!currentlyFocusedField) {
+      return;
+    }
+
     const { extraFieldHeight, extraWindowHeight } = this.props;
 
     // @ts-ignore: no types :(
