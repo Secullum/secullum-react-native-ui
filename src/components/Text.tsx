@@ -21,7 +21,7 @@ export class Text extends React.Component<TextProperties> {
   };
 
   render() {
-    const { bold, color, size, style, flex } = this.props;
+    const { bold, color, size, style, flex, align, children } = this.props;
     return (
       <TextNative
         style={[
@@ -29,12 +29,13 @@ export class Text extends React.Component<TextProperties> {
             color,
             flex,
             fontSize: size,
+            textAlign: align,
             fontFamily: bold ? 'Lato-Bold' : 'Lato-Regular'
           },
           style
         ]}
       >
-        {this.props.children}
+        {children}
       </TextNative>
     );
   }
