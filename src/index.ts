@@ -24,6 +24,7 @@ export * from './components/Space';
 export * from './components/StatusBar';
 export * from './components/Switch';
 export * from './components/Table';
+export * from './components/Text';
 export * from './components/TextBox';
 export * from './components/TimePicker';
 export * from './components/ErrorMessage';
