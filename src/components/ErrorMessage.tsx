@@ -23,6 +23,7 @@ const theme = getTheme();
 
 const styles = StyleSheet.create({
   errorMessage: {
+    fontFamily: 'Lato-Regular',
     color: theme.errorColor
   }
 });
