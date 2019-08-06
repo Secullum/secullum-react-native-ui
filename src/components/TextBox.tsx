@@ -59,6 +59,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
     const inputStyle = {
       color: theme.textColor1,
       fontFamily: 'Lato-Bold',
+      fontWeight: 'normal',
       fontSize: 16,
       minHeight: 22,
       padding: 0,
