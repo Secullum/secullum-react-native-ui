@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleProp,
+  TextStyle
+} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Card } from './Card';
 import { Space } from './Space';
@@ -23,6 +30,8 @@ export interface DetailsLine {
 export interface DetailsProperties {
   title: string;
   lines: Array<DetailsLine>;
+  lineTitleStyle?: StyleProp<TextStyle>;
+  lineValueStyle?: StyleProp<TextStyle>;
 }
 
 export class Details extends React.Component<DetailsProperties> {
@@ -49,6 +58,7 @@ export class Details extends React.Component<DetailsProperties> {
   };
 
   renderLine = (line: DetailsLine, index: number) => {
+    const { lineTitleStyle, lineValueStyle } = this.props;
     const { title, value, icons, render } = line;
 
     const sectionStyle = render
@@ -59,10 +69,14 @@ export class Details extends React.Component<DetailsProperties> {
       render()
     ) : (
       <>
-        <Text style={styles.lineTitle}>{title}</Text>
+        <Text style={[styles.lineText, styles.lineTitle, lineTitleStyle]}>
+          {title}
+        </Text>
         <View style={styles.lineValueContainer}>
           {icons && icons.map(this.renderIcon)}
-          <Text style={styles.lineTitle}>{value}</Text>
+          <Text style={[styles.lineText, styles.lineValue, lineValueStyle]}>
+            {value}
+          </Text>
         </View>
       </>
     );
@@ -106,21 +120,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: 45
+    minHeight: 45
   },
   lineSectionCustomRender: {
     padding: 0
   },
-  lineTitle: {
+  lineText: {
     fontFamily: 'Lato-Bold',
     fontSize: isTablet() ? 18 : 14,
     color: theme.textColor1,
-    minWidth: 40,
+    minWidth: 40
+  },
+  lineValue: {
+    textAlign: 'center'
+  },
+  lineTitle: {
+    flex: 1,
     textAlign: 'left'
   },
   lineValueContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'flex-end'
   },
   lineValueIcon: {
     width: 25,
