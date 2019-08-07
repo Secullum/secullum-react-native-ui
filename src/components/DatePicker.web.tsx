@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
-import { formatDate } from '../modules/format';
+import { formatDate, getDateFnsLocale } from '../modules/format';
 import { ImageButton } from './ImageButton';
 
 import { Calendar } from 'react-date-range';
@@ -152,6 +152,7 @@ export class DatePicker extends React.Component<
               }}
             >
               <Calendar
+                locale={getDateFnsLocale()}
                 showMonthAndYearPickers={false}
                 date={value}
                 onChange={this.handleConfirm}
