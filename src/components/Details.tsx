@@ -35,7 +35,56 @@ export interface DetailsProperties {
 }
 
 export class Details extends React.Component<DetailsProperties> {
+  getStyles = () => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      title: {
+        fontFamily: 'Lato-Bold',
+        fontSize: isTablet() ? 22 : 18,
+        color: theme.textColor1
+      },
+      lineSection: {
+        paddingVertical: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        minHeight: 45
+      },
+      lineSectionCustomRender: {
+        padding: 0
+      },
+      lineText: {
+        fontFamily: 'Lato-Bold',
+        fontSize: isTablet() ? 18 : 14,
+        color: theme.textColor1,
+        minWidth: 40
+      },
+      lineValue: {
+        textAlign: 'center'
+      },
+      lineTitle: {
+        flex: 1,
+        textAlign: 'left'
+      },
+      lineValueContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'flex-end'
+      },
+      lineValueIcon: {
+        width: 25,
+        textAlign: 'center'
+      }
+    });
+
+    return styles;
+  };
+
   renderIcon = (icon: DetailsIcon, index: number) => {
+    const styles = this.getStyles();
+
     const fa = (
       <FontAwesome
         key={index}
@@ -58,6 +107,8 @@ export class Details extends React.Component<DetailsProperties> {
   };
 
   renderLine = (line: DetailsLine, index: number) => {
+    const styles = this.getStyles();
+
     const { lineTitleStyle, lineValueStyle } = this.props;
     const { title, value, icons, render } = line;
 
@@ -93,6 +144,7 @@ export class Details extends React.Component<DetailsProperties> {
 
   render() {
     const { title, lines } = this.props;
+    const styles = this.getStyles();
 
     return (
       <>
@@ -106,46 +158,3 @@ export class Details extends React.Component<DetailsProperties> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  title: {
-    fontFamily: 'Lato-Bold',
-    fontSize: isTablet() ? 22 : 18,
-    color: theme.textColor1
-  },
-  lineSection: {
-    paddingVertical: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    minHeight: 45
-  },
-  lineSectionCustomRender: {
-    padding: 0
-  },
-  lineText: {
-    fontFamily: 'Lato-Bold',
-    fontSize: isTablet() ? 18 : 14,
-    color: theme.textColor1,
-    minWidth: 40
-  },
-  lineValue: {
-    textAlign: 'center'
-  },
-  lineTitle: {
-    flex: 1,
-    textAlign: 'left'
-  },
-  lineValueContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'flex-end'
-  },
-  lineValueIcon: {
-    width: 25,
-    textAlign: 'center'
-  }
-});

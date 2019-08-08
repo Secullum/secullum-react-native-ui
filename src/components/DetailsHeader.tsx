@@ -12,10 +12,47 @@ export interface DetailsHeaderProperties {
 }
 
 export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
+  getStyles = () => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      },
+      text: {
+        fontFamily: 'Lato-Bold',
+        fontSize: isTablet() ? 22 : 18,
+        color: theme.textColor1,
+        width: '80%',
+        textAlign: 'center'
+      },
+      button: {
+        height: isTablet() ? 28 : 24,
+        width: isTablet() ? 28 : 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderColor: theme.borderColor1,
+        borderWidth: 1,
+        borderRadius: 24
+      },
+      buttonPlaceholder: {
+        height: isTablet() ? 28 : 24,
+        width: isTablet() ? 28 : 24
+      }
+    });
+
+    return styles;
+  };
+
   renderButton = (
     type: 'left' | 'right',
     onPress: (() => void) | undefined
   ) => {
+    const styles = this.getStyles();
+    const theme = getTheme();
+
     if (onPress) {
       return (
         <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -33,6 +70,7 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
 
   render() {
     const { text, onLeftPress, onRightPress } = this.props;
+    const styles = this.getStyles();
 
     return (
       <Card>
@@ -45,33 +83,3 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  text: {
-    fontFamily: 'Lato-Bold',
-    fontSize: isTablet() ? 22 : 18,
-    color: theme.textColor1,
-    width: '80%',
-    textAlign: 'center'
-  },
-  button: {
-    height: isTablet() ? 28 : 24,
-    width: isTablet() ? 28 : 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: theme.borderColor1,
-    borderWidth: 1,
-    borderRadius: 24
-  },
-  buttonPlaceholder: {
-    height: isTablet() ? 28 : 24,
-    width: isTablet() ? 28 : 24
-  }
-});
