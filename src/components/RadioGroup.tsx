@@ -11,7 +11,7 @@ export interface RadioGroupProperties {
 }
 
 export class RadioGroup extends React.Component<RadioGroupProperties> {
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

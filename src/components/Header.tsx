@@ -24,7 +24,7 @@ export class Header extends React.Component<HeaderProperties> {
 
   static height = isTablet() ? 65 : 50;
 
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

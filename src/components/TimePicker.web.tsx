@@ -36,7 +36,7 @@ export class TimePicker extends React.Component<TimePickerProperties> {
     disabled: false
   };
 
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

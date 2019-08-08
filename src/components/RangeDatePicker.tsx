@@ -78,7 +78,7 @@ export class RangeDatePicker extends React.Component<
     });
   };
 
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

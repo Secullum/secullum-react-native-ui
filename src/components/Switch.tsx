@@ -22,7 +22,7 @@ export interface SwitchProperties {
 }
 
 export class Switch extends React.Component<SwitchProperties> {
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

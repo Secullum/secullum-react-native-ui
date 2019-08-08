@@ -53,23 +53,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
     blurOnSubmit: true
   };
 
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
-
-    const inputStyle = {
-      color: theme.textColor1,
-      fontFamily: 'Lato-Bold',
-      fontWeight: 'normal',
-      fontSize: 16,
-      minHeight: 22,
-      padding: 0,
-      margin: 0,
-      outline: '0'
-    };
-
-    if (Platform.OS !== 'web') {
-      delete inputStyle.outline;
-    }
 
     const styles = StyleSheet.create({
       container: {
@@ -85,7 +70,16 @@ export class TextBox extends React.Component<TextBoxProperties> {
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
-      input: inputStyle,
+      input: {
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontWeight: 'normal',
+        fontSize: 16,
+        minHeight: 22,
+        padding: 0,
+        margin: 0,
+        ...(Platform.OS === 'web' ? { outline: '0' } : {})
+      },
       readonly: {
         backgroundColor: theme.disabledColor
       }

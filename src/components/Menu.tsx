@@ -83,7 +83,7 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
     }
   };
 
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

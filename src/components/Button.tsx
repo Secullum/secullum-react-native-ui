@@ -25,7 +25,7 @@ export class Button extends React.Component<ButtonProperties> {
     primary: true
   };
 
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({
@@ -74,7 +74,7 @@ export class Button extends React.Component<ButtonProperties> {
           styles.touchable,
           primary && styles.touchablePrimary,
           style,
-          disabled ? styles.disabled : ''
+          disabled && styles.disabled
         ]}
         onPress={onPress}
         disabled={disabled}
@@ -84,7 +84,7 @@ export class Button extends React.Component<ButtonProperties> {
             styles.text,
             primary && styles.textPrimary,
             textStyle,
-            disabled ? styles.textDisabled : ''
+            disabled && styles.textDisabled
           ]}
         >
           {text}

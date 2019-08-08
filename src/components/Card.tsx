@@ -22,7 +22,7 @@ export interface CardHeaderProperties {
 }
 
 export class CardHeader extends React.Component<CardHeaderProperties> {
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

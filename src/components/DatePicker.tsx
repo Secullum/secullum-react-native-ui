@@ -56,7 +56,7 @@ export class DatePicker extends React.Component<
     this.props.onChange(undefined);
   };
 
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

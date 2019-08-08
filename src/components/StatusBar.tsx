@@ -10,7 +10,7 @@ import {
 export class StatusBar extends React.Component {
   static height = ReactNativeStatusBar.currentHeight || 20;
 
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

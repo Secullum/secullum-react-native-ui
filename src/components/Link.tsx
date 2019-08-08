@@ -16,7 +16,7 @@ export interface LinkProperties {
 }
 
 export class Link extends React.Component<LinkProperties> {
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({

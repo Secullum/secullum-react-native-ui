@@ -80,7 +80,7 @@ export class DropDown extends React.Component<
     onChange(value);
   };
 
-  getStyles = (): any => {
+  getStyles = () => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({
