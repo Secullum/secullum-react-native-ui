@@ -64,13 +64,14 @@ export class Details extends React.Component<DetailsProperties> {
         textAlign: 'center'
       },
       lineTitle: {
-        flex: 1,
-        textAlign: 'left'
+        textAlign: 'left',
+        flexShrink: 0
       },
       lineValueContainer: {
         flexDirection: 'row',
+        flexGrow: 1,
+        flexShrink: 1,
         alignItems: 'center',
-        flex: 1,
         justifyContent: 'flex-end'
       },
       lineValueIcon: {
