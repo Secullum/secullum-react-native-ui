@@ -121,9 +121,9 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
       submenuText: {
         color: theme.textColor1,
         fontFamily: 'Lato-Bold',
-        fontSize: 16,
+        fontSize: isTablet() ? 20 : 16,
         paddingLeft: 20,
-        paddingVertical: 8
+        paddingVertical: isTablet() ? 10 : 8
       },
       submenuTitleIcon: {
         paddingTop: 15,
