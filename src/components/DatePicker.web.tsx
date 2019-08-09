@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
 import { formatDate, getDateFnsLocale } from '../modules/format';
 import { ImageButton } from './ImageButton';
+import { Modal } from './Modal';
 
 import { Calendar } from 'react-date-range';
 
@@ -92,6 +92,10 @@ export class DatePicker extends React.Component<
         flexDirection: 'row',
         alignItems: 'center'
       },
+      modalOverlay: {
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
       label: {
         color: theme.textColor2,
         fontFamily: 'Lato-Regular',
@@ -140,26 +144,30 @@ export class DatePicker extends React.Component<
               onPress={value && clearable ? this.handleClear : this.handlePress}
               hitBoxSize={30}
             />
+            <Modal
+              visible={this.state.showModal}
+              overlayStyle={styles.modalOverlay}
+            >
+              <div
+                ref={this.calendarRef}
+                style={{
+                  borderRadius: 5,
+                  margin: 'auto',
+                  maxWidth: 450,
+                  justifyContent: 'center',
+                  marginBottom: '10px',
+                  marginTop: '10px'
+                }}
+              >
+                <Calendar
+                  locale={getDateFnsLocale()}
+                  date={value}
+                  onChange={this.handleConfirm}
+                />
+              </div>
+            </Modal>
           </View>
         </TouchableWithoutFeedback>
-        {this.state.showModal &&
-          ReactDOM.createPortal(
-            <div
-              ref={this.calendarRef}
-              style={{
-                position: 'absolute',
-                paddingTop: '32px'
-              }}
-            >
-              <Calendar
-                locale={getDateFnsLocale()}
-                showMonthAndYearPickers={false}
-                date={value}
-                onChange={this.handleConfirm}
-              />
-            </div>,
-            document.getElementById('date-picker') as Element
-          )}
       </>
     );
   }
