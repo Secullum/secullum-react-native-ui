@@ -55,6 +55,7 @@ export interface DropDownProperties {
   emptyMessage?: string;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  labelStyle?: StyleProp<ViewStyle>;
 }
 
 export interface DropDownState {
@@ -139,7 +140,15 @@ export class DropDown extends React.Component<
 
   render() {
     const { modalOpen } = this.state;
-    const { label, items, value, emptyMessage, style, disabled } = this.props;
+    const {
+      label,
+      items,
+      value,
+      emptyMessage,
+      style,
+      disabled,
+      labelStyle
+    } = this.props;
     const selectedItem = items.find(x => x.value === value);
 
     const styles = this.getStyles();
@@ -154,7 +163,7 @@ export class DropDown extends React.Component<
         <View
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
-          <Text style={styles.label}>{label}</Text>
+          <Text style={[styles.label, labelStyle]}>{label}</Text>
           <Text style={styles.text}>
             {selectedItem ? selectedItem.label : '-'}
           </Text>
