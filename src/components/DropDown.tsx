@@ -57,6 +57,7 @@ export interface DropDownProperties {
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  inputStyle?: StyleProp<TextStyle>;
 }
 
 export interface DropDownState {
@@ -148,7 +149,8 @@ export class DropDown extends React.Component<
       emptyMessage,
       style,
       disabled,
-      labelStyle
+      labelStyle,
+      inputStyle
     } = this.props;
     const selectedItem = items.find(x => x.value === value);
 
@@ -165,7 +167,7 @@ export class DropDown extends React.Component<
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           <Text style={[styles.label, labelStyle]}>{label}</Text>
-          <Text style={styles.text}>
+          <Text style={[styles.text, inputStyle]}>
             {selectedItem ? selectedItem.label : '-'}
           </Text>
           <FontAwesome name="caret-down" style={styles.seta} />
