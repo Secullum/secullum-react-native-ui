@@ -12,7 +12,8 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewStyle,
-  Platform
+  Platform,
+  TextStyle
 } from 'react-native';
 import { isTablet } from '../modules/layout';
 
@@ -55,7 +56,7 @@ export interface DropDownProperties {
   emptyMessage?: string;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
-  labelStyle?: StyleProp<ViewStyle>;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 export interface DropDownState {
