@@ -126,49 +126,43 @@ export class DatePicker extends React.Component<
     const theme = getTheme();
 
     return (
-      <>
-        <TouchableWithoutFeedback onPress={this.handlePress}>
-          <View style={[styles.container, style]}>
-            <View ref={ref => ref && ref.setNativeProps({ id: 'date-picker' })}>
-              <Text style={styles.label}>{label}</Text>
-              <Text style={styles.value}>
-                {value != undefined ? formatDate(value, dateFormat) : ''}
-              </Text>
-            </View>
-            <ImageButton
-              icon={value && clearable ? 'times' : 'calendar'}
-              style={styles.clearIcon}
-              iconColor={
-                value && clearable ? theme.textColor1 : theme.textColor2
-              }
-              onPress={value && clearable ? this.handleClear : this.handlePress}
-              hitBoxSize={30}
-            />
-            <Modal
-              visible={this.state.showModal}
-              overlayStyle={styles.modalOverlay}
-            >
-              <div
-                ref={this.calendarRef}
-                style={{
-                  borderRadius: 5,
-                  margin: 'auto',
-                  maxWidth: 450,
-                  justifyContent: 'center',
-                  marginBottom: '10px',
-                  marginTop: '10px'
-                }}
-              >
-                <Calendar
-                  locale={getDateFnsLocale()}
-                  date={value}
-                  onChange={this.handleConfirm}
-                />
-              </div>
-            </Modal>
+      <TouchableWithoutFeedback onPress={this.handlePress}>
+        <View style={[styles.container, style]}>
+          <View ref={ref => ref && ref.setNativeProps({ id: 'date-picker' })}>
+            <Text style={styles.label}>{label}</Text>
+            <Text style={styles.value}>
+              {value != undefined ? formatDate(value, dateFormat) : ''}
+            </Text>
           </View>
-        </TouchableWithoutFeedback>
-      </>
+          <ImageButton
+            icon={value && clearable ? 'times' : 'calendar'}
+            style={styles.clearIcon}
+            iconColor={value && clearable ? theme.textColor1 : theme.textColor2}
+            onPress={value && clearable ? this.handleClear : this.handlePress}
+            hitBoxSize={30}
+          />
+          <Modal
+            visible={this.state.showModal}
+            overlayStyle={styles.modalOverlay}
+          >
+            <div
+              ref={this.calendarRef}
+              style={{
+                borderRadius: '5px',
+                position: 'absolute',
+                top: '50%',
+                marginTop: '-150px'
+              }}
+            >
+              <Calendar
+                locale={getDateFnsLocale()}
+                date={value}
+                onChange={this.handleConfirm}
+              />
+            </div>
+          </Modal>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

@@ -138,51 +138,45 @@ export class RangeDatePicker extends React.Component<
     const styles = this.getStyles();
 
     return (
-      <>
-        <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
-          <View style={[styles.container, style]}>
-            <View
-              ref={ref =>
-                ref && ref.setNativeProps({ id: 'range-date-picker' })
-              }
-            >
-              <Text style={styles.label}>{label}</Text>
-              <Text style={styles.value}>{displayText}</Text>
-            </View>
-            <FontAwesome name="calendar" style={styles.icon} />
-            <Modal
-              visible={showStartDateModal}
-              overlayStyle={styles.modalOverlay}
-            >
-              <div
-                ref={this.calendarRef}
-                style={{
-                  borderRadius: 5,
-                  margin: 'auto',
-                  maxWidth: 450,
-                  justifyContent: 'center',
-                  marginBottom: '10px',
-                  marginTop: '10px'
-                }}
-              >
-                <DateRange
-                  locale={getDateFnsLocale()}
-                  showDateDisplay={false}
-                  ranges={[
-                    {
-                      startDate: startDate,
-                      endDate: endDate,
-                      key: 'selection'
-                    }
-                  ]}
-                  rangeColors={[theme.backgroundColor3]}
-                  onChange={this.handleRangeDateConfirm}
-                />
-              </div>
-            </Modal>
+      <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
+        <View style={[styles.container, style]}>
+          <View
+            ref={ref => ref && ref.setNativeProps({ id: 'range-date-picker' })}
+          >
+            <Text style={styles.label}>{label}</Text>
+            <Text style={styles.value}>{displayText}</Text>
           </View>
-        </TouchableWithoutFeedback>
-      </>
+          <FontAwesome name="calendar" style={styles.icon} />
+          <Modal
+            visible={showStartDateModal}
+            overlayStyle={styles.modalOverlay}
+          >
+            <div
+              ref={this.calendarRef}
+              style={{
+                borderRadius: '5px',
+                position: 'absolute',
+                top: '50%',
+                marginTop: '-150px'
+              }}
+            >
+              <DateRange
+                locale={getDateFnsLocale()}
+                showDateDisplay={false}
+                ranges={[
+                  {
+                    startDate: startDate,
+                    endDate: endDate,
+                    key: 'selection'
+                  }
+                ]}
+                rangeColors={[theme.backgroundColor3]}
+                onChange={this.handleRangeDateConfirm}
+              />
+            </div>
+          </Modal>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
