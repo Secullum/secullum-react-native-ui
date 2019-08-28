@@ -22,12 +22,80 @@ interface DropDownItemProperties {
   last: boolean;
   label: string;
   value: any;
+  icon?: string;
   onPress: (value: any) => void;
 }
 
 class DropDownItem extends React.PureComponent<DropDownItemProperties> {
+  getStyles = (): any => {
+    const styles = StyleSheet.create({
+      modalItem: {
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16
+      },
+      icon: {
+        fontSize: 26
+      },
+      rowView: {
+        flexDirection: 'row'
+      },
+      iconView: {
+        width: 100,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      iconOnlyView: {
+        width: 200,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      iconOnly: {
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        fontSize: 60
+      }
+    });
+
+    return styles;
+  };
+
+  renderOpenDropdownItem = () => {
+    const { label, icon } = this.props;
+
+    const styles = this.getStyles();
+
+    if (label && icon) {
+      return (
+        <View style={styles.rowView}>
+          <View style={styles.iconView}>
+            <FontAwesome name={icon} color={'black'} style={styles.icon} />
+          </View>
+          <View>
+            <Text style={styles.modalItem}>{label}</Text>
+          </View>
+        </View>
+      );
+    } else if (label && !icon) {
+      return (
+        <View style={styles.rowView}>
+          <Text style={styles.modalItem}>{label}</Text>
+        </View>
+      );
+    } else if (!label && icon) {
+      return (
+        <View style={styles.iconOnlyView}>
+          <FontAwesome name={icon} color={'black'} style={styles.iconOnly} />
+        </View>
+      );
+    }
+
+    return;
+  };
+
   render() {
-    const { first, last, label, value, onPress } = this.props;
+    const { first, last, value, onPress } = this.props;
 
     const theme = getTheme();
 
@@ -42,7 +110,7 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
           borderBottomRightRadius: last ? 5 : 0
         }}
       >
-        <Text style={stylesModal.modalItem}>{label}</Text>
+        {this.renderOpenDropdownItem()}
       </TouchableHighlight>
     );
   }
@@ -50,7 +118,7 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
 
 export interface DropDownProperties {
   label: string;
-  items: Array<{ label: string; value: any }>;
+  items: Array<{ label: string; value: any; icon?: string }>;
   value: any | null;
   onChange: (value: any) => void;
   emptyMessage?: string;
@@ -83,7 +151,59 @@ export class DropDown extends React.Component<
     onChange(value);
   };
 
-  getStyles = () => {
+  renderClosedDropdown = (item: any, inputStyle: any) => {
+    const styles = this.getStyles();
+
+    if (item && item.label && item.icon) {
+      return (
+        <>
+          <View style={styles.rowView}>
+            <View style={styles.iconView}>
+              <FontAwesome
+                name={item.icon}
+                color={'black'}
+                style={styles.icon}
+              />
+            </View>
+            <Text style={[styles.text, inputStyle]}>
+              {item ? item.label : '-'}
+            </Text>
+          </View>
+
+          <FontAwesome name="caret-down" style={styles.seta} />
+        </>
+      );
+    } else if (item && item.label && !item.icon) {
+      return (
+        <>
+          <Text style={[styles.text, inputStyle]}>
+            {item ? item.label : '-'}
+          </Text>
+          <FontAwesome name="caret-down" style={styles.seta} />
+        </>
+      );
+    } else if (item && !item.label && item.icon) {
+      return (
+        <>
+          <FontAwesome
+            name={item.icon}
+            color={'black'}
+            style={styles.iconOnly}
+          />
+          <FontAwesome name="caret-down" style={styles.setaIcone} />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Text style={[styles.text, inputStyle]}>-</Text>
+          <FontAwesome name="caret-down" style={styles.seta} />
+        </>
+      );
+    }
+  };
+
+  getStyles = (): any => {
     const theme = getTheme();
 
     const styles = StyleSheet.create({
@@ -113,6 +233,13 @@ export class DropDown extends React.Component<
         bottom: 10,
         right: 16
       },
+      setaIcone: {
+        color: theme.textColor1,
+        fontSize: 16,
+        position: 'absolute',
+        bottom: 25,
+        right: 16
+      },
       modalOverlay: {
         justifyContent: 'center'
       },
@@ -134,6 +261,26 @@ export class DropDown extends React.Component<
       },
       readonly: {
         backgroundColor: theme.disabledColor
+      },
+      icon: {
+        fontSize: 26
+      },
+      rowView: {
+        flexDirection: 'row'
+      },
+      iconView: {
+        width: 50,
+        alignItems: 'center'
+      },
+      iconOnlyView: {
+        width: 200,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      iconOnly: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        fontSize: 26
       }
     });
 
@@ -167,10 +314,7 @@ export class DropDown extends React.Component<
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           <Text style={[styles.label, labelStyle]}>{label}</Text>
-          <Text style={[styles.text, inputStyle]}>
-            {selectedItem ? selectedItem.label : '-'}
-          </Text>
-          <FontAwesome name="caret-down" style={styles.seta} />
+          {this.renderClosedDropdown(selectedItem, inputStyle)}
           <Modal
             visible={modalOpen}
             onRequestClose={() => this.setState({ modalOpen: false })}
@@ -202,6 +346,7 @@ export class DropDown extends React.Component<
                         label={item.label}
                         value={item.value}
                         onPress={this.handleItemPress}
+                        icon={item.icon}
                       />
                     );
                   }}
@@ -213,7 +358,7 @@ export class DropDown extends React.Component<
                     color={theme.warningColor}
                     size={24}
                   />
-                  <Text style={stylesModal.modalItem}>{emptyMessage}</Text>
+                  <Text style={styles.modalItem}>{emptyMessage}</Text>
                 </View>
               )}
             </View>
@@ -223,12 +368,3 @@ export class DropDown extends React.Component<
     );
   }
 }
-
-const stylesModal = StyleSheet.create({
-  modalItem: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    fontFamily: 'Lato-Bold',
-    fontSize: 16
-  }
-});
