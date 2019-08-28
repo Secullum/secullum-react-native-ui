@@ -61,16 +61,21 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
     return styles;
   };
 
-  renderOpenDropdownItem = () => {
+  renderOpenDropDownItem = () => {
     const { label, icon } = this.props;
 
+    const theme = getTheme();
     const styles = this.getStyles();
 
     if (label && icon) {
       return (
         <View style={styles.rowView}>
           <View style={styles.iconView}>
-            <FontAwesome name={icon} color={'black'} style={styles.icon} />
+            <FontAwesome
+              name={icon}
+              color={theme.textColor1}
+              style={styles.icon}
+            />
           </View>
           <View>
             <Text style={styles.modalItem}>{label}</Text>
@@ -86,12 +91,16 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
     } else if (!label && icon) {
       return (
         <View style={styles.iconOnlyView}>
-          <FontAwesome name={icon} color={'black'} style={styles.iconOnly} />
+          <FontAwesome
+            name={icon}
+            color={theme.textColor1}
+            style={styles.iconOnly}
+          />
         </View>
       );
     }
 
-    return;
+    return null;
   };
 
   render() {
@@ -110,7 +119,7 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
           borderBottomRightRadius: last ? 5 : 0
         }}
       >
-        {this.renderOpenDropdownItem()}
+        {this.renderOpenDropDownItem()}
       </TouchableHighlight>
     );
   }
@@ -152,55 +161,54 @@ export class DropDown extends React.Component<
   };
 
   renderClosedDropdown = (item: any, inputStyle: any) => {
+    const theme = getTheme();
     const styles = this.getStyles();
 
-    if (item && item.label && item.icon) {
-      return (
-        <>
-          <View style={styles.rowView}>
-            <View style={styles.iconView}>
-              <FontAwesome
-                name={item.icon}
-                color={'black'}
-                style={styles.icon}
-              />
-            </View>
-            <Text style={[styles.text, inputStyle]}>
-              {item ? item.label : '-'}
-            </Text>
-          </View>
-
-          <FontAwesome name="caret-down" style={styles.seta} />
-        </>
-      );
-    } else if (item && item.label && !item.icon) {
-      return (
-        <>
-          <Text style={[styles.text, inputStyle]}>
-            {item ? item.label : '-'}
-          </Text>
-          <FontAwesome name="caret-down" style={styles.seta} />
-        </>
-      );
-    } else if (item && !item.label && item.icon) {
-      return (
-        <>
-          <FontAwesome
-            name={item.icon}
-            color={'black'}
-            style={styles.iconOnly}
-          />
-          <FontAwesome name="caret-down" style={styles.setaIcone} />
-        </>
-      );
-    } else {
+    if (!item) {
       return (
         <>
           <Text style={[styles.text, inputStyle]}>-</Text>
           <FontAwesome name="caret-down" style={styles.seta} />
         </>
       );
+    } else if (item.label && item.icon) {
+      return (
+        <>
+          <View style={styles.rowView}>
+            <View style={styles.iconView}>
+              <FontAwesome
+                name={item.icon}
+                color={theme.textColor1}
+                style={styles.icon}
+              />
+            </View>
+            <Text style={[styles.text, inputStyle]}>{item.label}</Text>
+          </View>
+
+          <FontAwesome name="caret-down" style={styles.seta} />
+        </>
+      );
+    } else if (item.label && !item.icon) {
+      return (
+        <>
+          <Text style={[styles.text, inputStyle]}>{item.label}</Text>
+          <FontAwesome name="caret-down" style={styles.seta} />
+        </>
+      );
+    } else if (!item.label && item.icon) {
+      return (
+        <>
+          <FontAwesome
+            name={item.icon}
+            color={theme.textColor1}
+            style={styles.iconOnly}
+          />
+          <FontAwesome name="caret-down" style={styles.setaIcone} />
+        </>
+      );
     }
+
+    return null;
   };
 
   getStyles = (): any => {
