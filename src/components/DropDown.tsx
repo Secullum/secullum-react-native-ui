@@ -160,7 +160,7 @@ export class DropDown extends React.Component<
     onChange(value);
   };
 
-  renderClosedDropdown = (item: any, inputStyle: any) => {
+  renderClosedDropDown = (item: any, inputStyle: any) => {
     const theme = getTheme();
     const styles = this.getStyles();
 
@@ -322,7 +322,7 @@ export class DropDown extends React.Component<
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           <Text style={[styles.label, labelStyle]}>{label}</Text>
-          {this.renderClosedDropdown(selectedItem, inputStyle)}
+          {this.renderClosedDropDown(selectedItem, inputStyle)}
           <Modal
             visible={modalOpen}
             onRequestClose={() => this.setState({ modalOpen: false })}
