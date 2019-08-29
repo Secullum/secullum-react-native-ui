@@ -7,6 +7,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableOpacity,
   ViewStyle
 } from 'react-native';
@@ -17,6 +18,7 @@ interface Props {
   onChange?: (value: boolean) => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 export class CheckBox extends React.Component<Props> {
@@ -45,7 +47,7 @@ export class CheckBox extends React.Component<Props> {
   };
 
   render() {
-    const { label, value, onChange, disabled, style } = this.props;
+    const { label, value, onChange, disabled, style, labelStyle } = this.props;
 
     const styles = this.getStyles();
 
@@ -63,7 +65,7 @@ export class CheckBox extends React.Component<Props> {
           name={value ? 'check-square-o' : 'square-o'}
           style={styles.icon}
         />
-        <Text style={styles.label}>{label}</Text>
+        <Text style={[styles.label, labelStyle]}>{label}</Text>
       </TouchableOpacity>
     );
   }

@@ -4,6 +4,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableWithoutFeedback,
   Switch as ReactNativeSwitch,
   View,
@@ -19,6 +20,7 @@ export interface SwitchProperties {
   onChange?: (value: boolean) => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 export class Switch extends React.Component<SwitchProperties> {
@@ -51,7 +53,7 @@ export class Switch extends React.Component<SwitchProperties> {
   };
 
   render() {
-    const { label, value, onChange, style, disabled } = this.props;
+    const { label, value, onChange, style, labelStyle, disabled } = this.props;
 
     const styles = this.getStyles();
 
@@ -67,7 +69,7 @@ export class Switch extends React.Component<SwitchProperties> {
         <View
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
-          <Text style={styles.label}>{label}</Text>
+          <Text style={[styles.label, labelStyle]}>{label}</Text>
           <ReactNativeSwitch
             disabled={disabled}
             value={value}
