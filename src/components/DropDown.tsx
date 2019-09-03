@@ -16,6 +16,7 @@ import {
   TextStyle
 } from 'react-native';
 import { isTablet } from '../modules/layout';
+import { IconProps } from 'react-native-vector-icons/Icon';
 
 interface DropDownItemProperties {
   first: boolean;
@@ -23,6 +24,7 @@ interface DropDownItemProperties {
   label: string;
   value: any;
   icon?: string;
+  iconComponent?: React.ComponentClass<IconProps>;
   onPress: (value: any) => void;
 }
 
@@ -62,7 +64,7 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
   };
 
   renderOpenDropDownItem = () => {
-    const { label, icon } = this.props;
+    const { label, icon, iconComponent } = this.props;
 
     const theme = getTheme();
     const styles = this.getStyles();
@@ -71,11 +73,19 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
       return (
         <View style={styles.rowView}>
           <View style={styles.iconView}>
-            <FontAwesome
-              name={icon}
-              color={theme.textColor1}
-              style={styles.icon}
-            />
+            {iconComponent ? (
+              React.createElement(iconComponent, {
+                name: icon,
+                style: styles.icon,
+                color: theme.textColor1
+              })
+            ) : (
+              <FontAwesome
+                name={icon}
+                color={theme.textColor1}
+                style={styles.icon}
+              />
+            )}
           </View>
           <View>
             <Text style={styles.modalItem}>{label}</Text>
@@ -91,11 +101,19 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
     } else if (!label && icon) {
       return (
         <View style={styles.iconOnlyView}>
-          <FontAwesome
-            name={icon}
-            color={theme.textColor1}
-            style={styles.iconOnly}
-          />
+          {iconComponent ? (
+            React.createElement(iconComponent, {
+              name: icon,
+              style: styles.iconOnly,
+              color: theme.textColor1
+            })
+          ) : (
+            <FontAwesome
+              name={icon}
+              color={theme.textColor1}
+              style={styles.iconOnly}
+            />
+          )}
         </View>
       );
     }
@@ -135,6 +153,7 @@ export interface DropDownProperties {
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   inputStyle?: StyleProp<TextStyle>;
+  iconComponent?: React.ComponentClass<IconProps>;
 }
 
 export interface DropDownState {
@@ -161,6 +180,8 @@ export class DropDown extends React.Component<
   };
 
   renderClosedDropDown = (item: any, inputStyle: any) => {
+    const { iconComponent } = this.props;
+
     const theme = getTheme();
     const styles = this.getStyles();
 
@@ -176,13 +197,21 @@ export class DropDown extends React.Component<
         <>
           <View style={styles.rowView}>
             <View style={styles.iconView}>
-              <FontAwesome
-                name={item.icon}
-                color={theme.textColor1}
-                style={styles.icon}
-              />
+              {iconComponent ? (
+                React.createElement(iconComponent, {
+                  name: item.icon,
+                  style: styles.icon,
+                  color: theme.textColor1
+                })
+              ) : (
+                <FontAwesome
+                  name={item.icon}
+                  color={theme.textColor1}
+                  style={styles.icon}
+                />
+              )}
             </View>
-            <Text style={[styles.text, inputStyle]}>{item.label}</Text>
+            <Text style={[styles.textIcon, inputStyle]}>{item.label}</Text>
           </View>
 
           <FontAwesome name="caret-down" style={styles.seta} />
@@ -198,11 +227,19 @@ export class DropDown extends React.Component<
     } else if (!item.label && item.icon) {
       return (
         <>
-          <FontAwesome
-            name={item.icon}
-            color={theme.textColor1}
-            style={styles.iconOnly}
-          />
+          {iconComponent ? (
+            React.createElement(iconComponent, {
+              name: item.icon,
+              style: styles.iconOnly,
+              color: theme.textColor1
+            })
+          ) : (
+            <FontAwesome
+              name={item.icon}
+              color={theme.textColor1}
+              style={styles.iconOnly}
+            />
+          )}
           <FontAwesome name="caret-down" style={styles.setaIcone} />
         </>
       );
@@ -229,7 +266,15 @@ export class DropDown extends React.Component<
         lineHeight: 16
       },
       text: {
-        height: 22,
+        height: 27,
+        alignSelf: 'flex-start',
+        color: theme.textColor1,
+        fontFamily: 'Lato-Bold',
+        fontSize: 16
+      },
+      textIcon: {
+        height: 27,
+        alignSelf: 'center',
         color: theme.textColor1,
         fontFamily: 'Lato-Bold',
         fontSize: 16
@@ -305,8 +350,10 @@ export class DropDown extends React.Component<
       style,
       disabled,
       labelStyle,
-      inputStyle
+      inputStyle,
+      iconComponent
     } = this.props;
+
     const selectedItem = items.find(x => x.value === value);
 
     const styles = this.getStyles();
@@ -355,6 +402,7 @@ export class DropDown extends React.Component<
                         value={item.value}
                         onPress={this.handleItemPress}
                         icon={item.icon}
+                        iconComponent={iconComponent}
                       />
                     );
                   }}

@@ -6,6 +6,7 @@ menu: Components
 
 import { Playground, PropsTable } from 'docz';
 import { DropDown } from '../../src/components/DropDown.tsx';
+import { Space } from '../../src/components/Space.tsx';
 
 # DropDown
 
@@ -21,6 +22,26 @@ import { DropDown } from '../../src/components/DropDown.tsx';
     items={[
       { value: 1, label: 'Fernando' },
       { value: 2, label: 'Alex' }
+    ]}
+    value={2}
+    onChange={value => alert('Selected ' + value)}
+  />
+  <Space/>
+  <DropDown
+    label="DropDown"
+    items={[
+      { value: 1, label: 'Android', icon: 'android' },
+      { value: 2, label: 'Apple', icon: 'apple' }
+    ]}
+    value={2}
+    onChange={value => alert('Selected ' + value)}
+  />
+  <Space/>
+  <DropDown
+    label="DropDown"
+    items={[
+      { value: 1, label: '', icon: 'android' },
+      { value: 2, label: '', icon: 'apple' }
     ]}
     value={2}
     onChange={value => alert('Selected ' + value)}
