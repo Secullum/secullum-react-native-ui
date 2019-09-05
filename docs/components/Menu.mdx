@@ -26,12 +26,13 @@ import { Menu } from '../../src/components/Menu.tsx';
         </View>
       )}
       menu={[
-        { text: 'Home', path: 'Home' },
+        { text: 'Home', path: 'Home', textStyle: { color: 'red' } },
         {
           text: 'Settings',
           path: 'Settings',
+          textStyle: { color: 'green' },
           submenu: [
-            { text: 'Basic Settings', path: 'BasicSettings' },
+            { text: 'Basic Settings', path: 'BasicSettings', textStyle: { color: 'blue' } },
             { text: 'Advanced Settings', path: 'AdvancedSettings' }
           ]
         },

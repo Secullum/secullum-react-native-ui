@@ -2,6 +2,7 @@ import * as React from 'react';
 import DrawerLayout from 'react-native-drawer-layout';
 import { getTheme } from '../modules/theme';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { isTablet } from '../modules/layout';
 
 import {
   BackHandler,
@@ -13,16 +14,20 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { isTablet } from '../modules/layout';
 
 export interface MenuProperties {
   renderLogo: () => React.ReactNode;
   menu: Array<{
     path?: string;
     text: string;
+    textStyle?: StyleProp<TextStyle>;
     disabled?: boolean;
     subText?: string;
-    submenu?: Array<{ path: string; text: string }>;
+    submenu?: Array<{
+      path: string;
+      text: string;
+      textStyle?: StyleProp<TextStyle>;
+    }>;
   }>;
   children: React.ReactNode;
   onMenuPress: (path: string) => void;
@@ -182,7 +187,8 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
                     style={[
                       styles.menuText,
                       menuItem.disabled && styles.menuTextDisabled,
-                      menuTextStyle
+                      menuTextStyle,
+                      menuItem.textStyle
                     ]}
                   >
                     {menuItem.text}
@@ -204,7 +210,9 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
                   onPress={() => this.handleParentMenuPress(index)}
                   style={styles.submenuTitleContainer}
                 >
-                  <Text style={[styles.menuText, menuTextStyle]}>
+                  <Text
+                    style={[styles.menuText, menuTextStyle, menuItem.textStyle]}
+                  >
                     {menuItem.text}
                   </Text>
                   <FontAwesome
@@ -228,7 +236,13 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
                         onMenuPress(item.path);
                       }}
                     >
-                      <Text style={[styles.submenuText, submenuTextStyle]}>
+                      <Text
+                        style={[
+                          styles.submenuText,
+                          submenuTextStyle,
+                          item.textStyle
+                        ]}
+                      >
                         {item.text}
                       </Text>
                     </TouchableOpacity>
