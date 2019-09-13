@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
+import { isTablet } from '../modules/layout';
 
 export interface FilePickerProperties {
   label: string;
@@ -14,8 +15,35 @@ export class FilePicker extends React.Component<FilePickerProperties> {
     icon: 'cloud-upload'
   };
 
+  getStyles = () => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      container: {
+        borderRadius: 3,
+        backgroundColor: theme.backgroundColor2,
+        height: 100,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      text: {
+        fontFamily: 'Lato-Bold',
+        fontSize: isTablet() ? 15 : 12,
+        color: theme.textColor3,
+        width: 200,
+        textAlign: 'center'
+      }
+    });
+
+    return styles;
+  };
+
   render() {
     const { label, onPress, icon } = this.props;
+
+    const theme = getTheme();
+
+    const styles = this.getStyles();
 
     return (
       <TouchableOpacity
@@ -29,22 +57,3 @@ export class FilePicker extends React.Component<FilePickerProperties> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 3,
-    backgroundColor: theme.backgroundColor2,
-    height: 100,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  text: {
-    fontFamily: 'Lato-Bold',
-    fontSize: 12,
-    color: theme.textColor3,
-    width: 200,
-    textAlign: 'center'
-  }
-});
