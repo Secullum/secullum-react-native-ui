@@ -6,11 +6,16 @@ import { getTheme } from '../modules/theme';
 export interface FilePickerProperties {
   label: string;
   onPress: () => void;
+  icon?: string;
 }
 
 export class FilePicker extends React.Component<FilePickerProperties> {
+  static defaultProps = {
+    icon: 'cloud-upload'
+  };
+
   render() {
-    const { label, onPress } = this.props;
+    const { label, onPress, icon } = this.props;
 
     return (
       <TouchableOpacity
@@ -18,7 +23,7 @@ export class FilePicker extends React.Component<FilePickerProperties> {
         style={styles.container}
         onPress={onPress}
       >
-        <FontAwesome name="cloud-upload" color={theme.textColor3} size={30} />
+        <FontAwesome name={icon} color={theme.textColor3} size={30} />
         <Text style={styles.text}>{label}</Text>
       </TouchableOpacity>
     );
