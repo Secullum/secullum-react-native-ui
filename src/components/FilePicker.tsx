@@ -6,7 +6,7 @@ import { getTheme } from '../modules/theme';
 export interface FilePickerProperties {
   label: string;
   onPress: () => void;
-  icon?: string;
+  icon: string;
 }
 
 export class FilePicker extends React.Component<FilePickerProperties> {
