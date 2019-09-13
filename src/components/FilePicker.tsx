@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
-import { isTablet } from '..';
+import { isTablet } from '../modules/layout';
 
 export interface FilePickerProperties {
   label: string;
@@ -27,7 +27,7 @@ export class FilePicker extends React.Component<FilePickerProperties> {
         justifyContent: 'center'
       },
       text: {
-        fontFamily: 'Lato-Bold',     
+        fontFamily: 'Lato-Bold',
         fontSize: isTablet() ? 15 : 12,
         color: theme.textColor3,
         width: 200,
@@ -36,7 +36,7 @@ export class FilePicker extends React.Component<FilePickerProperties> {
     });
 
     return styles;
-  }
+  };
 
   render() {
     const { label, onPress, icon } = this.props;
@@ -57,7 +57,3 @@ export class FilePicker extends React.Component<FilePickerProperties> {
     );
   }
 }
-
-
-
-
