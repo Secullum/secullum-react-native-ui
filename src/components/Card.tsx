@@ -125,7 +125,7 @@ export class Card extends React.Component<CardProperties> {
     const styles = this.getStyles();
 
     const childrenMapped = React.Children.map(children, (child, index) => {
-      if (index === 0) {
+      if (index === 0 || !child) {
         return child;
       }
 
