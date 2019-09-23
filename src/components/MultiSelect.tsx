@@ -26,10 +26,6 @@ interface MultiSelectItemProperties {
 }
 
 class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
-  componentDidMount() {
-    this.setState({ isChecked: this.props.checked });
-  }
-
   getStyles = (): any => {
     const theme = getTheme();
 
