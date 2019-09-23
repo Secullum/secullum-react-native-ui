@@ -73,7 +73,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
     return styles;
   };
 
-  renderWithLabelAndIcon(label: string, icon: string) {
+  renderWithLabelAndIcon = (label: string, icon: string) => {
     const { value, iconComponent, handleAdd, handleRemove } = this.props;
 
     const theme = getTheme();
@@ -113,9 +113,9 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         </View>
       </View>
     );
-  }
+  };
 
-  renderWithLabel(label: string) {
+  renderWithLabel = (label: string) => {
     const { value, handleAdd, handleRemove } = this.props;
 
     const styles = this.getStyles();
@@ -137,9 +137,9 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         <Text style={styles.text}>{label}</Text>
       </View>
     );
-  }
+  };
 
-  renderWithIcon(icon: string) {
+  renderWithIcon = (icon: string) => {
     const { value, iconComponent, handleAdd, handleRemove } = this.props;
 
     const theme = getTheme();
@@ -176,7 +176,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         </View>
       </View>
     );
-  }
+  };
 
   render() {
     const { label, icon } = this.props;
@@ -267,93 +267,134 @@ export class MultiSelect extends React.Component<
     onChange(selectedValues);
   };
 
-  renderClosedMultiSelect = (items: any, numOptions: number) => {
-    const {
-      iconComponent,
-      selectedAllDescription,
-      selectedManyDescription,
-      selectedNoneDescription
-    } = this.props;
+  renderClosedWithNone = () => {
+    const { selectedNoneDescription } = this.props;
+
+    const styles = this.getStyles();
+
+    return (
+      <View style={styles.rowView}>
+        <Text style={styles.text}>{selectedNoneDescription}</Text>
+        <FontAwesome name="caret-down" style={styles.seta} />
+      </View>
+    );
+  };
+
+  renderClosedWithAll = () => {
+    const { selectedAllDescription } = this.props;
+
+    const styles = this.getStyles();
+
+    return (
+      <View style={styles.rowView}>
+        <Text style={styles.text}>{selectedAllDescription}</Text>
+        <FontAwesome name="caret-down" style={styles.seta} />
+      </View>
+    );
+  };
+
+  renderClosedWithOneLabel = (label: string) => {
+    const styles = this.getStyles();
+
+    return (
+      <View style={styles.rowView}>
+        <Text style={styles.text}>{label}</Text>
+        <FontAwesome name="caret-down" style={styles.seta} />
+      </View>
+    );
+  };
+
+  renderClosedWithOneIcon = (icon: string) => {
+    const { iconComponent } = this.props;
 
     const theme = getTheme();
     const styles = this.getStyles();
 
-    if (items.length === 0) {
-      return (
-        <View style={styles.rowView}>
-          <Text style={styles.text}>{selectedNoneDescription}</Text>
-          <FontAwesome name="caret-down" style={styles.seta} />
-        </View>
-      );
-    } else if (items.length === numOptions) {
-      return (
-        <View style={styles.rowView}>
-          <Text style={styles.text}>{selectedAllDescription}</Text>
-          <FontAwesome name="caret-down" style={styles.seta} />
-        </View>
-      );
-    } else if (items.length === 1) {
-      const label = items[0].label;
-      const icon = items[0].icon;
+    return (
+      <View style={styles.rowView}>
+        {iconComponent ? (
+          React.createElement(iconComponent, {
+            name: icon,
+            style: styles.iconOnly,
+            color: theme.textColor1
+          })
+        ) : (
+          <FontAwesome
+            name={icon}
+            color={theme.textColor1}
+            style={styles.iconOnly}
+          />
+        )}
+        <FontAwesome name="caret-down" style={styles.seta} />
+      </View>
+    );
+  };
 
-      if (label && icon) {
-        return (
-          <View style={styles.rowView}>
-            <View style={styles.iconView}>
-              {iconComponent ? (
-                React.createElement(iconComponent, {
-                  name: icon,
-                  style: styles.icon,
-                  color: theme.textColor1
-                })
-              ) : (
-                <FontAwesome
-                  name={icon}
-                  color={theme.textColor1}
-                  style={styles.icon}
-                />
-              )}
-            </View>
-            <View style={styles.textView}>
-              <Text style={styles.text}>{label}</Text>
-            </View>
-            <FontAwesome name="caret-down" style={styles.seta} />
-          </View>
-        );
-      } else if (label && !icon) {
-        return (
-          <View style={styles.rowView}>
-            <Text style={styles.text}>{label}</Text>
-            <FontAwesome name="caret-down" style={styles.seta} />
-          </View>
-        );
-      } else if (!label && icon) {
-        return (
-          <View style={styles.rowView}>
-            {iconComponent ? (
-              React.createElement(iconComponent, {
-                name: icon,
-                style: styles.iconOnly,
-                color: theme.textColor1
-              })
-            ) : (
-              <FontAwesome
-                name={icon}
-                color={theme.textColor1}
-                style={styles.iconOnly}
-              />
-            )}
-            <FontAwesome name="caret-down" style={styles.seta} />
-          </View>
-        );
-      }
-    } else {
-      return (
-        <View style={styles.rowView}>
-          <Text style={styles.text}>{selectedManyDescription}</Text>
-          <FontAwesome name="caret-down" style={styles.seta} />
+  renderClosedWithOneLabelAndIcon = (label: string, icon: string) => {
+    const { iconComponent } = this.props;
+
+    const theme = getTheme();
+    const styles = this.getStyles();
+
+    return (
+      <View style={styles.rowView}>
+        <View style={styles.iconView}>
+          {iconComponent ? (
+            React.createElement(iconComponent, {
+              name: icon,
+              style: styles.icon,
+              color: theme.textColor1
+            })
+          ) : (
+            <FontAwesome
+              name={icon}
+              color={theme.textColor1}
+              style={styles.icon}
+            />
+          )}
         </View>
-      );
+        <View style={styles.textView}>
+          <Text style={styles.text}>{label}</Text>
+        </View>
+        <FontAwesome name="caret-down" style={styles.seta} />
+      </View>
+    );
+  };
+
+  renderClosedWithOne = (label?: string, icon?: string) => {
+    if (label && icon) {
+      return this.renderClosedWithOneLabelAndIcon(label, icon);
+    } else if (label && !icon) {
+      return this.renderClosedWithOneLabel(label);
+    } else if (!label && icon) {
+      return this.renderClosedWithOneIcon(icon);
+    }
+
+    return null;
+  };
+
+  renderClosedWithMany = () => {
+    const { selectedManyDescription } = this.props;
+
+    const styles = this.getStyles();
+
+    return (
+      <View style={styles.rowView}>
+        <Text style={styles.text}>{selectedManyDescription}</Text>
+        <FontAwesome name="caret-down" style={styles.seta} />
+      </View>
+    );
+  };
+
+  renderClosedMultiSelect = (items: any, numOptions: number) => {
+    if (items.length === 0) {
+      return this.renderClosedWithNone();
+    } else if (items.length === numOptions) {
+      return this.renderClosedWithAll();
+    } else if (items.length === 1) {
+      return this.renderClosedWithOne(items[0].label, items[0].icon);
+    } else {
+      return this.renderClosedWithMany();
     }
 
     return null;
@@ -529,9 +570,7 @@ export class MultiSelect extends React.Component<
                 <Button
                   text={okButtonDescription || 'Ok'}
                   style={styles.buttonOk}
-                  onPress={async () => {
-                    this.handleSave();
-                  }}
+                  onPress={this.handleSave}
                 />
               </View>
             </View>
