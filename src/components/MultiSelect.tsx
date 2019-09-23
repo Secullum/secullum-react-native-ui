@@ -85,10 +85,10 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
           <CheckBox
             value={this.props.checked}
             onValueChange={() => {
-              if (!this.props.checked) {
-                handleAdd(value);
-              } else {
+              if (this.props.checked) {
                 handleRemove(value);
+              } else {
+                handleAdd(value);
               }
             }}
           />
@@ -126,10 +126,10 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
           <CheckBox
             value={this.props.checked}
             onValueChange={() => {
-              if (!this.props.checked) {
-                handleAdd(value);
-              } else {
+              if (this.props.checked) {
                 handleRemove(value);
+              } else {
+                handleAdd(value);
               }
             }}
           />
@@ -151,10 +151,10 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
           <CheckBox
             value={this.props.checked}
             onValueChange={() => {
-              if (!this.props.checked) {
-                handleAdd(value);
-              } else {
+              if (this.props.checked) {
                 handleRemove(value);
+              } else {
+                handleAdd(value);
               }
             }}
           />
@@ -396,8 +396,6 @@ export class MultiSelect extends React.Component<
     } else {
       return this.renderClosedWithMany();
     }
-
-    return null;
   };
 
   getStyles = (): any => {
