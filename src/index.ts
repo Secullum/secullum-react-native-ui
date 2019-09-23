@@ -29,6 +29,7 @@ export * from './components/TextBox';
 export * from './components/TimePicker';
 export * from './components/ErrorMessage';
 export * from './components/TextBoxMask';
+export * from './components/MultiSelect';
 export * from './modules/format';
 export * from './modules/layout';
 export * from './modules/theme';

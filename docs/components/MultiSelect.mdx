@@ -1,0 +1,67 @@
+---
+name: MultiSelect
+route: /multi-select
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { MultiSelect } from '../../src/components/MultiSelect.tsx';
+import { Space } from '../../src/components/Space.tsx';
+
+# MultiSelect
+
+## Properties
+
+<PropsTable of={MultiSelect} />
+
+## Example
+
+<Playground>
+    <MultiSelect
+        selectedNoneDescription={'None'}
+        selectedManyDescription={'Many'}
+        selectedAllDescription={'All'}
+        cancelButtonDescription={'Cancel'}
+        okButtonDescription={'Ok'}
+        label={'Operating Systems'}
+        items={[
+            {label: 'Android', value: 1},
+            {label: 'iOS', value: 2},
+            {label: 'Windows Phone', value: 3}
+        ]}
+        values={[1]}
+        onChange={value => alert('Selected ' + value)}
+    />
+    <Space />
+    <MultiSelect
+        selectedNoneDescription={'None'}
+        selectedManyDescription={'Many'}
+        selectedAllDescription={'All'}
+        cancelButtonDescription={'Cancel'}
+        okButtonDescription={'Ok'}
+        label={'Operating Systems'}
+        items={[
+            {label: 'Android', icon: 'android', value: 1},
+            {label: 'iOS', icon: 'apple', value: 2},
+            {label: 'Windows Phone', icon: 'windows', value: 3}
+        ]}
+        values={[1]}
+        onChange={value => alert('Selected ' + value)}
+    />
+    <Space />
+    <MultiSelect
+        selectedNoneDescription={'None'}
+        selectedManyDescription={'Many'}
+        selectedAllDescription={'All'}
+        cancelButtonDescription={'Cancel'}
+        okButtonDescription={'Ok'}
+        label={'Operating Systems'}
+        items={[
+            {icon: 'android', value: 1},
+            {icon: 'apple', value: 2},
+            {icon: 'windows', value: 3}
+        ]}
+        values={[1]}
+        onChange={value => alert('Selected ' + value)}
+    />
+</Playground>

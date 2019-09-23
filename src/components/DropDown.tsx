@@ -2,7 +2,6 @@ import * as React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Modal } from './Modal';
 import { getTheme } from '../modules/theme';
-
 import {
   FlatList,
   StyleProp,
