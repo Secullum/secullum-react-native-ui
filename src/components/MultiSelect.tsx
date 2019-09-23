@@ -16,8 +16,6 @@ import { IconProps } from 'react-native-vector-icons/Icon';
 import { Button, Space, Modal } from '..';
 
 interface MultiSelectItemProperties {
-  first: boolean;
-  last: boolean;
   label: string;
   value: any;
   checked: boolean;
@@ -27,23 +25,14 @@ interface MultiSelectItemProperties {
   iconComponent?: React.ComponentClass<IconProps>;
 }
 
-interface MultiSelectItemState {
-  isChecked: boolean;
-}
-
-class MultiSelectItem extends React.Component<
-  MultiSelectItemProperties,
-  MultiSelectItemState
-> {
-  state: MultiSelectItemState = {
-    isChecked: false
-  };
-
+class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
   componentDidMount() {
     this.setState({ isChecked: this.props.checked });
   }
 
   getStyles = (): any => {
+    const theme = getTheme();
+
     const width = Dimensions.get('screen').width;
 
     const styles = StyleSheet.create({
@@ -53,7 +42,8 @@ class MultiSelectItem extends React.Component<
         fontFamily: 'Lato-Bold',
         fontSize: 16,
         flexWrap: 'wrap',
-        maxWidth: width - 150
+        maxWidth: width - 150,
+        color: theme.textColor1
       },
       icon: {
         fontSize: 26
@@ -87,116 +77,120 @@ class MultiSelectItem extends React.Component<
     return styles;
   };
 
-  render() {
-    const {
-      label,
-      icon,
-      value,
-      iconComponent,
-      handleAdd,
-      handleRemove
-    } = this.props;
+  renderWithLabelAndIcon(label: string, icon: string) {
+    const { value, iconComponent, handleAdd, handleRemove } = this.props;
 
     const theme = getTheme();
     const styles = this.getStyles();
 
-    if (label && icon) {
-      return (
-        <View style={styles.rowView}>
-          <View style={styles.checkbox}>
-            <CheckBox
-              value={this.state.isChecked}
-              onValueChange={() => {
-                const newValue = !this.state.isChecked;
-
-                this.setState({ isChecked: newValue });
-
-                if (newValue) {
-                  handleAdd(value);
-                } else {
-                  handleRemove(value);
-                }
-              }}
-            />
-          </View>
-          <View style={styles.iconView}>
-            {iconComponent ? (
-              React.createElement(iconComponent, {
-                name: icon,
-                style: styles.icon,
-                color: theme.textColor1
-              })
-            ) : (
-              <FontAwesome
-                name={icon}
-                color={theme.textColor1}
-                style={styles.icon}
-              />
-            )}
-          </View>
-          <View>
-            <Text style={styles.text}>{label}</Text>
-          </View>
+    return (
+      <View style={styles.rowView}>
+        <View style={styles.checkbox}>
+          <CheckBox
+            value={this.props.checked}
+            onValueChange={() => {
+              if (!this.props.checked) {
+                handleAdd(value);
+              } else {
+                handleRemove(value);
+              }
+            }}
+          />
         </View>
-      );
-    } else if (label && !icon) {
-      return (
-        <View style={styles.rowView}>
-          <View style={styles.checkbox}>
-            <CheckBox
-              value={this.state.isChecked}
-              onValueChange={() => {
-                const newValue = !this.state.isChecked;
-
-                this.setState({ isChecked: newValue });
-
-                if (newValue) {
-                  handleAdd(value);
-                } else {
-                  handleRemove(value);
-                }
-              }}
+        <View style={styles.iconView}>
+          {iconComponent ? (
+            React.createElement(iconComponent, {
+              name: icon,
+              style: styles.icon,
+              color: theme.textColor1
+            })
+          ) : (
+            <FontAwesome
+              name={icon}
+              color={theme.textColor1}
+              style={styles.icon}
             />
-          </View>
+          )}
+        </View>
+        <View>
           <Text style={styles.text}>{label}</Text>
         </View>
-      );
-    } else if (!label && icon) {
-      return (
-        <View style={styles.rowView}>
-          <View style={styles.checkbox}>
-            <CheckBox
-              value={this.state.isChecked}
-              onValueChange={() => {
-                const newValue = !this.state.isChecked;
+      </View>
+    );
+  }
 
-                this.setState({ isChecked: newValue });
+  renderWithLabel(label: string) {
+    const { value, handleAdd, handleRemove } = this.props;
 
-                if (newValue) {
-                  handleAdd(value);
-                } else {
-                  handleRemove(value);
-                }
-              }}
-            />
-          </View>
-          <View style={styles.iconOnlyView}>
-            {iconComponent ? (
-              React.createElement(iconComponent, {
-                name: icon,
-                style: styles.iconOnly,
-                color: theme.textColor1
-              })
-            ) : (
-              <FontAwesome
-                name={icon}
-                color={theme.textColor1}
-                style={styles.iconOnly}
-              />
-            )}
-          </View>
+    const styles = this.getStyles();
+
+    return (
+      <View style={styles.rowView}>
+        <View style={styles.checkbox}>
+          <CheckBox
+            value={this.props.checked}
+            onValueChange={() => {
+              if (!this.props.checked) {
+                handleAdd(value);
+              } else {
+                handleRemove(value);
+              }
+            }}
+          />
         </View>
-      );
+        <Text style={styles.text}>{label}</Text>
+      </View>
+    );
+  }
+
+  renderWithIcon(icon: string) {
+    const { value, iconComponent, handleAdd, handleRemove } = this.props;
+
+    const theme = getTheme();
+    const styles = this.getStyles();
+
+    return (
+      <View style={styles.rowView}>
+        <View style={styles.checkbox}>
+          <CheckBox
+            value={this.props.checked}
+            onValueChange={() => {
+              if (!this.props.checked) {
+                handleAdd(value);
+              } else {
+                handleRemove(value);
+              }
+            }}
+          />
+        </View>
+        <View style={styles.iconOnlyView}>
+          {iconComponent ? (
+            React.createElement(iconComponent, {
+              name: icon,
+              style: styles.iconOnly,
+              color: theme.textColor1
+            })
+          ) : (
+            <FontAwesome
+              name={icon}
+              color={theme.textColor1}
+              style={styles.iconOnly}
+            />
+          )}
+        </View>
+      </View>
+    );
+  }
+
+  render() {
+    const { label, icon } = this.props;
+
+    if (label && icon) {
+      return this.renderWithLabelAndIcon(label, icon);
+    } else if (label && !icon) {
+      return this.renderWithLabel(label);
+    } else if (!label && icon) {
+      return this.renderWithIcon(icon);
     }
 
     return null;
@@ -498,11 +492,10 @@ export class MultiSelect extends React.Component<
                   data={items}
                   initialNumToRender={items.length}
                   keyExtractor={item => item.value.toString()}
-                  renderItem={({ item, index }) => {
+                  extraData={selectedValues}
+                  renderItem={({ item }) => {
                     return (
                       <MultiSelectItem
-                        first={index === 0}
-                        last={index === items.length - 1}
                         label={item.label}
                         value={item.value}
                         icon={item.icon}
