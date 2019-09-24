@@ -8,12 +8,11 @@ import {
   TouchableWithoutFeedback,
   View,
   Platform,
-  CheckBox,
   Dimensions
 } from 'react-native';
 import { isTablet } from '../modules/layout';
 import { IconProps } from 'react-native-vector-icons/Icon';
-import { Button, Space, Modal } from '..';
+import { Button, Space, Modal, CheckBox } from '..';
 
 interface MultiSelectItemProperties {
   label: string;
@@ -84,7 +83,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         <View style={styles.checkbox}>
           <CheckBox
             value={this.props.checked}
-            onValueChange={() => {
+            onChange={() => {
               if (this.props.checked) {
                 handleRemove(value);
               } else {
@@ -125,7 +124,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         <View style={styles.checkbox}>
           <CheckBox
             value={this.props.checked}
-            onValueChange={() => {
+            onChange={() => {
               if (this.props.checked) {
                 handleRemove(value);
               } else {
@@ -150,7 +149,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         <View style={styles.checkbox}>
           <CheckBox
             value={this.props.checked}
-            onValueChange={() => {
+            onChange={() => {
               if (this.props.checked) {
                 handleRemove(value);
               } else {
