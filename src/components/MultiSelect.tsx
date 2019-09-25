@@ -12,7 +12,8 @@ import {
 } from 'react-native';
 import { isTablet } from '../modules/layout';
 import { IconProps } from 'react-native-vector-icons/Icon';
-import { Button, Space, Modal, CheckBox } from '..';
+import { Button, Space, Modal } from '..';
+import { Switch } from 'react-native';
 
 interface MultiSelectItemProperties {
   label: string;
@@ -47,8 +48,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         flexDirection: 'row',
         paddingLeft: 16
       },
-      checkbox: {
-        flexDirection: 'column',
+      switch: {
         alignContent: 'center',
         justifyContent: 'center'
       },
@@ -80,10 +80,10 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
 
     return (
       <View style={styles.rowView}>
-        <View style={styles.checkbox}>
-          <CheckBox
+        <View style={styles.switch}>
+          <Switch
             value={this.props.checked}
-            onChange={() => {
+            onValueChange={() => {
               if (this.props.checked) {
                 handleRemove(value);
               } else {
@@ -121,10 +121,10 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
 
     return (
       <View style={styles.rowView}>
-        <View style={styles.checkbox}>
-          <CheckBox
+        <View style={styles.switch}>
+          <Switch
             value={this.props.checked}
-            onChange={() => {
+            onValueChange={() => {
               if (this.props.checked) {
                 handleRemove(value);
               } else {
@@ -146,10 +146,10 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
 
     return (
       <View style={styles.rowView}>
-        <View style={styles.checkbox}>
-          <CheckBox
+        <View style={styles.switch}>
+          <Switch
             value={this.props.checked}
-            onChange={() => {
+            onValueChange={() => {
               if (this.props.checked) {
                 handleRemove(value);
               } else {
