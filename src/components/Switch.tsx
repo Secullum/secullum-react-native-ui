@@ -21,7 +21,6 @@ export interface SwitchProperties {
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
-  dontShowLabel?: boolean;
 }
 
 export class Switch extends React.Component<SwitchProperties> {
@@ -61,7 +60,6 @@ export class Switch extends React.Component<SwitchProperties> {
       style,
       labelStyle,
       disabled,
-      dontShowLabel
     } = this.props;
 
     const styles = this.getStyles();
@@ -78,7 +76,7 @@ export class Switch extends React.Component<SwitchProperties> {
         <View
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
-          {!dontShowLabel && (
+          {label && (
             <Text style={[styles.label, labelStyle]}>{label}</Text>
           )}
           <ReactNativeSwitch

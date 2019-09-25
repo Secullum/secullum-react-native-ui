@@ -93,7 +93,6 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
               }
             }}
             style={styles.noBorder}
-            dontShowLabel
           />
         </View>
         <View style={styles.iconView}>
@@ -136,7 +135,6 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
               }
             }}
             style={styles.noBorder}
-            dontShowLabel
           />
         </View>
         <Text style={styles.text}>{label}</Text>
@@ -163,7 +161,6 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
               }
             }}
             style={styles.noBorder}
-            dontShowLabel
           />
         </View>
         <View style={styles.iconOnlyView}>
