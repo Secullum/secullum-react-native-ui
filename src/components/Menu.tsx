@@ -28,6 +28,7 @@ export interface MenuProperties {
       text: string;
       textStyle?: StyleProp<TextStyle>;
     }>;
+    nativeID?: string;
   }>;
   children: React.ReactNode;
   onMenuPress: (path: string) => void;
@@ -184,6 +185,7 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
                   }}
                 >
                   <Text
+                    nativeID={menuItem.nativeID}
                     style={[
                       styles.menuText,
                       menuItem.disabled && styles.menuTextDisabled,

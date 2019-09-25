@@ -10,6 +10,7 @@ export interface MessageProperties {
   visible: boolean;
   type?: 'info' | 'warning';
   onRequestClose?: () => void;
+  nativeID?: string;
 }
 
 export class Message extends React.Component<MessageProperties> {
@@ -18,7 +19,7 @@ export class Message extends React.Component<MessageProperties> {
   };
 
   render() {
-    const { message, visible, type, onRequestClose } = this.props;
+    const { message, visible, type, onRequestClose, nativeID } = this.props;
 
     return (
       <Modal
@@ -26,7 +27,7 @@ export class Message extends React.Component<MessageProperties> {
         onRequestClose={onRequestClose}
         overlayStyle={styles.overlay}
       >
-        <View style={styles.container}>
+        <View nativeID={nativeID} style={styles.container}>
           <FontAwesome
             name={type === 'warning' ? 'warning' : 'check-circle'}
             color={type === 'warning' ? theme.warningColor : theme.successColor}

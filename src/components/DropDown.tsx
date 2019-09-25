@@ -25,6 +25,7 @@ interface DropDownItemProperties {
   icon?: string;
   iconComponent?: React.ComponentClass<IconProps>;
   onPress: (value: any) => void;
+  nativeID?: string;
 }
 
 class DropDownItem extends React.PureComponent<DropDownItemProperties> {
@@ -63,14 +64,14 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
   };
 
   renderOpenDropDownItem = () => {
-    const { label, icon, iconComponent } = this.props;
+    const { label, icon, iconComponent, nativeID } = this.props;
 
     const theme = getTheme();
     const styles = this.getStyles();
 
     if (label && icon) {
       return (
-        <View style={styles.rowView}>
+        <View nativeID={nativeID} style={styles.rowView}>
           <View style={styles.iconView}>
             {iconComponent ? (
               React.createElement(iconComponent, {
@@ -93,13 +94,13 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
       );
     } else if (label && !icon) {
       return (
-        <View style={styles.rowView}>
+        <View nativeID={nativeID} style={styles.rowView}>
           <Text style={styles.modalItem}>{label}</Text>
         </View>
       );
     } else if (!label && icon) {
       return (
-        <View style={styles.iconOnlyView}>
+        <View nativeID={nativeID} style={styles.iconOnlyView}>
           {iconComponent ? (
             React.createElement(iconComponent, {
               name: icon,
@@ -144,7 +145,7 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
 
 export interface DropDownProperties {
   label: string;
-  items: Array<{ label: string; value: any; icon?: string }>;
+  items: Array<{ label: string; value: any; icon?: string; nativeID?: string }>;
   value: any | null;
   onChange: (value: any) => void;
   emptyMessage?: string;
@@ -153,6 +154,7 @@ export interface DropDownProperties {
   labelStyle?: StyleProp<TextStyle>;
   inputStyle?: StyleProp<TextStyle>;
   iconComponent?: React.ComponentClass<IconProps>;
+  nativeID?: string;
 }
 
 export interface DropDownState {
@@ -350,7 +352,8 @@ export class DropDown extends React.Component<
       disabled,
       labelStyle,
       inputStyle,
-      iconComponent
+      iconComponent,
+      nativeID
     } = this.props;
 
     const selectedItem = items.find(x => x.value === value);
@@ -365,6 +368,7 @@ export class DropDown extends React.Component<
         disabled={disabled}
       >
         <View
+          nativeID={nativeID}
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           <Text style={[styles.label, labelStyle]}>{label}</Text>
@@ -395,6 +399,7 @@ export class DropDown extends React.Component<
                   renderItem={({ item, index }) => {
                     return (
                       <DropDownItem
+                        nativeID={item.nativeID}
                         first={index === 0}
                         last={index === items.length - 1}
                         label={item.label}

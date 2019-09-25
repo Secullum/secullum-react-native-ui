@@ -22,6 +22,7 @@ export interface TimePickerProperties {
   disabled?: boolean;
   onChange?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
+  nativeID?: string;
 }
 
 export interface TimePickerState {

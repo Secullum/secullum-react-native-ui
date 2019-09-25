@@ -9,6 +9,7 @@ export interface HeaderButton {
   disabled?: boolean;
   counter?: number;
   onPress: () => void;
+  nativeID?: string;
 }
 
 export interface HeaderProperties {
@@ -70,6 +71,7 @@ export class Header extends React.Component<HeaderProperties> {
     const icon = (
       <>
         <FontAwesome
+          nativeID={button.nativeID}
           name={button.icon}
           size={isTablet() ? 30 : 20}
           color={button.disabled ? theme.textColor1 : theme.textColor4}

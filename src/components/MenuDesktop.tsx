@@ -15,6 +15,7 @@ export interface MenuDesktopProperties {
     text: string;
     disabled?: boolean;
     subText?: string;
+    nativeID?: string;
   }>;
   onMenuPress: (path: string) => void;
   isCurrentMenuPath?: (path: string) => boolean;
@@ -83,7 +84,7 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
               disabled={selected || menuItem.disabled}
               style={styles.itemContainer}
             >
-              <Text style={textStyles}>
+              <Text nativeID={menuItem.nativeID} style={textStyles}>
                 {menuItem.text}
                 {menuItem.subText && (
                   <Text style={{ fontSize: 12, marginLeft: 5 }}>

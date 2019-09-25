@@ -22,6 +22,7 @@ export interface RangeDatePickerProperties {
   onEndDateChange: (date: Date) => void;
   onEndDateCancel?: () => void;
   style?: StyleProp<ViewStyle>;
+  nativeID?: string;
 }
 
 export interface RangeDatePickerState {

@@ -21,6 +21,7 @@ export interface DatePickerProperties {
   clearable?: boolean;
   onChange: (value?: Date) => void;
   style?: StyleProp<ViewStyle>;
+  nativeID?: string;
 }
 
 export interface DatePickerState {
