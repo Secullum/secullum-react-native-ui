@@ -52,12 +52,12 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         justifyContent: 'center'
       },
       iconView: {
-        width: 100,
+        width: 50,
         alignItems: 'center',
         justifyContent: 'center'
       },
       iconOnlyView: {
-        width: 200,
+        width: 100,
         alignItems: 'center',
         justifyContent: 'center'
       },
@@ -66,7 +66,8 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         paddingVertical: 16,
         fontSize: 60
       },
-      noBorder: {
+      switchStyle: {
+        paddingHorizontal: 8,
         borderWidth: 0
       }
     });
@@ -92,7 +93,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
                 handleAdd(value);
               }
             }}
-            style={styles.noBorder}
+            style={styles.switchStyle}
           />
         </View>
         <View style={styles.iconView}>
@@ -134,7 +135,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
                 handleAdd(value);
               }
             }}
-            style={styles.noBorder}
+            style={styles.switchStyle}
           />
         </View>
         <Text style={styles.text}>{label}</Text>
@@ -160,7 +161,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
                 handleAdd(value);
               }
             }}
-            style={styles.noBorder}
+            style={styles.switchStyle}
           />
         </View>
         <View style={styles.iconOnlyView}>
