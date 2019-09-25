@@ -15,8 +15,8 @@ import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
 
 export interface SwitchProperties {
-  label: string;
   value: boolean;
+  label?: string;
   onChange?: (value: boolean) => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -53,7 +53,14 @@ export class Switch extends React.Component<SwitchProperties> {
   };
 
   render() {
-    const { label, value, onChange, style, labelStyle, disabled } = this.props;
+    const {
+      label,
+      value,
+      onChange,
+      style,
+      labelStyle,
+      disabled,
+    } = this.props;
 
     const styles = this.getStyles();
 
@@ -69,7 +76,9 @@ export class Switch extends React.Component<SwitchProperties> {
         <View
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
-          <Text style={[styles.label, labelStyle]}>{label}</Text>
+          {label && (
+            <Text style={[styles.label, labelStyle]}>{label}</Text>
+          )}
           <ReactNativeSwitch
             disabled={disabled}
             value={value}

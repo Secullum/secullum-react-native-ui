@@ -8,12 +8,11 @@ import {
   TouchableWithoutFeedback,
   View,
   Platform,
-  CheckBox,
   Dimensions
 } from 'react-native';
 import { isTablet } from '../modules/layout';
 import { IconProps } from 'react-native-vector-icons/Icon';
-import { Button, Space, Modal } from '..';
+import { Button, Space, Modal, Switch } from '..';
 
 interface MultiSelectItemProperties {
   label: string;
@@ -48,8 +47,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         flexDirection: 'row',
         paddingLeft: 16
       },
-      checkbox: {
-        flexDirection: 'column',
+      switch: {
         alignContent: 'center',
         justifyContent: 'center'
       },
@@ -67,6 +65,9 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
         paddingHorizontal: 16,
         paddingVertical: 16,
         fontSize: 60
+      },
+      noBorder: {
+        borderWidth: 0
       }
     });
 
@@ -81,16 +82,17 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
 
     return (
       <View style={styles.rowView}>
-        <View style={styles.checkbox}>
-          <CheckBox
+        <View style={styles.switch}>
+          <Switch
             value={this.props.checked}
-            onValueChange={() => {
+            onChange={() => {
               if (this.props.checked) {
                 handleRemove(value);
               } else {
                 handleAdd(value);
               }
             }}
+            style={styles.noBorder}
           />
         </View>
         <View style={styles.iconView}>
@@ -122,16 +124,17 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
 
     return (
       <View style={styles.rowView}>
-        <View style={styles.checkbox}>
-          <CheckBox
+        <View style={styles.switch}>
+          <Switch
             value={this.props.checked}
-            onValueChange={() => {
+            onChange={() => {
               if (this.props.checked) {
                 handleRemove(value);
               } else {
                 handleAdd(value);
               }
             }}
+            style={styles.noBorder}
           />
         </View>
         <Text style={styles.text}>{label}</Text>
@@ -147,16 +150,17 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
 
     return (
       <View style={styles.rowView}>
-        <View style={styles.checkbox}>
-          <CheckBox
+        <View style={styles.switch}>
+          <Switch
             value={this.props.checked}
-            onValueChange={() => {
+            onChange={() => {
               if (this.props.checked) {
                 handleRemove(value);
               } else {
                 handleAdd(value);
               }
             }}
+            style={styles.noBorder}
           />
         </View>
         <View style={styles.iconOnlyView}>
