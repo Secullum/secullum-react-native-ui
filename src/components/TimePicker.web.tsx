@@ -27,6 +27,7 @@ export interface TimePickerProperties {
   disabled?: boolean;
   onChange: (value: string) => void;
   style?: StyleProp<ViewStyle>;
+  nativeID?: string;
 }
 
 export class TimePicker extends React.Component<TimePickerProperties> {
@@ -71,7 +72,7 @@ export class TimePicker extends React.Component<TimePickerProperties> {
   };
 
   render() {
-    const { label, style, disabled, value } = this.props;
+    const { label, style, disabled, value, nativeID } = this.props;
 
     const styles = this.getStyles();
 
@@ -82,6 +83,7 @@ export class TimePicker extends React.Component<TimePickerProperties> {
         >
           <Text style={styles.label}>{label}</Text>
           <TextInput
+            nativeID={nativeID}
             value={value}
             style={styles.input}
             maxLength={5}

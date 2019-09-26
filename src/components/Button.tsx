@@ -18,6 +18,7 @@ export interface ButtonProperties {
   textStyle?: StyleProp<TextStyle>;
   onPress: () => void;
   disabled?: boolean;
+  nativeID?: string;
 }
 
 export class Button extends React.Component<ButtonProperties> {
@@ -63,7 +64,15 @@ export class Button extends React.Component<ButtonProperties> {
   };
 
   render() {
-    const { text, primary, style, textStyle, onPress, disabled } = this.props;
+    const {
+      text,
+      primary,
+      style,
+      textStyle,
+      onPress,
+      disabled,
+      nativeID
+    } = this.props;
 
     const styles = this.getStyles();
 
@@ -80,6 +89,7 @@ export class Button extends React.Component<ButtonProperties> {
         disabled={disabled}
       >
         <Text
+          nativeID={nativeID}
           style={[
             styles.text,
             primary && styles.textPrimary,

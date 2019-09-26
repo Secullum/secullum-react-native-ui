@@ -22,6 +22,7 @@ export interface RangeDatePickerProperties {
   onEndDateChange: (date: Date) => void;
   onEndDateCancel?: () => void;
   style?: StyleProp<ViewStyle>;
+  nativeID?: string;
 }
 
 export interface RangeDatePickerState {
@@ -114,7 +115,7 @@ export class RangeDatePicker extends React.Component<
   };
 
   render() {
-    const { label, startDate, endDate, style } = this.props;
+    const { label, startDate, endDate, style, nativeID } = this.props;
     const { showStartDateModal, showEndDateModal } = this.state;
 
     const displayFormat = 'MMM D, YYYY';
@@ -128,7 +129,7 @@ export class RangeDatePicker extends React.Component<
 
     return (
       <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
-        <View style={[styles.container, style]}>
+        <View nativeID={nativeID} style={[styles.container, style]}>
           <View>
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>{displayText}</Text>

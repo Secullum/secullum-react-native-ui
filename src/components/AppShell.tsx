@@ -113,6 +113,7 @@ export class AppShell extends React.Component<AppShellProperties> {
         <Header
           title={screenTitle}
           leftButton={{
+            nativeID: 'menu-hamburguer',
             icon: 'bars',
             onPress: () => this.menu!.open()
           }}

@@ -32,15 +32,23 @@ export interface TableProperties {
   idAttribute: string;
   style?: StyleProp<ViewStyle>;
   cellStyle?: TableCellStyle;
+  nativeID?: string;
 }
 
 export class Table extends React.Component<TableProperties> {
   render() {
-    const { columns, data, idAttribute, style, cellStyle } = this.props;
+    const {
+      columns,
+      data,
+      idAttribute,
+      style,
+      cellStyle,
+      nativeID
+    } = this.props;
 
     return (
       <ScrollView horizontal={true}>
-        <View style={style}>
+        <View nativeID={nativeID} style={style}>
           <View style={styles.row}>
             {columns.map(column => (
               <Text

@@ -5,17 +5,22 @@ import { getTheme } from '../modules/theme';
 export interface Props {
   message?: string | null;
   style?: StyleProp<TextStyle>;
+  nativeID?: string;
 }
 
 export class ErrorMessage extends React.Component<Props> {
   render() {
-    const { message, style } = this.props;
+    const { message, style, nativeID } = this.props;
 
     if (!message) {
       return null;
     }
 
-    return <Text style={[styles.errorMessage, style]}>{message}</Text>;
+    return (
+      <Text nativeID={nativeID} style={[styles.errorMessage, style]}>
+        {message}
+      </Text>
+    );
   }
 }
 

@@ -21,6 +21,7 @@ export interface DatePickerProperties {
   clearable?: boolean;
   onChange: (value?: Date) => void;
   style?: StyleProp<ViewStyle>;
+  nativeID?: string;
 }
 
 export interface DatePickerState {
@@ -98,7 +99,7 @@ export class DatePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style } = this.props;
+    const { label, value, clearable, style, nativeID } = this.props;
 
     const styles = this.getStyles();
 
@@ -106,7 +107,7 @@ export class DatePicker extends React.Component<
 
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
-        <View style={[styles.container, style]}>
+        <View nativeID={nativeID} style={[styles.container, style]}>
           <View>
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>

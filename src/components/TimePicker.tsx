@@ -22,6 +22,7 @@ export interface TimePickerProperties {
   disabled?: boolean;
   onChange?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
+  nativeID?: string;
 }
 
 export interface TimePickerState {
@@ -103,7 +104,7 @@ export class TimePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style, disabled } = this.props;
+    const { label, value, clearable, style, disabled, nativeID } = this.props;
 
     const date = new Date();
     const hourRegex = /(\d{2}):(\d{2})/;
@@ -124,6 +125,7 @@ export class TimePicker extends React.Component<
           onPress={this.handlePress}
         >
           <View
+            nativeID={nativeID}
             style={[styles.container, style, disabled ? styles.readonly : null]}
           >
             <View>
