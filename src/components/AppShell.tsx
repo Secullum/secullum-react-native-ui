@@ -23,7 +23,7 @@ export interface AppShellProperties {
   screenTitle: string;
   renderUserData?: () => React.ReactNode;
   menu: Array<{
-    path: string;
+    path?: string;
     text: string;
     disabled?: boolean;
     subText?: string;
