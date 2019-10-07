@@ -35,8 +35,8 @@ class MenuDesktopItem extends React.Component<MenuDesktopItemProperties> {
   getStyles = () => {
     const styles = StyleSheet.create({
       submenuTitleIcon: {
-        paddingTop: 5,
-        paddingRight: 10
+        alignItems: 'center',
+        marginLeft: 'auto'
       }
     });
 
@@ -170,10 +170,6 @@ export class MenuDesktop extends React.Component<
         paddingLeft: 20,
         paddingVertical: isTablet() ? 10 : 8
       },
-      submenuTitleIcon: {
-        paddingTop: 15,
-        paddingRight: 10
-      },
       submenuTitleContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -246,7 +242,8 @@ export class MenuDesktop extends React.Component<
                 <View
                   style={{
                     height: menuIsOpen ? 'auto' : 0,
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    marginBottom: menuIsOpen ? 10 : 20
                   }}
                 >
                   {menuItem.submenu.map(item => {
