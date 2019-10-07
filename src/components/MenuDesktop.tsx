@@ -9,9 +9,78 @@ import {
   TouchableOpacity,
   View,
   TextStyle,
-  StyleProp
+  StyleProp,
+  ViewStyle
 } from 'react-native';
 import { isTablet } from '../modules/layout';
+
+interface MenuDesktopItemProperties {
+  text: string;
+  isParent: boolean;
+  path?: string;
+  nativeID?: string;
+  subText?: string;
+  disabled?: boolean;
+  textStyle?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
+  menuIsOpen?: boolean;
+  onPress: () => void;
+}
+
+class MenuDesktopItem extends React.Component<MenuDesktopItemProperties> {
+  static defaultProps = {
+    isParent: false
+  };
+
+  getStyles = () => {
+    const styles = StyleSheet.create({
+      submenuTitleIcon: {
+        paddingTop: 5,
+        paddingRight: 10
+      }
+    });
+
+    return styles;
+  };
+
+  render() {
+    const {
+      disabled,
+      containerStyle,
+      textStyle,
+      onPress,
+      nativeID,
+      text,
+      subText,
+      isParent,
+      menuIsOpen
+    } = this.props;
+    const styles = this.getStyles();
+
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        disabled={disabled}
+        style={containerStyle}
+        key={nativeID}
+      >
+        <Text nativeID={nativeID} style={textStyle}>
+          {text}
+          {subText && (
+            <Text style={{ fontSize: 12, marginLeft: 5 }}>{subText}</Text>
+          )}
+        </Text>
+        {isParent && (
+          <FontAwesome
+            name={menuIsOpen ? 'caret-up' : 'caret-down'}
+            style={styles.submenuTitleIcon}
+            size={20}
+          />
+        )}
+      </TouchableOpacity>
+    );
+  }
+}
 
 export interface MenuDesktopProperties {
   menu: Array<{
@@ -38,7 +107,6 @@ export interface MenuDesktopProperties {
 }
 
 export interface MenuDesktopState {
-  opened: boolean;
   indexMenuOpened: number;
 }
 
@@ -47,7 +115,6 @@ export class MenuDesktop extends React.Component<
   MenuDesktopState
 > {
   state: MenuDesktopState = {
-    opened: false,
     indexMenuOpened: -1
   };
 
@@ -147,92 +214,66 @@ export class MenuDesktop extends React.Component<
             menuItem.disabled && styles.itemTextDisabled
           ];
 
-          if (!menuItem.submenu) {
-            return (
-              <TouchableOpacity
-                key={index}
-                onPress={() => onMenuPress(menuItem.path || '')}
-                disabled={selected || menuItem.disabled}
-                style={styles.itemContainer}
-              >
-                <Text nativeID={menuItem.nativeID} style={textStyles}>
-                  {menuItem.text}
-                  {menuItem.subText && (
-                    <Text style={{ fontSize: 12, marginLeft: 5 }}>
-                      {menuItem.subText}
-                    </Text>
-                  )}
-                </Text>
-              </TouchableOpacity>
-            );
-          }
-
           const menuIsOpen = this.state.indexMenuOpened === index;
+          const isParent = menuItem.submenu != undefined;
+          const textStylesParent = [
+            styles.itemText,
+            menuTextStyle,
+            menuItem.textStyle
+          ];
 
           return (
             <View key={index}>
-              <TouchableOpacity
-                onPress={() => this.handleParentMenuPress(index)}
-                style={styles.submenuTitleContainer}
-              >
-                <Text
-                  nativeID={menuItem.nativeID}
-                  style={[styles.itemText, menuTextStyle, menuItem.textStyle]}
+              <MenuDesktopItem
+                nativeID={menuItem.nativeID}
+                text={menuItem.text}
+                subText={menuItem.subText}
+                onPress={() =>
+                  menuItem.path
+                    ? onMenuPress(menuItem.path)
+                    : this.handleParentMenuPress(index)
+                }
+                containerStyle={
+                  isParent ? styles.submenuTitleContainer : styles.itemContainer
+                }
+                textStyle={isParent ? textStylesParent : textStyles}
+                isParent={isParent}
+                disabled={!isParent && (selected || menuItem.disabled)}
+                menuIsOpen={this.state.indexMenuOpened === index}
+              />
+
+              {menuItem.submenu && (
+                <View
+                  style={{
+                    height: menuIsOpen ? 'auto' : 0,
+                    overflow: 'hidden'
+                  }}
                 >
-                  {menuItem.text}
-                  {menuItem.subText && (
-                    <Text style={{ fontSize: 12, marginLeft: 5 }}>
-                      {menuItem.subText}
-                    </Text>
-                  )}
-                </Text>
-                <FontAwesome
-                  name={menuIsOpen ? 'caret-up' : 'caret-down'}
-                  style={styles.submenuTitleIcon}
-                  size={20}
-                />
-              </TouchableOpacity>
+                  {menuItem.submenu.map(item => {
+                    selected = isCurrentMenuPath
+                      ? isCurrentMenuPath(item.path || '')
+                      : false;
 
-              <View
-                style={{
-                  height: menuIsOpen ? 'auto' : 0,
-                  overflow: 'hidden'
-                }}
-              >
-                {menuItem.submenu.map((item, indice) => {
-                  selected = isCurrentMenuPath
-                    ? isCurrentMenuPath(item.path || '')
-                    : false;
-
-                  return (
-                    <TouchableOpacity
-                      key={indice}
-                      onPress={() => {
-                        onMenuPress(item.path);
-                      }}
-                      disabled={item.disabled}
-                    >
-                      <Text
+                    return (
+                      <MenuDesktopItem
                         nativeID={item.nativeID}
-                        style={[
+                        key={item.path}
+                        text={item.text}
+                        subText={item.subText}
+                        onPress={() => onMenuPress(item.path)}
+                        textStyle={[
                           styles.submenuText,
                           submenuTextStyle,
                           item.textStyle,
                           selected ? styles.itemTextSelected : null,
                           item.disabled && styles.itemTextDisabled
                         ]}
-                      >
-                        {item.text}
-                        {item.subText && (
-                          <Text style={{ fontSize: 12, marginLeft: 5 }}>
-                            {item.subText}
-                          </Text>
-                        )}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
+                        disabled={item.disabled}
+                      />
+                    );
+                  })}
+                </View>
+              )}
             </View>
           );
         })}
