@@ -1,24 +1,24 @@
 ---
-name: Menu
-route: /menu
+name: MenuMobile
+route: /menu-mobile
 menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
 import { Text, View } from 'react-native';
-import { Menu } from '../../src/components/Menu.tsx';
+import { MenuMobile } from '../../src/components/MenuMobile.tsx';
 
-# Menu
+# MenuMobile
 
 ## Properties
 
-<PropsTable of={Menu} />
+<PropsTable of={MenuMobile} />
 
 ## Example
 
 <Playground>
   <View style={{ height: 600, width: 400, borderWidth: 1, overflow: 'hidden' }}>
-    <Menu
+    <MenuMobile
       ref={menu => menu && menu.open()}
       renderLogo={() => (
         <View>
@@ -33,7 +33,7 @@ import { Menu } from '../../src/components/Menu.tsx';
           textStyle: { color: 'green' },
           submenu: [
             { text: 'Basic Settings', path: 'BasicSettings', textStyle: { color: 'blue' } },
-            { text: 'Advanced Settings', path: 'AdvancedSettings' }
+            { text: 'Advanced Settings', path: 'AdvancedSettings', subText: 'soon' }
           ]
         },
         { text: 'About', path: 'About' }

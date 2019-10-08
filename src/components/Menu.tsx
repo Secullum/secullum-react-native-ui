@@ -1,12 +1,9 @@
 import * as React from 'react';
-import DrawerLayout from 'react-native-drawer-layout';
-import { getTheme } from '../modules/theme';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
 
 import {
-  BackHandler,
-  ScrollView,
   StyleProp,
   StyleSheet,
   Text,
@@ -15,136 +12,122 @@ import {
   View
 } from 'react-native';
 
+export interface MenuItemData {
+  path?: string;
+  text: string;
+  textStyle?: StyleProp<TextStyle>;
+  subText?: string;
+  subTextStyle?: StyleProp<TextStyle>;
+  disabled?: boolean;
+  nativeID?: string;
+}
+
+export interface MenuItemProperties {
+  menuItem: MenuItemData;
+  icon?: string;
+  textStyle?: StyleProp<TextStyle>;
+  onPress: () => void;
+  isCurrentMenuPath?: (path: string) => boolean;
+}
+
+export function MenuItem(props: MenuItemProperties) {
+  const theme = getTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+      paddingRight: 10
+    },
+    text: {
+      color: theme.textColor1,
+      fontFamily: 'Lato-Bold',
+      fontSize: isTablet() ? 20 : 16,
+      paddingVertical: isTablet() ? 15 : 14
+    },
+    textDisabled: {
+      color: theme.borderColor1
+    },
+    textSelected: {
+      color: theme.textColor2
+    },
+    subText: {
+      fontSize: 12,
+      marginLeft: 5
+    },
+    icon: {
+      paddingTop: 12,
+      paddingRight: 10
+    }
+  });
+
+  const { menuItem, icon, textStyle, onPress, isCurrentMenuPath } = props;
+
+  const selected =
+    isCurrentMenuPath != undefined &&
+    menuItem.path != undefined &&
+    isCurrentMenuPath(menuItem.path);
+
+  return (
+    <TouchableOpacity
+      disabled={menuItem.disabled}
+      style={styles.container}
+      onPress={onPress}
+    >
+      <Text
+        nativeID={menuItem.nativeID}
+        style={[
+          styles.text,
+          menuItem.disabled && styles.textDisabled,
+          selected && styles.textSelected,
+          textStyle,
+          menuItem.textStyle
+        ]}
+      >
+        {menuItem.text}
+        {menuItem.subText && (
+          <Text style={[styles.subText, menuItem.subTextStyle]}>
+            {menuItem.subText}
+          </Text>
+        )}
+      </Text>
+      {icon && <FontAwesome name={icon} style={styles.icon} size={20} />}
+    </TouchableOpacity>
+  );
+}
+
 export interface MenuProperties {
-  renderLogo: () => React.ReactNode;
-  menu: Array<{
-    path?: string;
-    text: string;
-    textStyle?: StyleProp<TextStyle>;
-    disabled?: boolean;
-    subText?: string;
-    submenu?: Array<{
-      path: string;
-      text: string;
-      textStyle?: StyleProp<TextStyle>;
-    }>;
-    nativeID?: string;
-  }>;
-  children: React.ReactNode;
+  menu: Array<MenuItemData & { submenu?: Array<MenuItemData> }>;
   onMenuPress: (path: string) => void;
-  renderUserData?: () => React.ReactNode;
-  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
-  currentMenuPath?: string;
-  menuTextStyle?: StyleProp<TextStyle>;
-  submenuTextStyle?: StyleProp<TextStyle>;
+  isCurrentMenuPath?: (path: string) => boolean;
 }
 
 export interface MenuState {
-  opened: boolean;
   indexMenuOpened: number;
 }
 
 export class Menu extends React.Component<MenuProperties, MenuState> {
   state: MenuState = {
-    opened: false,
     indexMenuOpened: -1
   };
 
-  drawer: DrawerLayout | null = null;
-
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    const { menu, isCurrentMenuPath } = this.props;
 
-    this.setState({
-      indexMenuOpened: this.props.menu.findIndex(
-        x =>
-          x.submenu != undefined &&
-          x.submenu.some(y => y.path === this.props.currentMenuPath)
-      )
-    });
+    const indexMenuOpened = menu.findIndex(
+      menuItem =>
+        menuItem.submenu != undefined &&
+        menuItem.submenu.some(
+          submenuItem =>
+            isCurrentMenuPath != undefined &&
+            submenuItem.path != undefined &&
+            isCurrentMenuPath(submenuItem.path)
+        )
+    );
+
+    this.setState({ indexMenuOpened });
   }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  handleBackButton = () => {
-    if (this.state.opened) {
-      this.close();
-      return true;
-    }
-
-    return false;
-  };
-
-  open = () => {
-    if (this.drawer) {
-      this.drawer.openDrawer();
-    }
-  };
-
-  close = () => {
-    if (this.drawer) {
-      this.drawer.closeDrawer();
-    }
-  };
-
-  getStyles = () => {
-    const theme = getTheme();
-
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1
-      },
-      logoContainer: {
-        paddingVertical: 5,
-        paddingLeft: 20,
-        borderBottomColor: theme.borderColor1,
-        borderBottomWidth: 1,
-        flexDirection: 'row',
-        alignItems: 'center'
-      },
-      userContainer: {
-        paddingVertical: 10,
-        paddingLeft: 20,
-        paddingRight: 10,
-        borderBottomColor: theme.borderColor1,
-        borderBottomWidth: 1
-      },
-      menuContainer: {
-        paddingLeft: 20,
-        flex: 1
-      },
-      menuText: {
-        color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
-        fontSize: isTablet() ? 20 : 16,
-        paddingVertical: isTablet() ? 15 : 14
-      },
-      menuTextDisabled: {
-        color: theme.borderColor1
-      },
-      submenuText: {
-        color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
-        fontSize: isTablet() ? 20 : 16,
-        paddingLeft: 20,
-        paddingVertical: isTablet() ? 10 : 8
-      },
-      submenuTitleIcon: {
-        paddingTop: 15,
-        paddingRight: 10
-      },
-      submenuTitleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        paddingRight: 10
-      }
-    });
-
-    return styles;
-  };
 
   handleParentMenuPress = (index: number) => {
     this.setState({
@@ -152,128 +135,74 @@ export class Menu extends React.Component<MenuProperties, MenuState> {
     });
   };
 
-  renderNavigationView = () => {
-    const {
-      renderLogo,
-      menu,
-      onMenuPress,
-      renderUserData,
-      menuTextStyle,
-      submenuTextStyle
-    } = this.props;
+  handleMenuPress = (path?: string) => {
+    if (path != undefined) {
+      this.props.onMenuPress(path);
+    }
+  };
 
-    const styles = this.getStyles();
+  getStyles = () => {
+    const styles = StyleSheet.create({
+      submenuText: {
+        paddingLeft: 20,
+        paddingVertical: isTablet() ? 10 : 8
+      }
+    });
 
-    return (
-      <View style={styles.container}>
-        <View style={styles.logoContainer}>{renderLogo()}</View>
-
-        {renderUserData ? (
-          <View style={styles.userContainer}>{renderUserData()}</View>
-        ) : null}
-
-        <ScrollView style={styles.menuContainer}>
-          {menu.map((menuItem, index) => {
-            if (!menuItem.submenu) {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  disabled={menuItem.disabled}
-                  onPress={() => {
-                    this.close();
-                    onMenuPress(menuItem.path || '');
-                  }}
-                >
-                  <Text
-                    nativeID={menuItem.nativeID}
-                    style={[
-                      styles.menuText,
-                      menuItem.disabled && styles.menuTextDisabled,
-                      menuTextStyle,
-                      menuItem.textStyle
-                    ]}
-                  >
-                    {menuItem.text}
-                    {menuItem.subText && (
-                      <Text style={{ fontSize: 12, marginLeft: 5 }}>
-                        {menuItem.subText}
-                      </Text>
-                    )}
-                  </Text>
-                </TouchableOpacity>
-              );
-            }
-
-            const menuIsOpen = this.state.indexMenuOpened === index;
-
-            return (
-              <View key={index}>
-                <TouchableOpacity
-                  onPress={() => this.handleParentMenuPress(index)}
-                  style={styles.submenuTitleContainer}
-                >
-                  <Text
-                    style={[styles.menuText, menuTextStyle, menuItem.textStyle]}
-                  >
-                    {menuItem.text}
-                  </Text>
-                  <FontAwesome
-                    name={menuIsOpen ? 'caret-up' : 'caret-down'}
-                    style={styles.submenuTitleIcon}
-                    size={20}
-                  />
-                </TouchableOpacity>
-
-                <View
-                  style={{
-                    height: menuIsOpen ? 'auto' : 0,
-                    overflow: 'hidden'
-                  }}
-                >
-                  {menuItem.submenu.map((item, indice) => (
-                    <TouchableOpacity
-                      key={indice}
-                      onPress={() => {
-                        this.close();
-                        onMenuPress(item.path);
-                      }}
-                    >
-                      <Text
-                        style={[
-                          styles.submenuText,
-                          submenuTextStyle,
-                          item.textStyle
-                        ]}
-                      >
-                        {item.text}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              </View>
-            );
-          })}
-        </ScrollView>
-      </View>
-    );
+    return styles;
   };
 
   render() {
-    const theme = getTheme();
+    const { menu, isCurrentMenuPath } = this.props;
+    const styles = this.getStyles();
 
     return (
-      <DrawerLayout
-        ref={drawer => (this.drawer = drawer)}
-        drawerLockMode={this.props.drawerLockMode}
-        drawerBackgroundColor={theme.backgroundColor1}
-        drawerWidth={isTablet() ? 450 : 300}
-        drawerPosition={DrawerLayout.positions.Left}
-        renderNavigationView={this.renderNavigationView}
-        onDrawerOpen={() => this.setState({ opened: true })}
-        onDrawerClose={() => this.setState({ opened: false })}
-      >
-        {this.props.children}
-      </DrawerLayout>
+      <>
+        {menu.map((menuItem, menuItemIndex) => {
+          const menuItemIsOpen = this.state.indexMenuOpened === menuItemIndex;
+
+          const menuItemIcon = menuItem.submenu
+            ? menuItemIsOpen
+              ? 'caret-up'
+              : 'caret-down'
+            : undefined;
+
+          const menuItemOnPress = () =>
+            menuItem.submenu
+              ? this.handleParentMenuPress(menuItemIndex)
+              : this.handleMenuPress(menuItem.path);
+
+          return (
+            <View key={menuItemIndex}>
+              <MenuItem
+                menuItem={menuItem}
+                icon={menuItemIcon}
+                onPress={menuItemOnPress}
+                isCurrentMenuPath={isCurrentMenuPath}
+              />
+
+              {menuItem.submenu && (
+                <View
+                  style={{
+                    height: menuItemIsOpen ? 'auto' : 0,
+                    overflow: 'hidden'
+                  }}
+                >
+                  {menuItem.submenu.map((submenuItem, submenuItemIndex) => (
+                    <MenuItem
+                      key={submenuItemIndex}
+                      menuItem={submenuItem}
+                      textStyle={styles.submenuText}
+                      onPress={() => this.handleMenuPress(submenuItem.path)}
+                      isCurrentMenuPath={isCurrentMenuPath}
+                    />
+                  ))}
+                </View>
+              )}
+            </View>
+          );
+        })}
+      </>
     );
   }
 }

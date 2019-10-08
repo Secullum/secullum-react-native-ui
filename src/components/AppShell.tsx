@@ -2,7 +2,8 @@ import * as React from 'react';
 import { DimensionsMonitor } from './DimensionsMonitor';
 import { Header } from './Header';
 import { HeaderDesktop } from './HeaderDesktop';
-import { Menu } from './Menu';
+import { MenuProperties } from './Menu';
+import { MenuMobile } from './MenuMobile';
 import { MenuDesktop } from './MenuDesktop';
 import { getTheme } from '../modules/theme';
 
@@ -15,26 +16,17 @@ import {
   Dimensions
 } from 'react-native';
 
-export interface AppShellProperties {
+export type AppShellProperties = MenuProperties & {
   logoHeader: ImageSourcePropType;
   logoMenu: ImageSourcePropType;
   title: string;
   greeting?: string;
   screenTitle: string;
   renderUserData?: () => React.ReactNode;
-  menu: Array<{
-    path: string;
-    text: string;
-    disabled?: boolean;
-    subText?: string;
-  }>;
-  onMenuPress: (path: string) => void;
-  currentMenuPath?: string;
-  isCurrentMenuPath?: (path: string) => boolean;
-}
+};
 
 export class AppShell extends React.Component<AppShellProperties> {
-  menu: Menu | null = null;
+  menu: MenuMobile | null = null;
 
   getMobileStyles = () => {
     const theme = getTheme();
@@ -90,18 +82,18 @@ export class AppShell extends React.Component<AppShellProperties> {
       renderUserData,
       menu,
       onMenuPress,
-      currentMenuPath,
+      isCurrentMenuPath,
       children
     } = this.props;
 
     const styles = this.getMobileStyles();
 
     return (
-      <Menu
+      <MenuMobile
         ref={ref => (this.menu = ref)}
         menu={menu}
         onMenuPress={onMenuPress}
-        currentMenuPath={currentMenuPath}
+        isCurrentMenuPath={isCurrentMenuPath}
         renderLogo={() => (
           <>
             <Image source={logoMenu} style={styles.logoImage} />
@@ -119,7 +111,7 @@ export class AppShell extends React.Component<AppShellProperties> {
           }}
         />
         <View style={styles.container}>{children}</View>
-      </Menu>
+      </MenuMobile>
     );
   };
 

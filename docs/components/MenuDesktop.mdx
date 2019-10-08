@@ -23,6 +23,6 @@ import { MenuDesktop } from '../../src/components/MenuDesktop.tsx';
       { text: 'About', path: 'About' }
     ]}
     onMenuPress={path => alert(path)}
-    currentMenuPath="Home"
+    isCurrentMenuPath={path => path === 'Home'}
   />
 </Playground>

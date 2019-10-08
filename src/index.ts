@@ -14,7 +14,7 @@ export * from './components/ImageButton';
 export * from './components/KeyboardAvoidingView';
 export * from './components/Link';
 export * from './components/Loading';
-export * from './components/Menu';
+export * from './components/MenuMobile';
 export * from './components/MenuDesktop';
 export * from './components/Message';
 export * from './components/Modal';

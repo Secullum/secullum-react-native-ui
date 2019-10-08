@@ -25,10 +25,14 @@ import logo from '../img/logo.png';
     screenTitle="Screen Title"
     menu={[
       { text: 'Home', path: 'Home' },
-      { text: 'Settings', path: 'Settings' },
+      { text: 'Registers', textStyle: { color: 'red' }, submenu: [
+        { text: 'Companies', path: 'Companies', textStyle: { color: 'green' } },
+        { text: 'Employees', path: 'Employees' }
+      ] },
+      { text: 'Settings', path: 'Settings', subText: 'soon', textStyle: { color: 'blue' } },
       { text: 'About', path: 'About' }
     ]}
     onMenuPress={path => alert(path)}
-    currentMenuPath="Home"
+    isCurrentMenuPath={path => path === 'Home'}
   />
 </Playground>
