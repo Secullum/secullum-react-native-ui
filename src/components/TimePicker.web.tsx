@@ -110,7 +110,9 @@ export class TimePicker extends React.Component<TimePickerProperties> {
               }
             }}
             onBlur={() => {
-              value.length > 0 && this.props.onChange(value + '00:00'.substr(value.length));
+              if (value.length > 0) {
+                this.props.onChange(value + '00:00'.substr(value.length));
+              }
             }}
           />
         </View>
