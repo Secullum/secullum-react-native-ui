@@ -61,7 +61,11 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
       <View style={styles.container}>
         <Image source={logo} style={styles.logo} />
         <Text style={styles.title}>{title}</Text>
-        {greeting && <Text style={styles.greeting}>{greeting}</Text>}
+        {greeting && (
+          <Text nativeID="app-greeting-message" style={styles.greeting}>
+            {greeting}
+          </Text>
+        )}
       </View>
     );
   }

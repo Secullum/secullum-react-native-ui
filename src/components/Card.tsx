@@ -18,6 +18,7 @@ import {
 export interface CardHeaderProperties {
   title: string;
   titleStyle?: StyleProp<TextStyle>;
+  nativeID?: string;
   onHelpPress?: () => void;
 }
 
@@ -49,12 +50,12 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
     return styles;
   };
   render() {
-    const { title, titleStyle, onHelpPress } = this.props;
+    const { title, titleStyle, onHelpPress, nativeID } = this.props;
 
     const styles = this.getStyles();
 
     return (
-      <View style={styles.container}>
+      <View nativeID={nativeID} style={styles.container}>
         <Text style={[styles.title, titleStyle]}>{title}</Text>
         {onHelpPress && (
           <TouchableOpacity onPress={onHelpPress} style={styles.help}>
