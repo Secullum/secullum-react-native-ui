@@ -16,6 +16,7 @@ export interface ImageButtonProperties {
   onPress: () => void;
   iconSize?: number;
   hitBoxSize?: number;
+  nativeID?: string;
 }
 
 export class ImageButton extends React.Component<ImageButtonProperties> {
@@ -26,7 +27,8 @@ export class ImageButton extends React.Component<ImageButtonProperties> {
       iconColor,
       onPress,
       iconSize,
-      hitBoxSize
+      hitBoxSize,
+      nativeID
     } = this.props;
 
     return (
@@ -46,6 +48,7 @@ export class ImageButton extends React.Component<ImageButtonProperties> {
         }
       >
         <FontAwesome
+          nativeID={nativeID}
           name={icon}
           size={iconSize || 20}
           color={iconColor || theme.textColor1}
