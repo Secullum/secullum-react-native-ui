@@ -9,17 +9,30 @@ interface State {
   leftHeader: number;
 }
 
-export class Table extends React.Component<TableProperties, State> {
+interface Props {
+  heightContainer: number;
+}
+
+export class Table extends React.Component<Props & TableProperties, State> {
   state: State = {
     leftHeader: 0
   };
 
+  static defaultProps = {
+    //Top = 60px, padding = 16px, filter = 54px, viewFilters = 88px, padding = 16px, header = 53px, padding = 16
+    heightContainer: Dimensions.get('window').height - 303
+  };
+
   render() {
-    const { columns, data, idAttribute, cellStyle } = this.props;
+    const {
+      columns,
+      data,
+      idAttribute,
+      cellStyle,
+      heightContainer
+    } = this.props;
 
     const { leftHeader } = this.state;
-
-    const heightContainer = Dimensions.get('window').height - 303; //Topo = 60px, padding = 16px, filtrar = 54px, filtros = 88px, padding = 16px, header = 53px, padding = 16
 
     return (
       <>
@@ -120,7 +133,7 @@ export class Table extends React.Component<TableProperties, State> {
 const theme = getTheme();
 
 const styles = StyleSheet.create({
-  containerHeader: {
+  parentHeader: {
     overflow: 'hidden',
     position: 'relative',
     height: 45
