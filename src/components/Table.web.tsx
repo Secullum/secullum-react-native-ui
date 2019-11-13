@@ -133,11 +133,6 @@ export class Table extends React.Component<Props & TableProperties, State> {
 const theme = getTheme();
 
 const styles = StyleSheet.create({
-  parentHeader: {
-    overflow: 'hidden',
-    position: 'relative',
-    height: 45
-  },
   containerColumns: {
     display: 'flex',
     overflowX: 'scroll',
