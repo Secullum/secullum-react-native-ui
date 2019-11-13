@@ -378,50 +378,53 @@ export class DropDown extends React.Component<
             onRequestClose={() => this.setState({ modalOpen: false })}
             overlayStyle={styles.modalOverlay}
           >
-            <View
-              style={[
-                styles.modalContainer,
-                Platform.OS === 'web' && {
-                  margin: 'auto',
-                  width: '90%',
-                  maxWidth: 450,
-                  justifyContent: 'center',
-                  marginBottom: '10px',
-                  marginTop: '10px'
-                }
-              ]}
-            >
-              {items.length > 0 ? (
-                <FlatList
-                  data={items}
-                  initialNumToRender={items.length}
-                  keyExtractor={item => item.value.toString()}
-                  renderItem={({ item, index }) => {
-                    return (
-                      <DropDownItem
-                        nativeID={item.nativeID}
-                        first={index === 0}
-                        last={index === items.length - 1}
-                        label={item.label}
-                        value={item.value}
-                        onPress={this.handleItemPress}
-                        icon={item.icon}
-                        iconComponent={iconComponent}
-                      />
-                    );
-                  }}
-                />
-              ) : (
-                <View style={styles.emptyMessageContainer}>
-                  <FontAwesome
-                    name="warning"
-                    color={theme.warningColor}
-                    size={24}
+            <TouchableWithoutFeedback>
+              <View
+                style={[
+                  styles.modalContainer,
+                  Platform.OS === 'web' && {
+                    margin: 'auto',
+                    width: '90%',
+                    maxWidth: 450,
+                    maxHeight: 300,
+                    justifyContent: 'center',
+                    marginBottom: '10px',
+                    marginTop: '10px'
+                  }
+                ]}
+              >
+                {items.length > 0 ? (
+                  <FlatList
+                    data={items}
+                    initialNumToRender={items.length}
+                    keyExtractor={item => item.value.toString()}
+                    renderItem={({ item, index }) => {
+                      return (
+                        <DropDownItem
+                          nativeID={item.nativeID}
+                          first={index === 0}
+                          last={index === items.length - 1}
+                          label={item.label}
+                          value={item.value}
+                          onPress={this.handleItemPress}
+                          icon={item.icon}
+                          iconComponent={iconComponent}
+                        />
+                      );
+                    }}
                   />
-                  <Text style={styles.modalItem}>{emptyMessage}</Text>
-                </View>
-              )}
-            </View>
+                ) : (
+                  <View style={styles.emptyMessageContainer}>
+                    <FontAwesome
+                      name="warning"
+                      color={theme.warningColor}
+                      size={24}
+                    />
+                    <Text style={styles.modalItem}>{emptyMessage}</Text>
+                  </View>
+                )}
+              </View>
+            </TouchableWithoutFeedback>
           </Modal>
         </View>
       </TouchableWithoutFeedback>
