@@ -83,7 +83,6 @@ export class Table extends React.Component<Props & TableProperties, State> {
         >
           <div>
             <FlatList
-              style={{ flexGrow: 0 }}
               data={data}
               keyExtractor={item => item.id.toString()}
               renderItem={({ item, index }) => (
@@ -133,11 +132,6 @@ export class Table extends React.Component<Props & TableProperties, State> {
 const theme = getTheme();
 
 const styles = StyleSheet.create({
-  containerColumns: {
-    display: 'flex',
-    overflowX: 'scroll',
-    overflowY: 'scroll'
-  },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
