@@ -111,6 +111,9 @@ export class Card extends React.Component<CardProperties> {
         shadowOpacity: 0.15,
         shadowRadius: 5
       },
+      containerAndroid: {
+        backgroundColor: theme.backgroundColor1
+      },
       cardChild: {
         borderTopColor: theme.borderColor1,
         borderTopWidth: 1
@@ -145,7 +148,10 @@ export class Card extends React.Component<CardProperties> {
     ) : (
       <ElevatedView
         elevation={5}
-        style={[styles.container, style]}
+        style={[
+          Platform.OS == 'android' ? styles.containerAndroid : styles.container,
+          style
+        ]}
         {...otherProps}
       >
         {childrenMapped}
