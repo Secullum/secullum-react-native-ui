@@ -93,24 +93,28 @@ export class TimePicker extends React.Component<TimePickerProperties> {
               }
             }}
             onChangeText={(text: string) => {
-              if (text.length === 2 && !this.backspace) {
-                text += ':';
-              }
+              if (value.length > 0 && value.match(/[a-zA-Z]+/) == null) {
+                if (text.length === 2 && !this.backspace) {
+                  text += ':';
+                }
 
-              if (text.length === 3 && !text.includes(':')) {
-                text = text.substr(0, 2) + ':' + text.substr(2);
-              }
+                if (text.length === 3 && !text.includes(':')) {
+                  text = text.substr(0, 2) + ':' + text.substr(2);
+                }
 
-              if (text.length <= 2) {
-                this.backspace = false;
-              }
+                if (text.length <= 2) {
+                  this.backspace = false;
+                }
 
-              if (isHour(text + '00:00'.substr(text.length))) {
+                if (isHour(text + '00:00'.substr(text.length))) {
+                  this.props.onChange(text);
+                }
+              } else {
                 this.props.onChange(text);
               }
             }}
             onBlur={() => {
-              if (value.length > 0) {
+              if (value.length > 0 && value.match(/[a-zA-Z]+/) == null) {
                 this.props.onChange(value + '00:00'.substr(value.length));
               }
             }}
