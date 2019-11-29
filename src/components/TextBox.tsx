@@ -43,6 +43,7 @@ export interface TextBoxProperties {
   returnKeyType?: ReturnKeyTypeOptions;
   blurOnSubmit?: boolean;
   nativeID?: string;
+  selection?: { start: number; end?: number };
 }
 
 export class TextBox extends React.Component<TextBoxProperties> {
@@ -138,7 +139,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
       ref: (input: TextInput) => {
         this.input = input;
         if (inputRef) inputRef(input);
-      }
+      },
+      selection: this.props.selection
     };
 
     return (
