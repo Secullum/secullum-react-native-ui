@@ -29,13 +29,14 @@ export class Table extends React.Component<Props & TableProperties, State> {
       data,
       idAttribute,
       cellStyle,
-      heightContainer
+      heightContainer,
+      nativeID
     } = this.props;
 
     const { leftHeader } = this.state;
 
     return (
-      <>
+      <View nativeID={nativeID}>
         <div
           style={{
             overflow: 'hidden',
@@ -124,7 +125,7 @@ export class Table extends React.Component<Props & TableProperties, State> {
             />
           </div>
         </div>
-      </>
+      </View>
     );
   }
 }
