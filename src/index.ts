@@ -18,6 +18,7 @@ export * from './components/MenuMobile';
 export * from './components/MenuDesktop';
 export * from './components/Message';
 export * from './components/Modal';
+export * from './components/RadioButton';
 export * from './components/RadioGroup';
 export * from './components/RangeDatePicker';
 export * from './components/Space';

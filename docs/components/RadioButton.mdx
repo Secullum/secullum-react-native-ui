@@ -1,0 +1,28 @@
+---
+name: RadioButton
+route: /radio-button
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { RadioButton } from '../../src/components/RadioButton.tsx';
+
+# RadioButton
+
+## Properties
+
+<PropsTable of={RadioButton} />
+
+## Example
+
+<Playground>
+  <RadioButton
+    items={[
+      { label: 'Item 1', value: 'item1' },
+      { label: 'Item 2', value: 'item2' },
+      { label: 'Item 3', value: 'item3' }
+    ]}
+    value="item1"
+    onChange={value => alert(value)}
+  />
+</Playground>
