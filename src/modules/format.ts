@@ -14,6 +14,10 @@ export const setLocale = (locale: Locale) => {
   currentLocale = locale;
 };
 
+export const getLocale = () => {
+  return currentLocale;
+};
+
 export const parseDate = (date: string, format: string) => {
   return dfnsParse(date, format, new Date());
 };
