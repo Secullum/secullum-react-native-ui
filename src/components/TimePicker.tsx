@@ -1,5 +1,5 @@
 import * as React from 'react';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { ImageButton } from './ImageButton';
 import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
@@ -23,6 +23,7 @@ export interface TimePickerProperties {
   onChange?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
+  isDarkModeEnabled:boolean;
 }
 
 export interface TimePickerState {
@@ -33,12 +34,13 @@ export class TimePicker extends React.Component<
   TimePickerProperties,
   TimePickerState
 > {
-  static defaultProps = {
-    clearable: true
-  };
-
   state: TimePickerState = {
     showModal: false
+  };
+
+  static defaultProps = {
+    clearable: true,
+    isDarkModeEnabled: false
   };
 
   handlePress = () => {
@@ -46,11 +48,11 @@ export class TimePicker extends React.Component<
   };
 
   handleConfirm = (value: Date) => {
-    if (this.props.onChange) {
-      this.props.onChange(formatDate(value, 'HH:mm'));
-    }
-
-    this.handleCancel();
+    this.setState({ showModal: false },()=>{
+      if (this.props.onChange) {
+        this.props.onChange(formatDate(value, 'HH:mm'));
+      }
+    });
   };
 
   handleCancel = () => {
@@ -104,7 +106,7 @@ export class TimePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style, disabled, nativeID } = this.props;
+    const { label, value, clearable, style, disabled, nativeID, isDarkModeEnabled } = this.props;
 
     const date = new Date();
     const hourRegex = /(\d{2}):(\d{2})/;
@@ -134,12 +136,13 @@ export class TimePicker extends React.Component<
             </View>
 
             {Platform.OS !== 'web' && (
-              <DateTimePicker
+              <DateTimePickerModal
                 mode="time"
                 date={date}
                 isVisible={this.state.showModal}
                 onConfirm={this.handleConfirm}
                 onCancel={this.handleCancel}
+                isDarkModeEnabled={isDarkModeEnabled}
               />
             )}
 

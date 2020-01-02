@@ -1,5 +1,5 @@
 import * as React from 'react';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
 import { ImageButton } from './ImageButton';
@@ -22,6 +22,7 @@ export interface DatePickerProperties {
   onChange: (value?: Date) => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
+  isDarkModeEnabled: boolean;
 }
 
 export interface DatePickerState {
@@ -32,12 +33,13 @@ export class DatePicker extends React.Component<
   DatePickerProperties,
   DatePickerState
 > {
-  static defaultProps = {
-    clearable: true
-  };
-
   state: DatePickerState = {
     showModal: false
+  };
+
+  static defaultProps = {
+    clearable: true,
+    isDarkModeEnabled: false    
   };
 
   handlePress = () => {
@@ -45,8 +47,9 @@ export class DatePicker extends React.Component<
   };
 
   handleConfirm = (value: Date) => {
-    this.props.onChange(value);
-    this.handleCancel();
+    this.setState({ showModal: false },()=>{
+      this.props.onChange(value);
+    });
   };
 
   handleCancel = () => {
@@ -99,7 +102,7 @@ export class DatePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style, nativeID } = this.props;
+    const { label, value, clearable, style, nativeID, isDarkModeEnabled } = this.props;
 
     const styles = this.getStyles();
 
@@ -116,11 +119,12 @@ export class DatePicker extends React.Component<
           </View>
 
           {Platform.OS !== 'web' && (
-            <DateTimePicker
+            <DateTimePickerModal
               date={value}
               isVisible={this.state.showModal}
               onConfirm={this.handleConfirm}
               onCancel={this.handleCancel}
+              isDarkModeEnabled={isDarkModeEnabled}
             />
           )}
 
