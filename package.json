@@ -19,12 +19,13 @@
     "docs:publish": "docz build && gh-pages -d .docz/dist"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^2.1.0",
     "date-fns": "2.0.0-alpha.7",
     "react-date-range": "^1.0.0-beta",
     "react-native-drawer-layout": "^2.0.0",
     "react-native-elevated-view": "^0.0.6",
     "react-native-masked-text": "^1.7.2",
-    "react-native-modal-datetime-picker": "^4.13.0",
+    "react-native-modal-datetime-picker": "8.0.4",
     "react-native-vector-icons": "^4.5.0",
     "react-native-web-modal": "^1.0.1"
   },

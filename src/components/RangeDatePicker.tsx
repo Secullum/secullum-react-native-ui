@@ -1,5 +1,5 @@
 import * as React from 'react';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { formatDate } from '../modules/format';
 import { getTheme } from '../modules/theme';
@@ -23,6 +23,7 @@ export interface RangeDatePickerProperties {
   onEndDateCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
+  isDarkModeEnabled: boolean;
 }
 
 export interface RangeDatePickerState {
@@ -46,12 +47,18 @@ export class RangeDatePicker extends React.Component<
   };
 
   handleStartDateConfirm = (date: Date) => {
-    if (date > this.props.endDate) {
-      this.props.onEndDateChange(date);
-    }
-
-    this.props.onStartDateChange(date);
-    this.handleStartDateCancel();
+    this.setState(
+      {
+        showStartDateModal: false,
+        showEndDateModal: true
+      },
+      () => {
+        if (date > this.props.endDate) {
+          this.props.onEndDateChange(date);
+        }
+        this.props.onStartDateChange(date);
+      }
+    );
   };
 
   handleStartDateCancel = () => {
@@ -62,11 +69,14 @@ export class RangeDatePicker extends React.Component<
   };
 
   handleEndDateConfirm = (date: Date) => {
-    this.props.onEndDateChange(date);
-
-    this.setState({
-      showEndDateModal: false
-    });
+    this.setState(
+      {
+        showEndDateModal: false
+      },
+      () => {
+        this.props.onEndDateChange(date);
+      }
+    );
   };
 
   handleEndDateCancel = () => {
@@ -115,7 +125,14 @@ export class RangeDatePicker extends React.Component<
   };
 
   render() {
-    const { label, startDate, endDate, style, nativeID } = this.props;
+    const {
+      label,
+      startDate,
+      endDate,
+      style,
+      nativeID,
+      isDarkModeEnabled
+    } = this.props;
     const { showStartDateModal, showEndDateModal } = this.state;
 
     const displayFormat = 'MMM D, YYYY';
@@ -138,34 +155,38 @@ export class RangeDatePicker extends React.Component<
 
           {Platform.OS === 'ios' ? (
             showStartDateModal ? (
-              <DateTimePicker
+              <DateTimePickerModal
                 date={startDate}
                 isVisible={true}
                 onConfirm={this.handleStartDateConfirm}
                 onCancel={this.handleStartDateCancel}
+                isDarkModeEnabled={isDarkModeEnabled}
               />
             ) : showEndDateModal ? (
-              <DateTimePicker
+              <DateTimePickerModal
                 date={endDate}
                 isVisible={true}
                 onConfirm={this.handleEndDateConfirm}
                 onCancel={this.handleEndDateCancel}
+                isDarkModeEnabled={isDarkModeEnabled}
               />
             ) : null
           ) : (
             <>
-              <DateTimePicker
+              <DateTimePickerModal
                 date={startDate}
                 isVisible={showStartDateModal}
                 onConfirm={this.handleStartDateConfirm}
                 onCancel={this.handleStartDateCancel}
+                isDarkModeEnabled={isDarkModeEnabled}
               />
-              <DateTimePicker
+              <DateTimePickerModal
                 date={endDate}
                 minimumDate={startDate}
                 isVisible={showEndDateModal}
                 onConfirm={this.handleEndDateConfirm}
                 onCancel={this.handleEndDateCancel}
+                isDarkModeEnabled={isDarkModeEnabled}
               />
             </>
           )}
