@@ -34,12 +34,12 @@ export class TimePicker extends React.Component<
   TimePickerProperties,
   TimePickerState
 > {
-  state: TimePickerState = {
-    showModal: false
-  };
-
   static defaultProps = {
     clearable: true
+  };
+
+  state: TimePickerState = {
+    showModal: false
   };
 
   handlePress = () => {
