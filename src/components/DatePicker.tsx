@@ -33,12 +33,12 @@ export class DatePicker extends React.Component<
   DatePickerProperties,
   DatePickerState
 > {
-  state: DatePickerState = {
-    showModal: false
-  };
-
   static defaultProps = {
     clearable: true
+  };
+
+  state: DatePickerState = {
+    showModal: false
   };
 
   handlePress = () => {
