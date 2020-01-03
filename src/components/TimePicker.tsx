@@ -23,7 +23,7 @@ export interface TimePickerProperties {
   onChange?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
-  isDarkModeEnabled:boolean;
+  isDarkModeEnabled: boolean;
 }
 
 export interface TimePickerState {
@@ -39,8 +39,7 @@ export class TimePicker extends React.Component<
   };
 
   static defaultProps = {
-    clearable: true,
-    isDarkModeEnabled: false
+    clearable: true
   };
 
   handlePress = () => {
@@ -48,7 +47,7 @@ export class TimePicker extends React.Component<
   };
 
   handleConfirm = (value: Date) => {
-    this.setState({ showModal: false },()=>{
+    this.setState({ showModal: false }, () => {
       if (this.props.onChange) {
         this.props.onChange(formatDate(value, 'HH:mm'));
       }
@@ -106,7 +105,15 @@ export class TimePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style, disabled, nativeID, isDarkModeEnabled } = this.props;
+    const {
+      label,
+      value,
+      clearable,
+      style,
+      disabled,
+      nativeID,
+      isDarkModeEnabled
+    } = this.props;
 
     const date = new Date();
     const hourRegex = /(\d{2}):(\d{2})/;

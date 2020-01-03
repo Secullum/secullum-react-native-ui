@@ -38,8 +38,7 @@ export class DatePicker extends React.Component<
   };
 
   static defaultProps = {
-    clearable: true,
-    isDarkModeEnabled: false    
+    clearable: true
   };
 
   handlePress = () => {
@@ -47,7 +46,7 @@ export class DatePicker extends React.Component<
   };
 
   handleConfirm = (value: Date) => {
-    this.setState({ showModal: false },()=>{
+    this.setState({ showModal: false }, () => {
       this.props.onChange(value);
     });
   };
@@ -102,7 +101,14 @@ export class DatePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style, nativeID, isDarkModeEnabled } = this.props;
+    const {
+      label,
+      value,
+      clearable,
+      style,
+      nativeID,
+      isDarkModeEnabled
+    } = this.props;
 
     const styles = this.getStyles();
 
