@@ -53,6 +53,6 @@
     "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55"
   },
   "resolutions": {
-    "docz-plugin-react-native/react-native-web": "^0.9.0"
+    "docz-plugin-react-native/react-native-web": "^0.11.7"
   }
 }
