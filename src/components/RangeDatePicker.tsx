@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { Appearance } from 'react-native-appearance';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { formatDate } from '../modules/format';
+import { isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
 
 import {
@@ -13,7 +15,7 @@ import {
   ViewStyle,
   Platform
 } from 'react-native';
-import { isTablet } from '../modules/layout';
+
 export interface RangeDatePickerProperties {
   label: string;
   startDate: Date;
@@ -23,12 +25,12 @@ export interface RangeDatePickerProperties {
   onEndDateCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
-  isDarkModeEnabled: boolean;
 }
 
 export interface RangeDatePickerState {
   showStartDateModal: boolean;
   showEndDateModal: boolean;
+  isDarkModeEnabled: boolean;
 }
 
 export class RangeDatePicker extends React.Component<
@@ -37,8 +39,23 @@ export class RangeDatePicker extends React.Component<
 > {
   state: RangeDatePickerState = {
     showStartDateModal: false,
-    showEndDateModal: false
+    showEndDateModal: false,
+    isDarkModeEnabled: Appearance.getColorScheme() === 'dark'
   };
+
+  appearanceSubscription: any;
+
+  componentDidMount() {
+    this.appearanceSubscription = Appearance.addChangeListener(
+      ({ colorScheme }) => {
+        this.setState({ isDarkModeEnabled: colorScheme === 'dark' });
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    this.appearanceSubscription.remove();
+  }
 
   handleDatePickerPress = () => {
     this.setState({
@@ -125,15 +142,13 @@ export class RangeDatePicker extends React.Component<
   };
 
   render() {
+    const { label, startDate, endDate, style, nativeID } = this.props;
+
     const {
-      label,
-      startDate,
-      endDate,
-      style,
-      nativeID,
+      showStartDateModal,
+      showEndDateModal,
       isDarkModeEnabled
-    } = this.props;
-    const { showStartDateModal, showEndDateModal } = this.state;
+    } = this.state;
 
     const displayFormat = 'MMM D, YYYY';
 
@@ -151,10 +166,11 @@ export class RangeDatePicker extends React.Component<
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>{displayText}</Text>
           </View>
+
           <FontAwesome name="calendar" style={styles.icon} />
 
-          {Platform.OS === 'ios' ? (
-            showStartDateModal ? (
+          {Platform.OS !== 'web' &&
+            (showStartDateModal ? (
               <DateTimePickerModal
                 date={startDate}
                 isVisible={true}
@@ -170,26 +186,7 @@ export class RangeDatePicker extends React.Component<
                 onCancel={this.handleEndDateCancel}
                 isDarkModeEnabled={isDarkModeEnabled}
               />
-            ) : null
-          ) : (
-            <>
-              <DateTimePickerModal
-                date={startDate}
-                isVisible={showStartDateModal}
-                onConfirm={this.handleStartDateConfirm}
-                onCancel={this.handleStartDateCancel}
-                isDarkModeEnabled={isDarkModeEnabled}
-              />
-              <DateTimePickerModal
-                date={endDate}
-                minimumDate={startDate}
-                isVisible={showEndDateModal}
-                onConfirm={this.handleEndDateConfirm}
-                onCancel={this.handleEndDateCancel}
-                isDarkModeEnabled={isDarkModeEnabled}
-              />
-            </>
-          )}
+            ) : null)}
         </View>
       </TouchableWithoutFeedback>
     );

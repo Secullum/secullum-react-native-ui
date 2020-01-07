@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { Appearance } from 'react-native-appearance';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { ImageButton } from './ImageButton';
 import { formatDate } from '../modules/format';
+import { isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
 
 import {
@@ -13,7 +15,6 @@ import {
   View,
   ViewStyle
 } from 'react-native';
-import { isTablet } from '../modules/layout';
 
 export interface TimePickerProperties {
   label: string;
@@ -23,11 +24,11 @@ export interface TimePickerProperties {
   onChange?: (value: string) => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
-  isDarkModeEnabled: boolean;
 }
 
 export interface TimePickerState {
   showModal: boolean;
+  isDarkModeEnabled: boolean;
 }
 
 export class TimePicker extends React.Component<
@@ -39,8 +40,23 @@ export class TimePicker extends React.Component<
   };
 
   state: TimePickerState = {
-    showModal: false
+    showModal: false,
+    isDarkModeEnabled: Appearance.getColorScheme() === 'dark'
   };
+
+  appearanceSubscription: any;
+
+  componentDidMount() {
+    this.appearanceSubscription = Appearance.addChangeListener(
+      ({ colorScheme }) => {
+        this.setState({ isDarkModeEnabled: colorScheme === 'dark' });
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    this.appearanceSubscription.remove();
+  }
 
   handlePress = () => {
     this.setState({ showModal: true });
@@ -105,15 +121,8 @@ export class TimePicker extends React.Component<
   };
 
   render() {
-    const {
-      label,
-      value,
-      clearable,
-      style,
-      disabled,
-      nativeID,
-      isDarkModeEnabled
-    } = this.props;
+    const { label, value, clearable, style, disabled, nativeID } = this.props;
+    const { showModal, isDarkModeEnabled } = this.state;
 
     const date = new Date();
     const hourRegex = /(\d{2}):(\d{2})/;
@@ -142,17 +151,6 @@ export class TimePicker extends React.Component<
               <Text style={styles.value}>{value}</Text>
             </View>
 
-            {Platform.OS !== 'web' && (
-              <DateTimePickerModal
-                mode="time"
-                date={date}
-                isVisible={this.state.showModal}
-                onConfirm={this.handleConfirm}
-                onCancel={this.handleCancel}
-                isDarkModeEnabled={isDarkModeEnabled}
-              />
-            )}
-
             {!disabled && (
               <ImageButton
                 icon={value && clearable ? 'times' : 'clock-o'}
@@ -164,6 +162,17 @@ export class TimePicker extends React.Component<
                   value && clearable ? this.handleClear : this.handlePress
                 }
                 hitBoxSize={30}
+              />
+            )}
+
+            {Platform.OS !== 'web' && (
+              <DateTimePickerModal
+                mode="time"
+                date={date}
+                isVisible={showModal}
+                onConfirm={this.handleConfirm}
+                onCancel={this.handleCancel}
+                isDarkModeEnabled={isDarkModeEnabled}
               />
             )}
           </View>
