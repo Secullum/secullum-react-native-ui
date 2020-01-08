@@ -9,6 +9,7 @@ export interface TextProperties {
   flex?: number;
   color: string;
   align?: 'auto' | 'left' | 'right' | 'center' | 'justify';
+  nativeID?: string;
 }
 
 const theme = getTheme();
@@ -21,9 +22,20 @@ export class Text extends React.Component<TextProperties> {
   };
 
   render() {
-    const { bold, color, size, style, flex, align, children } = this.props;
+    const {
+      bold,
+      color,
+      size,
+      style,
+      flex,
+      align,
+      children,
+      nativeID
+    } = this.props;
+
     return (
       <TextNative
+        nativeID={nativeID}
         style={[
           {
             color,

@@ -19,6 +19,7 @@ interface Props {
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  nativeID?: string;
 }
 
 export class CheckBox extends React.Component<Props> {
@@ -47,7 +48,15 @@ export class CheckBox extends React.Component<Props> {
   };
 
   render() {
-    const { label, value, onChange, disabled, style, labelStyle } = this.props;
+    const {
+      label,
+      value,
+      onChange,
+      disabled,
+      style,
+      labelStyle,
+      nativeID
+    } = this.props;
 
     const styles = this.getStyles();
 
@@ -62,6 +71,7 @@ export class CheckBox extends React.Component<Props> {
         }}
       >
         <Icons
+          nativeID={nativeID}
           name={value ? 'check-square-o' : 'square-o'}
           style={styles.icon}
         />
