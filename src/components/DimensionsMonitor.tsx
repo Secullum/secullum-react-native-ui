@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Dimensions, ScaledSize } from 'react-native';
 
 export interface DimensionsMonitorProperties {
-  children: (dimensionsInfo: { isDesktop: boolean }) => React.ReactNode;
+  children?: (dimensionsInfo: { isDesktop: boolean }) => React.ReactNode;
+  onDimensionChange?: (isDesktop: boolean) => void;
 }
 
 export interface DimensionsMonitorState {
@@ -30,7 +31,13 @@ export class DimensionsMonitor extends React.Component<
   }
 
   handleDimensionsChange = ({ window }: { window: ScaledSize }) => {
-    this.setState({ isDesktop: this.isDesktop(window) });
+    const isDesktop = this.isDesktop(window);
+
+    this.setState({ isDesktop });
+
+    if (this.props.onDimensionChange && isDesktop !== this.state.isDesktop) {
+      this.props.onDimensionChange(isDesktop);
+    }
   };
 
   isDesktop = (size: ScaledSize) => {
@@ -38,6 +45,10 @@ export class DimensionsMonitor extends React.Component<
   };
 
   render() {
+    if (!this.props.children) {
+      return null;
+    }
+
     return this.props.children({ isDesktop: this.state.isDesktop });
   }
 }
