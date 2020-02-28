@@ -18,6 +18,7 @@ export interface KeyboardAvoidingViewProperties {
   extraWindowHeight: number; // To inform if there's some extra space outside the keyboard avoiding view, example: status bar, header, etc...
   refreshControl?: React.ReactElement<RefreshControlProps>;
   children: (options: { availableHeight: number }) => JSX.Element;
+  scrollEnabled?: boolean ;
 }
 
 export interface KeyboardAvoidingViewState {
@@ -30,7 +31,8 @@ export class KeyboardAvoidingView extends React.Component<
 > {
   static defaultProps = {
     extraFieldHeight: 0,
-    extraWindowHeight: 0
+    extraWindowHeight: 0,
+    scrollEnabled: true
   };
 
   keyboardDidShowSubscription?: EmitterSubscription;
@@ -148,6 +150,7 @@ export class KeyboardAvoidingView extends React.Component<
         <ScrollView
           ref={this.scrollViewRef}
           refreshControl={this.props.refreshControl}
+          scrollEnabled={this.props.scrollEnabled}
         >
           {this.props.children({ availableHeight })}
         </ScrollView>
