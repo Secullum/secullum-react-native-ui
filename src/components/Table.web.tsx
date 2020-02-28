@@ -19,8 +19,8 @@ export class Table extends React.Component<Props & TableProperties, State> {
   };
 
   static defaultProps = {
-    //Top = 60px, padding = 16px, filters = 143px, padding = 16px, header = 45px, subHeaderData = 45px, padding = 16
-    heightContainer: Dimensions.get('window').height - 341
+    //Top = 60px, padding = 16px, filters = 143px, padding = 16px, header = 45px, padding = 16
+    heightContainer: Dimensions.get('window').height - 296
   };
 
   renderHeaderTable = (data: Array<TableColumn>) => {
@@ -70,13 +70,16 @@ export class Table extends React.Component<Props & TableProperties, State> {
       data,
       idAttribute,
       cellStyle,
-      heightContainer
+      heightContainer,
+      subHeaderData
     } = this.props;
+
+    const height = subHeaderData ? heightContainer - 45 : heightContainer;
 
     return (
       <div
         style={{
-          height: heightContainer,
+          height,
           display: 'flex',
           overflowX: 'scroll',
           overflowY: 'scroll'
