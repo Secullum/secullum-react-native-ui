@@ -28,6 +28,7 @@ export interface TableCellStyle {
 
 export interface TableProperties {
   columns: Array<TableColumn>;
+  subHeaderData?: Array<TableColumn>;
   data: Array<any>;
   idAttribute: string;
   style?: StyleProp<ViewStyle>;
