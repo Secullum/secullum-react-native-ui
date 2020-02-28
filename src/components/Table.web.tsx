@@ -19,7 +19,7 @@ export class Table extends React.Component<Props & TableProperties, State> {
   };
 
   static defaultProps = {
-    //Top = 60px, padding = 16px, filter = 54px, viewFilters = 88px, padding = 16px, header = 53px, padding = 16
+    //Top = 60px, padding = 16px, filters = 143px, padding = 16px, header = 45px, header = 45px, padding = 16
     heightContainer: Dimensions.get('window').height - 341
   };
 
