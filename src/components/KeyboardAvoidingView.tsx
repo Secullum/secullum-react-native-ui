@@ -18,7 +18,7 @@ export interface KeyboardAvoidingViewProperties {
   extraWindowHeight: number; // To inform if there's some extra space outside the keyboard avoiding view, example: status bar, header, etc...
   refreshControl?: React.ReactElement<RefreshControlProps>;
   children: (options: { availableHeight: number }) => JSX.Element;
-  scrollEnabled?: boolean ;
+  scrollEnabled?: boolean;
 }
 
 export interface KeyboardAvoidingViewState {
