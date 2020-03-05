@@ -22,7 +22,7 @@ export interface TimePickerProperties {
   clearable?: boolean;
   disabled?: boolean;
   onChange?: (value: string) => void;
-  onCancel?:()=>void;
+  onCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
 }
@@ -72,12 +72,11 @@ export class TimePicker extends React.Component<
   };
 
   handleCancel = () => {
-    this.setState({showModal: false},()=>{
-      if (this.props.onCancel){
+    this.setState({ showModal: false }, () => {
+      if (this.props.onCancel) {
         this.props.onCancel();
       }
     });
-
   };
 
   handleClear = () => {
