@@ -21,6 +21,7 @@ export interface DatePickerProperties {
   value?: Date;
   clearable?: boolean;
   onChange: (value?: Date) => void;
+  onCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
 }
@@ -68,7 +69,11 @@ export class DatePicker extends React.Component<
   };
 
   handleCancel = () => {
-    this.setState({ showModal: false });
+    this.setState({ showModal: false }, () => {
+      if (this.props.onCancel) {
+        this.props.onCancel();
+      }
+    });
   };
 
   handleClear = () => {
