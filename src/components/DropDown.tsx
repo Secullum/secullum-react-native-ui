@@ -268,12 +268,12 @@ export class DropDown extends React.Component<
         lineHeight: 16
       },
       text: {
-        height: 27,
+        lineHeight: 22,
+        minHeight: 22,
         alignSelf: 'flex-start',
         color: theme.textColor1,
         fontFamily: 'Lato-Bold',
-        fontSize: 16,
-        paddingTop: 4
+        fontSize: 16
       },
       textIcon: {
         height: 27,
