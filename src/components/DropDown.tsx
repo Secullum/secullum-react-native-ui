@@ -1,7 +1,10 @@
 import * as React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { IconProps } from 'react-native-vector-icons/Icon';
 import { Modal } from './Modal';
+import { isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
+
 import {
   FlatList,
   StyleProp,
@@ -14,8 +17,6 @@ import {
   Platform,
   TextStyle
 } from 'react-native';
-import { isTablet } from '../modules/layout';
-import { IconProps } from 'react-native-vector-icons/Icon';
 
 interface DropDownItemProperties {
   first: boolean;
@@ -271,7 +272,8 @@ export class DropDown extends React.Component<
         alignSelf: 'flex-start',
         color: theme.textColor1,
         fontFamily: 'Lato-Bold',
-        fontSize: 16
+        fontSize: 16,
+        paddingTop: 4
       },
       textIcon: {
         height: 27,
