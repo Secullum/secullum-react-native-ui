@@ -32,6 +32,8 @@ export interface RangeDatePickerProperties {
 export interface RangeDatePickerState {
   showStartDateModal: boolean;
   count: number;
+  localStartDate: Date | undefined;
+  localEndDate: Date | undefined;
 }
 
 export class RangeDatePicker extends React.Component<
@@ -40,7 +42,9 @@ export class RangeDatePicker extends React.Component<
 > {
   state: RangeDatePickerState = {
     showStartDateModal: false,
-    count: 0
+    count: 0,
+    localStartDate: undefined,
+    localEndDate: undefined
   };
 
   private calendarRef = React.createRef<HTMLDivElement>();
@@ -58,7 +62,12 @@ export class RangeDatePicker extends React.Component<
       this.calendarRef.current &&
       !this.calendarRef.current.contains(event.target as Node)
     ) {
-      this.setState({ showStartDateModal: false, count: 0 });
+      this.setState({
+        showStartDateModal: false,
+        count: 0,
+        localStartDate: undefined,
+        localEndDate: undefined
+      });
     }
   };
 
@@ -76,13 +85,18 @@ export class RangeDatePicker extends React.Component<
       // is async, so we wait a little.
       setTimeout(() => this.props.onEndDateChange(ranges.selection.endDate), 1);
 
-      this.setState({ showStartDateModal: false, count: 0 });
+      this.setState({
+        showStartDateModal: false,
+        count: 0,
+        localStartDate: ranges.selection.startDate,
+        localEndDate: ranges.selection.endDate
+      });
 
       return;
     }
 
     this.props.onStartDateChange(ranges.selection.startDate);
-    this.setState({ count: 1 });
+    this.setState({ count: 1, localStartDate: ranges.selection.startDate });
   };
 
   getStyles = () => {
@@ -126,7 +140,7 @@ export class RangeDatePicker extends React.Component<
 
   render() {
     const { label, startDate, endDate, style, nativeID } = this.props;
-    const { showStartDateModal } = this.state;
+    const { showStartDateModal, localStartDate, localEndDate } = this.state;
 
     const displayFormat = 'MMM D, YYYY';
 
@@ -166,8 +180,8 @@ export class RangeDatePicker extends React.Component<
                 showDateDisplay={false}
                 ranges={[
                   {
-                    startDate: startDate,
-                    endDate: endDate,
+                    startDate: localStartDate ? localStartDate : startDate,
+                    endDate: localEndDate ? localEndDate : endDate,
                     key: 'selection'
                   }
                 ]}
