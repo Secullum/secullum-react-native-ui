@@ -391,7 +391,7 @@ export class DropDown extends React.Component<
                     maxHeight: 300,
                     justifyContent: 'center',
                     marginBottom: '10px',
-                    marginTop: '10px'
+                    marginTop: '25%'
                   }
                 ]}
               >
