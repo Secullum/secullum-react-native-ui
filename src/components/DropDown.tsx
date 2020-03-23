@@ -385,13 +385,12 @@ export class DropDown extends React.Component<
                 style={[
                   styles.modalContainer,
                   Platform.OS === 'web' && {
-                    margin: 'auto',
+                    marginVertical: '10px',
+                    marginHorizontal: 'auto',
                     width: '90%',
                     maxWidth: 450,
                     maxHeight: 300,
-                    justifyContent: 'center',
-                    marginBottom: '10px',
-                    marginTop: '10px'
+                    justifyContent: 'center'
                   }
                 ]}
               >
