@@ -5,6 +5,7 @@ import {
   EmitterSubscription,
   Keyboard,
   KeyboardEvent,
+  NativeScrollEvent,
   Platform,
   RefreshControlProps,
   ScrollView,
@@ -19,6 +20,7 @@ export interface KeyboardAvoidingViewProperties {
   refreshControl?: React.ReactElement<RefreshControlProps>;
   children: (options: { availableHeight: number }) => JSX.Element;
   scrollEnabled?: boolean;
+  onScroll?: (event: NativeScrollEvent) => void;
 }
 
 export interface KeyboardAvoidingViewState {
@@ -151,6 +153,11 @@ export class KeyboardAvoidingView extends React.Component<
           ref={this.scrollViewRef}
           refreshControl={this.props.refreshControl}
           scrollEnabled={this.props.scrollEnabled}
+          onScroll={(e: any) => {
+            if (this.props.onScroll) {
+              this.props.onScroll(e.nativeEvent);
+            }
+          }}
         >
           {this.props.children({ availableHeight })}
         </ScrollView>
