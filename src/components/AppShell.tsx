@@ -138,7 +138,9 @@ export class AppShell extends React.Component<AppShellProperties> {
             onMenuPress={onMenuPress}
             isCurrentMenuPath={isCurrentMenuPath}
           />
-          <View style={styles.content}>{children}</View>
+          <View nativeID="app-shell-desktop-content" style={styles.content}>
+            {children}
+          </View>
         </View>
       </>
     );
