@@ -70,6 +70,9 @@ export class RangeDatePicker extends React.Component<
         showEndDateModal: true
       },
       () => {
+        // When using RangeDatePicker on Android devices the end date modal were not being displayed, in order to avoid it,
+        // the setTimeOut was implemented so as it will set a little delay (enough time to update the state) before execute other functions.
+        // Related issue on gitlab: 3487
         setTimeout(() => {
           if (date > this.props.endDate) {
             this.props.onEndDateChange(date);
