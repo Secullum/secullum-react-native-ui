@@ -70,10 +70,12 @@ export class RangeDatePicker extends React.Component<
         showEndDateModal: true
       },
       () => {
-        if (date > this.props.endDate) {
-          this.props.onEndDateChange(date);
-        }
-        this.props.onStartDateChange(date);
+        setTimeout(() => {
+          if (date > this.props.endDate) {
+            this.props.onEndDateChange(date);
+          }
+          this.props.onStartDateChange(date);
+        }, 1);
       }
     );
   };
