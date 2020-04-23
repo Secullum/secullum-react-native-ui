@@ -84,7 +84,8 @@ export class AppShell extends React.Component<AppShellProperties> {
       menu,
       onMenuPress,
       isCurrentMenuPath,
-      children
+      children,
+      rightButton
     } = this.props;
 
     const styles = this.getMobileStyles();
@@ -110,6 +111,7 @@ export class AppShell extends React.Component<AppShellProperties> {
             icon: 'bars',
             onPress: () => this.menu!.open()
           }}
+          rightButton={rightButton}
         />
         <View style={styles.container}>{children}</View>
       </MenuMobile>

@@ -95,14 +95,12 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
       </>
     );
 
-    const style = [styles.button];
-
     if (button.disabled) {
-      return <View style={style}>{icon}</View>;
+      return <View style={styles.button}>{icon}</View>;
     }
 
     return (
-      <TouchableOpacity onPress={button.onPress} style={style}>
+      <TouchableOpacity onPress={button.onPress} style={styles.button}>
         {icon}
       </TouchableOpacity>
     );
