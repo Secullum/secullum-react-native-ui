@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DimensionsMonitor } from './DimensionsMonitor';
-import { Header } from './Header';
+import { Header, HeaderButton } from './Header';
 import { HeaderDesktop } from './HeaderDesktop';
 import { MenuProperties } from './Menu';
 import { MenuMobile } from './MenuMobile';
@@ -23,6 +23,7 @@ export type AppShellProperties = MenuProperties & {
   greeting?: string;
   screenTitle: string;
   renderUserData?: () => React.ReactNode;
+  rightButton?: HeaderButton;
 };
 
 export class AppShell extends React.Component<AppShellProperties> {
@@ -83,7 +84,8 @@ export class AppShell extends React.Component<AppShellProperties> {
       menu,
       onMenuPress,
       isCurrentMenuPath,
-      children
+      children,
+      rightButton
     } = this.props;
 
     const styles = this.getMobileStyles();
@@ -109,6 +111,7 @@ export class AppShell extends React.Component<AppShellProperties> {
             icon: 'bars',
             onPress: () => this.menu!.open()
           }}
+          rightButton={rightButton}
         />
         <View style={styles.container}>{children}</View>
       </MenuMobile>
@@ -123,14 +126,20 @@ export class AppShell extends React.Component<AppShellProperties> {
       menu,
       onMenuPress,
       isCurrentMenuPath,
-      children
+      children,
+      rightButton
     } = this.props;
 
     const styles = this.getDesktopStyles();
 
     return (
       <>
-        <HeaderDesktop title={title} logo={logoHeader} greeting={greeting} />
+        <HeaderDesktop
+          title={title}
+          logo={logoHeader}
+          greeting={greeting}
+          rightButton={rightButton}
+        />
         <View style={styles.container}>
           <MenuDesktop
             menu={menu}
