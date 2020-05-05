@@ -11,13 +11,14 @@ import {
   View,
   ViewStyle
 } from 'react-native';
+import { CheckBox } from './CheckBox';
 
 export interface TableColumn {
   key: string;
   title: string;
   headerStyle?: StyleProp<TextStyle>;
   style?: StyleProp<TextStyle>;
-  type: 'text' | 'icon';
+  type: 'text' | 'icon' | 'checkbox';
 }
 
 export interface TableCellStyle {
@@ -34,6 +35,8 @@ export interface TableProperties {
   style?: StyleProp<ViewStyle>;
   cellStyle?: TableCellStyle;
   nativeID?: string;
+  onSelect?: (name: string, value: boolean) => void;
+  onSelectAll?: (value: boolean) => void;
 }
 
 export class Table extends React.Component<TableProperties> {
@@ -44,26 +47,37 @@ export class Table extends React.Component<TableProperties> {
       idAttribute,
       style,
       cellStyle,
-      nativeID
+      nativeID,
+      onSelect,
+      onSelectAll
     } = this.props;
 
     return (
       <ScrollView horizontal={true}>
         <View nativeID={nativeID} style={style}>
           <View style={styles.row}>
-            {columns.map(column => (
-              <Text
-                key={column.key}
-                style={[
-                  styles.cell,
-                  styles.cellHeader,
-                  column.style,
-                  column.headerStyle
-                ]}
-              >
-                {column.title}
-              </Text>
-            ))}
+            {columns.map(column => {
+              return column.type === 'checkbox' ? (
+                <CheckBox
+                  key={column.key}
+                  style={{ marginLeft: 8 }}
+                  value={data.every(x => x.selected) || false}
+                  onChange={value => onSelectAll && onSelectAll(value)}
+                />
+              ) : (
+                <Text
+                  key={column.key}
+                  style={[
+                    styles.cell,
+                    styles.cellHeader,
+                    column.style,
+                    column.headerStyle
+                  ]}
+                >
+                  {column.title}
+                </Text>
+              );
+            })}
           </View>
           {data.map((row, rowIndex) => (
             <View
@@ -89,6 +103,15 @@ export class Table extends React.Component<TableProperties> {
                     key={column.key}
                     name={row[column.key].toString()}
                     style={[styles.cellIcon, style, column.style]}
+                  />
+                ) : column.type === 'checkbox' ? (
+                  <CheckBox
+                    key={column.key}
+                    style={{ marginLeft: 8 }}
+                    value={row.selected || false}
+                    onChange={value =>
+                      onSelect && onSelect(row[column.key].toString(), value)
+                    }
                   />
                 ) : (
                   <Text

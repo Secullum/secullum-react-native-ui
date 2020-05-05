@@ -4,6 +4,7 @@ import { getTheme } from '../modules/theme';
 import { TableProperties, TableColumn } from './Table';
 import { View, Text, StyleSheet, Dimensions, FlatList } from 'react-native';
 import { ehIE } from '../modules/browser';
+import { CheckBox } from './CheckBox';
 
 interface State {
   leftHeader: number;
@@ -23,7 +24,8 @@ export class Table extends React.Component<Props & TableProperties, State> {
     heightContainer: Dimensions.get('window').height - 296
   };
 
-  renderHeaderTable = (data: Array<TableColumn>) => {
+  renderHeaderTable = (headerData: Array<TableColumn>) => {
+    const { onSelectAll, data } = this.props;
     const { leftHeader } = this.state;
 
     return (
@@ -46,19 +48,28 @@ export class Table extends React.Component<Props & TableProperties, State> {
             paddingTop: ehIE() ? 15 : 0
           }}
         >
-          {data.map(column => (
-            <Text
-              key={column.key}
-              style={[
-                styles.cell,
-                styles.cellHeader,
-                column.style,
-                column.headerStyle
-              ]}
-            >
-              {column.title}
-            </Text>
-          ))}
+          {headerData.map(column => {
+            return column.type === 'checkbox' ? (
+              <CheckBox
+                key={column.key}
+                style={{ marginLeft: 8 }}
+                value={data.every(x => x.selected) || false}
+                onChange={value => onSelectAll && onSelectAll(value)}
+              />
+            ) : (
+              <Text
+                key={column.key}
+                style={[
+                  styles.cell,
+                  styles.cellHeader,
+                  column.style,
+                  column.headerStyle
+                ]}
+              >
+                {column.title}
+              </Text>
+            );
+          })}
         </div>
       </div>
     );
@@ -71,7 +82,8 @@ export class Table extends React.Component<Props & TableProperties, State> {
       idAttribute,
       cellStyle,
       heightContainer,
-      subHeaderData
+      subHeaderData,
+      onSelect
     } = this.props;
 
     const height = subHeaderData ? heightContainer - 45 : heightContainer;
@@ -116,6 +128,15 @@ export class Table extends React.Component<Props & TableProperties, State> {
                       key={column.key}
                       name={item[column.key].toString()}
                       style={[styles.cellIcon, style, column.style]}
+                    />
+                  ) : column.type === 'checkbox' ? (
+                    <CheckBox
+                      key={column.key}
+                      style={{ marginLeft: 8 }}
+                      value={item.selected || false}
+                      onChange={value =>
+                        onSelect && onSelect(item[column.key].toString(), value)
+                      }
                     />
                   ) : (
                     <Text
