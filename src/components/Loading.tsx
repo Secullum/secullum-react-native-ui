@@ -14,6 +14,7 @@ export class Loading extends React.Component {
 
 const styles = StyleSheet.create({
   backgroundView: {
+    zIndex: 9998,
     position: 'absolute',
     width: '100%',
     height: '100%',
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     right: 0 // IE fix
   },
   indicator: {
+    zIndex: 9999,
     position: 'absolute',
     width: '100%',
     height: '100%',
