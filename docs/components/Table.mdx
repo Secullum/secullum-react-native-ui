@@ -6,6 +6,7 @@ menu: Components
 
 import { Playground, PropsTable } from 'docz';
 import { Table } from '../../src/components/Table.tsx';
+import { Space } from '../../src/components/Space.tsx';
 
 # Table
 
@@ -26,6 +27,19 @@ import { Table } from '../../src/components/Table.tsx';
     columns={[
       { key: 'name', title: 'Name', width: 200 },
       { key: 'favoriteColor', title: 'Favorite Color', width: 100 }
+    ]}
+  />
+  <Space />
+  <Table
+    idAttribute="id"
+    data={[
+      { id: 1, name: 'Fernando' },
+      { id: 2, name: 'Alex' },
+      { id: 3, name: 'João', selected: true }
+    ]}
+    columns={[
+      { key: 'selected', type: 'checkbox' },
+      { key: 'name', title: 'Name', width: 100 }
     ]}
   />
 </Playground>

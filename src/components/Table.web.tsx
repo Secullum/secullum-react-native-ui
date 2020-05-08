@@ -25,7 +25,7 @@ export class Table extends React.Component<Props & TableProperties, State> {
   };
 
   renderHeaderTable = (headerData: Array<TableColumn>) => {
-    const { onSelectAll, data } = this.props;
+    const { onSelectAll, data, nativeID } = this.props;
     const { leftHeader } = this.state;
 
     return (
@@ -48,9 +48,12 @@ export class Table extends React.Component<Props & TableProperties, State> {
             paddingTop: ehIE() ? 15 : 0
           }}
         >
-          {headerData.map(column => {
+          {headerData.map((column, index) => {
+            const headerId = nativeID && `${nativeID}-header-${index + 1}`;
+
             return column.type === 'checkbox' ? (
               <CheckBox
+                nativeID={headerId}
                 key={column.key}
                 style={{ marginLeft: 8 }}
                 value={data.every(x => x.selected) || false}
@@ -58,6 +61,7 @@ export class Table extends React.Component<Props & TableProperties, State> {
               />
             ) : (
               <Text
+                nativeID={headerId}
                 key={column.key}
                 style={[
                   styles.cell,
@@ -83,7 +87,8 @@ export class Table extends React.Component<Props & TableProperties, State> {
       cellStyle,
       heightContainer,
       subHeaderData,
-      onSelect
+      onSelect,
+      nativeID
     } = this.props;
 
     const height = subHeaderData ? heightContainer - 45 : heightContainer;
@@ -117,20 +122,25 @@ export class Table extends React.Component<Props & TableProperties, State> {
                   }
                 ]}
               >
-                {columns.map(column => {
+                {columns.map((column, columnIndex) => {
                   const style =
                     cellStyle &&
                     cellStyle[item[idAttribute].toString()] &&
                     cellStyle[item[idAttribute].toString()][column.key];
 
+                  const cellID =
+                    nativeID && `${nativeID}-${index + 1}-${columnIndex + 1}`;
+
                   return column.type === 'icon' ? (
                     <FontAwesome
+                      nativeID={cellID}
                       key={column.key}
                       name={item[column.key].toString()}
                       style={[styles.cellIcon, style, column.style]}
                     />
                   ) : column.type === 'checkbox' ? (
                     <CheckBox
+                      nativeID={cellID}
                       key={column.key}
                       style={{ marginLeft: 8 }}
                       value={item.selected || false}
@@ -140,6 +150,7 @@ export class Table extends React.Component<Props & TableProperties, State> {
                     />
                   ) : (
                     <Text
+                      nativeID={cellID}
                       key={column.key}
                       style={[styles.cell, style, column.style]}
                     >

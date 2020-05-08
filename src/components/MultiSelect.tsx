@@ -12,7 +12,10 @@ import {
 } from 'react-native';
 import { isTablet } from '../modules/layout';
 import { IconProps } from 'react-native-vector-icons/Icon';
-import { Button, Space, Modal, Switch } from '..';
+import { Switch } from './Switch';
+import { Modal } from './Modal';
+import { Button } from './Button';
+import { Space } from './Space';
 
 interface MultiSelectItemProperties {
   label: string;
