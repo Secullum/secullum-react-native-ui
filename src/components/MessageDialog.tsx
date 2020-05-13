@@ -1,12 +1,18 @@
 import * as React from 'react';
 import ReactNativeModal from 'react-native-web-modal';
-
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextStyle,
+  StyleProp,
+  ViewStyle
+} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
-import { Button } from '../components/Button';
-import { Space } from '../components/Space';
+import { Button } from './Button';
+import { Space } from './Space';
 
 export interface MessageDialogProperties {
   message: string;
@@ -16,16 +22,16 @@ export interface MessageDialogProperties {
   okButton?: {
     text: string;
     onPress: () => void;
-    customStyle?: object;
-    textStyle?: object;
+    customStyle?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
     primary?: boolean;
     nativeID?: string;
   };
   cancelButton?: {
     text: string;
     onPress: () => void;
-    customStyle?: object;
-    textStyle?: object;
+    customStyle?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
     primary?: boolean;
     nativeID?: string;
   };

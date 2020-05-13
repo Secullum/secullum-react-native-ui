@@ -1,0 +1,54 @@
+---
+name: MessageDialog
+route: /messageDialog
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { MessageDialog } from '../../src/components/MessageDialog.tsx';
+
+# Message
+
+## Properties
+
+<PropsTable of={MessageDialog} />
+
+## Example
+
+<Playground>
+  {() => {
+    class MessageDialogExample extends React.Component {
+      constructor() {
+        this.state = {
+          messageVisible: true
+        };
+      }
+
+      render() {
+        return (
+          <MessageDialog
+            message="This is a message"
+            type="question"
+            visible={this.state.messageVisible}
+            okButton={{
+              text:"Ok",
+              primary:true,
+              onPress: ()=> {
+                alert("Ok Button Pressed"); 
+              }
+            }}
+            cancelButton={{
+              text:"Cancel",
+              primary:false,
+              onPress: ()=> {
+                this.setState({messageVisible: false});
+              }
+            }}
+          />
+        );
+      }
+    }
+
+    return <MessageDialogExample />;
+  }}
+</Playground>
