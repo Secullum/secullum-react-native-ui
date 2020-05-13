@@ -1,23 +1,23 @@
 ---
-name: MessageDialog
-route: /message-dialog
+name: Question
+route: /question
 menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
-import { MessageDialog } from '../../src/components/MessageDialog.tsx';
+import { Question } from '../../src/components/Question.tsx';
 
-# Message
+# Question
 
 ## Properties
 
-<PropsTable of={MessageDialog} />
+<PropsTable of={Question} />
 
 ## Example
 
 <Playground>
   {() => {
-    class MessageDialogExample extends React.Component {
+    class QuestionExample extends React.Component {
       constructor() {
         this.state = {
           messageVisible: true
@@ -26,20 +26,20 @@ import { MessageDialog } from '../../src/components/MessageDialog.tsx';
 
       render() {
         return (
-          <MessageDialog
-            message="This is a message"
-            type="question"
+          <Question
+            message='This is a message'
+            type='question'
             visible={this.state.messageVisible}
             okButton={{
-              text:"Ok",
-              primary:true,
+              text: 'OK',
+              primary: true,
               onPress: ()=> {
-                alert("Ok Button Pressed"); 
+                alert('OK Button Pressed');
               }
             }}
             cancelButton={{
-              text:"Cancel",
-              primary:false,
+              text: 'Cancel',
+              primary: false,
               onPress: ()=> {
                 this.setState({messageVisible: false});
               }
@@ -49,6 +49,8 @@ import { MessageDialog } from '../../src/components/MessageDialog.tsx';
       }
     }
 
-    return <MessageDialogExample />;
-  }}
+    return <QuestionExample />;
+
+}}
+
 </Playground>
