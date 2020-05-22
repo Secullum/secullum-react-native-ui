@@ -18,7 +18,9 @@ import {
 export interface CardHeaderProperties {
   title: string;
   titleStyle?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<TextStyle>;
   nativeID?: string;
+  numberOfLines?: number;
   onHelpPress?: () => void;
 }
 
@@ -50,13 +52,22 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
     return styles;
   };
   render() {
-    const { title, titleStyle, onHelpPress, nativeID } = this.props;
+    const {
+      title,
+      titleStyle,
+      onHelpPress,
+      nativeID,
+      containerStyle,
+      numberOfLines
+    } = this.props;
 
     const styles = this.getStyles();
 
     return (
-      <View nativeID={nativeID} style={styles.container}>
-        <Text style={[styles.title, titleStyle]}>{title}</Text>
+      <View nativeID={nativeID} style={[styles.container, containerStyle]}>
+        <Text style={[styles.title, titleStyle]} numberOfLines={numberOfLines}>
+          {title}
+        </Text>
         {onHelpPress && (
           <TouchableOpacity onPress={onHelpPress} style={styles.help}>
             <FontAwesome name="question-circle" style={styles.helpIcon} />
