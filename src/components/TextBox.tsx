@@ -14,7 +14,8 @@ import {
   View,
   ViewStyle,
   TextInputProps,
-  ReturnKeyTypeOptions
+  ReturnKeyTypeOptions,
+  TextInputKeyPressEventData
 } from 'react-native';
 
 export interface TextBoxInputProps extends TextInputProps {
@@ -26,6 +27,7 @@ export interface TextBoxProperties {
   label: string;
   value: string;
   onChange?: (value: string) => void;
+  onKeyPress?:(nativeEvent:TextInputKeyPressEventData|any)=>void;
   onBlur?: () => void;
   renderInput?: (props: TextBoxInputProps) => JSX.Element;
   onSubmitEditing?: () => void;
@@ -140,7 +142,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
         this.input = input;
         if (inputRef) inputRef(input);
       },
-      selection: this.props.selection
+      selection: this.props.selection,
+      onKeyPress:this.props.onKeyPress
     };
 
     return (
