@@ -27,7 +27,7 @@ export interface TextBoxProperties {
   label: string;
   value: string;
   onChange?: (value: string) => void;
-  onKeyPress?:(nativeEvent:TextInputKeyPressEventData|any)=>void;
+  onKeyPress?: (nativeEvent: TextInputKeyPressEventData | any) => void;
   onBlur?: () => void;
   renderInput?: (props: TextBoxInputProps) => JSX.Element;
   onSubmitEditing?: () => void;
@@ -143,7 +143,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
         if (inputRef) inputRef(input);
       },
       selection: this.props.selection,
-      onKeyPress:this.props.onKeyPress
+      onKeyPress: this.props.onKeyPress
     };
 
     return (
