@@ -89,7 +89,12 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
         />
         {button.counter ? (
           <View style={styles.counterContainer}>
-            <Text style={styles.counterText}>{button.counter}</Text>
+            <Text
+              nativeID={`${button.nativeID}-counter`}
+              style={styles.counterText}
+            >
+              {button.counter}
+            </Text>
           </View>
         ) : null}
       </>
