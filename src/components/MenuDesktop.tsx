@@ -5,6 +5,7 @@ import { Menu, MenuProperties } from './Menu';
 
 export type MenuDesktopProperties = MenuProperties & {
   headerHeight: number;
+  renderUserData?: () => React.ReactNode;
 };
 
 export class MenuDesktop extends React.Component<MenuDesktopProperties> {
@@ -32,11 +33,14 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
   };
 
   render() {
-    const { menu, onMenuPress, isCurrentMenuPath } = this.props;
+    const { menu, onMenuPress, isCurrentMenuPath, renderUserData } = this.props;
     const styles = this.getStyles();
 
     return (
       <View style={styles.container}>
+        {renderUserData ? (
+          <View>{renderUserData()}</View>
+        ) : null}
         <Menu
           menu={menu}
           isCurrentMenuPath={isCurrentMenuPath}
