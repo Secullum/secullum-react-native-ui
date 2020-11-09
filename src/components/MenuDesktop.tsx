@@ -38,9 +38,7 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
 
     return (
       <View style={styles.container}>
-        {renderUserData ? (
-          <View>{renderUserData()}</View>
-        ) : null}
+        {renderUserData ? <View>{renderUserData()}</View> : null}
         <Menu
           menu={menu}
           isCurrentMenuPath={isCurrentMenuPath}
