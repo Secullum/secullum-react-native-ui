@@ -127,7 +127,8 @@ export class AppShell extends React.Component<AppShellProperties> {
       onMenuPress,
       isCurrentMenuPath,
       children,
-      rightButton
+      rightButton,
+      renderUserData
     } = this.props;
 
     const styles = this.getDesktopStyles();
@@ -146,6 +147,7 @@ export class AppShell extends React.Component<AppShellProperties> {
             headerHeight={HeaderDesktop.height}
             onMenuPress={onMenuPress}
             isCurrentMenuPath={isCurrentMenuPath}
+            renderUserData={renderUserData}
           />
           <View nativeID="app-shell-desktop-content" style={styles.content}>
             {children}
