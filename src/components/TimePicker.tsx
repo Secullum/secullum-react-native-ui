@@ -100,13 +100,13 @@ export class TimePicker extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: 'Roboto-Light',
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       value: {
-        color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        color: theme.textColor3,
+        fontFamily: 'Roboto-Medium',
         fontSize: 16,
         lineHeight: 22,
         minHeight: 22
@@ -161,7 +161,7 @@ export class TimePicker extends React.Component<
                 icon={value && clearable ? 'times' : 'clock-o'}
                 style={styles.clearIcon}
                 iconColor={
-                  value && clearable ? theme.textColor1 : theme.textColor2
+                  value && clearable ? theme.textColor3 : theme.textColor2
                 }
                 onPress={
                   value && clearable ? this.handleClear : this.handlePress

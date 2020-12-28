@@ -40,9 +40,9 @@ export class Details extends React.Component<DetailsProperties> {
 
     const styles = StyleSheet.create({
       title: {
-        fontFamily: 'Lato-Bold',
+        fontFamily: 'Roboto',
         fontSize: isTablet() ? 22 : 18,
-        color: theme.textColor1
+        color: theme.textColor3
       },
       lineSection: {
         paddingVertical: 10,
@@ -55,9 +55,9 @@ export class Details extends React.Component<DetailsProperties> {
         padding: 0
       },
       lineText: {
-        fontFamily: 'Lato-Bold',
+        fontFamily: 'Roboto',
         fontSize: isTablet() ? 18 : 14,
-        color: theme.textColor1,
+        color: theme.textColor3,
         minWidth: 40
       },
       lineValue: {

@@ -126,13 +126,13 @@ export class RangeDatePicker extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: 'Roboto',
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       value: {
-        color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        color: theme.textColor3,
+        fontFamily: 'Roboto',
         fontSize: 16,
         lineHeight: 22
       },

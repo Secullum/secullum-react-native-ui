@@ -28,7 +28,7 @@ const theme = getTheme();
 
 const styles = StyleSheet.create({
   errorMessage: {
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Roboto',
     color: theme.errorColor
   }
 });

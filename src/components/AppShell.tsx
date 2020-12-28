@@ -11,15 +11,13 @@ import {
   Image,
   ImageSourcePropType,
   StyleSheet,
-  Text,
   View,
   Dimensions
 } from 'react-native';
 
 export type AppShellProperties = MenuProperties & {
-  logoHeader: ImageSourcePropType;
+  logoHeader: () => React.ReactNode;
   logoMenu: ImageSourcePropType;
-  title: string;
   greeting?: string;
   screenTitle: string;
   renderUserData?: () => React.ReactNode;
@@ -42,12 +40,12 @@ export class AppShell extends React.Component<AppShellProperties> {
       },
       logoImage: {
         width: 40,
-        height: 40,
+        height: 250,
         marginTop: 10,
         marginBottom: 10
       },
       logoText: {
-        color: theme.textColor1,
+        color: theme.textColor3,
         fontFamily: 'MankSans-Medium',
         fontSize: 22,
         marginLeft: 10
@@ -77,7 +75,6 @@ export class AppShell extends React.Component<AppShellProperties> {
 
   renderMobile = () => {
     const {
-      title,
       logoMenu,
       screenTitle,
       renderUserData,
@@ -99,7 +96,6 @@ export class AppShell extends React.Component<AppShellProperties> {
         renderLogo={() => (
           <>
             <Image source={logoMenu} style={styles.logoImage} />
-            <Text style={styles.logoText}>{title}</Text>
           </>
         )}
         renderUserData={renderUserData}
@@ -120,7 +116,6 @@ export class AppShell extends React.Component<AppShellProperties> {
 
   renderDesktop = () => {
     const {
-      title,
       logoHeader,
       greeting,
       menu,
@@ -136,7 +131,6 @@ export class AppShell extends React.Component<AppShellProperties> {
     return (
       <>
         <HeaderDesktop
-          title={title}
           logo={logoHeader}
           greeting={greeting}
           rightButton={rightButton}

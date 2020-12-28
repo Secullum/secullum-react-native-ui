@@ -33,15 +33,15 @@ export class CheckBox extends React.Component<Props> {
         alignItems: 'center'
       },
       icon: {
-        color: disabled ? theme.disabledColor : theme.textColor1,
+        color: disabled ? theme.disabledColor : theme.textColor3,
         fontSize: 20,
         height: 20,
         width: 24,
         lineHeight: 20
       },
       label: {
-        color: disabled ? theme.disabledColor : theme.textColor1,
-        fontFamily: 'Lato-Regular',
+        color: disabled ? theme.disabledColor : theme.textColor3,
+        fontFamily: 'Roboto',
         fontSize: isTablet() ? 15 : 12
       }
     });

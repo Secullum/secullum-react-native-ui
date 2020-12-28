@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { getTheme } from '../modules/theme';
-import { isTablet } from '../modules/layout';
+import { isTablet } from '../modules/layout'
+import FontAwesome from 'react-native-vector-icons/FontAwesome';;
 
 import {
   KeyboardType,
   Platform,
   StyleProp,
-  StyleSheet,
-  Text,
+  StyleSheet,  
   TextInput,
   TextInputKeyPressEventData,
   TextStyle,
@@ -18,18 +18,20 @@ import {
   ReturnKeyTypeOptions
 } from 'react-native';
 
-export interface TextBoxInputProps extends TextInputProps {
+export interface TextBoxLoginInputProps extends TextInputProps {
   ref: (ref: TextInput) => void;
 }
 
-export interface TextBoxProperties {
+export interface TextBoxLoginProperties {
   autoFocus?: boolean;
-  label: string;
+  label?: string;
+  icon: string;
+  placeholder?: string;
   value: string;
   onChange?: (value: string) => void;
   onKeyPress?: (nativeEvent: TextInputKeyPressEventData) => void;
   onBlur?: () => void;
-  renderInput?: (props: TextBoxInputProps) => JSX.Element;
+  renderInput?: (props: TextBoxLoginInputProps) => JSX.Element;
   onSubmitEditing?: () => void;
   inputRef?: (value: TextInput) => void;
   secureTextEntry?: boolean;
@@ -48,7 +50,7 @@ export interface TextBoxProperties {
   selection?: { start: number; end?: number };
 }
 
-export class TextBox extends React.Component<TextBoxProperties> {
+export class TextBoxLogin extends React.Component<TextBoxLoginProperties> {
   input: TextInput | null = null;
 
   static defaultProps = {
@@ -66,7 +68,19 @@ export class TextBox extends React.Component<TextBoxProperties> {
         paddingVertical: 8,
         borderWidth: 1,
         borderColor: theme.borderColor1,
-        borderRadius: 3
+        borderRadius: 3,
+        flexDirection: "row"
+        
+      },
+      icon: {
+        color: theme.textColor2,
+        fontSize: isTablet() ? 21 : 19,        
+        flex: 1,
+        paddingRight: 10,
+        alignSelf: "center",
+        minHeight: 22,
+        padding: 0,
+        margin: 0
       },
       label: {
         color: theme.textColor2,
@@ -76,16 +90,21 @@ export class TextBox extends React.Component<TextBoxProperties> {
       },
       input: {
         color: theme.textColor3,
-        fontFamily: 'Roboto-Medium',
+        fontFamily: 'Roboto',
         fontWeight: 'normal',
         fontSize: 16,
         minHeight: 22,
         padding: 0,
         margin: 0,
+        flex: 1,
         ...(Platform.OS === 'web' ? { outline: '0' } : {})
       },
       readonly: {
         backgroundColor: theme.disabledColor
+      },
+      placeholder: {
+        color: theme.textColor3,
+        fontFamily: 'Roboto-Light'
       }
     });
 
@@ -102,17 +121,16 @@ export class TextBox extends React.Component<TextBoxProperties> {
 
   render() {
     const {
-      label,
       style,
-      labelStyle,
       editable,
+      icon,      
       inputRef,
       renderInput
     } = this.props;
 
     const styles = this.getStyles();
 
-    const incomingProps: TextBoxInputProps = {
+    const incomingProps: TextBoxLoginInputProps = {
       nativeID: this.props.nativeID,
       autoFocus: this.props.autoFocus,
       value: this.props.value,
@@ -121,9 +139,11 @@ export class TextBox extends React.Component<TextBoxProperties> {
       style: [
         styles.input,
         this.props.inputStyle,
-        this.props.editable ? null : styles.readonly
+        this.props.editable ? null : styles.readonly,
+        styles.placeholder
       ],
       underlineColorAndroid: 'transparent',
+      placeholder:this.props.placeholder,
       secureTextEntry: this.props.secureTextEntry,
       multiline: this.props.multiline,
       editable: this.props.editable,
@@ -153,7 +173,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
         );
       }
     };
-
+    
     return (
       <TouchableWithoutFeedback
         accessible={false}
@@ -164,10 +184,10 @@ export class TextBox extends React.Component<TextBoxProperties> {
         <View
           style={[styles.container, style, editable ? null : styles.readonly]}
         >
-          <Text style={[styles.label, labelStyle]}>{label}</Text>
+          <FontAwesome name={icon} style={styles.icon} />              
           {renderInput
             ? renderInput(incomingProps)
-            : this.renderInput(incomingProps)}
+            : this.renderInput(incomingProps) } 
         </View>
       </TouchableWithoutFeedback>
     );

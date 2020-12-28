@@ -40,7 +40,7 @@ export class Switch extends React.Component<SwitchProperties> {
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: 'Roboto',
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },

@@ -37,11 +37,11 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
       text: {
         paddingHorizontal: 16,
         paddingVertical: 16,
-        fontFamily: 'Lato-Bold',
+        fontFamily: 'Roboto',
         fontSize: 16,
         flexWrap: 'wrap',
         maxWidth: width - 150,
-        color: theme.textColor1
+        color: theme.textColor3
       },
       icon: {
         fontSize: 26
@@ -104,12 +104,12 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
             React.createElement(iconComponent, {
               name: icon,
               style: styles.icon,
-              color: theme.textColor1
+              color: theme.textColor3
             })
           ) : (
             <FontAwesome
               name={icon}
-              color={theme.textColor1}
+              color={theme.textColor3}
               style={styles.icon}
             />
           )}
@@ -172,12 +172,12 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
             React.createElement(iconComponent, {
               name: icon,
               style: styles.iconOnly,
-              color: theme.textColor1
+              color: theme.textColor3
             })
           ) : (
             <FontAwesome
               name={icon}
-              color={theme.textColor1}
+              color={theme.textColor3}
               style={styles.iconOnly}
             />
           )}
@@ -324,12 +324,12 @@ export class MultiSelect extends React.Component<
           React.createElement(iconComponent, {
             name: icon,
             style: styles.iconOnly,
-            color: theme.textColor1
+            color: theme.textColor3
           })
         ) : (
           <FontAwesome
             name={icon}
-            color={theme.textColor1}
+            color={theme.textColor3}
             style={styles.iconOnly}
           />
         )}
@@ -351,12 +351,12 @@ export class MultiSelect extends React.Component<
             React.createElement(iconComponent, {
               name: icon,
               style: styles.icon,
-              color: theme.textColor1
+              color: theme.textColor3
             })
           ) : (
             <FontAwesome
               name={icon}
-              color={theme.textColor1}
+              color={theme.textColor3}
               style={styles.icon}
             />
           )}
@@ -419,7 +419,7 @@ export class MultiSelect extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: 'Roboto',
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
@@ -430,12 +430,12 @@ export class MultiSelect extends React.Component<
       text: {
         height: 27,
         alignSelf: 'flex-start',
-        color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        color: theme.textColor3,
+        fontFamily: 'Roboto',
         fontSize: 16
       },
       seta: {
-        color: theme.textColor1,
+        color: theme.textColor3,
         fontSize: 16,
         position: 'absolute',
         bottom: 0,

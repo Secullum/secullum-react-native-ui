@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   text: {
-    color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
+    color: theme.textColor3,
+    fontFamily: 'Roboto',
     fontSize: isTablet() ? 25 : 16,
     textAlign: 'center',
     marginTop: isTablet() ? 15 : 5,

@@ -50,13 +50,13 @@ export class TimePicker extends React.Component<TimePickerProperties> {
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: 'Roboto-Light',
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       input: {
-        color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        color: theme.textColor3,
+        fontFamily: 'Roboto-Medium',
         fontSize: 16,
         minHeight: 22,
         padding: 0,

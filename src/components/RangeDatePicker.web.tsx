@@ -103,20 +103,20 @@ export class RangeDatePicker extends React.Component<
         alignItems: 'center'
       },
       label: {
-        color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        color: theme.textColor3,
+        fontFamily: 'Roboto',
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       value: {
-        color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        color: theme.textColor3,
+        fontFamily: 'Roboto-Medium',
         fontSize: 16,
         lineHeight: 22
       },
       icon: {
         marginLeft: 'auto',
-        color: theme.textColor2,
+        color: theme.textColor3,
         fontSize: 22
       }
     });

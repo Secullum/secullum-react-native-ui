@@ -29,6 +29,7 @@ export * from './components/Switch';
 export * from './components/Table';
 export * from './components/Text';
 export * from './components/TextBox';
+export * from './components/TextBoxLogin';
 export * from './components/TimePicker';
 export * from './components/ErrorMessage';
 export * from './components/TextBoxMask';
@@ -36,3 +37,4 @@ export * from './modules/format';
 export * from './modules/layout';
 export * from './modules/theme';
 export * from './modules/validation';
+

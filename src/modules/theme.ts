@@ -14,25 +14,27 @@ export interface Theme {
   errorColor: string;
   disabledColor: string;
   counterBackgroundColor: string;
+  counterBackgroundColor2: string;
   counterTextColor: string;
 }
 
 let theme = {
   textColor1: '#282c37', // black
-  textColor2: '#0c65c7', // blue
-  textColor3: '#8c9aa8', // gray
+  textColor2: '#59CBE8', // blue
+  textColor3: '#555', // gray
   textColor4: '#ffffff', // white
   backgroundColor1: '#ffffff', // white
   backgroundColor2: '#eef1f6', // gray
-  backgroundColor3: '#0c65c7', // blue
+  backgroundColor3: '#59CBE8', // blue
   borderColor1: '#c2c2c2', // gray
   shadowColor1: '#aabec6', // gray
-  statusBarColor: '#0047a9', // blue
+  statusBarColor: '#59CBE8', // blue
   successColor: '#2ec562', // green
   warningColor: '#f5a623', // yellow
   errorColor: '#d62729', // red
   disabledColor: '#dddddd', // gray
   counterBackgroundColor: '#34bf6d', // light green
+  counterBackgroundColor2: '#34bf6d', // grey
   counterTextColor: '#ffffff' // white
 };
 

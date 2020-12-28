@@ -4,8 +4,6 @@ import { HeaderButton } from '../components/Header';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {
-  Image,
-  ImageSourcePropType,
   StyleSheet,
   Text,
   View,
@@ -14,8 +12,7 @@ import {
 import { isTablet } from '../modules/layout';
 
 export interface HeaderDesktopProperties {
-  logo: ImageSourcePropType;
-  title: string;
+  logo: () => React.ReactNode;
   greeting?: string;
   rightButton?: HeaderButton;
 }
@@ -28,7 +25,7 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
 
     const styles = StyleSheet.create({
       container: {
-        backgroundColor: theme.backgroundColor3,
+        backgroundColor: theme.backgroundColor2,
         height: HeaderDesktop.height,
         flexDirection: 'row',
         alignItems: 'center',
@@ -36,20 +33,10 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
         shadowRadius: 20,
         shadowColor: theme.shadowColor1
       },
-      logo: {
-        height: 40,
-        width: 40,
-        marginHorizontal: 20
-      },
-      title: {
-        color: theme.textColor4,
-        fontSize: 24,
-        fontFamily: 'MankSans-Medium'
-      },
       greeting: {
-        color: theme.textColor4,
+        color: theme.textColor2,
         fontSize: 18,
-        fontFamily: 'Lato-Regular',
+        fontFamily: 'Roboto',
         marginLeft: 'auto',
         marginRight: 20
       },
@@ -69,7 +56,10 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
         textAlign: 'center',
         color: theme.counterTextColor,
         fontSize: isTablet() ? 15 : 10
-      }
+      },
+      logoImage: {
+        marginLeft: 10
+      },
     });
 
     return styles;
@@ -85,7 +75,7 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
           nativeID={button.nativeID}
           name={button.icon}
           size={isTablet() ? 30 : 20}
-          color={button.disabled ? theme.textColor1 : theme.textColor4}
+          color={button.disabled ? theme.textColor3 : theme.textColor4}
         />
         {button.counter ? (
           <View style={styles.counterContainer}>
@@ -112,13 +102,14 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
   };
 
   render() {
-    const { logo, title, greeting, rightButton } = this.props;
+    const { logo,  greeting, rightButton } = this.props;
     const styles = this.getStyles();
 
     return (
       <View style={styles.container}>
-        <Image source={logo} style={styles.logo} />
-        <Text style={styles.title}>{title}</Text>
+        <View style={styles.logoImage}>          
+          {logo()}
+        </View>
         {greeting && (
           <Text nativeID="app-greeting-message" style={styles.greeting}>
             {greeting}
