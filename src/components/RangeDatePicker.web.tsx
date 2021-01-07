@@ -116,7 +116,7 @@ export class RangeDatePicker extends React.Component<
       },
       icon: {
         marginLeft: 'auto',
-        color: theme.textColor3,
+        color: theme.textColor2,
         fontSize: 22
       }
     });

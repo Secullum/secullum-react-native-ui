@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { getTheme } from '../modules/theme';
-import { isTablet } from '../modules/layout'
-import FontAwesome from 'react-native-vector-icons/FontAwesome';;
+import { isTablet } from '../modules/layout';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {
   KeyboardType,
   Platform,
   StyleProp,
-  StyleSheet,  
+  StyleSheet,
   TextInput,
   TextInputKeyPressEventData,
   TextStyle,
@@ -69,15 +69,14 @@ export class TextBoxLogin extends React.Component<TextBoxLoginProperties> {
         borderWidth: 1,
         borderColor: theme.borderColor1,
         borderRadius: 3,
-        flexDirection: "row"
-        
+        flexDirection: 'row'
       },
       icon: {
         color: theme.textColor2,
-        fontSize: isTablet() ? 21 : 19,        
+        fontSize: isTablet() ? 21 : 19,
         flex: 1,
         paddingRight: 10,
-        alignSelf: "center",
+        alignSelf: 'center',
         minHeight: 22,
         padding: 0,
         margin: 0
@@ -120,13 +119,7 @@ export class TextBoxLogin extends React.Component<TextBoxLoginProperties> {
   renderInput = (props: TextInputProps) => <TextInput {...props} />;
 
   render() {
-    const {
-      style,
-      editable,
-      icon,      
-      inputRef,
-      renderInput
-    } = this.props;
+    const { style, editable, icon, inputRef, renderInput } = this.props;
 
     const styles = this.getStyles();
 
@@ -143,7 +136,7 @@ export class TextBoxLogin extends React.Component<TextBoxLoginProperties> {
         styles.placeholder
       ],
       underlineColorAndroid: 'transparent',
-      placeholder:this.props.placeholder,
+      placeholder: this.props.placeholder,
       secureTextEntry: this.props.secureTextEntry,
       multiline: this.props.multiline,
       editable: this.props.editable,
@@ -173,7 +166,7 @@ export class TextBoxLogin extends React.Component<TextBoxLoginProperties> {
         );
       }
     };
-    
+
     return (
       <TouchableWithoutFeedback
         accessible={false}
@@ -184,10 +177,10 @@ export class TextBoxLogin extends React.Component<TextBoxLoginProperties> {
         <View
           style={[styles.container, style, editable ? null : styles.readonly]}
         >
-          <FontAwesome name={icon} style={styles.icon} />              
+          <FontAwesome name={icon} style={styles.icon} />
           {renderInput
             ? renderInput(incomingProps)
-            : this.renderInput(incomingProps) } 
+            : this.renderInput(incomingProps)}
         </View>
       </TouchableWithoutFeedback>
     );

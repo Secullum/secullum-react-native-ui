@@ -58,7 +58,8 @@ export function MenuItem(props: MenuItemProperties) {
     },
     icon: {
       paddingTop: 12,
-      paddingRight: 10
+      paddingRight: 10,
+      color: theme.textColor3
     }
   });
 

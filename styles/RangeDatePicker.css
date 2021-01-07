@@ -230,7 +230,7 @@
 .rdrInRange,
 .rdrStartEdge,
 .rdrEndEdge {
-  background: currentColor;
+  background: #59cbe8;
   position: absolute;
   top: 3px;
   left: 0;
@@ -303,7 +303,7 @@
   right: 0px;
   bottom: 3px;
   pointer-events: none;
-  border: 0px solid currentColor;
+  border: 0px solid #59cbe8;
   z-index: 1;
 }
 

@@ -121,7 +121,7 @@ export class Header extends React.Component<HeaderProperties> {
         {leftButton
           ? this.renderButton(leftButton, 'left')
           : this.renderButtonInvisible('left')}
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{title} </Text>
         {rightButton
           ? this.renderButton(rightButton, 'right')
           : this.renderButtonInvisible('right')}
