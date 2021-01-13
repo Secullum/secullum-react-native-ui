@@ -8,8 +8,6 @@ import { MenuDesktop } from './MenuDesktop';
 import { getTheme } from '../modules/theme';
 
 import {
-  Image,
-  ImageSourcePropType,
   StyleSheet,
   View,
   Dimensions
@@ -17,7 +15,7 @@ import {
 
 export type AppShellProperties = MenuProperties & {
   logoHeader: () => React.ReactNode;
-  logoMenu: ImageSourcePropType;
+  logoMenu: () => React.ReactNode;
   greeting?: string;
   screenTitle: string;
   renderUserData?: () => React.ReactNode;
@@ -28,8 +26,7 @@ export class AppShell extends React.Component<AppShellProperties> {
   menu: MenuMobile | null = null;
 
   getMobileStyles = () => {
-    const theme = getTheme();
-
+    
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -37,18 +34,6 @@ export class AppShell extends React.Component<AppShellProperties> {
         height: Dimensions.get('window').height - HeaderDesktop.height,
         // @ts-ignore: O react-native não tem auto, mas o react-native-web aceita
         overflow: 'auto'
-      },
-      logoImage: {
-        width: 40,
-        height: 250,
-        marginTop: 10,
-        marginBottom: 10
-      },
-      logoText: {
-        color: theme.textColor3,
-        fontFamily: 'MankSans-Medium',
-        fontSize: 22,
-        marginLeft: 10
       }
     });
 
@@ -93,11 +78,7 @@ export class AppShell extends React.Component<AppShellProperties> {
         menu={menu}
         onMenuPress={onMenuPress}
         isCurrentMenuPath={isCurrentMenuPath}
-        renderLogo={() => (
-          <>
-            <Image source={logoMenu} style={styles.logoImage} />
-          </>
-        )}
+        renderLogo={logoMenu}
         renderUserData={renderUserData}
       >
         <Header

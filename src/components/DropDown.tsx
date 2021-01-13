@@ -31,12 +31,15 @@ interface DropDownItemProperties {
 
 class DropDownItem extends React.PureComponent<DropDownItemProperties> {
   getStyles = (): any => {
+    const theme = getTheme();
+
     const styles = StyleSheet.create({
       modalItem: {
         paddingHorizontal: 16,
         paddingVertical: 16,
         fontFamily: 'Roboto',
-        fontSize: 16
+        fontSize: 16,
+        color: theme.textColor3
       },
       icon: {
         fontSize: 26
@@ -263,7 +266,7 @@ export class DropDown extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Roboto',
+        fontFamily: 'Roboto-Light',
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
@@ -272,7 +275,7 @@ export class DropDown extends React.Component<
         minHeight: 22,
         alignSelf: 'flex-start',
         color: theme.textColor3,
-        fontFamily: 'Roboto',
+        fontFamily: 'Roboto-Medium',
         fontSize: 16
       },
       textIcon: {

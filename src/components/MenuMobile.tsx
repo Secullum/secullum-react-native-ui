@@ -73,7 +73,10 @@ export class MenuMobile extends React.Component<
         borderBottomColor: theme.borderColor1,
         borderBottomWidth: 1,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 10,
+        width: isTablet() ? 400 : 250,
+        height: isTablet() ? 125 : 100,
       },
       userContainer: {
         paddingVertical: 10,
