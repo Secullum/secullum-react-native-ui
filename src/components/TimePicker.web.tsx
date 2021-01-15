@@ -56,7 +56,7 @@ export class TimePicker extends React.Component<TimePickerProperties> {
       },
       input: {
         color: theme.textColor1,
-        fontFamily:theme.fontFamily1,
+        fontFamily: theme.fontFamily1,
         fontSize: 16,
         minHeight: 22,
         padding: 0,

@@ -41,7 +41,7 @@ let theme = {
   counterTextColor: '#ffffff', // white
   fontFamily1: 'Lato-Bold',
   fontFamily2: 'Lato-Regular',
-  fontFamily3: 'MankSans-Medium',
+  fontFamily3: 'MankSans-Medium'
 };
 
 export const setTheme = (newTheme: { [K in keyof Theme]?: string }) => {
