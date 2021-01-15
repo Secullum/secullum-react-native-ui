@@ -51,7 +51,7 @@ export class ImageButton extends React.Component<ImageButtonProperties> {
           nativeID={nativeID}
           name={icon}
           size={iconSize || 20}
-          color={iconColor || theme.textColor3}
+          color={iconColor || theme.textColor1}
         />
       </TouchableOpacity>
     );

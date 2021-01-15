@@ -8,6 +8,7 @@ import { isTablet } from '../modules/layout';
 
 export interface HeaderDesktopProperties {
   logo: () => React.ReactNode;
+  title?: string;
   greeting?: string;
   rightButton?: HeaderButton;
 }
@@ -20,7 +21,7 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
 
     const styles = StyleSheet.create({
       container: {
-        backgroundColor: theme.backgroundColor2,
+        backgroundColor: theme.backgroundColor3,
         height: HeaderDesktop.height,
         flexDirection: 'row',
         alignItems: 'center',
@@ -28,10 +29,19 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
         shadowRadius: 20,
         shadowColor: theme.shadowColor1
       },
+      logoImage: {
+        marginLeft: 10,
+        width: 240
+      },
+      title: {
+        color: theme.textColor4,
+        fontSize: 24,
+        fontFamily: theme.fontFamily3
+      },
       greeting: {
-        color: theme.textColor2,
+        color: theme.textColor4,
         fontSize: 18,
-        fontFamily: 'Roboto',
+        fontFamily: theme.fontFamily2,
         marginLeft: 'auto',
         marginRight: 20
       },
@@ -51,10 +61,6 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
         textAlign: 'center',
         color: theme.counterTextColor,
         fontSize: isTablet() ? 15 : 10
-      },
-      logoImage: {
-        marginLeft: 10,
-        width: 240
       }
     });
 
@@ -71,7 +77,7 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
           nativeID={button.nativeID}
           name={button.icon}
           size={isTablet() ? 30 : 20}
-          color={button.disabled ? theme.textColor1 : theme.textColor3}
+          color={button.disabled ? theme.textColor1 : theme.textColor4}
         />
         {button.counter ? (
           <View style={styles.counterContainer}>
@@ -98,12 +104,13 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
   };
 
   render() {
-    const { logo, greeting, rightButton } = this.props;
+    const { logo, title, greeting, rightButton } = this.props;
     const styles = this.getStyles();
 
     return (
       <View style={styles.container}>
         <View style={styles.logoImage}>{logo()}</View>
+        {title && <Text style={styles.title}>{title}</Text>}
         {greeting && (
           <Text nativeID="app-greeting-message" style={styles.greeting}>
             {greeting}

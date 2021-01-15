@@ -41,8 +41,8 @@ export function MenuItem(props: MenuItemProperties) {
       paddingRight: 10
     },
     text: {
-      color: theme.textColor3,
-      fontFamily: 'Roboto',
+      color: theme.textColor1,
+      fontFamily: theme.fontFamily1,
       fontSize: isTablet() ? 20 : 16,
       paddingVertical: isTablet() ? 15 : 14
     },
@@ -59,7 +59,7 @@ export function MenuItem(props: MenuItemProperties) {
     icon: {
       paddingTop: 12,
       paddingRight: 10,
-      color: theme.textColor3
+      color: theme.textColor1
     }
   });
 

@@ -140,15 +140,15 @@ const styles = StyleSheet.create({
     minHeight: 45
   },
   cell: {
-    fontFamily: 'Roboto',
+    fontFamily: theme.fontFamily2,
     fontSize: 14,
     marginLeft: 8,
     lineHeight: 18,
-    color: theme.textColor3
+    color: theme.textColor1
   },
   cellHeader: {
-    fontFamily: 'Roboto',
-    color: theme.textColor3
+    fontFamily: theme.fontFamily1,
+    color: theme.textColor1
   },
   cellIcon: {
     fontSize: 24,

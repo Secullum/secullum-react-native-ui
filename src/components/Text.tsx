@@ -18,7 +18,7 @@ export class Text extends React.Component<TextProperties> {
   static defaultProps = {
     bold: false,
     size: 14,
-    color: theme.textColor3
+    color: theme.textColor1
   };
 
   render() {
@@ -42,7 +42,7 @@ export class Text extends React.Component<TextProperties> {
             flex,
             fontSize: size,
             textAlign: align,
-            fontFamily: bold ? 'Roboto-Medium' : 'Roboto'
+            fontFamily: bold ? theme.fontFamily1 : theme.fontFamily2
           },
           style
         ]}

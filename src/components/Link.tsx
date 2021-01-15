@@ -21,7 +21,7 @@ export class Link extends React.Component<LinkProperties> {
 
     const styles = StyleSheet.create({
       link: {
-        fontFamily: 'Roboto',
+        fontFamily:theme.fontFamily2,
         fontSize: 14,
         color: theme.textColor2
       }

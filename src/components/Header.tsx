@@ -38,7 +38,7 @@ export class Header extends React.Component<HeaderProperties> {
       },
       title: {
         color: theme.textColor4,
-        fontFamily: 'Roboto',
+        fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 25 : 18,
         marginHorizontal: 35
       },
@@ -74,7 +74,7 @@ export class Header extends React.Component<HeaderProperties> {
           nativeID={button.nativeID}
           name={button.icon}
           size={isTablet() ? 30 : 20}
-          color={button.disabled ? theme.textColor3 : theme.textColor4}
+          color={button.disabled ? theme.textColor1 : theme.textColor4}
         />
         {button.counter ? (
           <View style={styles.counterContainer}>

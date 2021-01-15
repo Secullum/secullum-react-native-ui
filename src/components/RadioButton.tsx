@@ -36,10 +36,10 @@ export class RadioButton extends React.Component<RadioButtonProps> {
       labelRadioButtom: {
         flex: 1,
         fontSize: 16,
-        color: theme.textColor3,
+        color: theme.textColor1,
         alignSelf: 'flex-start',
         left: 10,
-        fontFamily: 'Roboto'
+        fontFamily: theme.fontFamily1
       }
     });
 

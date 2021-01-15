@@ -37,9 +37,9 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
       modalItem: {
         paddingHorizontal: 16,
         paddingVertical: 16,
-        fontFamily: 'Roboto',
+        fontFamily: theme.fontFamily1,
         fontSize: 16,
-        color: theme.textColor3
+        color: theme.textColor1
       },
       icon: {
         fontSize: 26
@@ -81,12 +81,12 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
               React.createElement(iconComponent, {
                 name: icon,
                 style: styles.icon,
-                color: theme.textColor3
+                color: theme.textColor1
               })
             ) : (
               <FontAwesome
                 name={icon}
-                color={theme.textColor3}
+                color={theme.textColor1}
                 style={styles.icon}
               />
             )}
@@ -109,12 +109,12 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
             React.createElement(iconComponent, {
               name: icon,
               style: styles.iconOnly,
-              color: theme.textColor3
+              color: theme.textColor1
             })
           ) : (
             <FontAwesome
               name={icon}
-              color={theme.textColor3}
+              color={theme.textColor1}
               style={styles.iconOnly}
             />
           )}
@@ -206,12 +206,12 @@ export class DropDown extends React.Component<
                 React.createElement(iconComponent, {
                   name: item.icon,
                   style: styles.icon,
-                  color: theme.textColor3
+                  color: theme.textColor1
                 })
               ) : (
                 <FontAwesome
                   name={item.icon}
-                  color={theme.textColor3}
+                  color={theme.textColor1}
                   style={styles.icon}
                 />
               )}
@@ -236,12 +236,12 @@ export class DropDown extends React.Component<
             React.createElement(iconComponent, {
               name: item.icon,
               style: styles.iconOnly,
-              color: theme.textColor3
+              color: theme.textColor1
             })
           ) : (
             <FontAwesome
               name={item.icon}
-              color={theme.textColor3}
+              color={theme.textColor1}
               style={styles.iconOnly}
             />
           )}
@@ -266,7 +266,7 @@ export class DropDown extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Roboto-Light',
+        fontFamily: theme.fontFamily2,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
@@ -274,26 +274,26 @@ export class DropDown extends React.Component<
         lineHeight: 22,
         minHeight: 22,
         alignSelf: 'flex-start',
-        color: theme.textColor3,
-        fontFamily: 'Roboto-Medium',
+        color: theme.textColor1,
+        fontFamily: theme.fontFamily2,
         fontSize: 16
       },
       textIcon: {
         height: 27,
         alignSelf: 'center',
-        color: theme.textColor3,
-        fontFamily: 'Roboto',
+        color: theme.textColor1,
+        fontFamily: theme.fontFamily1,
         fontSize: 16
       },
       seta: {
-        color: theme.textColor3,
+        color: theme.textColor1,
         fontSize: 16,
         position: 'absolute',
         bottom: 10,
         right: 16
       },
       setaIcone: {
-        color: theme.textColor3,
+        color: theme.textColor1,
         fontSize: 16,
         position: 'absolute',
         bottom: 25,
@@ -310,7 +310,7 @@ export class DropDown extends React.Component<
       modalItem: {
         paddingHorizontal: 16,
         paddingVertical: 16,
-        fontFamily: 'Roboto',
+        fontFamily: theme.fontFamily1,
         fontSize: 16
       },
       emptyMessageContainer: {

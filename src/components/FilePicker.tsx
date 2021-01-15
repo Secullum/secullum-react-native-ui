@@ -27,7 +27,7 @@ export class FilePicker extends React.Component<FilePickerProperties> {
         justifyContent: 'center'
       },
       text: {
-        fontFamily: 'Roboto',
+        fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 15 : 12,
         color: theme.textColor3,
         width: 200,

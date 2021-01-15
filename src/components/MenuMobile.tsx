@@ -72,11 +72,7 @@ export class MenuMobile extends React.Component<
         paddingLeft: 20,
         borderBottomColor: theme.borderColor1,
         borderBottomWidth: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginLeft: 10,
-        width: isTablet() ? 400 : 250,
-        height: isTablet() ? 125 : 100,
+        flexDirection: 'row'
       },
       userContainer: {
         paddingVertical: 10,
@@ -100,7 +96,7 @@ export class MenuMobile extends React.Component<
 
     return (
       <View style={styles.container}>
-        <View style={styles.logoContainer}>{renderLogo()}</View>
+        {renderLogo()}
 
         {renderUserData ? (
           <View style={styles.userContainer}>{renderUserData()}</View>

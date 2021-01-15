@@ -71,38 +71,38 @@ export class TextBox extends React.Component<TextBoxProperties> {
         borderWidth: 1,
         borderColor: theme.borderColor1,
         borderRadius: 3,
-        ...(icon ? { flexDirection: 'row' } : {})        
+        ...(icon ? { flexDirection: 'row' } : {})
       },
       icon: {
         color: theme.textColor2,
         fontSize: isTablet() ? 21 : 19,
         paddingRight: 10,
         alignSelf: 'center',
-        minHeight: 22,        
+        minHeight: 22
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Roboto-Light',
+        fontFamily: theme.fontFamily2,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       input: {
-        color: theme.textColor3,
-        fontFamily: 'Roboto',
+        color: theme.textColor1,
+        fontFamily: theme.fontFamily1,
         fontWeight: 'normal',
         fontSize: 16,
         minHeight: 22,
         padding: 0,
         margin: 0,
-        flex: 2,        
+        flex: 2,
         ...(Platform.OS === 'web' ? { outline: '0' } : {})
       },
       readonly: {
         backgroundColor: theme.disabledColor
       },
       placeholder: {
-        color: theme.textColor3,
-        fontFamily: 'Roboto-Light'                
+        color: theme.textColor1,
+        fontFamily: theme.fontFamily2
       }
     });
 

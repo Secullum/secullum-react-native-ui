@@ -44,10 +44,10 @@ export class Button extends React.Component<ButtonProperties> {
         borderWidth: 0
       },
       text: {
-        fontFamily: 'Roboto',
+        fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 18 : 13,
         paddingHorizontal: 11,
-        color: theme.textColor3
+        color: theme.textColor1
       },
       textPrimary: {
         color: theme.textColor4
