@@ -1,22 +1,23 @@
 import * as React from 'react';
 import { DimensionsMonitor } from './DimensionsMonitor';
 import { Header, HeaderButton } from './Header';
-import { HeaderDesktop } from './HeaderDesktop';
+import { GreetingMessage, HeaderDesktop } from './HeaderDesktop';
 import { MenuProperties } from './Menu';
 import { MenuMobile } from './MenuMobile';
 import { MenuDesktop } from './MenuDesktop';
 import { getTheme } from '../modules/theme';
 
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions,TextStyle, StyleProp } from 'react-native';
 
 export type AppShellProperties = MenuProperties & {
   logoHeader: () => React.ReactNode;
   logoMenu: () => React.ReactNode;
   title?: string;
-  greeting?: string;
+  greeting?: GreetingMessage;
   screenTitle: string;
   renderUserData?: () => React.ReactNode;
   rightButton?: HeaderButton;
+  headerStyle?: StyleProp<TextStyle>;
 };
 
 export class AppShell extends React.Component<AppShellProperties> {
@@ -115,7 +116,8 @@ export class AppShell extends React.Component<AppShellProperties> {
       isCurrentMenuPath,
       children,
       rightButton,
-      renderUserData
+      renderUserData,
+      headerStyle
     } = this.props;
 
     const styles = this.getDesktopStyles();
@@ -127,6 +129,7 @@ export class AppShell extends React.Component<AppShellProperties> {
           logo={logoHeader}
           greeting={greeting}
           rightButton={rightButton}
+          headerStyle={headerStyle}
         />
         <View style={styles.container}>
           <MenuDesktop

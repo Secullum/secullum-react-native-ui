@@ -275,7 +275,7 @@ export class DropDown extends React.Component<
         minHeight: 22,
         alignSelf: 'flex-start',
         color: theme.textColor1,
-        fontFamily: theme.fontFamily2,
+        fontFamily: theme.fontFamily1,
         fontSize: 16
       },
       textIcon: {

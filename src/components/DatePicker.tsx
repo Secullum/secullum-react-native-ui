@@ -13,7 +13,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  TextStyle
 } from 'react-native';
 
 export interface DatePickerProperties {
@@ -24,6 +25,7 @@ export interface DatePickerProperties {
   onCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 export interface DatePickerState {

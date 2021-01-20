@@ -3,14 +3,20 @@ import { getTheme } from '../modules/theme';
 import { HeaderButton } from '../components/Header';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, StyleProp, TextStyle } from 'react-native';
 import { isTablet } from '../modules/layout';
+
+export interface GreetingMessage {
+  message: string;
+  style?: StyleProp<TextStyle>;
+}
 
 export interface HeaderDesktopProperties {
   logo: () => React.ReactNode;
   title?: string;
-  greeting?: string;
+  greeting?: GreetingMessage;
   rightButton?: HeaderButton;
+  headerStyle?: StyleProp<TextStyle>;
 }
 
 export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
@@ -28,10 +34,6 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
         shadowOpacity: 0.6,
         shadowRadius: 20,
         shadowColor: theme.shadowColor1
-      },
-      logoImage: {
-        marginLeft: 10,
-        width: 240
       },
       title: {
         color: theme.textColor4,
@@ -61,7 +63,7 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
         textAlign: 'center',
         color: theme.counterTextColor,
         fontSize: isTablet() ? 15 : 10
-      }
+      }      
     });
 
     return styles;
@@ -78,6 +80,7 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
           name={button.icon}
           size={isTablet() ? 30 : 20}
           color={button.disabled ? theme.textColor1 : theme.textColor4}
+          style={button.buttonStyle}
         />
         {button.counter ? (
           <View style={styles.counterContainer}>
@@ -92,28 +95,32 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
       </>
     );
 
+    const style = [
+      styles.button      
+    ];
+
     if (button.disabled) {
-      return <View style={styles.button}>{icon}</View>;
+      return <View style={style}>{icon}</View>;
     }
 
     return (
-      <TouchableOpacity onPress={button.onPress} style={styles.button}>
+      <TouchableOpacity onPress={button.onPress} style={style}>
         {icon}
       </TouchableOpacity>
     );
   };
 
   render() {
-    const { logo, title, greeting, rightButton } = this.props;
+    const { logo, title, greeting, rightButton, headerStyle } = this.props;
     const styles = this.getStyles();
 
     return (
-      <View style={styles.container}>
-        <View style={styles.logoImage}>{logo()}</View>
+      <View style={[styles.container, headerStyle]}>
+        {logo()}
         {title && <Text style={styles.title}>{title}</Text>}
         {greeting && (
-          <Text nativeID="app-greeting-message" style={styles.greeting}>
-            {greeting}
+          <Text nativeID="app-greeting-message" style={[styles.greeting, greeting.style ]}>
+            {greeting.message}
           </Text>
         )}
         {rightButton && this.renderRightButton(rightButton)}
