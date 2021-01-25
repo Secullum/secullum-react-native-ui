@@ -37,7 +37,7 @@ class MultiSelectItem extends React.Component<MultiSelectItemProperties> {
       text: {
         paddingHorizontal: 16,
         paddingVertical: 16,
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: 16,
         flexWrap: 'wrap',
         maxWidth: width - 150,
@@ -419,7 +419,7 @@ export class MultiSelect extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: theme.fontFamily2,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
@@ -431,7 +431,7 @@ export class MultiSelect extends React.Component<
         height: 27,
         alignSelf: 'flex-start',
         color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: 16
       },
       seta: {

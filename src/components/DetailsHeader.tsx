@@ -22,7 +22,7 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
         justifyContent: 'space-between'
       },
       text: {
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 22 : 18,
         color: theme.textColor1,
         width: '80%',

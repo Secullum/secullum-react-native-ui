@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
+    fontFamily: theme.fontFamily1,
     fontSize: isTablet() ? 25 : 16,
     textAlign: 'center',
     marginTop: isTablet() ? 15 : 5,

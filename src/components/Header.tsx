@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, TouchableOpacity, View, TextStyle } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
@@ -10,6 +10,7 @@ export interface HeaderButton {
   counter?: number;
   onPress: () => void;
   nativeID?: string;
+  buttonStyle?: StyleProp<TextStyle>;
 }
 
 export interface HeaderProperties {
@@ -38,7 +39,7 @@ export class Header extends React.Component<HeaderProperties> {
       },
       title: {
         color: theme.textColor4,
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 25 : 18,
         marginHorizontal: 35
       },
@@ -75,6 +76,7 @@ export class Header extends React.Component<HeaderProperties> {
           name={button.icon}
           size={isTablet() ? 30 : 20}
           color={button.disabled ? theme.textColor1 : theme.textColor4}
+          style={button.buttonStyle}
         />
         {button.counter ? (
           <View style={styles.counterContainer}>
@@ -86,7 +88,7 @@ export class Header extends React.Component<HeaderProperties> {
 
     const style = [
       styles.button,
-      type === 'left' ? { marginRight: 'auto' } : { marginLeft: 'auto' }
+      type === 'left' ? { marginRight: 'auto' } : { marginLeft: 'auto' } 
     ];
 
     if (button.disabled) {
@@ -121,7 +123,7 @@ export class Header extends React.Component<HeaderProperties> {
         {leftButton
           ? this.renderButton(leftButton, 'left')
           : this.renderButtonInvisible('left')}
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{title} </Text>
         {rightButton
           ? this.renderButton(rightButton, 'right')
           : this.renderButtonInvisible('right')}

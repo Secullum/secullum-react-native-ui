@@ -9,8 +9,23 @@ export interface Props {
 }
 
 export class ErrorMessage extends React.Component<Props> {
+
+getStyles = () => {
+  const theme = getTheme();
+
+  const styles = StyleSheet.create({
+    errorMessage: {
+      fontFamily: theme.fontFamily3,
+      color: theme.errorColor
+    }
+  });
+
+  return styles;
+}
+
   render() {
     const { message, style, nativeID } = this.props;
+    const styles = this.getStyles();
 
     if (!message) {
       return null;
@@ -23,12 +38,3 @@ export class ErrorMessage extends React.Component<Props> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  errorMessage: {
-    fontFamily: 'Lato-Regular',
-    color: theme.errorColor
-  }
-});

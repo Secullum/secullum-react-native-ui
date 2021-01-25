@@ -34,7 +34,7 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
       },
       title: {
         color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 22 : 18,
         marginRight: 10
       },

@@ -9,7 +9,8 @@ import {
   View,
   ViewStyle,
   TextInputProps,
-  TextInputKeyPressEventData
+  TextInputKeyPressEventData,
+  TextStyle
 } from 'react-native';
 
 import { getTheme } from '../modules/theme';
@@ -28,6 +29,7 @@ export interface TimePickerProperties {
   onChange: (value: string) => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 export class TimePicker extends React.Component<TimePickerProperties> {
@@ -50,13 +52,13 @@ export class TimePicker extends React.Component<TimePickerProperties> {
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: theme.fontFamily2,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       input: {
         color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: 16,
         minHeight: 22,
         padding: 0,
@@ -72,7 +74,7 @@ export class TimePicker extends React.Component<TimePickerProperties> {
   };
 
   render() {
-    const { label, style, disabled, value, nativeID } = this.props;
+    const { label, style, disabled, value, nativeID,labelStyle } = this.props;
 
     const styles = this.getStyles();
 
@@ -81,7 +83,7 @@ export class TimePicker extends React.Component<TimePickerProperties> {
         <View
           style={[styles.container, style, !disabled ? null : styles.readonly]}
         >
-          <Text style={styles.label}>{label}</Text>
+          <Text style={[styles.label, labelStyle]}>{label}</Text>
           <TextInput
             nativeID={nativeID}
             value={value}

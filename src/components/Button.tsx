@@ -44,7 +44,7 @@ export class Button extends React.Component<ButtonProperties> {
         borderWidth: 0
       },
       text: {
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 18 : 13,
         paddingHorizontal: 11,
         color: theme.textColor1

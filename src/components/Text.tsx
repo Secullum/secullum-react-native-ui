@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text as TextNative, StyleProp, TextStyle } from 'react-native';
+import { Text as TextNative, StyleProp, TextStyle, StyleSheet } from 'react-native';
 import { getTheme } from '../modules/theme';
 
 export interface TextProperties {
@@ -15,6 +15,32 @@ export interface TextProperties {
 const theme = getTheme();
 
 export class Text extends React.Component<TextProperties> {
+
+  getStyles = () => {
+    const {
+      bold,
+      color,
+      size,
+      flex,
+      align
+    } = this.props;
+
+
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      text: {
+        color,
+        flex,
+        fontSize: size,
+        textAlign: align,
+        fontFamily: bold ? theme.fontFamily1 : theme.fontFamily2
+      }
+    });
+
+    return styles;
+  };
+
   static defaultProps = {
     bold: false,
     size: 14,
@@ -23,27 +49,18 @@ export class Text extends React.Component<TextProperties> {
 
   render() {
     const {
-      bold,
-      color,
-      size,
       style,
-      flex,
-      align,
       children,
       nativeID
     } = this.props;
+
+    const textStyle = this.getStyles();
 
     return (
       <TextNative
         nativeID={nativeID}
         style={[
-          {
-            color,
-            flex,
-            fontSize: size,
-            textAlign: align,
-            fontFamily: bold ? 'Lato-Bold' : 'Lato-Regular'
-          },
+          textStyle.text,
           style
         ]}
       >

@@ -30,7 +30,7 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
         alignItems: 'center'
       },
       itemText: {
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 16 : 12,
         lineHeight: isTablet() ? 20 : 16
       },

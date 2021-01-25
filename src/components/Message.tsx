@@ -17,10 +17,36 @@ export class Message extends React.Component<MessageProperties> {
   static defaultProps = {
     type: 'info'
   };
+  getStyles = () => {
+    const theme = getTheme();
+  
+    return StyleSheet.create({
+      overlay: {
+        alignItems: 'center'
+      },
+      container: {
+        backgroundColor: theme.backgroundColor1,
+        borderRadius: 6,
+        padding: isTablet() ? 25 : 16,
+        width: isTablet() ? 350 : 250,
+        marginTop: isTablet() ? 250 : 140,
+        alignItems: 'center'
+      },
+      text: {
+        color: theme.textColor1,
+        fontFamily: theme.fontFamily1,
+        fontSize: isTablet() ? 25 : 16,
+        textAlign: 'center',
+        marginTop: isTablet() ? 15 : 5,
+        width: '100%'
+      }
+    });
+  }
 
   render() {
     const { message, visible, type, onRequestClose, nativeID } = this.props;
-
+    const styles = this.getStyles();
+    const theme = getTheme();
     return (
       <Modal
         visible={visible}
@@ -40,26 +66,4 @@ export class Message extends React.Component<MessageProperties> {
   }
 }
 
-const theme = getTheme();
 
-const styles = StyleSheet.create({
-  overlay: {
-    alignItems: 'center'
-  },
-  container: {
-    backgroundColor: theme.backgroundColor1,
-    borderRadius: 6,
-    padding: isTablet() ? 25 : 16,
-    width: isTablet() ? 350 : 250,
-    marginTop: isTablet() ? 250 : 140,
-    alignItems: 'center'
-  },
-  text: {
-    color: theme.textColor1,
-    fontFamily: 'Lato-Bold',
-    fontSize: isTablet() ? 25 : 16,
-    textAlign: 'center',
-    marginTop: isTablet() ? 15 : 5,
-    width: '100%'
-  }
-});

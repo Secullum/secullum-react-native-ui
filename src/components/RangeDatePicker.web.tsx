@@ -13,7 +13,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  TextStyle
 } from 'react-native';
 
 import '../../styles/RangeDatePicker.css';
@@ -27,6 +28,7 @@ export interface RangeDatePickerProperties {
   onEndDateCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 export interface RangeDatePickerState {
@@ -104,13 +106,13 @@ export class RangeDatePicker extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: theme.fontFamily2,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       value: {
         color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: 16,
         lineHeight: 22
       },
@@ -125,7 +127,7 @@ export class RangeDatePicker extends React.Component<
   };
 
   render() {
-    const { label, startDate, endDate, style, nativeID } = this.props;
+    const { label, startDate, endDate, style, nativeID, labelStyle } = this.props;
     const { showStartDateModal } = this.state;
 
     const displayFormat = 'MMM D, YYYY';
@@ -144,7 +146,7 @@ export class RangeDatePicker extends React.Component<
           <View
             ref={ref => ref && ref.setNativeProps({ id: 'range-date-picker' })}
           >
-            <Text style={styles.label}>{label}</Text>
+            <Text style={[styles.label, labelStyle]}>{label}</Text>
             <Text style={styles.value}>{displayText}</Text>
           </View>
           <FontAwesome name="calendar" style={styles.icon} />
@@ -158,7 +160,8 @@ export class RangeDatePicker extends React.Component<
                 borderRadius: '5px',
                 position: 'absolute',
                 top: '50%',
-                marginTop: '-150px'
+                marginTop: '-150px',
+                fontFamily: theme.fontFamily1
               }}
             >
               <DateRange
