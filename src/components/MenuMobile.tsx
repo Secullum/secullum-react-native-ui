@@ -97,7 +97,7 @@ export class MenuMobile extends React.Component<
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>{renderLogo()}</View>
-            
+        
         {renderUserData ? (
           <View style={styles.userContainer}>{renderUserData()}</View>
         ) : null}

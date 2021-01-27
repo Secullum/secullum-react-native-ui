@@ -55,7 +55,7 @@ export class Details extends React.Component<DetailsProperties> {
         padding: 0
       },
       lineText: {
-        fontFamily: theme.fontFamily1,
+        fontFamily: theme.fontFamily2,
         fontSize: isTablet() ? 18 : 14,
         color: theme.textColor1,
         minWidth: 40

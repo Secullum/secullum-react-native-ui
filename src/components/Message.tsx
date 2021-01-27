@@ -19,7 +19,7 @@ export class Message extends React.Component<MessageProperties> {
   };
   getStyles = () => {
     const theme = getTheme();
-  
+
     return StyleSheet.create({
       overlay: {
         alignItems: 'center'
@@ -41,7 +41,7 @@ export class Message extends React.Component<MessageProperties> {
         width: '100%'
       }
     });
-  }
+  };
 
   render() {
     const { message, visible, type, onRequestClose, nativeID } = this.props;
@@ -65,5 +65,3 @@ export class Message extends React.Component<MessageProperties> {
     );
   }
 }
-
-

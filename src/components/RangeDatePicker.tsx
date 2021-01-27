@@ -13,8 +13,7 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewStyle,
-  Platform,
-  TextStyle
+  Platform
 } from 'react-native';
 
 export interface RangeDatePickerProperties {
@@ -26,7 +25,6 @@ export interface RangeDatePickerProperties {
   onEndDateCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
-  labelStyle?: StyleProp<TextStyle>;
 }
 
 export interface RangeDatePickerState {
@@ -128,7 +126,7 @@ export class RangeDatePicker extends React.Component<
       },
       label: {
         color: theme.textColor1,
-        fontFamily: theme.fontFamily2,
+        fontFamily: theme.fontFamily3,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
@@ -149,7 +147,7 @@ export class RangeDatePicker extends React.Component<
   };
 
   render() {
-    const { label, startDate, endDate, style, nativeID, labelStyle } = this.props;
+    const { label, startDate, endDate, style, nativeID } = this.props;
 
     const {
       showStartDateModal,
@@ -170,7 +168,7 @@ export class RangeDatePicker extends React.Component<
       <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
         <View nativeID={nativeID} style={[styles.container, style]}>
           <View>
-            <Text style={[styles.label, labelStyle]}>{label}</Text>
+            <Text style={[styles.label]}>{label}</Text>
             <Text style={styles.value}>{displayText}</Text>
           </View>
 

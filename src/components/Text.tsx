@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { Text as TextNative, StyleProp, TextStyle, StyleSheet } from 'react-native';
+import {
+  Text as TextNative,
+  StyleProp,
+  TextStyle,
+  StyleSheet
+} from 'react-native';
 import { getTheme } from '../modules/theme';
 
 export interface TextProperties {
@@ -15,16 +20,8 @@ export interface TextProperties {
 const theme = getTheme();
 
 export class Text extends React.Component<TextProperties> {
-
   getStyles = () => {
-    const {
-      bold,
-      color,
-      size,
-      flex,
-      align
-    } = this.props;
-
+    const { bold, color, size, flex, align } = this.props;
 
     const theme = getTheme();
 
@@ -48,22 +45,12 @@ export class Text extends React.Component<TextProperties> {
   };
 
   render() {
-    const {
-      style,
-      children,
-      nativeID
-    } = this.props;
+    const { style, children, nativeID } = this.props;
 
     const textStyle = this.getStyles();
 
     return (
-      <TextNative
-        nativeID={nativeID}
-        style={[
-          textStyle.text,
-          style
-        ]}
-      >
+      <TextNative nativeID={nativeID} style={[textStyle.text, style]}>
         {children}
       </TextNative>
     );

@@ -41,7 +41,7 @@ export class CheckBox extends React.Component<Props> {
       },
       label: {
         color: disabled ? theme.disabledColor : theme.textColor1,
-        fontFamily: theme.fontFamily2,
+        fontFamily: theme.fontFamily3,
         fontSize: isTablet() ? 15 : 12
       }
     });

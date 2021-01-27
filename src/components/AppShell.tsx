@@ -7,7 +7,12 @@ import { MenuMobile } from './MenuMobile';
 import { MenuDesktop } from './MenuDesktop';
 import { getTheme } from '../modules/theme';
 
-import { StyleSheet, Text, View, Dimensions,TextStyle, StyleProp } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from 'react-native';
 
 export type AppShellProperties = MenuProperties & {
   logoHeader: () => React.ReactNode;
@@ -17,7 +22,6 @@ export type AppShellProperties = MenuProperties & {
   screenTitle: string;
   renderUserData?: () => React.ReactNode;
   rightButton?: HeaderButton;
-  headerStyle?: StyleProp<TextStyle>;
 };
 
 export class AppShell extends React.Component<AppShellProperties> {
@@ -116,8 +120,7 @@ export class AppShell extends React.Component<AppShellProperties> {
       isCurrentMenuPath,
       children,
       rightButton,
-      renderUserData,
-      headerStyle
+      renderUserData
     } = this.props;
 
     const styles = this.getDesktopStyles();
@@ -129,7 +132,6 @@ export class AppShell extends React.Component<AppShellProperties> {
           logo={logoHeader}
           greeting={greeting}
           rightButton={rightButton}
-          headerStyle={headerStyle}
         />
         <View style={styles.container}>
           <MenuDesktop

@@ -13,8 +13,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  ViewStyle,
-  TextStyle
+  ViewStyle
 } from 'react-native';
 
 export interface TimePickerProperties {
@@ -26,7 +25,6 @@ export interface TimePickerProperties {
   onCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
-  labelStyle?: StyleProp<TextStyle>;
 }
 
 export interface TimePickerState {
@@ -102,7 +100,7 @@ export class TimePicker extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: theme.fontFamily2,
+        fontFamily: theme.fontFamily3,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
@@ -128,7 +126,7 @@ export class TimePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style, disabled, nativeID, labelStyle } = this.props;
+    const { label, value, clearable, style, disabled, nativeID } = this.props;
     const { showModal, isDarkModeEnabled } = this.state;
 
     const date = new Date();
@@ -154,7 +152,7 @@ export class TimePicker extends React.Component<
             style={[styles.container, style, disabled ? styles.readonly : null]}
           >
             <View>
-              <Text style={[styles.label,labelStyle]}>{label}</Text>
+              <Text style={[styles.label]}>{label}</Text>
               <Text style={styles.value}>{value}</Text>
             </View>
 

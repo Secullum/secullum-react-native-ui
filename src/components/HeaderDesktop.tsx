@@ -3,7 +3,14 @@ import { getTheme } from '../modules/theme';
 import { HeaderButton } from '../components/Header';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { StyleSheet, Text, View, TouchableOpacity, StyleProp, TextStyle } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  StyleProp,
+  TextStyle
+} from 'react-native';
 import { isTablet } from '../modules/layout';
 
 export interface GreetingMessage {
@@ -63,7 +70,7 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
         textAlign: 'center',
         color: theme.counterTextColor,
         fontSize: isTablet() ? 15 : 10
-      }      
+      }
     });
 
     return styles;
@@ -95,9 +102,7 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
       </>
     );
 
-    const style = [
-      styles.button      
-    ];
+    const style = [styles.button];
 
     if (button.disabled) {
       return <View style={style}>{icon}</View>;
@@ -119,7 +124,10 @@ export class HeaderDesktop extends React.Component<HeaderDesktopProperties> {
         {logo()}
         {title && <Text style={styles.title}>{title}</Text>}
         {greeting && (
-          <Text nativeID="app-greeting-message" style={[styles.greeting, greeting.style ]}>
+          <Text
+            nativeID="app-greeting-message"
+            style={[styles.greeting, greeting.style]}
+          >
             {greeting.message}
           </Text>
         )}

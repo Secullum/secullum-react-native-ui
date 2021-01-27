@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { StyleProp, StyleSheet, Text, TouchableOpacity, View, TextStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  TextStyle
+} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
@@ -88,7 +95,7 @@ export class Header extends React.Component<HeaderProperties> {
 
     const style = [
       styles.button,
-      type === 'left' ? { marginRight: 'auto' } : { marginLeft: 'auto' } 
+      type === 'left' ? { marginRight: 'auto' } : { marginLeft: 'auto' }
     ];
 
     if (button.disabled) {
@@ -123,7 +130,7 @@ export class Header extends React.Component<HeaderProperties> {
         {leftButton
           ? this.renderButton(leftButton, 'left')
           : this.renderButtonInvisible('left')}
-        <Text style={styles.title}>{title} </Text>
+        <Text style={styles.title}>{title}</Text>
         {rightButton
           ? this.renderButton(rightButton, 'right')
           : this.renderButtonInvisible('right')}
