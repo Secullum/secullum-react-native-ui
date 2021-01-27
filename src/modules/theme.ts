@@ -22,8 +22,8 @@ export interface Theme {
 
 let theme = {
   textColor1: '#282c37', // black
-  textColor2: '#59cbe8', // blue
-  textColor3: '#555', // gray
+  textColor2: '#0c65c7', // blue
+  textColor3: '#8c9aa8', // gray
   textColor4: '#ffffff', // white
   backgroundColor1: '#ffffff', // white
   backgroundColor2: '#eef1f6', // gray
