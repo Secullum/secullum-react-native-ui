@@ -97,9 +97,9 @@ export class MenuMobile extends React.Component<
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>{renderLogo()}</View>
-          {renderUserData ? (
-            <View style={styles.userContainer}>{renderUserData()}</View>
-          ) : null}
+        {renderUserData && (
+          <View style={styles.userContainer}>{renderUserData()}</View>
+        )}
         <ScrollView style={styles.menuContainer}>
           <Menu
             menu={menu}
