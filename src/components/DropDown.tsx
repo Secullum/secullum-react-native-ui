@@ -266,7 +266,7 @@ export class DropDown extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: theme.fontFamily2,
+        fontFamily: theme.fontFamily3,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
@@ -342,7 +342,7 @@ export class DropDown extends React.Component<
         fontSize: 26
       }
     });
-
+    
     return styles;
   };
 

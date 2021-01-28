@@ -104,7 +104,7 @@ export class RangeDatePicker extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: theme.fontFamily2,
+        fontFamily: theme.fontFamily3,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
