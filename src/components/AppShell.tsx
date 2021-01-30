@@ -7,12 +7,7 @@ import { MenuMobile } from './MenuMobile';
 import { MenuDesktop } from './MenuDesktop';
 import { getTheme } from '../modules/theme';
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 export type AppShellProperties = MenuProperties & {
   logoHeader: () => React.ReactNode;

@@ -342,7 +342,7 @@ export class DropDown extends React.Component<
         fontSize: 26
       }
     });
-    
+
     return styles;
   };
 
