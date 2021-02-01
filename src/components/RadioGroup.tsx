@@ -32,7 +32,8 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
       itemText: {
         fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 16 : 12,
-        lineHeight: isTablet() ? 20 : 16
+        lineHeight: isTablet() ? 20 : 16,
+        color: theme.textColor3
       },
       selectedItem: {
         backgroundColor: theme.backgroundColor3

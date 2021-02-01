@@ -11,6 +11,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableWithoutFeedback,
   View,
   ViewStyle
@@ -24,6 +25,7 @@ export interface DatePickerProperties {
   onCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 export interface DatePickerState {

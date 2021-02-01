@@ -12,6 +12,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableWithoutFeedback,
   View,
   ViewStyle
@@ -28,6 +29,7 @@ export interface DatePickerProperties {
   style?: StyleProp<ViewStyle>;
   dateFormat: string;
   nativeID?: string;
+  labelStyle?: StyleProp<TextStyle>;
 }
 
 export interface DatePickerState {
@@ -120,7 +122,15 @@ export class DatePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style, dateFormat, nativeID } = this.props;
+    const {
+      label,
+      value,
+      clearable,
+      style,
+      dateFormat,
+      nativeID,
+      labelStyle
+    } = this.props;
 
     const styles = this.getStyles();
 
@@ -130,7 +140,7 @@ export class DatePicker extends React.Component<
       <TouchableWithoutFeedback onPress={this.handlePress}>
         <View nativeID={nativeID} style={[styles.container, style]}>
           <View ref={ref => ref && ref.setNativeProps({ id: 'date-picker' })}>
-            <Text style={[styles.label]}>{label}</Text>
+            <Text style={[styles.label, labelStyle]}>{label}</Text>
             <Text style={styles.value}>
               {value != undefined ? formatDate(value, dateFormat) : ''}
             </Text>
