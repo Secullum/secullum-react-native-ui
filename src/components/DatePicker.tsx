@@ -11,7 +11,6 @@ import {
   StyleProp,
   StyleSheet,
   Text,
-  TextStyle,
   TouchableWithoutFeedback,
   View,
   ViewStyle
@@ -25,7 +24,6 @@ export interface DatePickerProperties {
   onCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
-  labelStyle?: StyleProp<TextStyle>;
 }
 
 export interface DatePickerState {
@@ -98,7 +96,7 @@ export class DatePicker extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: theme.fontFamily2,
+        fontFamily: theme.fontFamily3,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },

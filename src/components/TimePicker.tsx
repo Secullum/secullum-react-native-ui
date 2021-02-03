@@ -11,7 +11,6 @@ import {
   StyleProp,
   StyleSheet,
   Text,
-  TextStyle,
   TouchableWithoutFeedback,
   View,
   ViewStyle
@@ -25,7 +24,6 @@ export interface TimePickerProperties {
   onChange?: (value: string) => void;
   onCancel?: () => void;
   style?: StyleProp<ViewStyle>;
-  labelstyle?: StyleProp<TextStyle>;
   nativeID?: string;
 }
 
@@ -128,15 +126,7 @@ export class TimePicker extends React.Component<
   };
 
   render() {
-    const {
-      label,
-      value,
-      clearable,
-      style,
-      disabled,
-      nativeID,
-      labelstyle
-    } = this.props;
+    const { label, value, clearable, style, disabled, nativeID } = this.props;
     const { showModal, isDarkModeEnabled } = this.state;
 
     const date = new Date();
@@ -162,7 +152,7 @@ export class TimePicker extends React.Component<
             style={[styles.container, style, disabled ? styles.readonly : null]}
           >
             <View>
-              <Text style={[styles.label, labelstyle]}>{label}</Text>
+              <Text style={[styles.label]}>{label}</Text>
               <Text style={styles.value}>{value}</Text>
             </View>
 
