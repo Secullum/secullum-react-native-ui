@@ -144,7 +144,7 @@ export class RangeDatePicker extends React.Component<
           <View
             ref={ref => ref && ref.setNativeProps({ id: 'range-date-picker' })}
           >
-            <Text style={[styles.label]}>{label}</Text>
+            <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>{displayText}</Text>
           </View>
           <FontAwesome name="calendar" style={styles.icon} />

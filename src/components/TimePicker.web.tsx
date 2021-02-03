@@ -81,7 +81,7 @@ export class TimePicker extends React.Component<TimePickerProperties> {
         <View
           style={[styles.container, style, !disabled ? null : styles.readonly]}
         >
-          <Text style={[styles.label]}>{label}</Text>
+          <Text style={styles.label}>{label}</Text>
           <TextInput
             nativeID={nativeID}
             value={value}

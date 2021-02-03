@@ -152,7 +152,7 @@ export class TimePicker extends React.Component<
             style={[styles.container, style, disabled ? styles.readonly : null]}
           >
             <View>
-              <Text style={[styles.label]}>{label}</Text>
+              <Text style={styles.label}>{label}</Text>
               <Text style={styles.value}>{value}</Text>
             </View>
 
