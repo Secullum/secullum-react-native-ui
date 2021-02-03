@@ -152,6 +152,8 @@ export class DatePicker extends React.Component<
               onConfirm={this.handleConfirm}
               onCancel={this.handleCancel}
               isDarkModeEnabled={isDarkModeEnabled}
+              //@ts-ignore
+              display={Platform.OS == 'ios' ? "inline" : 'default'}
             />
           )}
         </View>
