@@ -183,7 +183,7 @@ export class RangeDatePicker extends React.Component<
                 onCancel={this.handleStartDateCancel}
                 isDarkModeEnabled={isDarkModeEnabled}
                 //@ts-ignore
-                display={Platform.OS == 'ios' ? "inline" : 'default'}
+                display={Platform.OS == 'ios' ? 'inline' : 'default'}
               />
             ) : showEndDateModal ? (
               <DateTimePickerModal
@@ -193,7 +193,7 @@ export class RangeDatePicker extends React.Component<
                 onCancel={this.handleEndDateCancel}
                 isDarkModeEnabled={isDarkModeEnabled}
                 //@ts-ignore
-                display={Platform.OS == 'ios' ? "inline" : 'default'}
+                display={Platform.OS == 'ios' ? 'inline' : 'default'}
               />
             ) : null)}
         </View>

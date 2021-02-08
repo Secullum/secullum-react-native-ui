@@ -178,7 +178,7 @@ export class TimePicker extends React.Component<
                 onConfirm={this.handleConfirm}
                 onCancel={this.handleCancel}
                 isDarkModeEnabled={isDarkModeEnabled}
-                display={Platform.OS == 'ios' ? "spinner" : 'default'}
+                display={Platform.OS == 'ios' ? 'spinner' : 'default'}
               />
             )}
           </View>
