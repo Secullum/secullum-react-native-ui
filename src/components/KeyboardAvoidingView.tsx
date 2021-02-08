@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   Dimensions,
   EmitterSubscription,
+  findNodeHandle,
   Keyboard,
   KeyboardEvent,
   NativeScrollEvent,
@@ -65,6 +66,7 @@ export class KeyboardAvoidingView extends React.Component<
     this.keyboardDidHideSubscription!.remove();
   }
 
+  
   handleKeyboardShow = (event: KeyboardEvent) => {
     const keyboardHeight = event.endCoordinates.height;
     const keyboardPosition = event.endCoordinates.screenY;
@@ -79,26 +81,28 @@ export class KeyboardAvoidingView extends React.Component<
       return;
     }
 
-    const currentlyFocusedField = TextInput.State.currentlyFocusedField();
+    //@ts-ignore
+    const currentlyFocusedInput = TextInput.State.currentlyFocusedInput();
 
-    if (!currentlyFocusedField) {
+    if (!currentlyFocusedInput) {
       return;
     }
 
     const { extraFieldHeight, extraWindowHeight } = this.props;
 
+    const currentlyFocusedInputNode = findNodeHandle(currentlyFocusedInput);
+
     // @ts-ignore: no types :(
     UIManager.viewIsDescendantOf(
-      currentlyFocusedField,
-      scrollView.getInnerViewNode(),
+      currentlyFocusedInputNode,
+      findNodeHandle(scrollView),
       (isDescendant: boolean) => {
         if (!isDescendant) {
           return;
         }
 
-        UIManager.measure(
-          currentlyFocusedField,
-          (x, y, width, height, pageX, pageY) => {
+        currentlyFocusedInput.measure(
+          (x: number, y: number, width: number, height: number, pageX: number, pageY: number) => {
             const fieldPosition = pageY + height + extraFieldHeight;
 
             if (fieldPosition <= keyboardPosition) {
@@ -106,7 +110,7 @@ export class KeyboardAvoidingView extends React.Component<
             }
 
             scrollView.scrollResponderScrollNativeHandleToKeyboard(
-              currentlyFocusedField,
+              currentlyFocusedInputNode,
               extraWindowHeight + extraFieldHeight,
               true
             );

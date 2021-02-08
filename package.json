@@ -1,6 +1,6 @@
 {
   "name": "secullum-react-native-ui",
-  "version": "3.3.6",
+  "version": "3.3.15",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -19,14 +19,14 @@
     "docs:publish": "docz build && gh-pages -d .docz/dist"
   },
   "dependencies": {
-    "@react-native-community/datetimepicker": "^2.1.0",
+    "@react-native-community/datetimepicker": "^3.0.9",
     "date-fns": "2.0.0-alpha.7",
     "react-date-range": "^1.0.0-beta",
-    "react-native-appearance": "^0.3.2",
+    "react-native-appearance": "^0.3.4",
     "react-native-drawer-layout": "^2.0.0",
     "react-native-elevated-view": "^0.0.6",
     "react-native-masked-text": "^1.7.2",
-    "react-native-modal-datetime-picker": "8.0.4",
+    "react-native-modal-datetime-picker": "^9.1.0",
     "react-native-vector-icons": "^4.5.0",
     "react-native-web-modal": "^1.0.1"
   },
@@ -43,14 +43,14 @@
     "gh-pages": "^2.0.0",
     "prettier": "^1.16.4",
     "react": "^16.2.0",
-    "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55",
+    "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55 || ^0.63",
     "rimraf": "^2.6.2",
     "typescript": "^3.3.3333"
   },
   "peerDependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.5.1",
-    "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55"
+    "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55 || ^0.63"
   },
   "resolutions": {
     "docz-plugin-react-native/react-native-web": "^0.11.7"
