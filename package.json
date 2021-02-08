@@ -43,14 +43,14 @@
     "gh-pages": "^2.0.0",
     "prettier": "^1.16.4",
     "react": "^16.13.1",
-    "react-native": "^0.63",
+    "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55 || ^0.63",
     "rimraf": "^2.6.2",
     "typescript": "^3.3.3333"
   },
   "peerDependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.5.1",
-    "react-native": "^0.63"
+    "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55 || ^0.63"
   },
   "resolutions": {
     "docz-plugin-react-native/react-native-web": "^0.11.7"
