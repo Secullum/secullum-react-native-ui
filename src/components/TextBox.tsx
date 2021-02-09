@@ -99,10 +99,6 @@ export class TextBox extends React.Component<TextBoxProperties> {
       },
       readonly: {
         backgroundColor: theme.disabledColor
-      },
-      placeholder: {
-        color: theme.textColor1,
-        fontFamily: theme.fontFamily2
       }
     });
 
@@ -139,8 +135,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
       style: [
         styles.input,
         this.props.inputStyle,
-        this.props.editable ? null : styles.readonly,
-        styles.placeholder
+        this.props.editable ? null : styles.readonly
       ],
       underlineColorAndroid: 'transparent',
       placeholder: this.props.placeholder,

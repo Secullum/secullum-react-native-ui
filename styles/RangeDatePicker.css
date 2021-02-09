@@ -409,6 +409,11 @@
 .rdrDayPassive .rdrDayNumber span {
   color: #d5dce0;
 }
+
+.rdrDayNumber span {
+  color: #555;
+}
+
 .rdrDayPassive .rdrInRange,
 .rdrDayPassive .rdrStartEdge,
 .rdrDayPassive .rdrEndEdge,
