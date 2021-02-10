@@ -66,7 +66,6 @@ export class KeyboardAvoidingView extends React.Component<
     this.keyboardDidHideSubscription!.remove();
   }
 
-  
   handleKeyboardShow = (event: KeyboardEvent) => {
     const keyboardHeight = event.endCoordinates.height;
     const keyboardPosition = event.endCoordinates.screenY;
@@ -102,7 +101,14 @@ export class KeyboardAvoidingView extends React.Component<
         }
 
         currentlyFocusedInput.measure(
-          (x: number, y: number, width: number, height: number, pageX: number, pageY: number) => {
+          (
+            x: number,
+            y: number,
+            width: number,
+            height: number,
+            pageX: number,
+            pageY: number
+          ) => {
             const fieldPosition = pageY + height + extraFieldHeight;
 
             if (fieldPosition <= keyboardPosition) {
