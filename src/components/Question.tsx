@@ -36,18 +36,54 @@ export interface QuestionProperties {
 }
 
 export class Question extends React.Component<QuestionProperties> {
+  getStyles = () => {
+    const theme = getTheme();
+
+    const styles = StyleSheet.create({
+      botoesAcao: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        width: '100%'
+      },
+      overlay: {
+        flex: 1,
+        backgroundColor: 'rgba(33, 33, 33, 0.7)',
+        alignItems: 'center'
+      },
+      text: {
+        color: theme.textColor3,
+        fontFamily: theme.fontFamily1,
+        fontSize: isTablet() ? 25 : 16,
+        textAlign: 'center',
+        marginTop: isTablet() ? 15 : 5,
+        width: '100%'
+      },
+      container: {
+        backgroundColor: theme.backgroundColor1,
+        borderRadius: 6,
+        padding: isTablet() ? 25 : 16,
+        width: isTablet() ? 350 : 250,
+        marginTop: isTablet() ? 250 : 140,
+        alignItems: 'center'
+      },
+      icon: {
+        color: theme.textColor3,
+        fontSize: isTablet() ? 52 : 42
+      }
+    });
+
+    return styles;
+  };
+
   render() {
     const { message, visible, nativeID, okButton, cancelButton } = this.props;
-
+    const styles = this.getStyles();
     return (
       <ReactNativeModal animationType="fade" transparent visible={visible}>
         <View style={[styles.overlay]} nativeID={nativeID}>
           <View style={styles.container}>
-            <FontAwesome
-              name={'question-circle'}
-              color={theme.textColor3}
-              size={isTablet() ? 52 : 42}
-            />
+            <FontAwesome name={'question-circle'} style={styles.icon} />
             <Text style={styles.text}>{message}</Text>
             <Space />
             <View style={styles.botoesAcao}>
@@ -80,35 +116,3 @@ export class Question extends React.Component<QuestionProperties> {
     );
   }
 }
-
-const theme = getTheme();
-
-const styles = StyleSheet.create({
-  botoesAcao: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    width: '100%'
-  },
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(33, 33, 33, 0.7)',
-    alignItems: 'center'
-  },
-  text: {
-    color: theme.textColor1,
-    fontFamily: theme.fontFamily1,
-    fontSize: isTablet() ? 25 : 16,
-    textAlign: 'center',
-    marginTop: isTablet() ? 15 : 5,
-    width: '100%'
-  },
-  container: {
-    backgroundColor: theme.backgroundColor1,
-    borderRadius: 6,
-    padding: isTablet() ? 25 : 16,
-    width: isTablet() ? 350 : 250,
-    marginTop: isTablet() ? 250 : 140,
-    alignItems: 'center'
-  }
-});

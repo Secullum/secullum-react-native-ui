@@ -88,10 +88,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
       },
       input: {
         color: theme.textColor1,
-        fontFamily:
-          this.props.value
-            ? theme.fontFamily1
-            : theme.fontFamily3,
+        fontFamily: this.props.value ? theme.fontFamily1 : theme.fontFamily3,
         fontWeight: 'normal',
         fontSize: 16,
         minHeight: 22,
