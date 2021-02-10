@@ -1,7 +1,6 @@
 .rdrCalendarWrapper {
   color: white;
   font-size: 12px;
-  font-family: 'Lato-Bold';
   box-shadow: 1px 1px 20px 0 rgba(0, 0, 0, 0.4);
   border-radius: 5px;
 }
@@ -66,7 +65,7 @@
 .rdrMonthAndYearWrapper {
   align-items: center;
   height: 60px;
-  background-color: #0c65c7;
+  background-color: #59cbe8;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
@@ -209,7 +208,7 @@
   width: 18px;
   height: 2px;
   border-radius: 2px;
-  background: #0c65c7;
+  background: #59cbe8;
 }
 
 .rdrDayToday .rdrInRange ~ .rdrDayNumber span:after,
@@ -230,7 +229,7 @@
 .rdrInRange,
 .rdrStartEdge,
 .rdrEndEdge {
-  background: currentColor;
+  background: #59cbe8;
   position: absolute;
   top: 3px;
   left: 0;
@@ -303,7 +302,7 @@
   right: 0px;
   bottom: 3px;
   pointer-events: none;
-  border: 0px solid currentColor;
+  border: 0px solid #59cbe8;
   z-index: 1;
 }
 
@@ -410,6 +409,11 @@
 .rdrDayPassive .rdrDayNumber span {
   color: #d5dce0;
 }
+
+.rdrDayNumber span {
+  color: #555;
+}
+
 .rdrDayPassive .rdrInRange,
 .rdrDayPassive .rdrStartEdge,
 .rdrDayPassive .rdrEndEdge,

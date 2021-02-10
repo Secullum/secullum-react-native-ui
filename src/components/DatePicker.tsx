@@ -96,13 +96,13 @@ export class DatePicker extends React.Component<
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: theme.fontFamily3,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       value: {
         color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontSize: 16,
         lineHeight: 22,
         minHeight: 22

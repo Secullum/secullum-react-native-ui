@@ -1,29 +1,30 @@
 import * as React from 'react';
 import { DimensionsMonitor } from './DimensionsMonitor';
 import { Header, HeaderButton } from './Header';
-import { HeaderDesktop } from './HeaderDesktop';
+import { GreetingMessage, HeaderDesktop } from './HeaderDesktop';
 import { MenuProperties } from './Menu';
 import { MenuMobile } from './MenuMobile';
 import { MenuDesktop } from './MenuDesktop';
 import { getTheme } from '../modules/theme';
 
 import {
-  Image,
-  ImageSourcePropType,
   StyleSheet,
   Text,
   View,
-  Dimensions
+  Dimensions,
+  StyleProp,
+  TextStyle
 } from 'react-native';
 
 export type AppShellProperties = MenuProperties & {
-  logoHeader: ImageSourcePropType;
-  logoMenu: ImageSourcePropType;
-  title: string;
-  greeting?: string;
+  logoHeader: () => React.ReactNode;
+  logoMenu: () => React.ReactNode;
+  title?: string;
+  greeting?: GreetingMessage;
   screenTitle: string;
   renderUserData?: () => React.ReactNode;
   rightButton?: HeaderButton;
+  headerStyle?: StyleProp<TextStyle>;
 };
 
 export class AppShell extends React.Component<AppShellProperties> {
@@ -40,15 +41,9 @@ export class AppShell extends React.Component<AppShellProperties> {
         // @ts-ignore: O react-native não tem auto, mas o react-native-web aceita
         overflow: 'auto'
       },
-      logoImage: {
-        width: 40,
-        height: 40,
-        marginTop: 10,
-        marginBottom: 10
-      },
       logoText: {
         color: theme.textColor1,
-        fontFamily: 'MankSans-Medium',
+        fontFamily: theme.fontFamily3,
         fontSize: 22,
         marginLeft: 10
       }
@@ -98,8 +93,8 @@ export class AppShell extends React.Component<AppShellProperties> {
         isCurrentMenuPath={isCurrentMenuPath}
         renderLogo={() => (
           <>
-            <Image source={logoMenu} style={styles.logoImage} />
-            <Text style={styles.logoText}>{title}</Text>
+            {logoMenu()}
+            {title && <Text style={styles.logoText}>{title}</Text>}
           </>
         )}
         renderUserData={renderUserData}
@@ -128,7 +123,8 @@ export class AppShell extends React.Component<AppShellProperties> {
       isCurrentMenuPath,
       children,
       rightButton,
-      renderUserData
+      renderUserData,
+      headerStyle
     } = this.props;
 
     const styles = this.getDesktopStyles();
@@ -140,6 +136,7 @@ export class AppShell extends React.Component<AppShellProperties> {
           logo={logoHeader}
           greeting={greeting}
           rightButton={rightButton}
+          headerStyle={headerStyle}
         />
         <View style={styles.container}>
           <MenuDesktop

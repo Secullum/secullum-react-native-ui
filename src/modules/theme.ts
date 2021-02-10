@@ -15,6 +15,9 @@ export interface Theme {
   disabledColor: string;
   counterBackgroundColor: string;
   counterTextColor: string;
+  fontFamily1: string;
+  fontFamily2: string;
+  fontFamily3: string;
 }
 
 let theme = {
@@ -33,7 +36,10 @@ let theme = {
   errorColor: '#d62729', // red
   disabledColor: '#dddddd', // gray
   counterBackgroundColor: '#34bf6d', // light green
-  counterTextColor: '#ffffff' // white
+  counterTextColor: '#ffffff', // white
+  fontFamily1: 'Roboto-Medium',
+  fontFamily2: 'Roboto',
+  fontFamily3: 'Roboto-Light'
 };
 
 export const setTheme = (newTheme: { [K in keyof Theme]?: string }) => {

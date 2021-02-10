@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {
   KeyboardType,
@@ -24,7 +25,9 @@ export interface TextBoxInputProps extends TextInputProps {
 
 export interface TextBoxProperties {
   autoFocus?: boolean;
-  label: string;
+  label?: string;
+  icon?: string;
+  placeholder?: string;
   value: string;
   onChange?: (value: string) => void;
   onKeyPress?: (nativeEvent: TextInputKeyPressEventData) => void;
@@ -59,6 +62,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
 
   getStyles = () => {
     const theme = getTheme();
+    const { icon } = this.props;
 
     const styles = StyleSheet.create({
       container: {
@@ -66,22 +70,31 @@ export class TextBox extends React.Component<TextBoxProperties> {
         paddingVertical: 8,
         borderWidth: 1,
         borderColor: theme.borderColor1,
-        borderRadius: 3
+        borderRadius: 3,
+        ...(icon ? { flexDirection: 'row' } : {})
+      },
+      icon: {
+        color: theme.textColor2,
+        fontSize: isTablet() ? 21 : 19,
+        paddingRight: 10,
+        alignSelf: 'center',
+        minHeight: 22
       },
       label: {
         color: theme.textColor2,
-        fontFamily: 'Lato-Regular',
+        fontFamily: theme.fontFamily3,
         fontSize: isTablet() ? 15 : 12,
         lineHeight: 16
       },
       input: {
         color: theme.textColor1,
-        fontFamily: 'Lato-Bold',
+        fontFamily: theme.fontFamily1,
         fontWeight: 'normal',
         fontSize: 16,
         minHeight: 22,
         padding: 0,
         margin: 0,
+        flex: 2,
         ...(Platform.OS === 'web' ? { outline: '0' } : {})
       },
       readonly: {
@@ -107,7 +120,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
       labelStyle,
       editable,
       inputRef,
-      renderInput
+      renderInput,
+      icon
     } = this.props;
 
     const styles = this.getStyles();
@@ -124,6 +138,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
         this.props.editable ? null : styles.readonly
       ],
       underlineColorAndroid: 'transparent',
+      placeholder: this.props.placeholder,
       secureTextEntry: this.props.secureTextEntry,
       multiline: this.props.multiline,
       editable: this.props.editable,
@@ -164,7 +179,11 @@ export class TextBox extends React.Component<TextBoxProperties> {
         <View
           style={[styles.container, style, editable ? null : styles.readonly]}
         >
-          <Text style={[styles.label, labelStyle]}>{label}</Text>
+          {icon ? (
+            <FontAwesome name={icon} style={styles.icon} />
+          ) : (
+            <Text style={[styles.label, labelStyle]}>{label}</Text>
+          )}
           {renderInput
             ? renderInput(incomingProps)
             : this.renderInput(incomingProps)}

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { getTheme } from '../modules/theme';
 import { Menu, MenuProperties } from './Menu';
+import { Space } from './Space';
 
 export type MenuDesktopProperties = MenuProperties & {
   headerHeight: number;
@@ -39,6 +40,7 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
     return (
       <View style={styles.container}>
         {renderUserData ? <View>{renderUserData()}</View> : null}
+        <Space />
         <Menu
           menu={menu}
           isCurrentMenuPath={isCurrentMenuPath}

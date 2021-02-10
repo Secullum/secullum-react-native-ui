@@ -39,7 +39,7 @@ export class RadioButton extends React.Component<RadioButtonProps> {
         color: theme.textColor1,
         alignSelf: 'flex-start',
         left: 10,
-        fontFamily: 'Lato-Bold'
+        fontFamily: theme.fontFamily1
       }
     });
 
