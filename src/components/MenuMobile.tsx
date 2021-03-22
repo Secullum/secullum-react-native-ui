@@ -69,7 +69,7 @@ export class MenuMobile extends React.Component<
       },
       logoContainer: {
         paddingVertical: 5,
-        paddingLeft: 20,
+        paddingLeft: 10,
         borderBottomColor: theme.borderColor1,
         borderBottomWidth: 1,
         flexDirection: 'row'
