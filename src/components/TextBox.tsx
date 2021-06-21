@@ -138,6 +138,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
         this.props.editable ? null : styles.readonly
       ],
       underlineColorAndroid: 'transparent',
+      //@ts-ignore: no Android < 6 essa é a prop que deixa o underline transparente. https://stackoverflow.com/questions/40478246/remove-underline-in-inputtext-in-react-native
+      borderWidth: 0,
       placeholder: this.props.placeholder,
       secureTextEntry: this.props.secureTextEntry,
       multiline: this.props.multiline,
