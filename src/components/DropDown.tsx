@@ -39,7 +39,7 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
         paddingVertical: 16,
         fontFamily: theme.fontFamily1,
         fontSize: 16,
-        color: theme.textColor1
+        color: theme.dropDownTextColor
       },
       icon: {
         fontSize: 26

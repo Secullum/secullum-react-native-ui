@@ -19,6 +19,8 @@ export interface Theme {
   textColor4: string;
   messageTextColor: string;
   counterTextColor: string;
+  dropDownTextColor: string;
+  questionTextColor: string;
   backgroundColor1: string;
   backgroundColor2: string;
   backgroundColor3: string;
@@ -42,6 +44,8 @@ let theme = {
   textColor4: WHITE,
   messageTextColor: BLACK,
   counterTextColor: WHITE,
+  dropDownTextColor: BLACK,
+  questionTextColor: BLACK,
   backgroundColor1: WHITE,
   backgroundColor2: GRAY_1,
   backgroundColor3: BLUE_LIGHT,
