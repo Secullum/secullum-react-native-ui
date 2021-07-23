@@ -1,3 +1,5 @@
+import { setDatePickerColor } from './browser';
+
 export const BLACK = '#282c37';
 export const WHITE = '#ffffff';
 export const GRAY = '#8c9aa8';
@@ -7,6 +9,7 @@ export const GRAY_3 = '#c2c2c2';
 export const GRAY_4 = '#aabec6';
 export const BLUE = '#0047a9';
 export const BLUE_LIGHT = '#0c65c7';
+export const BLUE_LIGHT_2 = '#59cbe8';
 export const YELLOW = '#f5a623';
 export const GREEN = '#34bf6d';
 export const GREEN_LIGHT = '#2ec562';
@@ -21,6 +24,7 @@ export interface Theme {
   counterTextColor: string;
   dropDownTextColor: string;
   questionTextColor: string;
+  datePickerColor: string;
   backgroundColor1: string;
   backgroundColor2: string;
   backgroundColor3: string;
@@ -37,7 +41,7 @@ export interface Theme {
   fontFamily3: string;
 }
 
-let theme = {
+let theme: Theme = {
   textColor1: BLACK,
   textColor2: BLUE_LIGHT,
   textColor3: GRAY,
@@ -46,6 +50,7 @@ let theme = {
   counterTextColor: WHITE,
   dropDownTextColor: BLACK,
   questionTextColor: BLACK,
+  datePickerColor: BLUE_LIGHT_2,
   backgroundColor1: WHITE,
   backgroundColor2: GRAY_1,
   backgroundColor3: BLUE_LIGHT,
@@ -62,8 +67,10 @@ let theme = {
   fontFamily3: 'Roboto-Light'
 };
 
-export const setTheme = (newTheme: { [K in keyof Theme]?: string }) => {
+export const setTheme = (newTheme: Partial<Theme>) => {
   theme = { ...theme, ...newTheme };
+
+  setDatePickerColor(theme.datePickerColor);
 };
 
 export const getTheme = (): Theme => {
