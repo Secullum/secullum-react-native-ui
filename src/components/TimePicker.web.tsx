@@ -61,7 +61,7 @@ export class TimePicker extends React.Component<TimePickerProperties> {
         minHeight: 22,
         padding: 0,
         margin: 0,
-        outline: 'none'
+        outlineStyle: 'none'
       },
       readonly: {
         backgroundColor: theme.disabledColor
