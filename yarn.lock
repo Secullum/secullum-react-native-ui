@@ -8992,6 +8992,7 @@ react-native-drawer-layout@^2.0.0:
 react-native-elevated-view@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-elevated-view/-/react-native-elevated-view-0.0.6.tgz#560cc9ab16cfd5cb5ea821521558fc711e57e231"
+  integrity sha512-4Yna9tmdvzE7Ffl7IWut8/a2MBkb1s9S9jK0qfQZXMR9ZCeVQb0fZbzyYX9Sfaj1/3k+u7AlkEnl2ptCnQ/PbQ==
 
 react-native-masked-text@^1.7.2:
   version "1.7.2"

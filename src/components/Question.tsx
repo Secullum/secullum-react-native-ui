@@ -52,7 +52,7 @@ export class Question extends React.Component<QuestionProperties> {
         alignItems: 'center'
       },
       text: {
-        color: theme.textColor3,
+        color: theme.questionTextColor,
         fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 25 : 16,
         textAlign: 'center',

@@ -33,7 +33,7 @@ export class Message extends React.Component<MessageProperties> {
         alignItems: 'center'
       },
       text: {
-        color: theme.textColor1,
+        color: theme.messageTextColor,
         fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 25 : 16,
         textAlign: 'center',

@@ -45,7 +45,9 @@ export class AppShell extends React.Component<AppShellProperties> {
         color: theme.textColor1,
         fontFamily: theme.fontFamily3,
         fontSize: 22,
-        marginLeft: 10
+        marginLeft: 10,
+        display: 'flex',
+        alignItems: 'center'
       }
     });
 
