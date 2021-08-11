@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Modal } from './Modal';
 import { getTheme } from '../modules/theme';
@@ -11,12 +11,14 @@ export interface MessageProperties {
   type?: 'info' | 'warning';
   onRequestClose?: () => void;
   nativeID?: string;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export class Message extends React.Component<MessageProperties> {
   static defaultProps = {
     type: 'info'
   };
+
   getStyles = () => {
     const theme = getTheme();
 
@@ -44,9 +46,18 @@ export class Message extends React.Component<MessageProperties> {
   };
 
   render() {
-    const { message, visible, type, onRequestClose, nativeID } = this.props;
+    const {
+      message,
+      visible,
+      type,
+      onRequestClose,
+      nativeID,
+      textStyle
+    } = this.props;
+
     const styles = this.getStyles();
     const theme = getTheme();
+
     return (
       <Modal
         visible={visible}
@@ -59,7 +70,7 @@ export class Message extends React.Component<MessageProperties> {
             color={type === 'warning' ? theme.warningColor : theme.successColor}
             size={isTablet() ? 52 : 42}
           />
-          <Text style={styles.text}>{message}</Text>
+          <Text style={[styles.text, textStyle]}>{message}</Text>
         </View>
       </Modal>
     );
