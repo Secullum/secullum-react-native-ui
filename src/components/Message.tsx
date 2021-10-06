@@ -35,7 +35,7 @@ export class Message extends React.Component<MessageProperties> {
         alignItems: 'center'
       },
       text: {
-        color: theme.messageTextColor,
+        color: theme.textColor3,
         fontFamily: theme.fontFamily1,
         fontSize: isTablet() ? 25 : 16,
         textAlign: 'center',

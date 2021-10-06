@@ -2,7 +2,7 @@ import { setDatePickerColor } from './browser';
 
 export const BLACK = '#282c37';
 export const WHITE = '#ffffff';
-export const GRAY = '#8c9aa8';
+export const GRAY = '#555';
 export const GRAY_1 = '#eef1f6';
 export const GRAY_2 = '#dddddd';
 export const GRAY_3 = '#c2c2c2';
