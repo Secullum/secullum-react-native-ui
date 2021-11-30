@@ -18,6 +18,7 @@ interface Props {
   onChange?: (value: boolean) => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  renderLabel?: () => React.ReactNode;
   labelStyle?: StyleProp<TextStyle>;
   nativeID?: string;
 }
@@ -55,6 +56,7 @@ export class CheckBox extends React.Component<Props> {
       disabled,
       style,
       labelStyle,
+      renderLabel,
       nativeID
     } = this.props;
 
@@ -75,7 +77,9 @@ export class CheckBox extends React.Component<Props> {
           name={value ? 'check-square-o' : 'square-o'}
           style={styles.icon}
         />
-        <Text style={[styles.label, labelStyle]}>{label}</Text>
+        <Text style={[styles.label, labelStyle]}>
+          {renderLabel ? renderLabel() : label}
+        </Text>
       </TouchableOpacity>
     );
   }
