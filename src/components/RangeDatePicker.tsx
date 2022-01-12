@@ -174,28 +174,28 @@ export class RangeDatePicker extends React.Component<
 
           <FontAwesome name="calendar" style={styles.icon} />
 
-          {Platform.OS !== 'web' &&
-            (showStartDateModal ? (
+          {Platform.OS !== 'web' && (
+            <>
               <DateTimePickerModal
                 date={startDate}
-                isVisible={true}
+                isVisible={showStartDateModal}
                 onConfirm={this.handleStartDateConfirm}
                 onCancel={this.handleStartDateCancel}
                 isDarkModeEnabled={isDarkModeEnabled}
                 //@ts-ignore
                 display={Platform.OS == 'ios' ? 'inline' : 'default'}
               />
-            ) : showEndDateModal ? (
               <DateTimePickerModal
                 date={endDate}
-                isVisible={true}
+                isVisible={showEndDateModal}
                 onConfirm={this.handleEndDateConfirm}
                 onCancel={this.handleEndDateCancel}
                 isDarkModeEnabled={isDarkModeEnabled}
                 //@ts-ignore
                 display={Platform.OS == 'ios' ? 'inline' : 'default'}
               />
-            ) : null)}
+            </>
+          )}
         </View>
       </TouchableWithoutFeedback>
     );
