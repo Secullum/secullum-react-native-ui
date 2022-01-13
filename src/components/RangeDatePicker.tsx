@@ -5,6 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { formatDate } from '../modules/format';
 import { isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
+import { Delay } from './Delay';
 
 import {
   StyleProp,
@@ -174,28 +175,30 @@ export class RangeDatePicker extends React.Component<
 
           <FontAwesome name="calendar" style={styles.icon} />
 
-          {Platform.OS !== 'web' && (
-            <>
+          {Platform.OS !== 'web' &&
+            (showStartDateModal ? (
               <DateTimePickerModal
                 date={startDate}
-                isVisible={showStartDateModal}
+                isVisible={true}
                 onConfirm={this.handleStartDateConfirm}
                 onCancel={this.handleStartDateCancel}
                 isDarkModeEnabled={isDarkModeEnabled}
                 //@ts-ignore
                 display={Platform.OS == 'ios' ? 'inline' : 'default'}
               />
-              <DateTimePickerModal
-                date={endDate}
-                isVisible={showEndDateModal}
-                onConfirm={this.handleEndDateConfirm}
-                onCancel={this.handleEndDateCancel}
-                isDarkModeEnabled={isDarkModeEnabled}
-                //@ts-ignore
-                display={Platform.OS == 'ios' ? 'inline' : 'default'}
-              />
-            </>
-          )}
+            ) : showEndDateModal ? (
+              <Delay wait={5}>
+                <DateTimePickerModal
+                  date={endDate}
+                  isVisible={true}
+                  onConfirm={this.handleEndDateConfirm}
+                  onCancel={this.handleEndDateCancel}
+                  isDarkModeEnabled={isDarkModeEnabled}
+                  //@ts-ignore
+                  display={Platform.OS == 'ios' ? 'inline' : 'default'}
+                />
+              </Delay>
+            ) : null)}
         </View>
       </TouchableWithoutFeedback>
     );
