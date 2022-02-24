@@ -25,6 +25,7 @@ export class Modal extends React.Component<ModalProperties> {
         animationType="fade"
         transparent
         visible={visible}
+        supportedOrientations={['landscape', 'portrait']}
         onRequestClose={onRequestClose}
       >
         <TouchableWithoutFeedback onPress={onRequestClose}>
