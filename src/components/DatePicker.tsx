@@ -24,6 +24,7 @@ export interface DatePickerProperties {
   onCancel?: () => void;
   style?: StyleProp<ViewStyle>;
   nativeID?: string;
+  disabled?: boolean;
 }
 
 export interface DatePickerState {
@@ -115,6 +116,9 @@ export class DatePicker extends React.Component<
       clearIcon: {
         borderWidth: 0,
         marginLeft: 'auto'
+      },
+      readonly: {
+        backgroundColor: theme.disabledColor
       }
     });
 
@@ -122,14 +126,17 @@ export class DatePicker extends React.Component<
   };
 
   render() {
-    const { label, value, clearable, style, nativeID } = this.props;
+    const { label, value, clearable, style, nativeID, disabled } = this.props;
     const { showModal, isDarkModeEnabled } = this.state;
     const styles = this.getStyles();
     const theme = getTheme();
 
     return (
-      <TouchableWithoutFeedback onPress={this.handlePress}>
-        <View nativeID={nativeID} style={[styles.container, style]}>
+      <TouchableWithoutFeedback disabled={disabled} onPress={this.handlePress}>
+        <View
+          nativeID={nativeID}
+          style={[styles.container, style, disabled ? styles.readonly : null]}
+        >
           <View>
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>
@@ -137,13 +144,17 @@ export class DatePicker extends React.Component<
             </Text>
           </View>
 
-          <ImageButton
-            icon={value && clearable ? 'times' : 'calendar'}
-            style={styles.clearIcon}
-            iconColor={value && clearable ? theme.textColor1 : theme.textColor2}
-            onPress={value && clearable ? this.handleClear : this.handlePress}
-            hitBoxSize={30}
-          />
+          {!disabled && (
+            <ImageButton
+              icon={value && clearable ? 'times' : 'calendar'}
+              style={styles.clearIcon}
+              iconColor={
+                value && clearable ? theme.textColor1 : theme.textColor2
+              }
+              onPress={value && clearable ? this.handleClear : this.handlePress}
+              hitBoxSize={30}
+            />
+          )}
 
           {Platform.OS !== 'web' && (
             <DateTimePickerModal
