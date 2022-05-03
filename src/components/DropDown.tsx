@@ -265,10 +265,9 @@ export class DropDown extends React.Component<
         borderWidth: 1,
         borderColor: theme.borderColor1,
         borderRadius: 3,
-        ...(icon ? { flexDirection: 'row' } : {}),
-        ...(icon && Platform.OS === 'web'
-          ? { minHeight: 40 }
-          : { minHeight: 48 })
+        ...(icon
+          ? { flexDirection: 'row', minHeight: Platform.OS === 'web' ? 40 : 48 }
+          : {})
       },
       label: {
         color: theme.textColor2,
@@ -347,7 +346,7 @@ export class DropDown extends React.Component<
         paddingVertical: 8,
         fontSize: 26
       },
-      icone: {
+      iconOnLine: {
         color: theme.textColor2,
         fontSize: isTablet() ? 21 : 19,
         marginRight: 10,
@@ -392,7 +391,7 @@ export class DropDown extends React.Component<
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           {icon ? (
-            <FontAwesome name={icon} style={styles.icone} />
+            <FontAwesome name={icon} style={styles.iconOnLine} />
           ) : (
             <Text style={[styles.label, labelStyle]}>{label}</Text>
           )}
