@@ -148,7 +148,7 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
 }
 
 export interface DropDownProperties {
-  label: string;
+  label?: string;
   items: Array<{ label: string; value: any; icon?: string; nativeID?: string }>;
   value: any | null;
   onChange: (value: any) => void;
@@ -159,6 +159,7 @@ export interface DropDownProperties {
   inputStyle?: StyleProp<TextStyle>;
   iconComponent?: React.ComponentClass<IconProps>;
   nativeID?: string;
+  icon?: string | undefined;
 }
 
 export interface DropDownState {
@@ -255,6 +256,7 @@ export class DropDown extends React.Component<
 
   getStyles = (): any => {
     const theme = getTheme();
+    const { icon } = this.props;
 
     const styles = StyleSheet.create({
       container: {
@@ -262,7 +264,11 @@ export class DropDown extends React.Component<
         paddingVertical: 8,
         borderWidth: 1,
         borderColor: theme.borderColor1,
-        borderRadius: 3
+        borderRadius: 3,
+        ...(icon ? { flexDirection: 'row' } : {}),
+        ...(icon && Platform.OS === 'web'
+          ? { minHeight: 40 }
+          : { minHeight: 48 })
       },
       label: {
         color: theme.textColor2,
@@ -273,7 +279,7 @@ export class DropDown extends React.Component<
       text: {
         lineHeight: 22,
         minHeight: 22,
-        alignSelf: 'flex-start',
+        textAlignVertical: 'center',
         color: theme.textColor1,
         fontFamily: theme.fontFamily1,
         fontSize: 16
@@ -340,6 +346,14 @@ export class DropDown extends React.Component<
         paddingHorizontal: 16,
         paddingVertical: 8,
         fontSize: 26
+      },
+      icone: {
+        color: theme.textColor2,
+        fontSize: isTablet() ? 21 : 19,
+        marginRight: 10,
+        minWidth: 25,
+        textAlignVertical: 'center',
+        flex: 0
       }
     });
 
@@ -358,7 +372,8 @@ export class DropDown extends React.Component<
       labelStyle,
       inputStyle,
       iconComponent,
-      nativeID
+      nativeID,
+      icon
     } = this.props;
 
     const selectedItem = items.find(x => x.value === value);
@@ -376,7 +391,12 @@ export class DropDown extends React.Component<
           nativeID={nativeID}
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
-          <Text style={[styles.label, labelStyle]}>{label}</Text>
+          {icon ? (
+            <FontAwesome name={icon} style={styles.icone} />
+          ) : (
+            <Text style={[styles.label, labelStyle]}>{label}</Text>
+          )}
+
           {this.renderClosedDropDown(selectedItem, inputStyle)}
           <Modal
             visible={modalOpen}
