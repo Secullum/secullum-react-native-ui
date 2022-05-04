@@ -95,7 +95,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
         padding: 0,
         margin: 0,
         ...(Platform.OS === 'web' ? { outline: 'none' } : {}),
-        flex: 1
+        ...(icon ? { flex: 1 } : {})
       },
       readonly: {
         backgroundColor: theme.disabledColor
