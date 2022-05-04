@@ -266,7 +266,11 @@ export class DropDown extends React.Component<
         borderColor: theme.borderColor1,
         borderRadius: 3,
         ...(icon
-          ? { flexDirection: 'row', minHeight: Platform.OS === 'web' ? 40 : 48 }
+          ? {
+              flexDirection: 'row',
+              minHeight:
+                Platform.OS === 'web' || Platform.OS === 'ios' ? 40 : 46
+            }
           : {})
       },
       label: {

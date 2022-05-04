@@ -76,7 +76,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
       icon: {
         color: theme.textColor2,
         fontSize: isTablet() ? 21 : 19,
-        paddingRight: 10,
+        marginRight: 10,
         alignSelf: 'center',
         minHeight: 22
       },
@@ -94,7 +94,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
         minHeight: 22,
         padding: 0,
         margin: 0,
-        ...(Platform.OS === 'web' ? { outline: 'none' } : {})
+        ...(Platform.OS === 'web' ? { outline: 'none' } : {}),
+        flex: 1
       },
       readonly: {
         backgroundColor: theme.disabledColor
