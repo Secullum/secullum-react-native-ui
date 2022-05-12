@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
   backgroundView: {
     zIndex: 9998,
     position: 'absolute',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width + 30,
+    height: Dimensions.get('window').height + 30,
     opacity: 0.6,
     backgroundColor: '#ccc',
     top: 0, // IE fix
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
   indicator: {
     zIndex: 9999,
     position: 'absolute',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width + 30,
+    height: Dimensions.get('window').height + 30,
     justifyContent: 'space-around',
     top: 0, // IE fix
     bottom: 0, // IE fix

@@ -177,6 +177,7 @@ export class KeyboardAvoidingView extends React.Component<
               onScroll(e.nativeEvent);
             }
           }}
+          scrollEventThrottle={16} // Só pro expo parar de incomodar (16 é o valor sugerido)
         >
           {children({ availableHeight })}
         </ScrollView>
