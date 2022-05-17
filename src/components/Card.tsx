@@ -102,6 +102,22 @@ export class CardSection extends React.Component<ViewProperties> {
   }
 }
 
+export class CardModal extends React.Component<ViewProperties> {
+  render() {
+    const { children, style, ...otherProps } = this.props;
+
+    return (
+      <TouchableOpacity
+        activeOpacity={1}
+        style={[{ padding: 16 }, style]}
+        {...otherProps}
+      >
+        {children}
+      </TouchableOpacity>
+    );
+  }
+}
+
 export interface CardProperties extends ViewProperties {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
@@ -111,6 +127,7 @@ export class Card extends React.Component<CardProperties> {
   static Header = CardHeader;
   static Section = CardSection;
   static Footer = CardFooter;
+  static Modal = CardModal;
 
   getStyles = () => {
     const theme = getTheme();

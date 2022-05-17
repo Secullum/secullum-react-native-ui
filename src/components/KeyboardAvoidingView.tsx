@@ -22,6 +22,7 @@ export interface KeyboardAvoidingViewProperties {
   children: (options: { availableHeight: number }) => JSX.Element;
   scrollEnabled?: boolean;
   onScroll?: (event: NativeScrollEvent) => void;
+  keyBoardShow?: boolean;
 }
 
 export interface KeyboardAvoidingViewState {
@@ -149,6 +150,14 @@ export class KeyboardAvoidingView extends React.Component<
   };
 
   render() {
+    const {
+      refreshControl,
+      scrollEnabled,
+      onScroll,
+      children,
+      keyBoardShow
+    } = this.props;
+
     // Android devices with notch will report less `availableHeight` than it should
     // That's because of this: https://github.com/facebook/react-native/issues/23693
     // If I change it to 'screen', Android devices with virtual buttons will report more than it should
@@ -158,18 +167,19 @@ export class KeyboardAvoidingView extends React.Component<
       this.props.extraWindowHeight;
 
     return (
-      <View style={{ height: availableHeight }}>
+      <View style={[{ height: availableHeight }, !keyBoardShow && { flex: 1 }]}>
         <ScrollView
           ref={this.scrollViewRef}
-          refreshControl={this.props.refreshControl}
-          scrollEnabled={this.props.scrollEnabled}
+          refreshControl={refreshControl}
+          scrollEnabled={scrollEnabled}
           onScroll={(e: any) => {
-            if (this.props.onScroll) {
-              this.props.onScroll(e.nativeEvent);
+            if (onScroll) {
+              onScroll(e.nativeEvent);
             }
           }}
+          scrollEventThrottle={16} // Só pro expo parar de incomodar (16 é o valor sugerido)
         >
-          {this.props.children({ availableHeight })}
+          {children({ availableHeight })}
         </ScrollView>
       </View>
     );

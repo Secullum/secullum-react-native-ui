@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
 
 export class Loading extends React.Component {
   render() {
@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
   backgroundView: {
     zIndex: 9998,
     position: 'absolute',
-    width: '100%',
-    height: '100%',
+    width: Dimensions.get('screen').width,
+    height: Dimensions.get('screen').height,
     opacity: 0.6,
     backgroundColor: '#ccc',
     top: 0, // IE fix
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
   indicator: {
     zIndex: 9999,
     position: 'absolute',
-    width: '100%',
-    height: '100%',
+    width: Dimensions.get('screen').width,
+    height: Dimensions.get('screen').height,
     justifyContent: 'space-around',
     top: 0, // IE fix
     bottom: 0, // IE fix
