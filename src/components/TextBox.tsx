@@ -35,6 +35,7 @@ export interface TextBoxProperties {
   renderInput?: (props: TextBoxInputProps) => JSX.Element;
   onSubmitEditing?: () => void;
   inputRef?: (value: TextInput) => void;
+  onPress?: () => void;
   secureTextEntry?: boolean;
   multiline?: boolean;
   keyboardType?: KeyboardType;
@@ -121,7 +122,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
       editable,
       inputRef,
       renderInput,
-      icon
+      icon,
+      onPress
     } = this.props;
 
     const styles = this.getStyles();
@@ -174,9 +176,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
     return (
       <TouchableWithoutFeedback
         accessible={false}
-        onPress={() => {
-          this.focus();
-        }}
+        onPress={() => (onPress ? onPress() : this.focus())}
       >
         <View
           style={[styles.container, style, editable ? null : styles.readonly]}
