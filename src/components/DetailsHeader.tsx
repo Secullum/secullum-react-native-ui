@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Card } from './Card';
 import { getTheme } from '../modules/theme';
@@ -7,6 +14,7 @@ import { isTablet } from '../modules/layout';
 
 export interface DetailsHeaderProperties {
   text: string;
+  textStyle?: StyleProp<TextStyle>;
   onLeftPress?: () => void;
   onRightPress?: () => void;
 }
@@ -69,14 +77,14 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
   };
 
   render() {
-    const { text, onLeftPress, onRightPress } = this.props;
+    const { text, textStyle, onLeftPress, onRightPress } = this.props;
     const styles = this.getStyles();
 
     return (
       <Card>
         <Card.Section style={styles.container}>
           {this.renderButton('left', onLeftPress)}
-          <Text style={styles.text}>{text}</Text>
+          <Text style={[styles.text, textStyle]}>{text}</Text>
           {this.renderButton('right', onRightPress)}
         </Card.Section>
       </Card>
