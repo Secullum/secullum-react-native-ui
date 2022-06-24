@@ -1,13 +1,33 @@
 import * as React from 'react';
-import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  Platform,
+  StyleSheet,
+  View
+} from 'react-native';
 
 export class Loading extends React.Component {
+  getWidthAndHeight = () => {
+    const dim = Platform.OS === 'web' ? 'window' : 'screen';
+
+    return {
+      width: Dimensions.get(dim).width,
+      height: Dimensions.get(dim).height
+    };
+  };
+
   render() {
+    const { width, height } = this.getWidthAndHeight();
+
     return (
-      <>
-        <View style={styles.backgroundView} />
-        <ActivityIndicator style={styles.indicator} size="large" color="#aaa" />
-      </>
+      <View style={[styles.backgroundView, { width, height }]}>
+        <ActivityIndicator
+          size="large"
+          color="#aaa"
+          style={[styles.indicator, { width, height }]}
+        />
+      </View>
     );
   }
 }
@@ -16,8 +36,6 @@ const styles = StyleSheet.create({
   backgroundView: {
     zIndex: 9998,
     position: 'absolute',
-    width: Dimensions.get('screen').width,
-    height: Dimensions.get('screen').height,
     opacity: 0.6,
     backgroundColor: '#ccc',
     top: 0, // IE fix
@@ -28,8 +46,6 @@ const styles = StyleSheet.create({
   indicator: {
     zIndex: 9999,
     position: 'absolute',
-    width: Dimensions.get('screen').width,
-    height: Dimensions.get('screen').height,
     justifyContent: 'space-around',
     top: 0, // IE fix
     bottom: 0, // IE fix
