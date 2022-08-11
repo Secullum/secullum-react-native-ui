@@ -8,6 +8,7 @@ export interface FilePickerProperties {
   label: string;
   onPress: () => void;
   icon: string;
+  nativeID?: string;
 }
 
 export class FilePicker extends React.Component<FilePickerProperties> {
@@ -39,7 +40,7 @@ export class FilePicker extends React.Component<FilePickerProperties> {
   };
 
   render() {
-    const { label, onPress, icon } = this.props;
+    const { label, onPress, icon, nativeID } = this.props;
 
     const theme = getTheme();
 
@@ -52,7 +53,12 @@ export class FilePicker extends React.Component<FilePickerProperties> {
         onPress={onPress}
       >
         <FontAwesome name={icon} color={theme.textColor3} size={30} />
-        <Text style={styles.text}>{label}</Text>
+        <Text 
+          nativeID={nativeID}
+          style={styles.text}
+        >
+          {label}
+        </Text>
       </TouchableOpacity>
     );
   }
