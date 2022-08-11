@@ -53,10 +53,7 @@ export class FilePicker extends React.Component<FilePickerProperties> {
         onPress={onPress}
       >
         <FontAwesome name={icon} color={theme.textColor3} size={30} />
-        <Text 
-          nativeID={nativeID}
-          style={styles.text}
-        >
+        <Text nativeID={nativeID} style={styles.text}>
           {label}
         </Text>
       </TouchableOpacity>
