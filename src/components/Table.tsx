@@ -102,6 +102,7 @@ export class Table extends React.Component<TableProperties> {
                   <FontAwesome
                     key={column.key}
                     name={row[column.key].toString()}
+                    // @ts-ignore : The component uses a different version of typing
                     style={[styles.cellIcon, style, column.style]}
                   />
                 ) : column.type === 'checkbox' ? (

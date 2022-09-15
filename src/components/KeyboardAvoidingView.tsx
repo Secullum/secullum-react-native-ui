@@ -18,7 +18,7 @@ import {
 export interface KeyboardAvoidingViewProperties {
   extraFieldHeight: number; // To add some extra space after scrolling to the field
   extraWindowHeight: number; // To inform if there's some extra space outside the keyboard avoiding view, example: status bar, header, etc...
-  refreshControl?: React.ReactElement<RefreshControlProps>;
+  refreshControl?: React.ReactElement<RefreshControlProps> | undefined;
   children: (options: { availableHeight: number }) => JSX.Element;
   scrollEnabled?: boolean;
   onScroll?: (event: NativeScrollEvent) => void;
@@ -170,6 +170,7 @@ export class KeyboardAvoidingView extends React.Component<
       <View style={[{ height: availableHeight }, !keyBoardShow && { flex: 1 }]}>
         <ScrollView
           ref={this.scrollViewRef}
+          // @ts-ignore: O react-native não tem auto, mas o react-native-web aceita
           refreshControl={refreshControl}
           scrollEnabled={scrollEnabled}
           onScroll={(e: any) => {

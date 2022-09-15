@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Appearance } from 'react-native-appearance';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { formatDate } from '../modules/format';
 import { isTablet } from '../modules/layout';
@@ -13,7 +12,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  Appearance
 } from 'react-native';
 
 export interface DatePickerProperties {

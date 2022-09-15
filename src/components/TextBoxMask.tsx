@@ -33,6 +33,7 @@ export class TextBoxMask extends React.Component<TextBoxMaskProperties> {
             // @ts-ignore :Waiting for typing https://github.com/benhurott/react-native-masked-text/pull/74
             <TextInputMask
               {...otherProps}
+              // @ts-ignore : The component uses a different version of typing
               refInput={ref}
               type={type}
               options={options}

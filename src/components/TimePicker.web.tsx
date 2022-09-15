@@ -9,7 +9,8 @@ import {
   View,
   ViewStyle,
   TextInputProps,
-  TextInputKeyPressEventData
+  TextInputKeyPressEventData,
+  NativeSyntheticEvent
 } from 'react-native';
 
 import { getTheme } from '../modules/theme';
@@ -87,8 +88,8 @@ export class TimePicker extends React.Component<TimePickerProperties> {
             value={value}
             style={styles.input}
             maxLength={5}
-            onKeyPress={(nativeEvent: TextInputKeyPressEventData) => {
-              if (nativeEvent.key === 'Backspace') {
+            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+              if (e.nativeEvent.key === 'Backspace') {
                 this.backspace = true;
               }
             }}
