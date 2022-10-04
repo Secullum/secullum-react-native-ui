@@ -83,6 +83,7 @@ export class Header extends React.Component<HeaderProperties> {
           name={button.icon}
           size={isTablet() ? 30 : 20}
           color={button.disabled ? theme.textColor1 : theme.textColor4}
+          // @ts-ignore : The component uses a different version of typing
           style={button.buttonStyle}
         />
         {button.counter ? (

@@ -10,7 +10,7 @@ import {
   TextStyle,
   TouchableOpacity,
   View,
-  ViewProperties,
+  ViewProps,
   ViewStyle,
   Platform
 } from 'react-native';
@@ -78,7 +78,7 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
   }
 }
 
-export class CardFooter extends React.Component<ViewProperties> {
+export class CardFooter extends React.Component<ViewProps> {
   render() {
     const { children, ...otherProps } = this.props;
 
@@ -90,7 +90,7 @@ export class CardFooter extends React.Component<ViewProperties> {
   }
 }
 
-export class CardSection extends React.Component<ViewProperties> {
+export class CardSection extends React.Component<ViewProps> {
   render() {
     const { children, style, ...otherProps } = this.props;
 
@@ -102,7 +102,7 @@ export class CardSection extends React.Component<ViewProperties> {
   }
 }
 
-export class CardModal extends React.Component<ViewProperties> {
+export class CardModal extends React.Component<ViewProps> {
   render() {
     const { children, style, ...otherProps } = this.props;
 
@@ -118,7 +118,7 @@ export class CardModal extends React.Component<ViewProperties> {
   }
 }
 
-export interface CardProperties extends ViewProperties {
+export interface CardProperties extends ViewProps {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
@@ -173,6 +173,7 @@ export class Card extends React.Component<CardProperties> {
     ) : (
       <ElevatedView
         elevation={5}
+        // @ts-ignore : The component uses a different version of typing
         style={[styles.container, style]}
         {...otherProps}
       >

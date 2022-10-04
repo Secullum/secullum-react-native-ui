@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Appearance } from 'react-native-appearance';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { formatDate } from '../modules/format';
@@ -14,7 +13,8 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewStyle,
-  Platform
+  Platform,
+  Appearance
 } from 'react-native';
 
 export interface RangeDatePickerProperties {

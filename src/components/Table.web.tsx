@@ -136,6 +136,7 @@ export class Table extends React.Component<Props & TableProperties, State> {
                       nativeID={cellID}
                       key={column.key}
                       name={item[column.key].toString()}
+                      // @ts-ignore : The component uses a different version of typing
                       style={[styles.cellIcon, style, column.style]}
                     />
                   ) : column.type === 'checkbox' ? (
