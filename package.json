@@ -1,6 +1,6 @@
 {
   "name": "secullum-react-native-ui",
-  "version": "4.4.0-beta.3",
+  "version": "4.4.1-beta.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -26,6 +26,7 @@
     "react-native-elevated-view": "^0.0.6",
     "react-native-masked-text": "^1.7.2",
     "react-native-modal-datetime-picker": "^9.1.0",
+    "react-native-status-bar-height": "^2.6.0",
     "react-native-vector-icons": "^8.0.0",
     "react-native-web-modal": "^1.0.1"
   },
