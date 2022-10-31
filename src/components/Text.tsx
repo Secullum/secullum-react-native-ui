@@ -15,7 +15,7 @@ export interface TextProperties {
   color: string;
   align?: 'auto' | 'left' | 'right' | 'center' | 'justify';
   nativeID?: string;
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 const theme = getTheme();

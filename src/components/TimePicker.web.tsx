@@ -88,7 +88,9 @@ export class TimePicker extends React.Component<TimePickerProperties> {
             value={value}
             style={styles.input}
             maxLength={5}
-            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+            onKeyPress={(
+              e: NativeSyntheticEvent<TextInputKeyPressEventData>
+            ) => {
               if (e.nativeEvent.key === 'Backspace') {
                 this.backspace = true;
               }
