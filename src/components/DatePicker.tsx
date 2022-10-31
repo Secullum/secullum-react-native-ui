@@ -140,7 +140,7 @@ export class DatePicker extends React.Component<
           <View>
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>
-              {value != undefined ? formatDate(value, 'dddd, DD/MM/YYYY') : ''}
+              {value ? formatDate(value, 'dddd, DD/MM/YYYY') : ''}
             </Text>
           </View>
 
@@ -158,7 +158,7 @@ export class DatePicker extends React.Component<
 
           {Platform.OS !== 'web' && (
             <DateTimePickerModal
-              date={value}
+              date={value || undefined}
               isVisible={showModal}
               onConfirm={this.handleConfirm}
               onCancel={this.handleCancel}
