@@ -128,7 +128,7 @@ export class RangeDatePicker extends React.Component<
     const { label, startDate, endDate, style, nativeID } = this.props;
     const { showStartDateModal } = this.state;
 
-    const displayFormat = 'MMM D, YYYY';
+    const displayFormat = 'MMM d, yyyy';
 
     const displayText =
       formatDate(startDate, displayFormat) +

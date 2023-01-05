@@ -40,7 +40,7 @@ export class DatePicker extends React.Component<
 > {
   static defaultProps = {
     clearable: true,
-    dateFormat: 'dddd, DD/MM/YYYY'
+    dateFormat: 'cccc, dd/MM/yyyy'
   };
 
   state: DatePickerState = {
