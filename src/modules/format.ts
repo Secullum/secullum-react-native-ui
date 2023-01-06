@@ -1,7 +1,7 @@
 import { format as dfnsFormat, parse as dfnsParse } from 'date-fns';
 
 const dfnslocales = {
-  pt: require('date-fns/locale/pt-BR'),
+  pt: require('date-fns/locale/pt'),
   en: require('date-fns/locale/en-US'),
   es: require('date-fns/locale/es')
 };
