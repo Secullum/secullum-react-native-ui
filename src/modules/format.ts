@@ -106,10 +106,14 @@ const fixSpanishLowercase = (formattedDate: string) => {
   return formattedDate;
 };
 
-export const formatDate = (date: Date, format: string) => {
-  const formattedDate = dfnsFormat(date, format, {
-    locale: getDateFnsLocale()
-  });
+export const formatDate = (date: Date | string, format: string) => {
+  const formattedDate = dfnsFormat(
+    typeof date === 'string' ? new Date(date) : date,
+    format,
+    {
+      locale: getDateFnsLocale()
+    }
+  );
 
   switch (currentLocale) {
     case 'pt':
