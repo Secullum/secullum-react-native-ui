@@ -19,6 +19,7 @@ declare module 'react-date-range' {
     ranges: Range[];
     rangeColors?: string[];
     locale?: object;
+    weekdayDisplayFormat?: string;
   }
 
   interface CalendarProps {
@@ -26,6 +27,7 @@ declare module 'react-date-range' {
     date: Date | undefined;
     onChange: (date: Date) => void;
     locale?: object;
+    weekdayDisplayFormat?: string;
   }
 
   export class DateRange extends React.Component<DateRangeProps> {}
