@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
-import { formatDate, getDateFnsLocale } from '../modules/format';
+import { formatDate, getDateFnsLocale, getLocale } from '../modules/format';
 import { ImageButton } from './ImageButton';
 import { Modal } from './Modal';
 
@@ -40,7 +40,7 @@ export class DatePicker extends React.Component<
 > {
   static defaultProps = {
     clearable: true,
-    dateFormat: 'dddd, DD/MM/YYYY'
+    dateFormat: 'cccc, dd/MM/yyyy'
   };
 
   state: DatePickerState = {
@@ -160,6 +160,7 @@ export class DatePicker extends React.Component<
                 locale={getDateFnsLocale()}
                 date={value}
                 onChange={this.handleConfirm}
+                weekdayDisplayFormat={getLocale() === 'pt' ? 'EEEEEE' : 'E'}
               />
             </div>
           </Modal>

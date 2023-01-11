@@ -1,7 +1,7 @@
 import { format as dfnsFormat, parse as dfnsParse } from 'date-fns';
 
 const dfnslocales = {
-  pt: require('date-fns/locale/pt'),
+  pt: require('date-fns/locale/pt-BR'),
   en: require('date-fns/locale/en-US'),
   es: require('date-fns/locale/es')
 };
@@ -23,14 +23,21 @@ export const parseDate = (date: string, format: string) => {
 };
 
 export const getDateFnsLocale = () => {
+  let fnsLocate = dfnslocales.en;
   switch (currentLocale) {
     case 'pt':
-      return dfnslocales.pt;
+      fnsLocate = dfnslocales.pt;
+      break;
     case 'es':
-      return dfnslocales.es;
-    default:
-      return dfnslocales.en;
+      fnsLocate = dfnslocales.es;
+      break;
   }
+
+  if (fnsLocate.default) {
+    return fnsLocate.default;
+  }
+
+  return fnsLocate;
 };
 
 const fixPortugueseLowercase = (formattedDate: string) => {
@@ -99,10 +106,14 @@ const fixSpanishLowercase = (formattedDate: string) => {
   return formattedDate;
 };
 
-export const formatDate = (date: Date, format: string) => {
-  const formattedDate = dfnsFormat(date, format, {
-    locale: getDateFnsLocale()
-  });
+export const formatDate = (date: Date | string, format: string) => {
+  const formattedDate = dfnsFormat(
+    typeof date === 'string' ? new Date(date) : date,
+    format,
+    {
+      locale: getDateFnsLocale()
+    }
+  );
 
   switch (currentLocale) {
     case 'pt':

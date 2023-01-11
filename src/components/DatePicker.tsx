@@ -140,7 +140,7 @@ export class DatePicker extends React.Component<
           <View>
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>
-              {value ? formatDate(value, 'dddd, DD/MM/YYYY') : ''}
+              {value ? formatDate(value, 'cccc, dd/MM/yyyy') : ''}
             </Text>
           </View>
 

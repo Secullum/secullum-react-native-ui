@@ -1,6 +1,6 @@
 import * as React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { formatDate, getDateFnsLocale } from '../modules/format';
+import { formatDate, getDateFnsLocale, getLocale } from '../modules/format';
 import { getTheme } from '../modules/theme';
 import { DateRange, SelectedRanges } from 'react-date-range';
 import { Modal } from './Modal';
@@ -128,7 +128,7 @@ export class RangeDatePicker extends React.Component<
     const { label, startDate, endDate, style, nativeID } = this.props;
     const { showStartDateModal } = this.state;
 
-    const displayFormat = 'MMM D, YYYY';
+    const displayFormat = 'MMM d, yyyy';
 
     const displayText =
       formatDate(startDate, displayFormat) +
@@ -174,6 +174,7 @@ export class RangeDatePicker extends React.Component<
                 ]}
                 rangeColors={[theme.backgroundColor3]}
                 onChange={this.handleRangeDateConfirm}
+                weekdayDisplayFormat={getLocale() === 'pt' ? 'EEEEEE' : 'E'}
               />
             </div>
           </Modal>

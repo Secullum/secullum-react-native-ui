@@ -1,6 +1,6 @@
 {
   "name": "secullum-react-native-ui",
-  "version": "4.5.0",
+  "version": "4.5.1-beta.23",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -20,12 +20,12 @@
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.0.9",
-    "date-fns": "2.0.0-alpha.7",
-    "react-date-range": "^1.0.0-beta",
+    "date-fns": "^2.29.3",
+    "react-date-range": "^1.4.0",
     "react-native-drawer-layout": "^2.0.0",
     "react-native-elevated-view": "^0.0.6",
     "react-native-masked-text": "^1.7.2",
-    "react-native-modal-datetime-picker": "^9.1.0",
+    "react-native-modal-datetime-picker": "^14.0.1",
     "react-native-status-bar-height": "^2.6.0",
     "react-native-vector-icons": "^8.0.0",
     "react-native-web-modal": "^1.0.1"

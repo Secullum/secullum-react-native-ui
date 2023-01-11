@@ -156,7 +156,7 @@ export class RangeDatePicker extends React.Component<
       isDarkModeEnabled
     } = this.state;
 
-    const displayFormat = 'MMM D, YYYY';
+    const displayFormat = 'MMM d, yyyy';
 
     const displayText =
       formatDate(startDate, displayFormat) +

@@ -25,6 +25,7 @@ export type AppShellProperties = MenuProperties & {
   renderUserData?: () => React.ReactNode;
   rightButton?: HeaderButton;
   headerStyle?: StyleProp<TextStyle>;
+  children?: React.ReactNode;
 };
 
 export class AppShell extends React.Component<AppShellProperties> {

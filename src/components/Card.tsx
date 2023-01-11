@@ -22,6 +22,7 @@ export interface CardHeaderProperties {
   nativeID?: string;
   numberOfLines?: number;
   onHelpPress?: () => void;
+  children?: React.ReactNode;
 }
 
 export class CardHeader extends React.Component<CardHeaderProperties> {
