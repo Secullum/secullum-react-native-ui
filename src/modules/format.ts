@@ -107,6 +107,18 @@ const fixSpanishLowercase = (formattedDate: string) => {
 };
 
 export const formatDate = (date: Date | string, format: string) => {
+  if (typeof date === 'string') {
+    //regex 2023-02-03T00:00:00
+    if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?$/.test(date)) {
+      const timezoneOffset = new Date().getTimezoneOffset();
+      const hours = Math.floor(Math.abs(timezoneOffset) / 60);
+      const minutes = Math.abs(timezoneOffset) % 60;
+      const sign = timezoneOffset > 0 ? '-' : '+';
+      const timezone = `${sign}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      date = date + timezone;
+    }
+  }
+
   const formattedDate = dfnsFormat(
     typeof date === 'string' ? new Date(date) : date,
     format,
