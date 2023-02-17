@@ -108,7 +108,7 @@ const fixSpanishLowercase = (formattedDate: string) => {
 
 export const formatDate = (date: Date | string, format: string) => {
   if (typeof date === 'string') {
-    // case 135870 - Acontecia casos onde a data/horas estavam sendo alteradas pois o react-native assume o fuso sempre como '00:00', 
+    // case 135870 - Acontecia casos onde a data/horas estavam sendo alteradas pois o react-native assume o fuso sempre como '00:00',
     // para que isso não aconteça, se a data for do tipo string o fuso horario será adicionado na data para que não tenha alteração.
     // A regex busca datas no formato "yyyy-MM-DDTHH:mm:ss", podendo ter ou não milisegundos, mas sem fuso horário informado.
     if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?$/.test(date)) {
@@ -116,7 +116,11 @@ export const formatDate = (date: Date | string, format: string) => {
       const hours = Math.floor(Math.abs(timezoneOffset) / 60);
       const minutes = Math.abs(timezoneOffset) % 60;
       const sign = timezoneOffset > 0 ? '-' : '+';
-      const timezone = `${sign}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      const timezone =
+        sign +
+        hours.toString().padStart(2, '0') +
+        ':' +
+        minutes.toString().padStart(2, '0');
       date = date + timezone;
     }
   }
