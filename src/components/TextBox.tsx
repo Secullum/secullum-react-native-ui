@@ -173,23 +173,35 @@ export class TextBox extends React.Component<TextBoxProperties> {
       }
     };
 
+    const content = (
+      <View
+        style={[styles.container, style, editable ? null : styles.readonly]}
+      >
+        {icon ? (
+          <FontAwesome name={icon} style={styles.icon} />
+        ) : (
+          <Text style={[styles.label, labelStyle]}>{label}</Text>
+        )}
+        {renderInput
+          ? renderInput(incomingProps)
+          : this.renderInput(incomingProps)}
+      </View>
+    );
+
+    if (Platform.OS === 'web') {
+      return (
+        <div onClick={() => (onPress ? onPress() : this.focus())}>
+          {content}
+        </div>
+      );
+    }
+
     return (
       <TouchableWithoutFeedback
         accessible={false}
         onPress={() => (onPress ? onPress() : this.focus())}
       >
-        <View
-          style={[styles.container, style, editable ? null : styles.readonly]}
-        >
-          {icon ? (
-            <FontAwesome name={icon} style={styles.icon} />
-          ) : (
-            <Text style={[styles.label, labelStyle]}>{label}</Text>
-          )}
-          {renderInput
-            ? renderInput(incomingProps)
-            : this.renderInput(incomingProps)}
-        </View>
+        {content}
       </TouchableWithoutFeedback>
     );
   }
