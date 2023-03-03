@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 
 type Props = {
-  width?: number | string,
-  height?: number | string
-}
+  width?: number | string;
+  height?: number | string;
+};
 
 export class Loading extends React.Component<Props> {
   getWidthAndHeight = () => {
