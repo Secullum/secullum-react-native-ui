@@ -15,10 +15,11 @@ type Props = {
 export class Loading extends React.Component<Props> {
   getWidthAndHeight = () => {
     const dim = Platform.OS === 'web' ? 'window' : 'screen';
+    const { width, height } = this.props;
 
     return {
-      width: this.props.width ? this.props.width : Dimensions.get(dim).width,
-      height: this.props.height ? this.props.height : Dimensions.get(dim).height
+      width: width ? width : Dimensions.get(dim).width,
+      height: height ? height : Dimensions.get(dim).height
     };
   };
 
