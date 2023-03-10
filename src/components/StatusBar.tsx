@@ -1,3 +1,4 @@
+import * as Device from 'expo-device';
 import * as React from 'react';
 import {
   StatusBar as ReactNativeStatusBar,
@@ -13,10 +14,24 @@ export class StatusBar extends React.Component {
   getStyles = () => {
     const theme = getTheme();
 
+    const dynamicHeight = () => {
+      const deviceId = Device.modelId;
+
+      if (deviceId == null) {
+        return getStatusBarHeight();
+      }
+
+      const iPhoneId = deviceId.substring(6, 8);
+
+      if (iPhoneId < 15) return getStatusBarHeight();
+
+      return getStatusBarHeight() + 25;
+    };
+
     const styles = StyleSheet.create({
       statusBar: {
         backgroundColor: theme.statusBarColor,
-        height: getStatusBarHeight()
+        height: dynamicHeight()
       }
     });
 
