@@ -54,6 +54,7 @@ const fixPortugueseLowercase = (formattedDate: string) => {
   formattedDate = formattedDate.replace('qua', 'Qua');
   formattedDate = formattedDate.replace('qui', 'Qui');
   formattedDate = formattedDate.replace('sex', 'Sex');
+  formattedDate = formattedDate.replace('sab', 'Sáb');
   formattedDate = formattedDate.replace('sáb', 'Sáb');
   formattedDate = formattedDate.replace('dom', 'Dom');
 
