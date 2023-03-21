@@ -7,13 +7,19 @@ import {
   View
 } from 'react-native';
 
-export class Loading extends React.Component {
+type Props = {
+  width?: number | string;
+  height?: number | string;
+};
+
+export class Loading extends React.Component<Props> {
   getWidthAndHeight = () => {
     const dim = Platform.OS === 'web' ? 'window' : 'screen';
+    const { width, height } = this.props;
 
     return {
-      width: Dimensions.get(dim).width,
-      height: Dimensions.get(dim).height
+      width: width ? width : Dimensions.get(dim).width,
+      height: height ? height : Dimensions.get(dim).height
     };
   };
 
