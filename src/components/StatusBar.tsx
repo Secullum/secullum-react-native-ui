@@ -7,20 +7,28 @@ import {
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { getTheme } from '../modules/theme';
 
-export class StatusBar extends React.Component {
+interface Props {
+  extraHeight: number;
+}
+export class StatusBar extends React.Component<Props> {
   static height = getStatusBarHeight();
 
   getStyles = () => {
     const theme = getTheme();
+    const { extraHeight } = this.props;
 
     const styles = StyleSheet.create({
       statusBar: {
         backgroundColor: theme.statusBarColor,
-        height: getStatusBarHeight()
+        height: getStatusBarHeight() + extraHeight
       }
     });
 
     return styles;
+  };
+
+  static defaultProps = {
+    extraHeight: 0
   };
 
   render() {
