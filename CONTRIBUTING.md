@@ -16,31 +16,33 @@ yarn run docs:publish
 
 ## Publishing a new version
 
-1. Ensure that the code is formatted correctly
+1. MAKE SURE YOU'RE ON MASTER BEFORE DOING IT
+
+2. Ensure that the code is formatted correctly
 
 ```
 yarn run format
 ```
 
-2. Update the version
+3. Update the version
 
 ```
 npm version [major | minor | patch]
 ```
 
-3. Build the code to be published
+4. Build the code to be published
 
 ```
 yarn run build
 ```
 
-4. Publish it
+5. Publish it
 
 ```
 npm publish
 ```
 
-5. Push incremented version and tags to git
+6. Push incremented version and tags to git
 
 ```
 git push --follow-tags
