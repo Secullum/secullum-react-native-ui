@@ -180,9 +180,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
         ref={
           Platform.OS === 'web'
             ? //@ts-ignore
-              //removed while we fix the bug of textboxes closing modals
-              //ref => ref && ref.setNativeProps({ tabIndex: -1 })
-              undefined
+              ref => ref && ref.setNativeProps({ tabIndex: -1 })
             : undefined
         }
       >

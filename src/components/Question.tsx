@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactNativeModal from 'react-native-web-modal';
+import { Modal as ReactNativeModal } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import ReactNativeModal from 'react-native-web-modal';
 
 import {
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
-  ViewStyle
+  ViewStyle,
+  Modal as ReactNativeModal
 } from 'react-native';
 
 export interface ModalProperties {
