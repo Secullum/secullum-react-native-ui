@@ -1,7 +1,7 @@
 import * as React from 'react';
-import ReactNativeModal from 'react-native-web-modal';
 
 import {
+  Modal as ReactNativeModal,
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,

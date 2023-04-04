@@ -27,8 +27,7 @@
     "react-native-masked-text": "^1.7.2",
     "react-native-modal-datetime-picker": "^14.0.1",
     "react-native-status-bar-height": "^2.6.0",
-    "react-native-vector-icons": "^8.0.0",
-    "react-native-web-modal": "^1.0.1"
+    "react-native-vector-icons": "^8.0.0"
   },
   "devDependencies": {
     "@types/react": "^16.4.11",

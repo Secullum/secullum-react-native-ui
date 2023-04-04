@@ -1,5 +1,4 @@
 import * as React from 'react';
-import ReactNativeModal from 'react-native-web-modal';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
@@ -7,6 +6,7 @@ import { Button } from './Button';
 import { Space } from './Space';
 
 import {
+  Modal as ReactNativeModal,
   StyleSheet,
   StyleProp,
   Text,
