@@ -95,7 +95,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
         minHeight: 22,
         padding: 0,
         margin: 0,
-        ...(Platform.OS === 'web' ? { outline: 'none' } : {}),
+        ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {}),
         ...(icon ? { flex: 1 } : {})
       },
       readonly: {
