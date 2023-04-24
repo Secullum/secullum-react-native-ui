@@ -16,7 +16,7 @@ yarn run docs:publish
 
 ## Publishing a new version
 
-1. MAKE SURE YOU'RE ON MASTER BEFORE DOING IT
+1. Make sure you're on branch `master` before doing it
 
 2. Ensure that the code is formatted correctly
 
