@@ -179,8 +179,12 @@ export class TextBox extends React.Component<TextBoxProperties> {
         onPress={() => (onPress ? onPress() : this.focus())}
         ref={
           Platform.OS === 'web'
-            ? //@ts-ignore
-              ref => ref && ref.setNativeProps({ tabIndex: -1 })
+            ? ref =>
+                ref &&
+                //@ts-ignore
+                ref.setNativeProps &&
+                //@ts-ignore
+                ref.setNativeProps({ tabIndex: -1 })
             : undefined
         }
       >

@@ -142,7 +142,11 @@ export class RangeDatePicker extends React.Component<
       <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
         <View nativeID={nativeID} style={[styles.container, style]}>
           <View
-            ref={ref => ref && ref.setNativeProps({ id: 'range-date-picker' })}
+            ref={ref =>
+              ref &&
+              ref.setNativeProps &&
+              ref.setNativeProps({ id: 'range-date-picker' })
+            }
           >
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>{displayText}</Text>
