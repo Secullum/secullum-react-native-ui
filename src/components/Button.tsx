@@ -18,6 +18,8 @@ export interface ButtonProperties {
   textStyle?: StyleProp<TextStyle>;
   onPress: () => void;
   disabled?: boolean;
+  disabledBackgroundColor?: string;
+  disabledLabelColor?: string;
   nativeID?: string;
 }
 
@@ -27,6 +29,7 @@ export class Button extends React.Component<ButtonProperties> {
   };
 
   getStyles = () => {
+    const { disabledBackgroundColor, disabledLabelColor } = this.props;
     const theme = getTheme();
 
     const styles = StyleSheet.create({
@@ -53,10 +56,10 @@ export class Button extends React.Component<ButtonProperties> {
         color: theme.textColor4
       },
       disabled: {
-        backgroundColor: theme.backgroundColor2
+        backgroundColor: disabledBackgroundColor ?? theme.backgroundColor2
       },
       textDisabled: {
-        color: 'silver'
+        color: disabledLabelColor ?? 'silver'
       }
     });
 
