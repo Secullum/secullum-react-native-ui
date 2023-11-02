@@ -56,10 +56,13 @@ export class Button extends React.Component<ButtonProperties> {
         color: theme.textColor4
       },
       disabled: {
-        backgroundColor: disabledBackgroundColor ?? theme.backgroundColor2
+        backgroundColor:
+          disabledBackgroundColor != null
+            ? disabledBackgroundColor
+            : theme.backgroundColor2
       },
       textDisabled: {
-        color: disabledLabelColor ?? 'silver'
+        color: disabledLabelColor != null ? disabledLabelColor : 'silver'
       }
     });
 

@@ -24,6 +24,8 @@ export default {
       )
     );
 
+    config.resolve.alias['react-dom'] = '@hot-loader/react-dom';
+
     return config;
   }
 };

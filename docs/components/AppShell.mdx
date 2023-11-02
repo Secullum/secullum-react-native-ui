@@ -5,6 +5,7 @@ menu: Components
 ---
 
 import { Playground, PropsTable } from 'docz';
+import { Image, View } from 'react-native';
 import { AppShell } from '../../src/components/AppShell.tsx';
 import logo from '../img/logo.png';
 
@@ -18,8 +19,8 @@ import logo from '../img/logo.png';
 
 <Playground>
   <AppShell
-    logoHeader={logo}
-    logoMenu={logo}
+    logoHeader={() => <Image source={logo} style={{ height: 40, width: 40, marginHorizontal: 10 }} />}
+    logoMenu={() => <Image source={logo} style={{ height: 40, width: 40, marginVertical: 10 }} />}
     title="App Title"
     greeting="Hello, user."
     screenTitle="Screen Title"
@@ -34,5 +35,7 @@ import logo from '../img/logo.png';
     ]}
     onMenuPress={path => alert(path)}
     isCurrentMenuPath={path => path === 'Home'}
-  />
+  >
+    <View style={{ height: 500 }} />
+  </AppShell>
 </Playground>

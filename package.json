@@ -30,6 +30,7 @@
     "react-native-vector-icons": "^8.0.0"
   },
   "devDependencies": {
+    "@hot-loader/react-dom": "^16.8.6",
     "@types/react": "^16.4.11",
     "@types/react-dom": "^16.0.11",
     "@types/react-native": "^0.63.64",
@@ -41,17 +42,20 @@
     "docz-plugin-react-native": "^0.11.2",
     "gh-pages": "^2.0.0",
     "prettier": "^1.16.4",
-    "react": "^16.2.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55 || ^0.63",
     "rimraf": "^2.6.2",
     "typescript": "^4.8.3"
   },
   "peerDependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.5.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55 || ^0.63"
   },
   "resolutions": {
-    "docz-plugin-react-native/react-native-web": "^0.11.7"
+    "docz-plugin-react-native/react-native-web": "^0.18.7",
+    "react-docgen-typescript": "2.2.2",
+    "react-hot-loader": "4.12.21"
   }
 }
