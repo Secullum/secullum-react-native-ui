@@ -1,6 +1,6 @@
 {
   "name": "secullum-react-native-ui",
-  "version": "4.6.12",
+  "version": "4.6.13",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
