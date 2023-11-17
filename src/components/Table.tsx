@@ -48,6 +48,7 @@ export class Table extends React.Component<TableProperties> {
       style,
       cellStyle,
       nativeID,
+      subHeaderData,
       onSelect,
       onSelectAll
     } = this.props;
@@ -79,6 +80,32 @@ export class Table extends React.Component<TableProperties> {
               );
             })}
           </View>
+          {subHeaderData && (
+            <View style={styles.row}>
+              {subHeaderData.map(column => {
+                return column.type === 'checkbox' ? (
+                  <CheckBox
+                    key={column.key}
+                    style={{ marginLeft: 8 }}
+                    value={data.every(x => x.selected) || false}
+                    onChange={value => onSelectAll && onSelectAll(value)}
+                  />
+                ) : (
+                  <Text
+                    key={column.key}
+                    style={[
+                      styles.cell,
+                      styles.cellHeader,
+                      column.style,
+                      column.headerStyle
+                    ]}
+                  >
+                    {column.title}
+                  </Text>
+                );
+              })}
+            </View>
+          )}
           {data.map((row, rowIndex) => (
             <View
               key={row[idAttribute].toString()}
