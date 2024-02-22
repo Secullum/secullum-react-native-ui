@@ -49,6 +49,7 @@ export interface TextBoxProperties {
   returnKeyType?: ReturnKeyTypeOptions;
   blurOnSubmit?: boolean;
   nativeID?: string;
+  testID?: string;
   selection?: { start: number; end?: number };
 }
 
@@ -130,6 +131,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
 
     const incomingProps: TextBoxInputProps = {
       nativeID: this.props.nativeID,
+      testID: this.props.testID || this.props.nativeID,
       autoFocus: this.props.autoFocus,
       value: this.props.value,
       onChangeText: this.props.onChange,

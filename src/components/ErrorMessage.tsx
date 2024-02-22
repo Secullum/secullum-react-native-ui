@@ -6,6 +6,7 @@ export interface Props {
   message?: string | null;
   style?: StyleProp<TextStyle>;
   nativeID?: string;
+  testID?: string;
 }
 
 export class ErrorMessage extends React.Component<Props> {
@@ -23,7 +24,7 @@ export class ErrorMessage extends React.Component<Props> {
   };
 
   render() {
-    const { message, style, nativeID } = this.props;
+    const { message, style, nativeID, testID } = this.props;
     const styles = this.getStyles();
 
     if (!message) {
@@ -31,7 +32,11 @@ export class ErrorMessage extends React.Component<Props> {
     }
 
     return (
-      <Text nativeID={nativeID} style={[styles.errorMessage, style]}>
+      <Text
+        nativeID={nativeID}
+        testID={testID || nativeID}
+        style={[styles.errorMessage, style]}
+      >
         {message}
       </Text>
     );
