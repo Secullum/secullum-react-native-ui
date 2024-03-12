@@ -49,6 +49,7 @@ export class ImageButton extends React.Component<ImageButtonProperties> {
       >
         <FontAwesome
           nativeID={nativeID}
+          testID={nativeID}
           name={icon}
           size={iconSize || 20}
           color={iconColor || theme.textColor1}

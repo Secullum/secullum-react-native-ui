@@ -51,7 +51,11 @@ export class Text extends React.Component<TextProperties> {
     const textStyle = this.getStyles();
 
     return (
-      <TextNative nativeID={nativeID} style={[textStyle.text, style]}>
+      <TextNative
+        nativeID={nativeID}
+        testID={nativeID}
+        style={[textStyle.text, style]}
+      >
         {children}
       </TextNative>
     );

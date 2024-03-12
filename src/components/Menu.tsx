@@ -78,6 +78,7 @@ export function MenuItem(props: MenuItemProperties) {
     >
       <Text
         nativeID={menuItem.nativeID}
+        testID={menuItem.nativeID}
         style={[
           styles.text,
           menuItem.disabled && styles.textDisabled,

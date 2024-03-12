@@ -135,6 +135,7 @@ export class DatePicker extends React.Component<
       <TouchableWithoutFeedback disabled={disabled} onPress={this.handlePress}>
         <View
           nativeID={nativeID}
+          testID={nativeID}
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           <View>
