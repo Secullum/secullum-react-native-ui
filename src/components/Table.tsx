@@ -122,7 +122,7 @@ export class Table extends React.Component<TableProperties> {
 
     return (
       <ScrollView horizontal={true}>
-        <View nativeID={nativeID} style={style}>
+        <View nativeID={nativeID} style={style} accessibilityLabel={nativeID}>
           <View style={styles.row}>
             {columns.map(column => this.renderHeaderColumn(column))}
           </View>
