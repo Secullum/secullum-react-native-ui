@@ -33,7 +33,7 @@ export class ErrorMessage extends React.Component<Props> {
     return (
       <Text
         nativeID={nativeID}
-        testID={nativeID}
+        accessibilityLabel={nativeID}
         style={[styles.errorMessage, style]}
       >
         {message}

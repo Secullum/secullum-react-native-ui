@@ -169,7 +169,7 @@ export class RangeDatePicker extends React.Component<
       <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
         <View
           nativeID={nativeID}
-          testID={nativeID}
+          accessibilityLabel={nativeID}
           style={[styles.container, style]}
         >
           <View>

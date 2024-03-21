@@ -130,7 +130,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
 
     const incomingProps: TextBoxInputProps = {
       nativeID: this.props.nativeID,
-      testID: this.props.nativeID,
+      accessibilityLabel: this.props.nativeID,
       autoFocus: this.props.autoFocus,
       value: this.props.value,
       onChangeText: this.props.onChange,

@@ -21,7 +21,6 @@ export interface ButtonProperties {
   disabledBackgroundColor?: string;
   disabledLabelColor?: string;
   nativeID?: string;
-  testID?: string;
 }
 
 export class Button extends React.Component<ButtonProperties> {
@@ -94,7 +93,7 @@ export class Button extends React.Component<ButtonProperties> {
         ]}
         onPress={onPress}
         disabled={disabled}
-        testID={nativeID}
+        accessibilityLabel={nativeID}
       >
         <Text
           nativeID={nativeID}

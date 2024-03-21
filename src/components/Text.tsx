@@ -53,7 +53,7 @@ export class Text extends React.Component<TextProperties> {
     return (
       <TextNative
         nativeID={nativeID}
-        testID={nativeID}
+        accessibilityLabel={nativeID}
         style={[textStyle.text, style]}
       >
         {children}

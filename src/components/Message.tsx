@@ -70,7 +70,7 @@ export class Message extends React.Component<MessageProperties> {
             color={type === 'warning' ? theme.warningColor : theme.successColor}
             size={isTablet() ? 52 : 42}
           />
-          <Text style={[styles.text, textStyle]} testID={nativeID}>
+          <Text style={[styles.text, textStyle]} accessibilityLabel={nativeID}>
             {message}
           </Text>
         </View>
