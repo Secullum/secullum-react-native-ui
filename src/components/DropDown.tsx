@@ -280,8 +280,8 @@ export class DropDown extends React.Component<
         lineHeight: 16
       },
       text: {
-        lineHeight: 22,
-        minHeight: 22,
+        lineHeight: isTablet() ? 28 : 22,
+        minHeight: isTablet() ? 28 : 22,
         textAlignVertical: 'center',
         color: theme.textColor1,
         fontFamily: theme.fontFamily1,

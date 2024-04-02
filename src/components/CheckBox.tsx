@@ -28,6 +28,8 @@ export class CheckBox extends React.Component<Props> {
     const theme = getTheme();
     const { disabled } = this.props;
 
+    const iconSize = isTablet() ? 24 : 20;
+
     return StyleSheet.create({
       container: {
         flexDirection: 'row',
@@ -35,10 +37,10 @@ export class CheckBox extends React.Component<Props> {
       },
       icon: {
         color: disabled ? theme.disabledColor : theme.textColor1,
-        fontSize: 20,
-        height: 20,
-        width: 24,
-        lineHeight: 20
+        width: isTablet() ? 28 : 24,
+        fontSize: iconSize,
+        height: iconSize,
+        lineHeight: iconSize
       },
       label: {
         color: disabled ? theme.disabledColor : theme.textColor1,
