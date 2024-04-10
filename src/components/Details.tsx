@@ -89,7 +89,7 @@ export class Details extends React.Component<DetailsProperties> {
     const fa = (
       <FontAwesome
         key={index}
-        testID={icon.name}
+        accessibilityLabel={icon.name}
         name={icon.name}
         color={icon.color}
         size={icon.size}

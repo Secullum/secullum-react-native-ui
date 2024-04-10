@@ -78,6 +78,7 @@ export function MenuItem(props: MenuItemProperties) {
     >
       <Text
         nativeID={menuItem.nativeID}
+        accessibilityLabel={menuItem.nativeID}
         style={[
           styles.text,
           menuItem.disabled && styles.textDisabled,

@@ -126,13 +126,14 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
   };
 
   render() {
-    const { first, last, value, onPress } = this.props;
+    const { first, last, value, onPress, nativeID } = this.props;
 
     const theme = getTheme();
 
     return (
       <TouchableHighlight
         onPress={() => onPress(value)}
+        accessibilityLabel={nativeID}
         underlayColor={theme.backgroundColor2}
         style={{
           borderTopLeftRadius: first ? 5 : 0,
@@ -392,6 +393,7 @@ export class DropDown extends React.Component<
       >
         <View
           nativeID={nativeID}
+          accessibilityLabel={nativeID}
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           {icon ? (
