@@ -77,6 +77,7 @@ export class CheckBox extends React.Component<Props> {
       >
         <Icons
           nativeID={nativeID}
+          accessibilityLabel={nativeID}
           name={value ? 'check-square-o' : 'square-o'}
           style={styles.icon}
         />

@@ -80,6 +80,7 @@ export class Header extends React.Component<HeaderProperties> {
       <>
         <FontAwesome
           nativeID={button.nativeID}
+          accessibilityLabel={button.nativeID}
           name={button.icon}
           size={isTablet() ? 30 : 20}
           color={button.disabled ? theme.textColor1 : theme.textColor4}
