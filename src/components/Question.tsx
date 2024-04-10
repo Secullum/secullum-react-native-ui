@@ -19,6 +19,7 @@ export interface QuestionProperties {
   message: string;
   visible: boolean;
   nativeID?: string;
+  textStyle?: StyleProp<TextStyle>;
   okButton: {
     text: string;
     onPress: () => void;
@@ -77,14 +78,21 @@ export class Question extends React.Component<QuestionProperties> {
   };
 
   render() {
-    const { message, visible, nativeID, okButton, cancelButton } = this.props;
+    const {
+      message,
+      textStyle,
+      visible,
+      nativeID,
+      okButton,
+      cancelButton
+    } = this.props;
     const styles = this.getStyles();
     return (
       <ReactNativeModal animationType="fade" transparent visible={visible}>
         <View style={[styles.overlay]} nativeID={nativeID}>
           <View style={styles.container}>
             <FontAwesome name={'question-circle'} style={styles.icon} />
-            <Text style={styles.text}>{message}</Text>
+            <Text style={[styles.text, textStyle]}>{message}</Text>
             <Space />
             <View style={styles.botoesAcao}>
               <Button

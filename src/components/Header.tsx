@@ -47,7 +47,7 @@ export class Header extends React.Component<HeaderProperties> {
       title: {
         color: theme.textColor4,
         fontFamily: theme.fontFamily1,
-        fontSize: isTablet() ? 25 : 18,
+        fontSize: isTablet() ? 22 : 18,
         marginHorizontal: 35
       },
       button: {
