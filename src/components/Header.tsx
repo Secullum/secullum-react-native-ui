@@ -10,6 +10,7 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import { getTestID } from '../modules/test';
 
 export interface HeaderButton {
   icon: string;
@@ -80,7 +81,7 @@ export class Header extends React.Component<HeaderProperties> {
       <>
         <FontAwesome
           nativeID={button.nativeID}
-          accessibilityLabel={button.nativeID}
+          testID={getTestID(button.nativeID)}
           name={button.icon}
           size={isTablet() ? 30 : 20}
           color={button.disabled ? theme.textColor1 : theme.textColor4}

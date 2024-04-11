@@ -4,6 +4,7 @@ import { formatDate } from '../modules/format';
 import { isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
 import { ImageButton } from './ImageButton';
+import { getTestID } from '../modules/test';
 
 import {
   Platform,
@@ -135,7 +136,7 @@ export class DatePicker extends React.Component<
       <TouchableWithoutFeedback disabled={disabled} onPress={this.handlePress}>
         <View
           nativeID={nativeID}
-          accessibilityLabel={nativeID}
+          testID={getTestID(nativeID)}
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           <View>

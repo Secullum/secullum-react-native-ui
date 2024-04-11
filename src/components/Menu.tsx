@@ -1,6 +1,7 @@
 import * as React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 import { isTablet } from '../modules/layout';
 
 import {
@@ -78,7 +79,7 @@ export function MenuItem(props: MenuItemProperties) {
     >
       <Text
         nativeID={menuItem.nativeID}
-        accessibilityLabel={menuItem.nativeID}
+        testID={getTestID(menuItem.nativeID)}
         style={[
           styles.text,
           menuItem.disabled && styles.textDisabled,

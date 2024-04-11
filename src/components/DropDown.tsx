@@ -4,6 +4,7 @@ import { IconProps } from 'react-native-vector-icons/Icon';
 import { Modal } from './Modal';
 import { isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 
 import {
   FlatList,
@@ -133,7 +134,7 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
     return (
       <TouchableHighlight
         onPress={() => onPress(value)}
-        accessibilityLabel={nativeID}
+        testID={getTestID(nativeID)}
         underlayColor={theme.backgroundColor2}
         style={{
           borderTopLeftRadius: first ? 5 : 0,
@@ -393,7 +394,7 @@ export class DropDown extends React.Component<
       >
         <View
           nativeID={nativeID}
-          accessibilityLabel={nativeID}
+          testID={getTestID(nativeID)}
           style={[styles.container, style, disabled ? styles.readonly : null]}
         >
           {icon ? (

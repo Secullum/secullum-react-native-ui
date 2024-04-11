@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 
 export interface Props {
   message?: string | null;
@@ -33,7 +34,7 @@ export class ErrorMessage extends React.Component<Props> {
     return (
       <Text
         nativeID={nativeID}
-        accessibilityLabel={nativeID}
+        testID={getTestID(nativeID)}
         style={[styles.errorMessage, style]}
       >
         {message}

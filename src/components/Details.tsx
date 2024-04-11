@@ -11,6 +11,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Card } from './Card';
 import { Space } from './Space';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 import { isTablet } from '../modules/layout';
 
 export interface DetailsIcon {
@@ -89,7 +90,7 @@ export class Details extends React.Component<DetailsProperties> {
     const fa = (
       <FontAwesome
         key={index}
-        accessibilityLabel={icon.name}
+        testID={getTestID(icon.name)}
         name={icon.name}
         color={icon.color}
         size={icon.size}

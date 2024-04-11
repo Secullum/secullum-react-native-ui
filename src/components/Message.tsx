@@ -4,6 +4,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Modal } from './Modal';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import { getTestID } from '../modules/test';
 
 export interface MessageProperties {
   message: string;
@@ -70,7 +71,7 @@ export class Message extends React.Component<MessageProperties> {
             color={type === 'warning' ? theme.warningColor : theme.successColor}
             size={isTablet() ? 52 : 42}
           />
-          <Text style={[styles.text, textStyle]} accessibilityLabel={nativeID}>
+          <Text style={[styles.text, textStyle]} testID={getTestID(nativeID)}>
             {message}
           </Text>
         </View>
