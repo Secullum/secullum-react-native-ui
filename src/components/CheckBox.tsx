@@ -2,6 +2,7 @@ import * as React from 'react';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import { isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 
 import {
   StyleProp,
@@ -77,7 +78,7 @@ export class CheckBox extends React.Component<Props> {
       >
         <Icons
           nativeID={nativeID}
-          accessibilityLabel={nativeID}
+          testID={getTestID(nativeID)}
           name={value ? 'check-square-o' : 'square-o'}
           style={styles.icon}
         />

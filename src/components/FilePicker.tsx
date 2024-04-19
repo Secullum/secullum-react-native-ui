@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import { getTestID } from '../modules/test';
 
 export interface FilePickerProperties {
   label: string;
@@ -55,7 +56,7 @@ export class FilePicker extends React.Component<FilePickerProperties> {
         <FontAwesome name={icon} color={theme.textColor3} size={30} />
         <Text
           nativeID={nativeID}
-          accessibilityLabel={nativeID}
+          testID={getTestID(nativeID)}
           style={styles.text}
         >
           {label}

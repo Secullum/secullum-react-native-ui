@@ -6,6 +6,7 @@ import {
   StyleSheet
 } from 'react-native';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 
 export interface TextProperties {
   style?: StyleProp<TextStyle>;
@@ -53,7 +54,7 @@ export class Text extends React.Component<TextProperties> {
     return (
       <TextNative
         nativeID={nativeID}
-        accessibilityLabel={nativeID}
+        testID={getTestID(nativeID)}
         style={[textStyle.text, style]}
       >
         {children}

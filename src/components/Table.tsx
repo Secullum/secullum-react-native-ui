@@ -1,6 +1,7 @@
 import * as React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 
 import {
   ScrollView,
@@ -122,7 +123,7 @@ export class Table extends React.Component<TableProperties> {
 
     return (
       <ScrollView horizontal={true}>
-        <View nativeID={nativeID} style={style} accessibilityLabel={nativeID}>
+        <View nativeID={nativeID} style={style} testID={getTestID(nativeID)}>
           <View style={styles.row}>
             {columns.map(column => this.renderHeaderColumn(column))}
           </View>

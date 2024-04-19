@@ -2,6 +2,7 @@ import * as React from 'react';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { getTestID } from '../modules/test';
 
 import {
   KeyboardType,
@@ -130,7 +131,7 @@ export class TextBox extends React.Component<TextBoxProperties> {
 
     const incomingProps: TextBoxInputProps = {
       nativeID: this.props.nativeID,
-      accessibilityLabel: this.props.nativeID,
+      testID: getTestID(this.props.nativeID),
       autoFocus: this.props.autoFocus,
       value: this.props.value,
       onChangeText: this.props.onChange,

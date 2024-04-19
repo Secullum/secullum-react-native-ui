@@ -5,6 +5,7 @@ import { formatDate } from '../modules/format';
 import { isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
 import { Delay } from './Delay';
+import { getTestID } from '../modules/test';
 
 import {
   StyleProp,
@@ -169,7 +170,7 @@ export class RangeDatePicker extends React.Component<
       <TouchableWithoutFeedback onPress={this.handleDatePickerPress}>
         <View
           nativeID={nativeID}
-          accessibilityLabel={nativeID}
+          testID={getTestID(nativeID)}
           style={[styles.container, style]}
         >
           <View>

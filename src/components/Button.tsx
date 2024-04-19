@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 
 import {
   StyleProp,
@@ -93,7 +94,7 @@ export class Button extends React.Component<ButtonProperties> {
         ]}
         onPress={onPress}
         disabled={disabled}
-        accessibilityLabel={nativeID}
+        testID={getTestID(nativeID)}
       >
         <Text
           nativeID={nativeID}

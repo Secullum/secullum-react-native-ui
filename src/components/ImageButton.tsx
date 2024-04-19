@@ -1,6 +1,7 @@
 import * as React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 
 import {
   StyleProp,
@@ -49,7 +50,7 @@ export class ImageButton extends React.Component<ImageButtonProperties> {
       >
         <FontAwesome
           nativeID={nativeID}
-          accessibilityLabel={nativeID}
+          testID={getTestID(nativeID)}
           name={icon}
           size={iconSize || 20}
           color={iconColor || theme.textColor1}
