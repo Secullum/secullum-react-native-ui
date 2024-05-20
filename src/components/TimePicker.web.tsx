@@ -81,10 +81,12 @@ export class TimePicker extends React.Component<TimePickerProperties> {
       <TouchableWithoutFeedback
         accessible={false}
         disabled={disabled}
-        ref={ref =>
-          //@ts-ignore
-          ref && ref.setNativeProps && ref.setNativeProps({ tabIndex: -1 })
-        }
+        ref={ref => {
+          if (ref != null) {
+            //@ts-ignore
+            ref.tabIndex = -1;
+          }
+        }}
       >
         <View
           style={[styles.container, style, !disabled ? null : styles.readonly]}

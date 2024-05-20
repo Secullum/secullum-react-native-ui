@@ -179,16 +179,12 @@ export class TextBox extends React.Component<TextBoxProperties> {
       <TouchableWithoutFeedback
         accessible={false}
         onPress={() => (onPress ? onPress() : this.focus())}
-        ref={
-          Platform.OS === 'web'
-            ? ref =>
-                ref &&
-                //@ts-ignore
-                ref.setNativeProps &&
-                //@ts-ignore
-                ref.setNativeProps({ tabIndex: -1 })
-            : undefined
-        }
+        ref={ref => {
+          if (Platform.OS === 'web' && ref != null) {
+            // @ts-ignore na web, a ref recebida é o próprio elemento DOM
+            ref.tabIndex = -1;
+          }
+        }}
       >
         <View
           style={[styles.container, style, editable ? null : styles.readonly]}
