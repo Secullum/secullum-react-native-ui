@@ -129,13 +129,7 @@ export class DatePicker extends React.Component<
     return (
       <TouchableWithoutFeedback onPress={this.handlePress}>
         <View nativeID={nativeID} style={[styles.container, style]}>
-          <View
-            ref={ref =>
-              ref &&
-              ref.setNativeProps &&
-              ref.setNativeProps({ id: 'date-picker' })
-            }
-          >
+          <View>
             <Text style={styles.label}>{label}</Text>
             <Text style={styles.value}>
               {value != undefined ? formatDate(value, dateFormat) : ''}
