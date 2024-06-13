@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions, ScaledSize } from 'react-native';
+import { Dimensions, Platform, ScaledSize } from 'react-native';
 
 export interface DimensionsMonitorProperties {
   children?: (dimensionsInfo: { isDesktop: boolean }) => React.ReactNode;
@@ -41,7 +41,9 @@ export class DimensionsMonitor extends React.Component<
   };
 
   isDesktop = (size: ScaledSize) => {
-    return size.width >= 1024;
+    const largura = Platform.OS === 'web' ? window.innerWidth : size.width;
+
+    return largura >= 1024;
   };
 
   render() {
