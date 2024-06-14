@@ -25,6 +25,7 @@ export type AppShellProperties = MenuProperties & {
   renderUserData?: () => React.ReactNode;
   rightButton?: HeaderButton;
   headerStyle?: StyleProp<TextStyle>;
+  alwaysDesktop?: boolean;
   children?: React.ReactNode;
 };
 
@@ -161,7 +162,9 @@ export class AppShell extends React.Component<AppShellProperties> {
     return (
       <DimensionsMonitor>
         {({ isDesktop }) =>
-          isDesktop ? this.renderDesktop() : this.renderMobile()
+          isDesktop || this.props.alwaysDesktop
+            ? this.renderDesktop()
+            : this.renderMobile()
         }
       </DimensionsMonitor>
     );
