@@ -25,7 +25,7 @@
     "react-native-drawer-layout": "^2.0.0",
     "react-native-elevated-view": "^0.0.6",
     "react-native-masked-text": "^1.7.2",
-    "react-native-modal-datetime-picker": "^17.1.0",
+    "react-native-modal-datetime-picker": "git+https://github.com/Secullum/react-native-modal-datetime-picker.git#d9985d6df54ca44febf0b8c92b55aa765a38b046",
     "react-native-status-bar-height": "^2.6.0",
     "react-native-vector-icons": "^8.0.0"
   },
