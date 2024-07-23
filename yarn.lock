@@ -9723,10 +9723,9 @@ react-native-masked-text@^1.7.2:
     moment "2.19.3"
     tinymask "^1.0.2"
 
-react-native-modal-datetime-picker@^17.1.0:
+"react-native-modal-datetime-picker@git+https://github.com/Secullum/react-native-modal-datetime-picker.git#d9985d6df54ca44febf0b8c92b55aa765a38b046":
   version "17.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-17.1.0.tgz#74291bf92b830be285752f437841f52885c90e0b"
-  integrity sha512-jfTwfaCLtBffYbQ+pOGFLM+J5HmUh3vb9rT0JrrQPjxzecdc8pNYreB1c96+mVuq8bDCvaCdIeuEsslTqLJL0Q==
+  resolved "git+https://github.com/Secullum/react-native-modal-datetime-picker.git#d9985d6df54ca44febf0b8c92b55aa765a38b046"
   dependencies:
     prop-types "^15.7.2"
 
