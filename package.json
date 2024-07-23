@@ -15,8 +15,8 @@
   "scripts": {
     "build": "rimraf lib && tsc --declaration",
     "format": "prettier --write \"{src,styles,types}/**/*.{ts,tsx,css}\"",
-    "docs:dev": "docz dev",
-    "docs:publish": "docz build && gh-pages -d .docz/dist"
+    "docs:dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider docz dev",
+    "docs:publish": "cross-env NODE_OPTIONS=--openssl-legacy-provider docz build && gh-pages -d .docz/dist"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "7.6.1",
@@ -37,6 +37,7 @@
     "@types/react-native-drawer-layout": "^1.3.3",
     "@types/react-native-elevated-view": "^0.0.2",
     "@types/react-native-vector-icons": "^6.4.6",
+    "cross-env": "^7.0.3",
     "docz": "^0.11.2",
     "docz-plugin-css": "^0.11.0",
     "docz-plugin-react-native": "^0.11.2",
@@ -54,6 +55,7 @@
     "react-native": "^0.52 || ^0.53 || ^0.54 || ^0.55 || ^0.63"
   },
   "resolutions": {
+    "docz-plugin-css/node-sass": "~9.0.0",
     "docz-plugin-react-native/react-native-web": "^0.18.7",
     "react-docgen-typescript": "2.2.2",
     "react-hot-loader": "4.12.21"
