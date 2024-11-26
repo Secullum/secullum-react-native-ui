@@ -13,6 +13,7 @@ export interface LinkProperties {
   text: string;
   style?: StyleProp<TextStyle>;
   onPress: () => void;
+  nativeID?: string;
 }
 
 export class Link extends React.Component<LinkProperties> {
