@@ -21,6 +21,7 @@ interface Props {
   style?: StyleProp<ViewStyle>;
   renderLabel?: () => React.ReactNode;
   labelStyle?: StyleProp<TextStyle>;
+  iconStyle?: StyleProp<TextStyle>;
   nativeID?: string;
 }
 
@@ -60,6 +61,7 @@ export class CheckBox extends React.Component<Props> {
       disabled,
       style,
       labelStyle,
+      iconStyle,
       renderLabel,
       nativeID
     } = this.props;
@@ -80,7 +82,7 @@ export class CheckBox extends React.Component<Props> {
           nativeID={nativeID}
           testID={getTestID(nativeID)}
           name={value ? 'check-square-o' : 'square-o'}
-          style={styles.icon}
+          style={[styles.icon, iconStyle]}
         />
         <Text style={[styles.label, labelStyle]}>
           {renderLabel ? renderLabel() : label}
