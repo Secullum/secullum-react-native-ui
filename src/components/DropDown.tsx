@@ -157,6 +157,7 @@ export interface DropDownProperties {
   emptyMessage?: string;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  disabledStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   inputStyle?: StyleProp<TextStyle>;
   iconComponent?: React.ComponentClass<IconProps>;
@@ -373,6 +374,7 @@ export class DropDown extends React.Component<
       value,
       emptyMessage,
       style,
+      disabledStyle,
       disabled,
       labelStyle,
       inputStyle,
@@ -395,7 +397,11 @@ export class DropDown extends React.Component<
         <View
           nativeID={nativeID}
           testID={getTestID(nativeID)}
-          style={[styles.container, style, disabled ? styles.readonly : null]}
+          style={[
+            styles.container,
+            style,
+            disabled ? [styles.readonly, disabledStyle] : null
+          ]}
         >
           {icon ? (
             <FontAwesome name={icon} style={styles.iconOnLine} />
