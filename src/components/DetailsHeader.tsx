@@ -17,6 +17,7 @@ export interface DetailsHeaderProperties {
   textStyle?: StyleProp<TextStyle>;
   onLeftPress?: () => void;
   onRightPress?: () => void;
+  nativeID?: string;
 }
 
 export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
@@ -63,7 +64,11 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
 
     if (onPress) {
       return (
-        <TouchableOpacity style={styles.button} onPress={onPress}>
+        <TouchableOpacity
+          testID={this.props.nativeID}
+          style={styles.button}
+          onPress={onPress}
+        >
           <FontAwesome
             name={type === 'left' ? 'angle-left' : 'angle-right'}
             color={theme.textColor3}

@@ -8,6 +8,7 @@ export interface RadioGroupProperties {
   value: string;
   onChange: (value: string) => void;
   disabled?: Array<string>;
+  nativeID?: string;
 }
 
 export class RadioGroup extends React.Component<RadioGroupProperties> {
@@ -50,7 +51,7 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
   };
 
   render() {
-    const { items, value, onChange, disabled } = this.props;
+    const { items, value, onChange, disabled, nativeID } = this.props;
 
     const styles = this.getStyles();
 
@@ -71,6 +72,7 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
                   ? styles.readonly
                   : null
               ]}
+              nativeID={nativeID + '-' + item.value}
             >
               <Text
                 style={[
