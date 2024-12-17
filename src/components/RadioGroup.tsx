@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import { getTestID } from '../modules/test';
 
 export interface RadioGroupProperties {
   items: Array<{ label: string; value: string }>;
@@ -72,7 +73,7 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
                   ? styles.readonly
                   : null
               ]}
-              nativeID={nativeID + '-' + item.value}
+              testID={getTestID(nativeID + '-' + item.value)}
             >
               <Text
                 style={[

@@ -11,13 +11,15 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Card } from './Card';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import { getTestID } from '../modules/test';
 
 export interface DetailsHeaderProperties {
   text: string;
   textStyle?: StyleProp<TextStyle>;
   onLeftPress?: () => void;
   onRightPress?: () => void;
-  nativeID?: string;
+  leftNativeID?: string;
+  rightNativeID?: string;
 }
 
 export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
@@ -57,7 +59,8 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
 
   renderButton = (
     type: 'left' | 'right',
-    onPress: (() => void) | undefined
+    onPress: (() => void) | undefined,
+    nativeID?: string
   ) => {
     const styles = this.getStyles();
     const theme = getTheme();
@@ -65,7 +68,7 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
     if (onPress) {
       return (
         <TouchableOpacity
-          testID={this.props.nativeID}
+          testID={getTestID(nativeID)}
           style={styles.button}
           onPress={onPress}
         >
@@ -82,15 +85,15 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
   };
 
   render() {
-    const { text, textStyle, onLeftPress, onRightPress } = this.props;
+    const { text, textStyle, onLeftPress, onRightPress, leftNativeID, rightNativeID } = this.props;
     const styles = this.getStyles();
 
     return (
       <Card>
         <Card.Section style={styles.container}>
-          {this.renderButton('left', onLeftPress)}
+          {this.renderButton('left', onLeftPress, leftNativeID)}
           <Text style={[styles.text, textStyle]}>{text}</Text>
-          {this.renderButton('right', onRightPress)}
+          {this.renderButton('right', onRightPress, rightNativeID)}
         </Card.Section>
       </Card>
     );
