@@ -58,35 +58,41 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
 
     return (
       <View style={styles.container}>
-        {items.map((item, index) => (
-          <TouchableWithoutFeedback
-            key={index}
-            disabled={disabled && disabled.includes(item.value)}
-            onPress={() => onChange(item.value)}
-          >
-            <View
-              style={[
-                styles.item,
-                { borderRightWidth: index === items.length - 1 ? 0 : 1 },
-                item.value === value ? styles.selectedItem : null,
-                disabled && disabled.includes(item.value)
-                  ? styles.readonly
-                  : null
-              ]}
-              testID={getTestID(nativeID + '-' + item.value)}
-              nativeID={nativeID + '-' + item.value}
+        {items.map((item, index) => {
+          const itemNativeID = nativeID
+            ? nativeID + '-' + item.value
+            : undefined;
+
+          return (
+            <TouchableWithoutFeedback
+              key={index}
+              disabled={disabled && disabled.includes(item.value)}
+              onPress={() => onChange(item.value)}
             >
-              <Text
+              <View
                 style={[
-                  styles.itemText,
-                  item.value === value ? styles.selectedItemText : null
+                  styles.item,
+                  { borderRightWidth: index === items.length - 1 ? 0 : 1 },
+                  item.value === value ? styles.selectedItem : null,
+                  disabled && disabled.includes(item.value)
+                    ? styles.readonly
+                    : null
                 ]}
+                testID={getTestID(itemNativeID)}
+                nativeID={itemNativeID}
               >
-                {item.label}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-        ))}
+                <Text
+                  style={[
+                    styles.itemText,
+                    item.value === value ? styles.selectedItemText : null
+                  ]}
+                >
+                  {item.label}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+          );
+        })}
       </View>
     );
   }
