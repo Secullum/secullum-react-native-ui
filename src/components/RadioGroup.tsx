@@ -2,12 +2,14 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import { getTestID } from '../modules/test';
 
 export interface RadioGroupProperties {
   items: Array<{ label: string; value: string }>;
   value: string;
   onChange: (value: string) => void;
   disabled?: Array<string>;
+  nativeID?: string;
 }
 
 export class RadioGroup extends React.Component<RadioGroupProperties> {
@@ -50,7 +52,7 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
   };
 
   render() {
-    const { items, value, onChange, disabled } = this.props;
+    const { items, value, onChange, disabled, nativeID } = this.props;
 
     const styles = this.getStyles();
 
@@ -71,6 +73,8 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
                   ? styles.readonly
                   : null
               ]}
+              testID={getTestID(nativeID + '-' + item.value)}
+              nativeID={nativeID + '-' + item.value}
             >
               <Text
                 style={[

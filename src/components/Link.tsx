@@ -8,11 +8,13 @@ import {
   Text,
   TextStyle
 } from 'react-native';
+import { getTestID } from '../modules/test';
 
 export interface LinkProperties {
   text: string;
   style?: StyleProp<TextStyle>;
   onPress: () => void;
+  nativeID?: string;
 }
 
 export class Link extends React.Component<LinkProperties> {
@@ -31,13 +33,13 @@ export class Link extends React.Component<LinkProperties> {
   };
 
   render() {
-    const { text, style, onPress } = this.props;
+    const { text, style, onPress, nativeID } = this.props;
 
     const styles = this.getStyles();
 
     return (
-      <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
-        <Text style={[styles.link, style]}>{text}</Text>
+      <TouchableOpacity activeOpacity={0.7} onPress={onPress} testID={getTestID(nativeID)}>
+        <Text nativeID={nativeID} style={[styles.link, style]}>{text}</Text>
       </TouchableOpacity>
     );
   }

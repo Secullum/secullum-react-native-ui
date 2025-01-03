@@ -11,12 +11,15 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Card } from './Card';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import { getTestID } from '../modules/test';
 
 export interface DetailsHeaderProperties {
   text: string;
   textStyle?: StyleProp<TextStyle>;
   onLeftPress?: () => void;
   onRightPress?: () => void;
+  leftNativeID?: string;
+  rightNativeID?: string;
 }
 
 export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
@@ -56,15 +59,21 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
 
   renderButton = (
     type: 'left' | 'right',
-    onPress: (() => void) | undefined
+    onPress: (() => void) | undefined,
+    nativeID?: string
   ) => {
     const styles = this.getStyles();
     const theme = getTheme();
 
     if (onPress) {
       return (
-        <TouchableOpacity style={styles.button} onPress={onPress}>
+        <TouchableOpacity
+          testID={getTestID(nativeID)}
+          style={styles.button}
+          onPress={onPress}
+        >
           <FontAwesome
+            nativeID={nativeID}
             name={type === 'left' ? 'angle-left' : 'angle-right'}
             color={theme.textColor3}
             size={14}
@@ -77,15 +86,15 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
   };
 
   render() {
-    const { text, textStyle, onLeftPress, onRightPress } = this.props;
+    const { text, textStyle, onLeftPress, onRightPress, leftNativeID, rightNativeID } = this.props;
     const styles = this.getStyles();
 
     return (
       <Card>
         <Card.Section style={styles.container}>
-          {this.renderButton('left', onLeftPress)}
+          {this.renderButton('left', onLeftPress, leftNativeID)}
           <Text style={[styles.text, textStyle]}>{text}</Text>
-          {this.renderButton('right', onRightPress)}
+          {this.renderButton('right', onRightPress, rightNativeID)}
         </Card.Section>
       </Card>
     );
