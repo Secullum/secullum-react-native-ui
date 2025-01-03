@@ -86,7 +86,14 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
   };
 
   render() {
-    const { text, textStyle, onLeftPress, onRightPress, leftNativeID, rightNativeID } = this.props;
+    const {
+      text,
+      textStyle,
+      onLeftPress,
+      onRightPress,
+      leftNativeID,
+      rightNativeID
+    } = this.props;
     const styles = this.getStyles();
 
     return (

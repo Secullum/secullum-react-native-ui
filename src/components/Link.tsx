@@ -38,8 +38,14 @@ export class Link extends React.Component<LinkProperties> {
     const styles = this.getStyles();
 
     return (
-      <TouchableOpacity activeOpacity={0.7} onPress={onPress} testID={getTestID(nativeID)}>
-        <Text nativeID={nativeID} style={[styles.link, style]}>{text}</Text>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={onPress}
+        testID={getTestID(nativeID)}
+      >
+        <Text nativeID={nativeID} style={[styles.link, style]}>
+          {text}
+        </Text>
       </TouchableOpacity>
     );
   }
