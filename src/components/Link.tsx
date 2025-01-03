@@ -39,7 +39,7 @@ export class Link extends React.Component<LinkProperties> {
 
     return (
       <TouchableOpacity activeOpacity={0.7} onPress={onPress} testID={getTestID(nativeID)}>
-        <Text style={[styles.link, style]}>{text}</Text>
+        <Text nativeID={nativeID} style={[styles.link, style]}>{text}</Text>
       </TouchableOpacity>
     );
   }

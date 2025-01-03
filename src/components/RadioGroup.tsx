@@ -74,6 +74,7 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
                   : null
               ]}
               testID={getTestID(nativeID + '-' + item.value)}
+              nativeID={nativeID}
             >
               <Text
                 style={[

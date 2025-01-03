@@ -73,6 +73,7 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
           onPress={onPress}
         >
           <FontAwesome
+            nativeID={nativeID}
             name={type === 'left' ? 'angle-left' : 'angle-right'}
             color={theme.textColor3}
             size={14}
