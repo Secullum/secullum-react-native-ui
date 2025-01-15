@@ -20,23 +20,24 @@ export interface QuestionProperties {
   visible: boolean;
   nativeID?: string;
   textStyle?: StyleProp<TextStyle>;
-  okButton: {
-    text: string;
-    onPress: () => void;
-    style?: StyleProp<ViewStyle>;
-    textStyle?: StyleProp<TextStyle>;
-    nativeID?: string;
-  };
-  cancelButton: {
-    text: string;
-    onPress: () => void;
-    style?: StyleProp<ViewStyle>;
-    textStyle?: StyleProp<TextStyle>;
-    nativeID?: string;
-  };
+  buttonOrder: 'ok,cancel' | 'cancel,ok';
+  okButton: QuestionButtonProperties;
+  cancelButton: QuestionButtonProperties;
+}
+
+export interface QuestionButtonProperties {
+  text: string;
+  onPress: () => void;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  nativeID?: string;
 }
 
 export class Question extends React.Component<QuestionProperties> {
+  static defaultProps = {
+    buttonOrder: 'cancel,ok'
+  };
+
   getStyles = () => {
     const theme = getTheme();
 
@@ -83,10 +84,18 @@ export class Question extends React.Component<QuestionProperties> {
       textStyle,
       visible,
       nativeID,
+      buttonOrder,
       okButton,
       cancelButton
     } = this.props;
+
     const styles = this.getStyles();
+
+    const [leftButtonProps, rightButtonProps] =
+      buttonOrder === 'ok,cancel'
+        ? [okButton, cancelButton]
+        : [cancelButton, okButton];
+
     return (
       <ReactNativeModal animationType="fade" transparent visible={visible}>
         <View style={[styles.overlay]} nativeID={nativeID}>
@@ -96,26 +105,26 @@ export class Question extends React.Component<QuestionProperties> {
             <Space />
             <View style={styles.botoesAcao}>
               <Button
-                text={cancelButton.text}
-                onPress={cancelButton.onPress}
+                text={leftButtonProps.text}
+                onPress={leftButtonProps.onPress}
                 style={[
                   { flex: 1, marginRight: isTablet() ? 13 : 8 },
-                  cancelButton.style
+                  leftButtonProps.style
                 ]}
-                textStyle={cancelButton.textStyle}
-                primary={false}
-                nativeID={cancelButton.nativeID}
+                textStyle={leftButtonProps.textStyle}
+                primary={buttonOrder === 'ok,cancel'}
+                nativeID={leftButtonProps.nativeID}
               />
               <Button
-                text={okButton.text}
-                onPress={okButton.onPress}
+                text={rightButtonProps.text}
+                onPress={rightButtonProps.onPress}
                 style={[
                   { flex: 1, marginLeft: isTablet() ? 13 : 8 },
-                  okButton.style
+                  rightButtonProps.style
                 ]}
-                textStyle={okButton.textStyle}
-                primary={true}
-                nativeID={okButton.nativeID}
+                textStyle={rightButtonProps.textStyle}
+                primary={buttonOrder === 'cancel,ok'}
+                nativeID={rightButtonProps.nativeID}
               />
             </View>
           </View>
