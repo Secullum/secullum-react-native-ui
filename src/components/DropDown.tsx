@@ -154,6 +154,7 @@ export interface DropDownProperties {
   items: Array<{ label: string; value: any; icon?: string; nativeID?: string }>;
   value: any | null;
   onChange: (value: any) => void;
+  onPress?: () => void | boolean | Promise<void> | Promise<boolean>;
   emptyMessage?: string;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -380,6 +381,7 @@ export class DropDown extends React.Component<
       inputStyle,
       iconComponent,
       nativeID,
+      onPress,
       icon
     } = this.props;
 
@@ -391,7 +393,17 @@ export class DropDown extends React.Component<
 
     return (
       <TouchableWithoutFeedback
-        onPress={() => this.setState({ modalOpen: true })}
+        onPress={async () => {
+          if (onPress) {
+            const result = await onPress();
+
+            if (result === false) {
+              return;
+            }
+          }
+
+          this.setState({ modalOpen: true });
+        }}
         disabled={disabled}
       >
         <View
