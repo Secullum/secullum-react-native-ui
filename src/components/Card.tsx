@@ -3,6 +3,7 @@ import ElevatedView from 'react-native-elevated-view';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import { getTestID } from '../modules/test';
 import {
   StyleProp,
   StyleSheet,
@@ -14,7 +15,6 @@ import {
   ViewStyle,
   Platform
 } from 'react-native';
-import { getTestID } from '../modules/test';
 
 export interface CardHeaderProperties {
   title: string;
@@ -86,10 +86,15 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
 
 export class CardFooter extends React.Component<ViewProps> {
   render() {
-    const { children, ...otherProps } = this.props;
+    const { children, nativeID, ...otherProps } = this.props;
 
     return (
-      <View style={[cardFooterStyles.container]} {...otherProps}>
+      <View
+        nativeID={nativeID}
+        testID={getTestID(nativeID)}
+        style={[cardFooterStyles.container]}
+        {...otherProps}
+      >
         {children}
       </View>
     );

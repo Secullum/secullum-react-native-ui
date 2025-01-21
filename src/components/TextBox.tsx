@@ -113,7 +113,17 @@ export class TextBox extends React.Component<TextBoxProperties> {
     }
   };
 
-  renderInput = (props: TextInputProps) => <TextInput {...props} />;
+  renderInput = (props: TextInputProps) => {
+    const { nativeID, ...otherProps } = props;
+
+    return (
+      <TextInput
+        nativeID={nativeID}
+        testID={getTestID(nativeID)}
+        {...otherProps}
+      />
+    );
+  };
 
   render() {
     const {
@@ -187,8 +197,6 @@ export class TextBox extends React.Component<TextBoxProperties> {
         }}
       >
         <View
-          nativeID={incomingProps.nativeID}
-          testID={incomingProps.testID}
           style={[styles.container, style, editable ? null : styles.readonly]}
         >
           {icon ? (
