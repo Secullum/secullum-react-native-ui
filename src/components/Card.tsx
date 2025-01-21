@@ -3,6 +3,7 @@ import ElevatedView from 'react-native-elevated-view';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
+import { getTestID } from '../modules/test';
 import {
   StyleProp,
   StyleSheet,
@@ -65,7 +66,11 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
     const styles = this.getStyles();
 
     return (
-      <View nativeID={nativeID} style={[styles.container, containerStyle]}>
+      <View
+        nativeID={nativeID}
+        testID={getTestID(nativeID)}
+        style={[styles.container, containerStyle]}
+      >
         <Text style={[styles.title, titleStyle]} numberOfLines={numberOfLines}>
           {title}
         </Text>
@@ -81,10 +86,15 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
 
 export class CardFooter extends React.Component<ViewProps> {
   render() {
-    const { children, ...otherProps } = this.props;
+    const { children, nativeID, ...otherProps } = this.props;
 
     return (
-      <View style={[cardFooterStyles.container]} {...otherProps}>
+      <View
+        nativeID={nativeID}
+        testID={getTestID(nativeID)}
+        style={[cardFooterStyles.container]}
+        {...otherProps}
+      >
         {children}
       </View>
     );
@@ -93,10 +103,15 @@ export class CardFooter extends React.Component<ViewProps> {
 
 export class CardSection extends React.Component<ViewProps> {
   render() {
-    const { children, style, ...otherProps } = this.props;
+    const { children, style, nativeID, ...otherProps } = this.props;
 
     return (
-      <View style={[cardSectionStyles.container, style]} {...otherProps}>
+      <View
+        nativeID={nativeID}
+        testID={getTestID(nativeID)}
+        style={[cardSectionStyles.container, style]}
+        {...otherProps}
+      >
         {children}
       </View>
     );
