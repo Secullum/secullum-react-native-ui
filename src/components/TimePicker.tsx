@@ -4,6 +4,7 @@ import { ImageButton } from './ImageButton';
 import { formatDate } from '../modules/format';
 import { isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
+import { getTestID } from '../modules/test';
 
 import {
   Platform,
@@ -149,6 +150,7 @@ export class TimePicker extends React.Component<
         >
           <View
             nativeID={nativeID}
+            testID={getTestID(nativeID)}
             style={[styles.container, style, disabled ? styles.readonly : null]}
           >
             <View>
