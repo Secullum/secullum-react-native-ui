@@ -197,8 +197,6 @@ export class TextBox extends React.Component<TextBoxProperties> {
         }}
       >
         <View
-          nativeID={incomingProps.nativeID}
-          testID={incomingProps.testID}
           style={[styles.container, style, editable ? null : styles.readonly]}
         >
           {icon ? (
