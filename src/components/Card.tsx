@@ -15,6 +15,7 @@ import {
   ViewStyle,
   Platform
 } from 'react-native';
+import { getTestID } from '../modules/test';
 
 export interface CardHeaderProperties {
   title: string;
