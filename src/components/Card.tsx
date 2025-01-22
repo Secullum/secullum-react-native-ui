@@ -66,12 +66,12 @@ export class CardHeader extends React.Component<CardHeaderProperties> {
     const styles = this.getStyles();
 
     return (
-      <View
-        nativeID={nativeID}
-        testID={getTestID(nativeID)}
-        style={[styles.container, containerStyle]}
-      >
-        <Text style={[styles.title, titleStyle]} numberOfLines={numberOfLines}>
+      <View nativeID={nativeID} style={[styles.container, containerStyle]}>
+        <Text
+          testID={getTestID(nativeID)}
+          style={[styles.title, titleStyle]}
+          numberOfLines={numberOfLines}
+        >
           {title}
         </Text>
         {onHelpPress && (
