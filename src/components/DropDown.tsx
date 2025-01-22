@@ -164,7 +164,7 @@ export interface DropDownProperties {
   iconComponent?: React.ComponentClass<IconProps>;
   nativeID?: string;
   icon?: string | undefined;
-  iconColor?: string | undefined;
+  arrowColor?: string | undefined;
 }
 
 export interface DropDownState {
@@ -261,7 +261,7 @@ export class DropDown extends React.Component<
 
   getStyles = (): any => {
     const theme = getTheme();
-    const { icon, iconColor } = this.props;
+    const { icon, arrowColor } = this.props;
 
     const styles = StyleSheet.create({
       container: {
@@ -300,14 +300,14 @@ export class DropDown extends React.Component<
         fontSize: 16
       },
       seta: {
-        color: iconColor ? iconColor : theme.textColor1,
+        color: arrowColor ? arrowColor : theme.textColor1,
         fontSize: 16,
         position: 'absolute',
         bottom: 10,
         right: 16
       },
       setaIcone: {
-        color: iconColor ? iconColor : theme.textColor1,
+        color: arrowColor ? arrowColor : theme.textColor1,
         fontSize: 16,
         position: 'absolute',
         bottom: 25,
