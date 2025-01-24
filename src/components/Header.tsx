@@ -25,6 +25,7 @@ export interface HeaderProperties {
   title: string;
   leftButton?: HeaderButton;
   rightButton?: HeaderButton;
+  nativeID?: string;
 }
 
 export class Header extends React.Component<HeaderProperties> {
@@ -124,7 +125,7 @@ export class Header extends React.Component<HeaderProperties> {
   };
 
   render() {
-    const { title, leftButton, rightButton } = this.props;
+    const { title, leftButton, rightButton, nativeID } = this.props;
 
     const styles = this.getStyles();
 
@@ -133,7 +134,7 @@ export class Header extends React.Component<HeaderProperties> {
         {leftButton
           ? this.renderButton(leftButton, 'left')
           : this.renderButtonInvisible('left')}
-        <Text style={styles.title}>{title}</Text>
+        <Text nativeID={nativeID} testID={getTestID(nativeID)} style={styles.title}>{title}</Text>
         {rightButton
           ? this.renderButton(rightButton, 'right')
           : this.renderButtonInvisible('right')}
