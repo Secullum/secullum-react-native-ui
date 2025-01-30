@@ -134,7 +134,13 @@ export class Header extends React.Component<HeaderProperties> {
         {leftButton
           ? this.renderButton(leftButton, 'left')
           : this.renderButtonInvisible('left')}
-        <Text nativeID={nativeID} testID={getTestID(nativeID)} style={styles.title}>{title}</Text>
+        <Text
+          nativeID={nativeID}
+          testID={getTestID(nativeID)}
+          style={styles.title}
+        >
+          {title}
+        </Text>
         {rightButton
           ? this.renderButton(rightButton, 'right')
           : this.renderButtonInvisible('right')}
