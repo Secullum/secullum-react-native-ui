@@ -104,8 +104,8 @@ export class Question extends React.Component<QuestionProperties> {
             <FontAwesome name={'question-circle'} style={styles.icon} />
             <Text 
                 style={[styles.text, textStyle]}
-                nativeID={nativeID + '-mensagem'}
-                testID={getTestID(nativeID + '-mensagem')}
+                nativeID={nativeID + '-message'}
+                testID={getTestID(nativeID + '-message')}
               >
                 {message}
               </Text>
