@@ -14,6 +14,7 @@ import {
   View,
   ViewStyle
 } from 'react-native';
+import { getTestID } from '../modules/test';
 
 export interface QuestionProperties {
   message: string;
@@ -101,7 +102,13 @@ export class Question extends React.Component<QuestionProperties> {
         <View style={[styles.overlay]} nativeID={nativeID}>
           <View style={styles.container}>
             <FontAwesome name={'question-circle'} style={styles.icon} />
-            <Text style={[styles.text, textStyle]}>{message}</Text>
+            <Text 
+                style={[styles.text, textStyle]}
+                nativeID={nativeID + '-mensagem'}
+                testID={getTestID(nativeID + '-mensagem')}
+              >
+                {message}
+              </Text>
             <Space />
             <View style={styles.botoesAcao}>
               <Button
