@@ -13,7 +13,6 @@ export interface TextProperties {
   bold: boolean;
   size: number;
   flex?: number;
-  numberOfLines: number;
   color: string;
   align?: 'auto' | 'left' | 'right' | 'center' | 'justify';
   nativeID?: string;
@@ -48,7 +47,7 @@ export class Text extends React.Component<TextProperties> {
   };
 
   render() {
-    const { style, children, nativeID, numberOfLines } = this.props;
+    const { style, children, nativeID } = this.props;
 
     const textStyle = this.getStyles();
 
@@ -57,7 +56,6 @@ export class Text extends React.Component<TextProperties> {
         nativeID={nativeID}
         testID={getTestID(nativeID)}
         style={[textStyle.text, style]}
-        numberOfLines={numberOfLines}
       >
         {children}
       </TextNative>
