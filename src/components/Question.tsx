@@ -102,13 +102,13 @@ export class Question extends React.Component<QuestionProperties> {
         <View style={[styles.overlay]} nativeID={nativeID}>
           <View style={styles.container}>
             <FontAwesome name={'question-circle'} style={styles.icon} />
-            <Text 
-                style={[styles.text, textStyle]}
-                nativeID={nativeID + '-message'}
-                testID={getTestID(nativeID + '-message')}
-              >
-                {message}
-              </Text>
+            <Text
+              style={[styles.text, textStyle]}
+              nativeID={nativeID + '-message'}
+              testID={getTestID(nativeID + '-message')}
+            >
+              {message}
+            </Text>
             <Space />
             <View style={styles.botoesAcao}>
               <Button
