@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { View, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
+import { getTestID } from '../modules/test';
 import { getTheme } from '../modules/theme';
 
 export interface RadioButtonProps {
-  items: Array<{ label: string; value: number }>;
+  items: Array<{ label: string; value: number; nativeID?: string }>;
   value: number;
   onChange: (value: number) => void;
 }
@@ -57,8 +58,9 @@ export class RadioButton extends React.Component<RadioButtonProps> {
           <TouchableWithoutFeedback
             key={item.value}
             onPress={() => onChange(item.value)}
+            testID={getTestID(item.nativeID)}
           >
-            <View style={styles.radioContainer}>
+            <View style={styles.radioContainer} nativeID={item.nativeID}>
               <View style={styles.radioButtom}>
                 {item.value === value && <View style={styles.radioMark} />}
               </View>
