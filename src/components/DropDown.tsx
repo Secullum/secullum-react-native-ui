@@ -203,6 +203,12 @@ export class DropDown extends React.Component<
     );
   };
 
+  shouldDisplaySearchField = () => {
+    const { items, searchable } = this.props;
+
+    return items.length >= 10 && searchable;
+  }
+
   renderClosedDropDown = (item: any, inputStyle: any) => {
     const { iconComponent } = this.props;
 
@@ -327,7 +333,7 @@ export class DropDown extends React.Component<
         right: 16
       },
       modalOverlay: {
-        justifyContent: this.props.items.length >= 10 && this.props.searchable ? 'flex-start' : 'center'
+        justifyContent: this.shouldDisplaySearchField() ? 'flex-start' : 'center'
       },
       modalContainer: {
         maxHeight: '95%',
@@ -440,7 +446,9 @@ export class DropDown extends React.Component<
 
     const theme = getTheme();
 
-    const filteredItems = items.filter(item => item.label.toLowerCase().includes(searchText.toLowerCase()));
+    const filteredItems = this.filteredItems();
+
+    const visibleItems = searchable ? filteredItems : items;
 
     return (
       <TouchableWithoutFeedback
@@ -492,36 +500,36 @@ export class DropDown extends React.Component<
                   }
                 ]}
               >
-                {items.length >= 10 && searchable && (
-                React.createElement(View, { style: styles.searchContainer },
-                    React.createElement(View, { style: styles.inputWrapper }, 
-                        React.createElement(TextInput, {
-                            style: styles.searchInput,
-                            value: searchText,
-                            placeholder: 'Buscar',
-                            onChangeText: (text) => this.setState({ searchText: text })
-                        }),
-                        React.createElement(FontAwesome, { 
-                            name: "search", 
-                            size: 16, 
-                            color: "gray", 
-                            style: styles.searchIcon 
-                        })
-                      )
-                    )
+                {this.shouldDisplaySearchField() && (
+                <View style={styles.searchContainer}>
+                <View style={styles.inputWrapper}>
+                  <TextInput
+                    style={styles.searchInput}
+                    value={searchText}
+                    placeholder="Buscar"
+                    onChangeText={(text) => this.setState({ searchText: text })}
+                  />
+                  <FontAwesome
+                    name="search"
+                    size={16}
+                    color="gray"
+                    style={styles.searchIcon}
+                  />
+                </View>
+              </View>
                   )
                 }
                 {filteredItems.length > 0 ? (
                   <FlatList
-                    data={searchable ? filteredItems : items}
-                    initialNumToRender={filteredItems.length}
+                    data={visibleItems}
+                    initialNumToRender={visibleItems.length}
                     keyExtractor={item => item.value.toString()}
                     renderItem={({ item, index }) => {
                       return (
                         <DropDownItem
                           nativeID={item.nativeID}
                           first={index === 0}
-                          last={index === (searchable ? filteredItems : items).length - 1}
+                          last={index === visibleItems.length - 1}
                           label={item.label}
                           value={item.value}
                           onPress={this.handleItemPress}
