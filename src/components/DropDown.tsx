@@ -168,6 +168,7 @@ export interface DropDownProperties {
   icon?: string | undefined;
   arrowColor?: string | undefined;
   searchable?: boolean;
+  minItemsToShowSearch: number;
 }
 
 export interface DropDownState {
@@ -180,7 +181,8 @@ export class DropDown extends React.Component<
   DropDownState
 > {
   static defaultProps = {
-    emptyMessage: 'Não há registros cadastrados'
+    emptyMessage: 'Não há registros cadastrados',
+    minItemsToShowSearch: 10
   };
 
   state: DropDownState = {
@@ -195,19 +197,19 @@ export class DropDown extends React.Component<
     onChange(value);
   };
 
-  filteredItems = () => {
+  filterItems = () => {
     const { items } = this.props;
     const { searchText } = this.state;
     return items.filter(item =>
-        item.label.toLowerCase().includes(searchText.toLowerCase())
+      item.label.toLowerCase().includes(searchText.toLowerCase())
     );
   };
 
   shouldDisplaySearchField = () => {
-    const { items, searchable } = this.props;
+    const { items, searchable, minItemsToShowSearch } = this.props;
 
-    return items.length >= 10 && searchable;
-  }
+    return items.length >= minItemsToShowSearch && searchable;
+  };
 
   renderClosedDropDown = (item: any, inputStyle: any) => {
     const { iconComponent } = this.props;
@@ -280,7 +282,7 @@ export class DropDown extends React.Component<
 
   getStyles = (): any => {
     const theme = getTheme();
-    const { icon, arrowColor } = this.props;
+    const { icon, arrowColor, minItemsToShowSearch } = this.props;
 
     const styles = StyleSheet.create({
       container: {
@@ -333,7 +335,11 @@ export class DropDown extends React.Component<
         right: 16
       },
       modalOverlay: {
-        justifyContent: this.shouldDisplaySearchField() ? 'flex-start' : 'center'
+        justifyContent:
+          this.props.items.length >= minItemsToShowSearch &&
+          this.props.searchable
+            ? 'flex-start'
+            : 'center'
       },
       modalContainer: {
         maxHeight: '95%',
@@ -394,7 +400,7 @@ export class DropDown extends React.Component<
       searchLabel: {
         fontSize: 16,
         marginLeft: 16,
-        fontFamily: theme.fontFamily1,
+        fontFamily: theme.fontFamily1
       },
       inputWrapper: {
         flexDirection: 'row',
@@ -439,14 +445,14 @@ export class DropDown extends React.Component<
       icon,
       searchable
     } = this.props;
-    
+
     const selectedItem = items.find(x => x.value === value);
 
     const styles = this.getStyles();
 
     const theme = getTheme();
 
-    const filteredItems = this.filteredItems();
+    const filteredItems = this.filterItems();
 
     const visibleItems = searchable ? filteredItems : items;
 
@@ -501,24 +507,25 @@ export class DropDown extends React.Component<
                 ]}
               >
                 {this.shouldDisplaySearchField() && (
-                <View style={styles.searchContainer}>
-                <View style={styles.inputWrapper}>
-                  <TextInput
-                    style={styles.searchInput}
-                    value={searchText}
-                    placeholder="Buscar"
-                    onChangeText={(text) => this.setState({ searchText: text })}
-                  />
-                  <FontAwesome
-                    name="search"
-                    size={16}
-                    color="gray"
-                    style={styles.searchIcon}
-                  />
-                </View>
-              </View>
-                  )
-                }
+                  <View style={styles.searchContainer}>
+                    <View style={styles.inputWrapper}>
+                      <TextInput
+                        style={styles.searchInput}
+                        value={searchText}
+                        placeholder="Buscar"
+                        onChangeText={text =>
+                          this.setState({ searchText: text })
+                        }
+                      />
+                      <FontAwesome
+                        name="search"
+                        size={16}
+                        color="gray"
+                        style={styles.searchIcon}
+                      />
+                    </View>
+                  </View>
+                )}
                 {filteredItems.length > 0 ? (
                   <FlatList
                     data={visibleItems}
