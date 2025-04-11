@@ -16,7 +16,9 @@ import {
   View,
   ViewStyle,
   Platform,
-  TextStyle
+  TextStyle,
+  TextInput,
+  Keyboard
 } from 'react-native';
 
 interface DropDownItemProperties {
@@ -165,10 +167,13 @@ export interface DropDownProperties {
   nativeID?: string;
   icon?: string | undefined;
   arrowColor?: string | undefined;
+  searchable?: boolean;
+  minItemsToShowSearch: number;
 }
 
 export interface DropDownState {
   modalOpen: boolean;
+  searchText: string;
 }
 
 export class DropDown extends React.Component<
@@ -176,11 +181,13 @@ export class DropDown extends React.Component<
   DropDownState
 > {
   static defaultProps = {
-    emptyMessage: 'Não há registros cadastrados'
+    emptyMessage: 'Não há registros cadastrados',
+    minItemsToShowSearch: 10
   };
 
   state: DropDownState = {
-    modalOpen: false
+    modalOpen: false,
+    searchText: ''
   };
 
   handleItemPress = (value: any) => {
@@ -188,6 +195,20 @@ export class DropDown extends React.Component<
 
     this.setState({ modalOpen: false });
     onChange(value);
+  };
+
+  filterItems = () => {
+    const { items } = this.props;
+    const { searchText } = this.state;
+    return items.filter(item =>
+      item.label.toLowerCase().includes(searchText.toLowerCase())
+    );
+  };
+
+  shouldDisplaySearchField = () => {
+    const { items, searchable, minItemsToShowSearch } = this.props;
+
+    return items.length >= minItemsToShowSearch && searchable;
   };
 
   renderClosedDropDown = (item: any, inputStyle: any) => {
@@ -261,7 +282,7 @@ export class DropDown extends React.Component<
 
   getStyles = (): any => {
     const theme = getTheme();
-    const { icon, arrowColor } = this.props;
+    const { icon, arrowColor, minItemsToShowSearch } = this.props;
 
     const styles = StyleSheet.create({
       container: {
@@ -314,9 +335,14 @@ export class DropDown extends React.Component<
         right: 16
       },
       modalOverlay: {
-        justifyContent: 'center'
+        justifyContent:
+          this.props.items.length >= minItemsToShowSearch &&
+          this.props.searchable
+            ? 'flex-start'
+            : 'center'
       },
       modalContainer: {
+        maxHeight: '95%',
         borderRadius: 5,
         backgroundColor: theme.backgroundColor1,
         margin: 16
@@ -362,6 +388,39 @@ export class DropDown extends React.Component<
         minWidth: 25,
         textAlignVertical: 'center',
         flex: 0
+      },
+      searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 10,
+        marginTop: 8,
+        marginRight: 16
+      },
+      searchLabel: {
+        fontSize: 16,
+        marginLeft: 16,
+        fontFamily: theme.fontFamily1
+      },
+      inputWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        paddingHorizontal: 10,
+        backgroundColor: 'white',
+        flex: 1,
+        maxWidth: '100%',
+        minWidth: 150,
+        overflow: 'hidden',
+        marginLeft: 16
+      },
+      searchInput: {
+        flex: 1,
+        height: 40
+      },
+      searchIcon: {
+        marginLeft: 10
       }
     });
 
@@ -369,7 +428,7 @@ export class DropDown extends React.Component<
   };
 
   render() {
-    const { modalOpen } = this.state;
+    const { modalOpen, searchText } = this.state;
     const {
       label,
       items,
@@ -383,7 +442,8 @@ export class DropDown extends React.Component<
       iconComponent,
       nativeID,
       onPress,
-      icon
+      icon,
+      searchable
     } = this.props;
 
     const selectedItem = items.find(x => x.value === value);
@@ -391,6 +451,10 @@ export class DropDown extends React.Component<
     const styles = this.getStyles();
 
     const theme = getTheme();
+
+    const filteredItems = this.filterItems();
+
+    const visibleItems = searchable ? filteredItems : items;
 
     return (
       <TouchableWithoutFeedback
@@ -403,7 +467,7 @@ export class DropDown extends React.Component<
             }
           }
 
-          this.setState({ modalOpen: true });
+          this.setState({ modalOpen: true, searchText: '' });
         }}
         disabled={disabled}
       >
@@ -428,7 +492,7 @@ export class DropDown extends React.Component<
             onRequestClose={() => this.setState({ modalOpen: false })}
             overlayStyle={styles.modalOverlay}
           >
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View
                 style={[
                   styles.modalContainer,
@@ -442,17 +506,37 @@ export class DropDown extends React.Component<
                   }
                 ]}
               >
-                {items.length > 0 ? (
+                {this.shouldDisplaySearchField() && (
+                  <View style={styles.searchContainer}>
+                    <View style={styles.inputWrapper}>
+                      <TextInput
+                        style={styles.searchInput}
+                        value={searchText}
+                        placeholder="Buscar"
+                        onChangeText={text =>
+                          this.setState({ searchText: text })
+                        }
+                      />
+                      <FontAwesome
+                        name="search"
+                        size={16}
+                        color="gray"
+                        style={styles.searchIcon}
+                      />
+                    </View>
+                  </View>
+                )}
+                {filteredItems.length > 0 ? (
                   <FlatList
-                    data={items}
-                    initialNumToRender={items.length}
+                    data={visibleItems}
+                    initialNumToRender={visibleItems.length}
                     keyExtractor={item => item.value.toString()}
                     renderItem={({ item, index }) => {
                       return (
                         <DropDownItem
                           nativeID={item.nativeID}
                           first={index === 0}
-                          last={index === items.length - 1}
+                          last={index === visibleItems.length - 1}
                           label={item.label}
                           value={item.value}
                           onPress={this.handleItemPress}
