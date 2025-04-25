@@ -167,8 +167,12 @@ export interface DropDownProperties {
   nativeID?: string;
   icon?: string | undefined;
   arrowColor?: string | undefined;
-  searchable?: boolean;
-  minItemsToShowSearch: number;
+  searchable?: SearchableProps;
+}
+
+export interface SearchableProps {
+  placeHolder: string;
+  minItemsToSearch?: number;
 }
 
 export interface DropDownState {
@@ -181,8 +185,7 @@ export class DropDown extends React.Component<
   DropDownState
 > {
   static defaultProps = {
-    emptyMessage: 'Não há registros cadastrados',
-    minItemsToShowSearch: 10
+    emptyMessage: 'Não há registros cadastrados'
   };
 
   state: DropDownState = {
@@ -200,15 +203,20 @@ export class DropDown extends React.Component<
   filterItems = () => {
     const { items } = this.props;
     const { searchText } = this.state;
+
     return items.filter(item =>
       item.label.toLowerCase().includes(searchText.toLowerCase())
     );
   };
 
   shouldDisplaySearchField = () => {
-    const { items, searchable, minItemsToShowSearch } = this.props;
+    const { items, searchable } = this.props;
+    const defaultQuantityToSearch = 10;
 
-    return items.length >= minItemsToShowSearch && searchable;
+    return (
+      searchable &&
+      items.length >= (searchable.minItemsToSearch ?? defaultQuantityToSearch)
+    );
   };
 
   renderClosedDropDown = (item: any, inputStyle: any) => {
@@ -282,7 +290,7 @@ export class DropDown extends React.Component<
 
   getStyles = (): any => {
     const theme = getTheme();
-    const { icon, arrowColor, minItemsToShowSearch } = this.props;
+    const { icon, arrowColor } = this.props;
 
     const styles = StyleSheet.create({
       container: {
@@ -335,11 +343,9 @@ export class DropDown extends React.Component<
         right: 16
       },
       modalOverlay: {
-        justifyContent:
-          this.props.items.length >= minItemsToShowSearch &&
-          this.props.searchable
-            ? 'flex-start'
-            : 'center'
+        justifyContent: this.shouldDisplaySearchField()
+          ? 'flex-start'
+          : 'center'
       },
       modalContainer: {
         maxHeight: '95%',
@@ -452,9 +458,7 @@ export class DropDown extends React.Component<
 
     const theme = getTheme();
 
-    const filteredItems = this.filterItems();
-
-    const visibleItems = searchable ? filteredItems : items;
+    const filteredItems = searchable ? this.filterItems() : items;
 
     return (
       <TouchableWithoutFeedback
@@ -512,7 +516,7 @@ export class DropDown extends React.Component<
                       <TextInput
                         style={styles.searchInput}
                         value={searchText}
-                        placeholder="Buscar"
+                        placeholder={searchable?.placeHolder}
                         onChangeText={text =>
                           this.setState({ searchText: text })
                         }
@@ -528,15 +532,15 @@ export class DropDown extends React.Component<
                 )}
                 {filteredItems.length > 0 ? (
                   <FlatList
-                    data={visibleItems}
-                    initialNumToRender={visibleItems.length}
+                    data={filteredItems}
+                    initialNumToRender={filteredItems.length}
                     keyExtractor={item => item.value.toString()}
                     renderItem={({ item, index }) => {
                       return (
                         <DropDownItem
                           nativeID={item.nativeID}
                           first={index === 0}
-                          last={index === visibleItems.length - 1}
+                          last={index === filteredItems.length - 1}
                           label={item.label}
                           value={item.value}
                           onPress={this.handleItemPress}
