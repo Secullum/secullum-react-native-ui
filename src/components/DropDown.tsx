@@ -18,7 +18,8 @@ import {
   Platform,
   TextStyle,
   TextInput,
-  Keyboard
+  Keyboard,
+  StatusBar
 } from 'react-native';
 
 interface DropDownItemProperties {
@@ -345,7 +346,10 @@ export class DropDown extends React.Component<
       modalOverlay: {
         justifyContent: this.shouldDisplaySearchField()
           ? 'flex-start'
-          : 'center'
+          : 'center',
+        paddingTop: this.shouldDisplaySearchField()
+          ? (Platform.OS === 'ios' ? 44 : StatusBar.currentHeight ?? 0)
+          : 0
       },
       modalContainer: {
         maxHeight: '95%',
