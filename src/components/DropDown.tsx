@@ -513,6 +513,7 @@ export class DropDown extends React.Component<
                   <View style={styles.searchContainer}>
                     <View style={styles.inputWrapper}>
                       <TextInput
+                        nativeID={nativeID + "-text-search"}
                         style={styles.searchInput}
                         value={searchText}
                         placeholder={searchable?.placeHolder}
