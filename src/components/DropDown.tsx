@@ -18,8 +18,7 @@ import {
   Platform,
   TextStyle,
   TextInput,
-  Keyboard,
-  StatusBar
+  Keyboard
 } from 'react-native';
 
 interface DropDownItemProperties {
@@ -158,7 +157,7 @@ export interface DropDownProperties {
   value: any | null;
   onChange: (value: any) => void;
   onPress?: () => void | boolean | Promise<void> | Promise<boolean>;
-  emptyMessage?: string;
+  emptyMessage: string;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   disabledStyle?: StyleProp<ViewStyle>;
@@ -185,10 +184,6 @@ export class DropDown extends React.Component<
   DropDownProperties,
   DropDownState
 > {
-  static defaultProps = {
-    emptyMessage: 'Não há registros cadastrados'
-  };
-
   state: DropDownState = {
     modalOpen: false,
     searchText: ''
@@ -347,8 +342,8 @@ export class DropDown extends React.Component<
         justifyContent: this.shouldDisplaySearchField()
           ? 'flex-start'
           : 'center',
-        paddingTop: this.shouldDisplaySearchField()
-          ? (Platform.OS === 'ios' ? 44 : StatusBar.currentHeight ?? 0)
+        paddingTop: this.shouldDisplaySearchField() && Platform.OS === 'ios'
+          ? 44
           : 0
       },
       modalContainer: {
