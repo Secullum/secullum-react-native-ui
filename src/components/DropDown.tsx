@@ -211,7 +211,7 @@ export class DropDown extends React.Component<
 
     return (
       searchable &&
-      items.length >= (searchable.minItemsToSearch ?? defaultQuantityToSearch)
+      items.length >= (searchable.minItemsToSearch || defaultQuantityToSearch)
     );
   };
 
@@ -342,9 +342,8 @@ export class DropDown extends React.Component<
         justifyContent: this.shouldDisplaySearchField()
           ? 'flex-start'
           : 'center',
-        paddingTop: this.shouldDisplaySearchField() && Platform.OS === 'ios'
-          ? 44
-          : 0
+        paddingTop:
+          this.shouldDisplaySearchField() && Platform.OS === 'ios' ? 44 : 0
       },
       modalContainer: {
         maxHeight: '95%',
@@ -513,7 +512,7 @@ export class DropDown extends React.Component<
                   <View style={styles.searchContainer}>
                     <View style={styles.inputWrapper}>
                       <TextInput
-                        nativeID={nativeID + "-text-search"}
+                        nativeID={nativeID + '-text-search'}
                         style={styles.searchInput}
                         value={searchText}
                         placeholder={searchable?.placeHolder}
