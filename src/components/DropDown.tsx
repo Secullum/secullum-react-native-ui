@@ -515,7 +515,7 @@ export class DropDown extends React.Component<
                         nativeID={nativeID + '-text-search'}
                         style={styles.searchInput}
                         value={searchText}
-                        placeholder={searchable?.placeHolder}
+                        placeholder={searchable && searchable.placeHolder}
                         onChangeText={text =>
                           this.setState({ searchText: text })
                         }
