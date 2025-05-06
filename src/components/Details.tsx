@@ -30,6 +30,7 @@ export interface DetailsLine {
 
 export interface DetailsProperties {
   title: string;
+  titleNativeId?: string;
   lines: Array<DetailsLine>;
   lineTitleStyle?: StyleProp<TextStyle>;
   lineValueStyle?: StyleProp<TextStyle>;
@@ -146,14 +147,20 @@ export class Details extends React.Component<DetailsProperties> {
   };
 
   render() {
-    const { title, lines } = this.props;
+    const { title, lines, titleNativeId } = this.props;
     const styles = this.getStyles();
 
     return (
       <>
         <Card>
           <Card.Section>
-            <Text style={styles.title}>{title}</Text>
+            <Text
+              nativeID={titleNativeId}
+              testID={getTestID(titleNativeId)}
+              style={styles.title}
+            >
+              {title}
+            </Text>
           </Card.Section>
         </Card>
         {lines.map(this.renderLine)}
