@@ -155,20 +155,31 @@ export class KeyboardAvoidingView extends React.Component<
       scrollEnabled,
       onScroll,
       children,
-      keyBoardShow
+      keyBoardShow,
+      extraWindowHeight
     } = this.props;
+
+    const { keyboardHeight } = this.state;
 
     // Android devices with notch will report less `availableHeight` than it should
     // That's because of this: https://github.com/facebook/react-native/issues/23693
     // If I change it to 'screen', Android devices with virtual buttons will report more than it should
     const availableHeight =
-      Dimensions.get('window').height -
-      this.state.keyboardHeight -
-      this.props.extraWindowHeight;
+      Dimensions.get('window').height - keyboardHeight - extraWindowHeight;
 
     return (
       <View style={[{ height: availableHeight }, !keyBoardShow && { flex: 1 }]}>
         <ScrollView
+          // On Android 15 (API 35) devices, when the keyboard appears,
+          // the ScrollView does not resize correctly and may hide focused input fields.
+          // Related issue on GitLab: 11635
+          contentContainerStyle={
+            Platform.OS === 'android' &&
+            Platform.Version === 35 &&
+            keyboardHeight > 0
+              ? { paddingBottom: keyboardHeight }
+              : undefined
+          }
           ref={this.scrollViewRef}
           // @ts-ignore: O react-native não tem auto, mas o react-native-web aceita
           refreshControl={refreshControl}
