@@ -16,9 +16,22 @@ export interface ModalProperties {
   onRequestClose?: () => void;
 }
 
-export class Modal extends React.Component<ModalProperties> {
+interface ModalState {
+  isMounted: boolean;
+}
+
+export class Modal extends React.Component<ModalProperties, ModalState> {
+  state = {
+    isMounted: false
+  };
+
+  handleShow = () => {
+    this.setState(prevState => ({ isMounted: !prevState.isMounted }));
+  };
+
   render() {
     const { children, visible, overlayStyle, onRequestClose } = this.props;
+    const { isMounted } = this.state;
 
     return (
       <ReactNativeModal
@@ -27,9 +40,19 @@ export class Modal extends React.Component<ModalProperties> {
         visible={visible}
         supportedOrientations={['landscape', 'portrait']}
         onRequestClose={onRequestClose}
+        onShow={this.handleShow}
       >
         <TouchableWithoutFeedback onPress={onRequestClose}>
-          <View style={[styles.overlay, overlayStyle]}>{children}</View>
+          <View style={[styles.overlay, overlayStyle]}>
+            {/*
+              This is a workaround for the issue reported in https://github.com/facebook/react-native/issues/50442
+              the bug causes the modal's children to be rendered in the top-left corner. Until a fix for this issue is released,
+              we insert an empty View to force React Native to recalculate the layout.
+              TODO: Remove this workaround once the bug is fixed.
+              Related issue on GitLab: 11635
+            */}
+            {isMounted ? children : <View />}
+          </View>
         </TouchableWithoutFeedback>
       </ReactNativeModal>
     );
