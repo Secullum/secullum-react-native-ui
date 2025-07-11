@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { BackHandler, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  BackHandler,
+  NativeEventSubscription,
+  ScrollView,
+  StyleSheet,
+  View
+} from 'react-native';
 import DrawerLayout from 'react-native-drawer-layout';
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
@@ -24,14 +30,20 @@ export class MenuMobile extends React.Component<
     opened: false
   };
 
+  backButtonHandlerSubscription: NativeEventSubscription | null = null;
   drawer: DrawerLayout | null = null;
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this.backButtonHandlerSubscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.handleBackButton
+    );
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    if (this.backButtonHandlerSubscription) {
+      this.backButtonHandlerSubscription.remove();
+    }
   }
 
   handleBackButton = () => {
@@ -123,7 +135,13 @@ export class MenuMobile extends React.Component<
         drawerPosition={DrawerLayout.positions.Left}
         renderNavigationView={this.renderNavigationView}
         onDrawerOpen={() => this.setState({ opened: true })}
-        onDrawerClose={() => this.setState({ opened: false })}
+        // When closing the app, we encountered the error 'useInsertionEffect must not schedule updates',
+        // because we were trying to update the state during the component render cycle. To avoid this,
+        // a setTimeout was introduced with a small delay (enough time to complete the render) before executing other functions.
+        // Related issue on GitLab: 11635
+        onDrawerClose={() =>
+          setTimeout(() => this.setState({ opened: false }), 1)
+        }
       >
         {this.props.children}
       </DrawerLayout>

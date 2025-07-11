@@ -173,9 +173,11 @@ export class RangeDatePicker extends React.Component<
           testID={getTestID(nativeID)}
           style={[styles.container, style]}
         >
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={styles.label}>{label}</Text>
-            <Text style={styles.value}>{displayText}</Text>
+            <Text numberOfLines={1} style={styles.value}>
+              {displayText}
+            </Text>
           </View>
 
           <FontAwesome name="calendar" style={styles.icon} />
