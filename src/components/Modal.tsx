@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {
+  Platform,
   Modal as ReactNativeModal,
   StyleProp,
   StyleSheet,
@@ -57,7 +58,7 @@ export class Modal extends React.Component<ModalProperties> {
               TODO: Remove this workaround once the bug is fixed.
               Related issue on GitLab: 11635
             */}
-            {isMounted ? children : <View />}
+            {Platform.OS !== 'android' || isMounted ? children : <View />}
           </View>
         </TouchableWithoutFeedback>
       </ReactNativeModal>
