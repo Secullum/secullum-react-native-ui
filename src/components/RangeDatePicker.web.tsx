@@ -34,6 +34,65 @@ export interface RangeDatePickerState {
   count: number;
 }
 
+interface PureDateRangeProperties {
+  startDate: Date;
+  endDate: Date;
+  onChange: (ranges: SelectedRanges) => void;
+}
+
+function compareDates(date1: Date, date2: Date) {
+  if (date1 instanceof Date && date2 instanceof Date) {
+    return date1.getTime() === date2.getTime();
+  }
+
+  return date1 === date2;
+}
+
+class PureDateRange extends React.Component<{
+  startDate: Date;
+  endDate: Date;
+  onChange: (ranges: SelectedRanges) => void;
+}> {
+  // Without this check, every time the parent re-renders it would
+  // recreate the DateRange with the initial startDate value,
+  // even if the date hasn't actually changed.
+  // This causes the calendar to reset and the user loses the current
+  // selection while interacting.
+  // Related issue on GitLab 12293
+  shouldComponentUpdate(nextProps: PureDateRangeProperties) {
+    if (nextProps.onChange !== this.props.onChange) {
+      return true;
+    }
+
+    return (
+      !compareDates(nextProps.startDate, this.props.startDate) ||
+      !compareDates(nextProps.endDate, this.props.endDate)
+    );
+  }
+
+  render() {
+    const { startDate, endDate, onChange } = this.props;
+    const theme = getTheme();
+
+    return (
+      <DateRange
+        locale={getDateFnsLocale()}
+        showDateDisplay={false}
+        ranges={[
+          {
+            startDate,
+            endDate,
+            key: 'selection'
+          }
+        ]}
+        rangeColors={[theme.backgroundColor3]}
+        onChange={onChange}
+        weekdayDisplayFormat={getLocale() === 'pt' ? 'EEEEEE' : 'E'}
+      />
+    );
+  }
+}
+
 export class RangeDatePicker extends React.Component<
   RangeDatePickerProperties,
   RangeDatePickerState
@@ -45,7 +104,7 @@ export class RangeDatePicker extends React.Component<
 
   private calendarRef = React.createRef<HTMLDivElement>();
 
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener('mousedown', this.handleClick, false);
   }
 
@@ -160,19 +219,10 @@ export class RangeDatePicker extends React.Component<
                 fontFamily: theme.fontFamily1
               }}
             >
-              <DateRange
-                locale={getDateFnsLocale()}
-                showDateDisplay={false}
-                ranges={[
-                  {
-                    startDate: startDate,
-                    endDate: endDate,
-                    key: 'selection'
-                  }
-                ]}
-                rangeColors={[theme.backgroundColor3]}
+              <PureDateRange
+                startDate={startDate}
+                endDate={endDate}
                 onChange={this.handleRangeDateConfirm}
-                weekdayDisplayFormat={getLocale() === 'pt' ? 'EEEEEE' : 'E'}
               />
             </div>
           </Modal>
