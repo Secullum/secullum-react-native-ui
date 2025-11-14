@@ -134,10 +134,16 @@ export class TextBox extends React.Component<TextBoxProperties> {
       inputRef,
       renderInput,
       icon,
-      onPress
+      onPress,
+      autoCapitalize,
+      secureTextEntry
     } = this.props;
 
     const styles = this.getStyles();
+
+    // Força primeira letra minúscula em campos de senha, a menos que autoCapitalize seja definido explicitamente.
+    const capitalize =
+      secureTextEntry && !autoCapitalize ? 'none' : autoCapitalize;
 
     const incomingProps: TextBoxInputProps = {
       nativeID: this.props.nativeID,
@@ -158,13 +164,13 @@ export class TextBox extends React.Component<TextBoxProperties> {
       // We set a fixed color for the placeholder to prevent it from being affected by the device's theme.
       // Related issue on GitLab: 12074
       placeholderTextColor: getTheme().textColor3,
-      secureTextEntry: this.props.secureTextEntry,
+      secureTextEntry: secureTextEntry,
       multiline: this.props.multiline,
       editable: this.props.editable,
       keyboardType: this.props.keyboardType,
       maxLength: this.props.maxLength,
       onSubmitEditing: this.props.onSubmitEditing,
-      autoCapitalize: this.props.autoCapitalize,
+      autoCapitalize: capitalize,
       autoCorrect: this.props.autoCorrect,
       returnKeyType:
         Platform.OS === 'ios' &&
