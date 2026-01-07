@@ -66,7 +66,7 @@ export class Message extends React.Component<MessageProperties> {
         visible={visible}
         onRequestClose={onRequestClose}
         overlayStyle={styles.overlay}
-        animation={animation ?? 'fade'}
+        animation={animation || 'fade'}
       >
         <View nativeID={nativeID} style={styles.container}>
           <FontAwesome

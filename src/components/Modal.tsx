@@ -49,7 +49,7 @@ export class Modal extends React.Component<ModalProperties> {
 
     return (
       <ReactNativeModal
-        animationType={animation ?? 'fade'}
+        animationType={animation || 'fade'}
         transparent
         visible={visible}
         supportedOrientations={['landscape', 'portrait']}

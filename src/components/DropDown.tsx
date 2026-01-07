@@ -617,7 +617,7 @@ export class DropDown extends React.Component<
             visible={modalOpen}
             onRequestClose={() => this.setState({ modalOpen: false })}
             overlayStyle={styles.modalOverlay}
-            animation={animation ?? 'fade'}
+            animation={animation || 'fade'}
           >
             {/*
                 Usamos o KeyboardAvoidingView para evitar que o modal fique atrás do teclado 
