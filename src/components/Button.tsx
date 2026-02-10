@@ -8,7 +8,8 @@ import {
   Text,
   TouchableOpacity,
   ViewStyle,
-  TextStyle
+  TextStyle,
+  ActivityIndicator
 } from 'react-native';
 import { isTablet } from '../modules/layout';
 
@@ -22,6 +23,7 @@ export interface ButtonProperties {
   disabledBackgroundColor?: string;
   disabledLabelColor?: string;
   nativeID?: string;
+  loading?: boolean;
 }
 
 export class Button extends React.Component<ButtonProperties> {
@@ -35,6 +37,7 @@ export class Button extends React.Component<ButtonProperties> {
 
     const styles = StyleSheet.create({
       touchable: {
+        flexDirection: 'row',
         backgroundColor: theme.backgroundColor1,
         borderColor: theme.borderColor1,
         borderWidth: 1,
@@ -78,10 +81,12 @@ export class Button extends React.Component<ButtonProperties> {
       textStyle,
       onPress,
       disabled,
-      nativeID
+      nativeID,
+      loading
     } = this.props;
 
     const styles = this.getStyles();
+    const theme = getTheme();
 
     return (
       <TouchableOpacity
@@ -96,6 +101,7 @@ export class Button extends React.Component<ButtonProperties> {
         disabled={disabled}
         testID={getTestID(nativeID)}
       >
+        {loading && <ActivityIndicator color={theme.borderColor1} />}
         <Text
           nativeID={nativeID}
           style={[
