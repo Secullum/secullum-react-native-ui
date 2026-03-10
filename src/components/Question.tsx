@@ -12,7 +12,8 @@ import {
   Text,
   TextStyle,
   View,
-  ViewStyle
+  ViewStyle,
+  Platform
 } from 'react-native';
 import { getTestID } from '../modules/test';
 
@@ -98,7 +99,11 @@ export class Question extends React.Component<QuestionProperties> {
         : [cancelButton, okButton];
 
     return (
-      <ReactNativeModal animationType="fade" transparent visible={visible}>
+      <ReactNativeModal
+        animationType={Platform.OS === 'ios' ? 'none' : 'fade'}
+        transparent
+        visible={visible}
+      >
         <View style={[styles.overlay]} nativeID={nativeID}>
           <View style={styles.container}>
             <FontAwesome name={'question-circle'} style={styles.icon} />
