@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native';
 import { getTheme } from '../modules/theme';
 import { Menu, MenuProperties } from './Menu';
 
@@ -18,9 +18,12 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
 
     const styles = StyleSheet.create({
       container: {
+        width: 250,
+        flexShrink: 0
+      },
+      scroll: {
         backgroundColor: theme.backgroundColor1,
         height: Dimensions.get('window').height - this.props.headerHeight,
-        width: 250,
         paddingHorizontal: 15,
         paddingVertical: 15,
         shadowOpacity: 0.31,
@@ -38,12 +41,14 @@ export class MenuDesktop extends React.Component<MenuDesktopProperties> {
 
     return (
       <View style={styles.container}>
-        {renderUserData ? <View>{renderUserData()}</View> : null}
-        <Menu
-          menu={menu}
-          isCurrentMenuPath={isCurrentMenuPath}
-          onMenuPress={onMenuPress}
-        />
+        <ScrollView style={styles.scroll}>
+          {renderUserData ? <View>{renderUserData()}</View> : null}
+          <Menu
+            menu={menu}
+            isCurrentMenuPath={isCurrentMenuPath}
+            onMenuPress={onMenuPress}
+          />
+        </ScrollView>
       </View>
     );
   }
