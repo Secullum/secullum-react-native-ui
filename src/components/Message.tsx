@@ -13,7 +13,6 @@ export interface MessageProperties {
   onRequestClose?: () => void;
   nativeID?: string;
   textStyle?: StyleProp<TextStyle>;
-  animation?: 'none' | 'fade' | 'slide';
 }
 
 export class Message extends React.Component<MessageProperties> {
@@ -54,8 +53,7 @@ export class Message extends React.Component<MessageProperties> {
       type,
       onRequestClose,
       nativeID,
-      textStyle,
-      animation
+      textStyle
     } = this.props;
 
     const styles = this.getStyles();
@@ -66,7 +64,6 @@ export class Message extends React.Component<MessageProperties> {
         visible={visible}
         onRequestClose={onRequestClose}
         overlayStyle={styles.overlay}
-        animation={animation || 'fade'}
       >
         <View nativeID={nativeID} style={styles.container}>
           <FontAwesome
