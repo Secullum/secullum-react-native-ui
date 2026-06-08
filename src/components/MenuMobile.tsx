@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   BackHandler,
   NativeEventSubscription,
+  Platform,
   ScrollView,
   StyleSheet,
   View
@@ -34,6 +35,10 @@ export class MenuMobile extends React.Component<
   drawer: DrawerLayout | null = null;
 
   componentDidMount() {
+    if (Platform.OS === 'web') {
+      return;
+    }
+
     this.backButtonHandlerSubscription = BackHandler.addEventListener(
       'hardwareBackPress',
       this.handleBackButton
