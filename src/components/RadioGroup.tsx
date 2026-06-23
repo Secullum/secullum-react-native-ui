@@ -38,7 +38,7 @@ export class RadioGroup extends React.Component<RadioGroupProperties> {
         color: theme.textColor3
       },
       selectedItem: {
-        backgroundColor: theme.backgroundColor3
+        backgroundColor: theme.radioSelectedBackgroundColor
       },
       selectedItemText: {
         color: theme.textColor4

@@ -24,6 +24,8 @@ export interface Theme {
   counterTextColor: string;
   dropDownTextColor: string;
   questionTextColor: string;
+  menuSelectedTextColor: string;
+  radioSelectedBackgroundColor: string;
   datePickerColor: string;
   backgroundColor1: string;
   backgroundColor2: string;
@@ -50,6 +52,8 @@ let theme: Theme = {
   counterTextColor: WHITE,
   dropDownTextColor: BLACK,
   questionTextColor: BLACK,
+  menuSelectedTextColor: BLUE_LIGHT,
+  radioSelectedBackgroundColor: BLUE_LIGHT,
   datePickerColor: BLUE_LIGHT_2,
   backgroundColor1: WHITE,
   backgroundColor2: GRAY_1,

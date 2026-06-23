@@ -51,7 +51,7 @@ export function MenuItem(props: MenuItemProperties) {
       color: theme.borderColor1
     },
     textSelected: {
-      color: theme.textColor2
+      color: theme.menuSelectedTextColor
     },
     subText: {
       fontSize: 12,
