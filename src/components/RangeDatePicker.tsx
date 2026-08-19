@@ -32,6 +32,7 @@ export interface RangeDatePickerProperties {
 export interface RangeDatePickerState {
   showStartDateModal: boolean;
   showEndDateModal: boolean;
+  renderEndModal: boolean;
   isDarkModeEnabled: boolean;
 }
 
@@ -42,6 +43,7 @@ export class RangeDatePicker extends React.Component<
   state: RangeDatePickerState = {
     showStartDateModal: false,
     showEndDateModal: false,
+    renderEndModal: false,
     isDarkModeEnabled: Appearance.getColorScheme() === 'dark'
   };
 
@@ -69,7 +71,8 @@ export class RangeDatePicker extends React.Component<
     this.setState(
       {
         showStartDateModal: false,
-        showEndDateModal: true
+        showEndDateModal: true,
+        renderEndModal: true
       },
       () => {
         // When using RangeDatePicker on Android devices the end date modal were not being displayed, in order to avoid it,
@@ -88,7 +91,8 @@ export class RangeDatePicker extends React.Component<
   handleStartDateCancel = () => {
     this.setState({
       showStartDateModal: false,
-      showEndDateModal: true
+      showEndDateModal: true,
+      renderEndModal: true
     });
   };
 
@@ -110,6 +114,17 @@ export class RangeDatePicker extends React.Component<
 
     this.setState({
       showEndDateModal: false
+    });
+  };
+
+  // sec-issues#14524: confirmar a data desmontava o picker na hora, com o Modal
+  // nativo ainda visível, pulando a animação de saída. Isso deixava um view
+  // controller órfão que o iOS reexibia por um frame na navegação seguinte (a
+  // piscada ao enviar). Agora o showEndDateModal só controla o isVisible (o modal
+  // fecha com a animação) e o picker só é desmontado aqui, no onHide, após o dismiss.
+  handleEndModalHide = () => {
+    this.setState({
+      renderEndModal: false
     });
   };
 
@@ -154,6 +169,7 @@ export class RangeDatePicker extends React.Component<
     const {
       showStartDateModal,
       showEndDateModal,
+      renderEndModal,
       isDarkModeEnabled
     } = this.state;
 
@@ -193,13 +209,14 @@ export class RangeDatePicker extends React.Component<
                 //@ts-ignore
                 display={Platform.OS == 'ios' ? 'inline' : 'default'}
               />
-            ) : showEndDateModal ? (
+            ) : renderEndModal ? (
               <Delay wait={5}>
                 <DateTimePickerModal
                   date={endDate}
-                  isVisible={true}
+                  isVisible={showEndDateModal}
                   onConfirm={this.handleEndDateConfirm}
                   onCancel={this.handleEndDateCancel}
+                  onHide={this.handleEndModalHide}
                   isDarkModeEnabled={isDarkModeEnabled}
                   //@ts-ignore
                   display={Platform.OS == 'ios' ? 'inline' : 'default'}
