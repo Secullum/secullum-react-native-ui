@@ -161,6 +161,11 @@ export class TimePicker extends React.Component<
             {!disabled && (
               <ImageButton
                 icon={value && clearable ? 'times' : 'clock-o'}
+                nativeID={
+                  nativeID
+                    ? `${nativeID}-${value && clearable ? 'clear' : 'clock'}`
+                    : undefined
+                }
                 style={styles.clearIcon}
                 iconColor={
                   value && clearable ? theme.textColor1 : theme.textColor2
