@@ -16,6 +16,7 @@ import {
   View,
   ViewStyle,
   Platform,
+  StatusBar,
   TextStyle,
   TextInput,
   Keyboard,
@@ -312,6 +313,14 @@ export class DropDown extends React.Component<
     const theme = getTheme();
     const { icon, arrowColor } = this.props;
 
+    // sec-issues#14632: No Android 15 (API 35) o modo edge-to-edge é obrigatório 
+    // e o app passa a desenhar atrás das barras do sistema. Sem descontar essa área,
+    // a lista do dropdown cobre a barra de status quando é grande o suficiente para atingir o maxHeight.
+    const alturaBarraStatus =
+      Platform.OS === 'android' && Number(Platform.Version) >= 35
+        ? StatusBar.currentHeight ?? 0
+        : 0;
+
     const styles = StyleSheet.create({
       container: {
         paddingHorizontal: 16,
@@ -367,7 +376,10 @@ export class DropDown extends React.Component<
           ? 'flex-start'
           : 'center',
         paddingTop:
-          this.shouldDisplaySearchField() && Platform.OS === 'ios' ? 44 : 0
+          this.shouldDisplaySearchField() && Platform.OS === 'ios'
+            ? 44
+            : alturaBarraStatus,
+        paddingBottom: alturaBarraStatus
       },
       modalContainer: {
         maxHeight: '95%',
