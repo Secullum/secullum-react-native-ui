@@ -313,7 +313,7 @@ export class DropDown extends React.Component<
     const theme = getTheme();
     const { icon, arrowColor } = this.props;
 
-    // sec-issues#14632: No Android 15 (API 35) o modo edge-to-edge é obrigatório 
+    // sec-issues#14632: No Android 15 (API 35) o modo edge-to-edge é obrigatório
     // e o app passa a desenhar atrás das barras do sistema. Sem descontar essa área,
     // a lista do dropdown cobre a barra de status quando é grande o suficiente para atingir o maxHeight.
     const alturaBarraStatus =
