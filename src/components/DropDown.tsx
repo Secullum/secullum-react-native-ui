@@ -2,7 +2,7 @@ import * as React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { IconProps } from 'react-native-vector-icons/Icon';
 import { Modal } from './Modal';
-import { isTablet } from '../modules/layout';
+import { isEdgeToEdge, isTablet } from '../modules/layout';
 import { getTheme } from '../modules/theme';
 import { getTestID } from '../modules/test';
 
@@ -16,7 +16,6 @@ import {
   View,
   ViewStyle,
   Platform,
-  StatusBar,
   TextStyle,
   TextInput,
   Keyboard,
@@ -24,6 +23,8 @@ import {
   ListRenderItemInfo,
   KeyboardAvoidingView
 } from 'react-native';
+
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 type DropDownItemData = {
   label: string;
@@ -209,6 +210,12 @@ export class DropDown extends React.Component<
   DropDownProperties,
   DropDownState
 > {
+  // sec-issues#14678: o maxHeight do modalContainer é percentual, então a reserva das
+  // barras do sistema precisa estar neste mesmo overlay para que o percentual já a
+  // desconte. Por isso os insets são lidos aqui, e não só no Modal.
+  static contextType = SafeAreaInsetsContext;
+  declare context: React.ContextType<typeof SafeAreaInsetsContext>;
+
   state: DropDownState = {
     modalOpen: false,
     searchText: ''
@@ -313,13 +320,18 @@ export class DropDown extends React.Component<
     const theme = getTheme();
     const { icon, arrowColor } = this.props;
 
-    // sec-issues#14632: No Android 15 (API 35) o modo edge-to-edge é obrigatório
-    // e o app passa a desenhar atrás das barras do sistema. Sem descontar essa área,
-    // a lista do dropdown cobre a barra de status quando é grande o suficiente para atingir o maxHeight.
-    const alturaBarraStatus =
-      Platform.OS === 'android' && Number(Platform.Version) >= 35
-        ? StatusBar.currentHeight ?? 0
-        : 0;
+    // sec-issues#14632: No Android 15 (API 35) o modo edge-to-edge é obrigatório e o
+    // app passa a desenhar atrás das barras do sistema. Sem descontar essa área aqui,
+    // a lista cobre as barras quando é grande o suficiente para atingir o maxHeight.
+    // Os quatro lados porque em paisagem a barra de navegação vai para a lateral.
+    const insets = isEdgeToEdge() ? this.context : null;
+
+    const areaSegura = {
+      top: insets?.top ?? 0,
+      bottom: insets?.bottom ?? 0,
+      left: insets?.left ?? 0,
+      right: insets?.right ?? 0
+    };
 
     const styles = StyleSheet.create({
       container: {
@@ -378,8 +390,10 @@ export class DropDown extends React.Component<
         paddingTop:
           this.shouldDisplaySearchField() && Platform.OS === 'ios'
             ? 44
-            : alturaBarraStatus,
-        paddingBottom: alturaBarraStatus
+            : areaSegura.top,
+        paddingBottom: areaSegura.bottom,
+        paddingLeft: areaSegura.left,
+        paddingRight: areaSegura.right
       },
       modalContainer: {
         maxHeight: '95%',
