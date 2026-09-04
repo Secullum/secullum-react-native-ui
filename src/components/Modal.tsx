@@ -23,7 +23,7 @@ interface ModalState {
   isMounted: boolean;
 }
 
-type ChavePadding =
+type PaddingKey =
   | 'padding'
   | 'paddingVertical'
   | 'paddingHorizontal'
@@ -34,10 +34,11 @@ type ChavePadding =
   | 'paddingStart'
   | 'paddingEnd';
 
-// Da mais específica para a mais genérica, na ordem em que o Yoga resolve cada lado.
-const origensPadding: Record<
+// From the most specific to the most generic, in the order Yoga resolves each edge.
+// paddingStart/End map to left/right in LTR, which is the only case we support.
+const paddingSources: Record<
   'top' | 'bottom' | 'left' | 'right',
-  ChavePadding[]
+  PaddingKey[]
 > = {
   top: ['paddingTop', 'paddingVertical', 'padding'],
   bottom: ['paddingBottom', 'paddingVertical', 'padding'],
@@ -45,20 +46,21 @@ const origensPadding: Record<
   right: ['paddingEnd', 'paddingRight', 'paddingHorizontal', 'padding']
 };
 
-const resolverPadding = (
-  estilo: ViewStyle,
-  lado: keyof typeof origensPadding
+const resolvePadding = (
+  style: ViewStyle,
+  edge: keyof typeof paddingSources
 ) => {
-  for (const chave of origensPadding[lado]) {
-    const valor = estilo[chave];
+  for (const key of paddingSources[edge]) {
+    const value = style[key];
 
-    if (typeof valor === 'number') {
-      return valor;
+    if (typeof value === 'number') {
+      return value;
     }
 
-    // Porcentagem e 'auto' não somam com o inset em dp. Vence a reserva, que é o
-    // que não pode faltar; quem precisar dos dois declara o padding no container.
-    if (valor != null) {
+    // Percentages and 'auto' can't be added to an inset in dp. The safe area wins,
+    // since it's the one that can't be missing. If both are needed, declare the
+    // padding on the container instead.
+    if (value != null) {
       return 0;
     }
   }
@@ -96,35 +98,38 @@ export class Modal extends React.Component<ModalProperties> {
       >
         <SafeAreaInsetsContext.Consumer>
           {insets => {
-            const estiloOverlay = StyleSheet.flatten([
+            const flattenedOverlayStyle = StyleSheet.flatten([
               styles.overlay,
               overlayStyle
             ]);
 
-            // sec-issues#14678: No edge-to-edge a janela do modal é a tela inteira,
-            // incluindo as áreas das barras do sistema, e o React Native deixa de
-            // aplicar o fitsSystemWindows nessa janela. A reserva soma ao padding que o
-            // consumidor já declarou e é aplicada por último, para que nenhum
-            // overlayStyle a desligue sem querer. Os quatro lados são reservados porque
-            // em paisagem a barra de navegação vai para a lateral, e o inset deixa de
-            // vir em bottom para vir em left ou right.
-            const areaSegura =
+            // sec-issues#14678: On edge-to-edge the modal window is the whole screen,
+            // including the system bar areas, and React Native no longer applies
+            // fitsSystemWindows to that window. The safe area is added to the padding
+            // of the consumer that already declared it and is applied last, so that
+            // no overlayStyle accidentally overrides it. On Android, when the navigation
+            // bar moves to the side, the inset comes in from the left or right instead
+            // of from the bottom.
+            const safeAreaStyle =
               isEdgeToEdge() && insets
                 ? {
                     paddingTop:
-                      resolverPadding(estiloOverlay, 'top') + insets.top,
+                      resolvePadding(flattenedOverlayStyle, 'top') + insets.top,
                     paddingBottom:
-                      resolverPadding(estiloOverlay, 'bottom') + insets.bottom,
+                      resolvePadding(flattenedOverlayStyle, 'bottom') +
+                      insets.bottom,
                     paddingLeft:
-                      resolverPadding(estiloOverlay, 'left') + insets.left,
+                      resolvePadding(flattenedOverlayStyle, 'left') +
+                      insets.left,
                     paddingRight:
-                      resolverPadding(estiloOverlay, 'right') + insets.right
+                      resolvePadding(flattenedOverlayStyle, 'right') +
+                      insets.right
                   }
                 : null;
 
             return (
               <TouchableWithoutFeedback onPress={onRequestClose}>
-                <View style={[estiloOverlay, areaSegura]}>
+                <View style={[flattenedOverlayStyle, safeAreaStyle]}>
                   {/*
                     This is a workaround for the issue reported in https://github.com/facebook/react-native/issues/50442
                     the bug causes the modal's children to be rendered in the top-left corner. Until a fix for this issue is released,

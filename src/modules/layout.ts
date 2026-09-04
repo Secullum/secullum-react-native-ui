@@ -12,11 +12,11 @@ export const isTablet = () => {
 };
 
 /**
- * Indica se a janela do app desenha atrás das barras do sistema (edge-to-edge).
- * A partir do Android 15 (API 35) o modo é imposto e o conteúdo precisa reservar
- * por conta própria as áreas das barras de status e de navegação.
+ * Whether the app window draws behind the system bars (edge-to-edge).
+ * Starting on Android 15 (API 35) this mode is enforced, and the content has to
+ * reserve the status and navigation bar areas on its own.
  *
- * @see {@link https://developer.android.com/develop/ui/views/layout/edge-to-edge|Documentação oficial do Android}
+ * @see {@link https://developer.android.com/develop/ui/views/layout/edge-to-edge|Android documentation}
  */
 export const isEdgeToEdge = () => {
   return Platform.OS === 'android' && Number(Platform.Version) >= 35;
