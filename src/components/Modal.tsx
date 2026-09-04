@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
+import { isEdgeToEdge } from '../modules/layout';
 
 import {
   Platform,
@@ -10,10 +12,6 @@ import {
   ViewStyle
 } from 'react-native';
 
-import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
-
-import { isEdgeToEdge } from '../modules/layout';
-
 export interface ModalProperties {
   children: React.ReactNode;
   visible: boolean;
@@ -24,6 +22,49 @@ export interface ModalProperties {
 interface ModalState {
   isMounted: boolean;
 }
+
+type ChavePadding =
+  | 'padding'
+  | 'paddingVertical'
+  | 'paddingHorizontal'
+  | 'paddingTop'
+  | 'paddingBottom'
+  | 'paddingLeft'
+  | 'paddingRight'
+  | 'paddingStart'
+  | 'paddingEnd';
+
+// Da mais específica para a mais genérica, na ordem em que o Yoga resolve cada lado.
+const origensPadding: Record<
+  'top' | 'bottom' | 'left' | 'right',
+  ChavePadding[]
+> = {
+  top: ['paddingTop', 'paddingVertical', 'padding'],
+  bottom: ['paddingBottom', 'paddingVertical', 'padding'],
+  left: ['paddingStart', 'paddingLeft', 'paddingHorizontal', 'padding'],
+  right: ['paddingEnd', 'paddingRight', 'paddingHorizontal', 'padding']
+};
+
+const resolverPadding = (
+  estilo: ViewStyle,
+  lado: keyof typeof origensPadding
+) => {
+  for (const chave of origensPadding[lado]) {
+    const valor = estilo[chave];
+
+    if (typeof valor === 'number') {
+      return valor;
+    }
+
+    // Porcentagem e 'auto' não somam com o inset em dp. Vence a reserva, que é o
+    // que não pode faltar; quem precisar dos dois declara o padding no container.
+    if (valor != null) {
+      return 0;
+    }
+  }
+
+  return 0;
+};
 
 export class Modal extends React.Component<ModalProperties> {
   state: ModalState = {
@@ -55,24 +96,35 @@ export class Modal extends React.Component<ModalProperties> {
       >
         <SafeAreaInsetsContext.Consumer>
           {insets => {
+            const estiloOverlay = StyleSheet.flatten([
+              styles.overlay,
+              overlayStyle
+            ]);
+
             // sec-issues#14678: No edge-to-edge a janela do modal é a tela inteira,
             // incluindo as áreas das barras do sistema, e o React Native deixa de
-            // aplicar o fitsSystemWindows nessa janela. Sem reservar essas áreas aqui,
-            // o conteúdo de qualquer modal desenha por baixo das barras.
-            // Os quatro lados porque em paisagem a barra de navegação vai para a lateral.
-            const safeAreaStyle =
+            // aplicar o fitsSystemWindows nessa janela. A reserva soma ao padding que o
+            // consumidor já declarou e é aplicada por último, para que nenhum
+            // overlayStyle a desligue sem querer. Os quatro lados são reservados porque
+            // em paisagem a barra de navegação vai para a lateral, e o inset deixa de
+            // vir em bottom para vir em left ou right.
+            const areaSegura =
               isEdgeToEdge() && insets
                 ? {
-                    paddingTop: insets.top,
-                    paddingBottom: insets.bottom,
-                    paddingLeft: insets.left,
-                    paddingRight: insets.right
+                    paddingTop:
+                      resolverPadding(estiloOverlay, 'top') + insets.top,
+                    paddingBottom:
+                      resolverPadding(estiloOverlay, 'bottom') + insets.bottom,
+                    paddingLeft:
+                      resolverPadding(estiloOverlay, 'left') + insets.left,
+                    paddingRight:
+                      resolverPadding(estiloOverlay, 'right') + insets.right
                   }
                 : null;
 
             return (
               <TouchableWithoutFeedback onPress={onRequestClose}>
-                <View style={[styles.overlay, safeAreaStyle, overlayStyle]}>
+                <View style={[estiloOverlay, areaSegura]}>
                   {/*
                     This is a workaround for the issue reported in https://github.com/facebook/react-native/issues/50442
                     the bug causes the modal's children to be rendered in the top-left corner. Until a fix for this issue is released,
