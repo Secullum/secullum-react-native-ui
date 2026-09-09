@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
-import { isEdgeToEdge } from '../modules/layout';
 
 import {
   Platform,
@@ -103,29 +102,25 @@ export class Modal extends React.Component<ModalProperties> {
               overlayStyle
             ]);
 
-            // sec-issues#14678: On edge-to-edge the modal window is the whole screen,
-            // including the system bar areas, and React Native no longer applies
-            // fitsSystemWindows to that window. The safe area is added to the padding
-            // of the consumer that already declared it and is applied last, so that
-            // no overlayStyle accidentally overrides it. On Android, when the navigation
-            // bar moves to the side, the inset comes in from the left or right instead
-            // of from the bottom.
-            const safeAreaStyle =
-              isEdgeToEdge() && insets
-                ? {
-                    paddingTop:
-                      resolvePadding(flattenedOverlayStyle, 'top') + insets.top,
-                    paddingBottom:
-                      resolvePadding(flattenedOverlayStyle, 'bottom') +
-                      insets.bottom,
-                    paddingLeft:
-                      resolvePadding(flattenedOverlayStyle, 'left') +
-                      insets.left,
-                    paddingRight:
-                      resolvePadding(flattenedOverlayStyle, 'right') +
-                      insets.right
-                  }
-                : null;
+            // sec-issues#14678, sec-issues#14736: the modal window covers the
+            // system bar areas, so the content has to account for them itself.
+            // There is intentionally no platform-specific condition here because
+            // the insets are the overlap between the provider view and the system
+            // bars, so they already come in as zero when the window does not cover them.
+            const safeAreaStyle = insets
+              ? {
+                  paddingTop:
+                    resolvePadding(flattenedOverlayStyle, 'top') + insets.top,
+                  paddingBottom:
+                    resolvePadding(flattenedOverlayStyle, 'bottom') +
+                    insets.bottom,
+                  paddingLeft:
+                    resolvePadding(flattenedOverlayStyle, 'left') + insets.left,
+                  paddingRight:
+                    resolvePadding(flattenedOverlayStyle, 'right') +
+                    insets.right
+                }
+              : null;
 
             return (
               <TouchableWithoutFeedback onPress={onRequestClose}>
