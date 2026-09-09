@@ -365,9 +365,7 @@ export class DropDown extends React.Component<
       modalOverlay: {
         justifyContent: this.shouldDisplaySearchField()
           ? 'flex-start'
-          : 'center',
-        paddingTop:
-          this.shouldDisplaySearchField() && Platform.OS === 'ios' ? 44 : 0
+          : 'center'
       },
       modalContainer: {
         maxHeight: '95%',
