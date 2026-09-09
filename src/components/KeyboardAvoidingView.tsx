@@ -15,6 +15,8 @@ import {
   View
 } from 'react-native';
 
+import { isEdgeToEdge } from '../modules/layout';
+
 export interface KeyboardAvoidingViewProperties {
   extraFieldHeight: number; // To add some extra space after scrolling to the field
   extraWindowHeight: number; // To inform if there's some extra space outside the keyboard avoiding view, example: status bar, header, etc...
@@ -170,13 +172,12 @@ export class KeyboardAvoidingView extends React.Component<
     return (
       <View style={[{ height: availableHeight }, !keyBoardShow && { flex: 1 }]}>
         <ScrollView
-          // On Android 15 (API 35) devices, when the keyboard appears,
-          // the ScrollView does not resize correctly and may hide focused input fields.
-          // Related issue on GitLab: 11635
+          // On Android 15+ (API 35+), with edge-to-edge enforced, the window is not
+          // resized when the keyboard appears, so the ScrollView does not gain any
+          // scroll room and may hide focused input fields.
+          // Related issues on GitLab: 11635, 14734
           contentContainerStyle={
-            Platform.OS === 'android' &&
-            Platform.Version === 35 &&
-            keyboardHeight > 0
+            isEdgeToEdge() && keyboardHeight > 0
               ? { paddingBottom: keyboardHeight }
               : undefined
           }
