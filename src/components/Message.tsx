@@ -13,6 +13,7 @@ export interface MessageProperties {
   onRequestClose?: () => void;
   nativeID?: string;
   textStyle?: StyleProp<TextStyle>;
+  children?: React.ReactNode;
 }
 
 export class Message extends React.Component<MessageProperties> {
@@ -53,7 +54,8 @@ export class Message extends React.Component<MessageProperties> {
       type,
       onRequestClose,
       nativeID,
-      textStyle
+      textStyle,
+      children
     } = this.props;
 
     const styles = this.getStyles();
@@ -75,6 +77,7 @@ export class Message extends React.Component<MessageProperties> {
             {message}
           </Text>
         </View>
+        {children}
       </Modal>
     );
   }
