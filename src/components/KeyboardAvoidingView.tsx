@@ -23,6 +23,7 @@ export interface KeyboardAvoidingViewProperties {
   refreshControl?: React.ReactElement<RefreshControlProps> | undefined;
   children: (options: { availableHeight: number }) => JSX.Element;
   scrollEnabled?: boolean;
+  keyboardShouldPersistTaps?: 'always' | 'never' | 'handled';
   onScroll?: (event: NativeScrollEvent) => void;
   keyBoardShow?: boolean;
 }
@@ -155,6 +156,7 @@ export class KeyboardAvoidingView extends React.Component<
     const {
       refreshControl,
       scrollEnabled,
+      keyboardShouldPersistTaps,
       onScroll,
       children,
       keyBoardShow,
@@ -185,6 +187,7 @@ export class KeyboardAvoidingView extends React.Component<
           // @ts-ignore: O react-native não tem auto, mas o react-native-web aceita
           refreshControl={refreshControl}
           scrollEnabled={scrollEnabled}
+          keyboardShouldPersistTaps={keyboardShouldPersistTaps}
           onScroll={(e: any) => {
             if (onScroll) {
               onScroll(e.nativeEvent);
