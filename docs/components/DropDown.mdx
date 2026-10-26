@@ -46,4 +46,15 @@ import { Space } from '../../src/components/Space.tsx';
     value={2}
     onChange={value => alert('Selected ' + value)}
   />
+  <Space/>
+  <DropDown
+    label="DropDown"
+    items={[
+      { value: 1, label: 'Entrada 1', detail: '5 minutos' },
+      { value: 2, label: 'Saída 1', detail: 'Sem lembrete' }
+    ]}
+    value={1}
+    onChange={value => alert('Selected ' + value)}
+    detailStyle={{ color: '#AAACB0' }}
+  />
 </Playground>
