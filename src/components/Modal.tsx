@@ -92,6 +92,7 @@ export class Modal extends React.Component<ModalProperties> {
         transparent
         visible={visible}
         supportedOrientations={['landscape', 'portrait']}
+        statusBarTranslucent
         onRequestClose={onRequestClose}
         onShow={this.handleShow}
       >
@@ -102,11 +103,10 @@ export class Modal extends React.Component<ModalProperties> {
               overlayStyle
             ]);
 
-            // sec-issues#14678, sec-issues#14736: the modal window covers the
-            // system bar areas, so the content has to account for them itself.
-            // There is intentionally no platform-specific condition here because
-            // the insets are the overlap between the provider view and the system
-            // bars, so they already come in as zero when the window does not cover them.
+            // sec-issues#14678, sec-issues#14736, sec-issues#14966: the insets are
+            // measured on the app's main window, which is drawn under the status bar.
+            // statusBarTranslucent puts the modal window under it too, so the same
+            // padding applies on every platform and Android version.
             const safeAreaStyle = insets
               ? {
                   paddingTop:
