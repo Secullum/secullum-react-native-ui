@@ -26,6 +26,7 @@ import {
 
 type DropDownItemData = {
   label: string;
+  detail?: string;
   value: any;
   icon?: string;
   nativeID?: string;
@@ -35,6 +36,8 @@ interface DropDownItemProperties {
   first: boolean;
   last: boolean;
   label: string;
+  detail?: string;
+  detailStyle?: StyleProp<TextStyle>;
   value: any;
   icon?: string;
   iconComponent?: React.ComponentClass<IconProps>;
@@ -60,6 +63,16 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
       rowView: {
         flexDirection: 'row'
       },
+      labelWithDetail: {
+        flex: 1
+      },
+      detail: {
+        alignSelf: 'center',
+        paddingRight: 16,
+        fontFamily: theme.fontFamily1,
+        fontSize: 14,
+        color: theme.textColor2
+      },
       iconView: {
         width: 100,
         alignItems: 'center',
@@ -81,10 +94,19 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
   };
 
   renderOpenDropDownItem = () => {
-    const { label, icon, iconComponent, nativeID } = this.props;
+    const {
+      label,
+      detail,
+      detailStyle,
+      icon,
+      iconComponent,
+      nativeID
+    } = this.props;
 
     const theme = getTheme();
     const styles = this.getStyles();
+    const labelNativeID = nativeID && `${nativeID}-label`;
+    const detailNativeID = nativeID && `${nativeID}-detail`;
 
     if (label && icon) {
       return (
@@ -105,14 +127,35 @@ class DropDownItem extends React.PureComponent<DropDownItemProperties> {
             )}
           </View>
           <View>
-            <Text style={styles.modalItem}>{label}</Text>
+            <Text
+              nativeID={labelNativeID}
+              testID={getTestID(labelNativeID)}
+              style={styles.modalItem}
+            >
+              {label}
+            </Text>
           </View>
         </View>
       );
     } else if (label && !icon) {
       return (
         <View nativeID={nativeID} style={styles.rowView}>
-          <Text style={styles.modalItem}>{label}</Text>
+          <Text
+            nativeID={labelNativeID}
+            testID={getTestID(labelNativeID)}
+            style={[styles.modalItem, detail ? styles.labelWithDetail : null]}
+          >
+            {label}
+          </Text>
+          {detail ? (
+            <Text
+              nativeID={detailNativeID}
+              testID={getTestID(detailNativeID)}
+              style={[styles.detail, detailStyle]}
+            >
+              {detail}
+            </Text>
+          ) : null}
         </View>
       );
     } else if (!label && icon) {
@@ -172,6 +215,7 @@ export interface DropDownProperties {
   style?: StyleProp<ViewStyle>;
   disabledStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  detailStyle?: StyleProp<TextStyle>;
   inputStyle?: StyleProp<TextStyle>;
   iconComponent?: React.ComponentClass<IconProps>;
   nativeID?: string;
@@ -454,7 +498,7 @@ export class DropDown extends React.Component<
   };
 
   renderItemsList = (filteredItems: DropDownItemData[]) => {
-    const { iconComponent, virtualized } = this.props;
+    const { iconComponent, virtualized, detailStyle } = this.props;
 
     const renderItem = ({
       item,
@@ -465,6 +509,8 @@ export class DropDown extends React.Component<
         first={index === 0}
         last={index === filteredItems.length - 1}
         label={item.label}
+        detail={item.detail}
+        detailStyle={detailStyle}
         value={item.value}
         onPress={this.handleItemPress}
         icon={item.icon}
