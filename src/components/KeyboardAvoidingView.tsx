@@ -99,7 +99,14 @@ export class KeyboardAvoidingView extends React.Component<
     UIManager.viewIsDescendantOf(
       currentlyFocusedInputNode,
       findNodeHandle(scrollView),
-      (isDescendant: boolean) => {
+      (result: boolean | boolean[]) => {
+        // In the new architecture the callback receives [boolean] instead of boolean,
+        // and an array is always truthy. Without this, the KeyboardAvoidingView of
+        // screens still mounted in the stack tried to measure a field focused in
+        // another screen, and the measurement failed with "Error measuring text field.".
+        // Related issue on GitLab: 15073
+        const isDescendant = Array.isArray(result) ? result[0] : result;
+
         if (!isDescendant) {
           return;
         }
