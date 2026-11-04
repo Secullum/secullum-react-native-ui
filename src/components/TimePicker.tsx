@@ -136,6 +136,8 @@ export class TimePicker extends React.Component<
 
     const styles = this.getStyles();
     const theme = getTheme();
+    const labelNativeID = nativeID && `${nativeID}-label`;
+    const valueNativeID = nativeID && `${nativeID}-value`;
 
     if (matches) {
       date.setHours(parseInt(matches[1], 10));
@@ -154,8 +156,20 @@ export class TimePicker extends React.Component<
             style={[styles.container, style, disabled ? styles.readonly : null]}
           >
             <View>
-              <Text style={styles.label}>{label}</Text>
-              <Text style={styles.value}>{value}</Text>
+              <Text
+                nativeID={labelNativeID}
+                testID={getTestID(labelNativeID)}
+                style={styles.label}
+              >
+                {label}
+              </Text>
+              <Text
+                nativeID={valueNativeID}
+                testID={getTestID(valueNativeID)}
+                style={styles.value}
+              >
+                {value}
+              </Text>
             </View>
 
             {!disabled && (

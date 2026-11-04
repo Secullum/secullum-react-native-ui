@@ -20,6 +20,7 @@ export interface DetailsHeaderProperties {
   onRightPress?: () => void;
   leftNativeID?: string;
   rightNativeID?: string;
+  nativeID?: string;
 }
 
 export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
@@ -92,7 +93,8 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
       onLeftPress,
       onRightPress,
       leftNativeID,
-      rightNativeID
+      rightNativeID,
+      nativeID
     } = this.props;
     const styles = this.getStyles();
 
@@ -100,7 +102,13 @@ export class DetailsHeader extends React.Component<DetailsHeaderProperties> {
       <Card>
         <Card.Section style={styles.container}>
           {this.renderButton('left', onLeftPress, leftNativeID)}
-          <Text style={[styles.text, textStyle]}>{text}</Text>
+          <Text
+            nativeID={nativeID}
+            testID={getTestID(nativeID)}
+            style={[styles.text, textStyle]}
+          >
+            {text}
+          </Text>
           {this.renderButton('right', onRightPress, rightNativeID)}
         </Card.Section>
       </Card>
