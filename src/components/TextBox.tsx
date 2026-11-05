@@ -136,10 +136,12 @@ export class TextBox extends React.Component<TextBoxProperties> {
       icon,
       onPress,
       autoCapitalize,
-      secureTextEntry
+      secureTextEntry,
+      nativeID
     } = this.props;
 
     const styles = this.getStyles();
+    const labelNativeID = nativeID && `${nativeID}-label`;
 
     // Força primeira letra minúscula em campos de senha, a menos que autoCapitalize seja definido explicitamente.
     const capitalize =
@@ -211,7 +213,13 @@ export class TextBox extends React.Component<TextBoxProperties> {
           {icon ? (
             <FontAwesome name={icon} style={styles.icon} />
           ) : (
-            <Text style={[styles.label, labelStyle]}>{label}</Text>
+            <Text
+              nativeID={labelNativeID}
+              testID={getTestID(labelNativeID)}
+              style={[styles.label, labelStyle]}
+            >
+              {label}
+            </Text>
           )}
           {renderInput
             ? renderInput(incomingProps)
