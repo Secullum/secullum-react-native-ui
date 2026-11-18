@@ -1,5 +1,21 @@
 import { Dimensions, Platform } from 'react-native';
 
+let edgeToEdgeHandlingEnabled = false;
+
+/**
+ * Opt-in for apps that are edge-to-edge on every Android version, not only on 15+.
+ * Components that adjust their layout to edge-to-edge check it with
+ * `isEdgeToEdgeHandlingEnabled`. Apps that don't call it keep the previous
+ * behavior of those components, including on Android 15+. Disabled by default.
+ */
+export const setEdgeToEdgeHandlingEnabled = (enabled: boolean) => {
+  edgeToEdgeHandlingEnabled = enabled;
+};
+
+export const isEdgeToEdgeHandlingEnabled = () => {
+  return Platform.OS === 'android' && edgeToEdgeHandlingEnabled;
+};
+
 export const isTablet = () => {
   if (Platform.OS === 'web') {
     return false;
