@@ -21,3 +21,21 @@ export const isTablet = () => {
 export const isEdgeToEdge = () => {
   return Platform.OS === 'android' && Number(Platform.Version) >= 35;
 };
+
+let keyboardEdgeToEdge = false;
+
+/**
+ * Opt-in for apps that draw behind the system bars (edge-to-edge) on every
+ * Android version, not only on 15+. When enabled, the `KeyboardAvoidingView`
+ * ends its area at the real top of the keyboard and waits for the layout caused
+ * by it before scrolling to the focused input (Android only).
+ *
+ * Disabled by default, so apps that don't call it keep the previous behavior.
+ */
+export const setKeyboardEdgeToEdge = (enabled: boolean) => {
+  keyboardEdgeToEdge = enabled;
+};
+
+export const isKeyboardEdgeToEdge = () => {
+  return Platform.OS === 'android' && keyboardEdgeToEdge;
+};
