@@ -15,7 +15,7 @@ import {
   View
 } from 'react-native';
 
-import { isEdgeToEdge } from '../modules/layout';
+import { isEdgeToEdge, isKeyboardEdgeToEdge } from '../modules/layout';
 
 export interface KeyboardAvoidingViewProperties {
   extraFieldHeight: number; // To add some extra space after scrolling to the field
@@ -28,8 +28,15 @@ export interface KeyboardAvoidingViewProperties {
   keyBoardShow?: boolean;
 }
 
+// With `setKeyboardEdgeToEdge` enabled, the keyboard event arrives before the
+// layout it causes (container height and padding are only applied after it).
+// Scrolling right away would be limited by the old content size, so we wait for
+// that layout to settle.
+const KEYBOARD_LAYOUT_DELAY = 120;
+
 export interface KeyboardAvoidingViewState {
   keyboardHeight: number;
+  keyboardScreenY: number; // Top of the keyboard on the screen (0 when hidden)
 }
 
 export class KeyboardAvoidingView extends React.Component<
@@ -46,9 +53,11 @@ export class KeyboardAvoidingView extends React.Component<
   keyboardDidHideSubscription?: EmitterSubscription;
 
   scrollViewRef = React.createRef<ScrollView>();
+  scrollTimeout?: ReturnType<typeof setTimeout>;
 
   state: KeyboardAvoidingViewState = {
-    keyboardHeight: 0
+    keyboardHeight: 0,
+    keyboardScreenY: 0
   };
 
   componentDidMount() {
@@ -68,16 +77,41 @@ export class KeyboardAvoidingView extends React.Component<
   componentWillUnmount() {
     this.keyboardDidShowSubscription!.remove();
     this.keyboardDidHideSubscription!.remove();
+
+    this.clearScrollTimeout();
   }
+
+  clearScrollTimeout = () => {
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
+
+      this.scrollTimeout = undefined;
+    }
+  };
 
   handleKeyboardShow = (event: KeyboardEvent) => {
     const keyboardHeight = event.endCoordinates.height;
     const keyboardPosition = event.endCoordinates.screenY;
 
     this.setState({
-      keyboardHeight
+      keyboardHeight,
+      keyboardScreenY: keyboardPosition
     });
 
+    this.clearScrollTimeout();
+
+    if (isKeyboardEdgeToEdge()) {
+      this.scrollTimeout = setTimeout(() => {
+        this.scrollTimeout = undefined;
+
+        this.scrollToFocusedInput(keyboardPosition);
+      }, KEYBOARD_LAYOUT_DELAY);
+    } else {
+      this.scrollToFocusedInput(keyboardPosition);
+    }
+  };
+
+  scrollToFocusedInput = (keyboardPosition: number) => {
     const scrollView = this.scrollViewRef.current;
 
     if (!scrollView) {
@@ -138,8 +172,11 @@ export class KeyboardAvoidingView extends React.Component<
   };
 
   handleKeyboardHide = () => {
+    this.clearScrollTimeout();
+
     this.setState({
-      keyboardHeight: 0
+      keyboardHeight: 0,
+      keyboardScreenY: 0
     });
   };
 
@@ -170,13 +207,21 @@ export class KeyboardAvoidingView extends React.Component<
       extraWindowHeight
     } = this.props;
 
-    const { keyboardHeight } = this.state;
+    const { keyboardHeight, keyboardScreenY } = this.state;
 
     // Android devices with notch will report less `availableHeight` than it should
     // That's because of this: https://github.com/facebook/react-native/issues/23693
     // If I change it to 'screen', Android devices with virtual buttons will report more than it should
+    //
+    // With edge-to-edge (Android), `window.height` includes the navigation bar but
+    // `keyboardHeight` does not, so `window.height - keyboardHeight` would end below
+    // the top of the keyboard and the last pixels of the scroll would stay hidden
+    // behind it. With `setKeyboardEdgeToEdge` enabled, while the keyboard is
+    // visible we use its real top instead.
     const availableHeight =
-      Dimensions.get('window').height - keyboardHeight - extraWindowHeight;
+      isKeyboardEdgeToEdge() && keyboardHeight > 0 && keyboardScreenY > 0
+        ? keyboardScreenY - extraWindowHeight
+        : Dimensions.get('window').height - keyboardHeight - extraWindowHeight;
 
     return (
       <View style={[{ height: availableHeight }, !keyBoardShow && { flex: 1 }]}>
