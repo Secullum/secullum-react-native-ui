@@ -16,6 +16,7 @@ import {
 import { getTheme } from '../modules/theme';
 import { isTablet } from '../modules/layout';
 import { isHour } from '../modules/validation';
+import { getTestID } from '../modules/test';
 
 export interface TextBoxInputProps extends TextInputProps {
   ref: (ref: TextInput) => void;
@@ -74,6 +75,7 @@ export class TimePicker extends React.Component<TimePickerProperties> {
 
   render() {
     const { label, style, disabled, value, nativeID } = this.props;
+    const labelNativeID = nativeID && `${nativeID}-label`;
 
     const styles = this.getStyles();
 
@@ -91,7 +93,13 @@ export class TimePicker extends React.Component<TimePickerProperties> {
         <View
           style={[styles.container, style, !disabled ? null : styles.readonly]}
         >
-          <Text style={styles.label}>{label}</Text>
+          <Text
+            nativeID={labelNativeID}
+            testID={getTestID(labelNativeID)}
+            style={styles.label}
+          >
+            {label}
+          </Text>
           <TextInput
             nativeID={nativeID}
             value={value}

@@ -165,9 +165,10 @@ export class Card extends React.Component<CardProperties> {
   };
 
   render() {
-    const { children, style, ...otherProps } = this.props;
+    const { children, style, nativeID, ...otherProps } = this.props;
 
     const styles = this.getStyles();
+    const testID = getTestID(nativeID);
 
     const childrenMapped = React.Children.map(children, (child, index) => {
       if (index === 0 || !child) {
@@ -183,7 +184,12 @@ export class Card extends React.Component<CardProperties> {
     });
 
     return Platform.OS == 'web' ? (
-      <View style={[styles.container, style]} {...otherProps}>
+      <View
+        nativeID={nativeID}
+        testID={testID}
+        style={[styles.container, style]}
+        {...otherProps}
+      >
         {childrenMapped}
       </View>
     ) : (
@@ -191,6 +197,8 @@ export class Card extends React.Component<CardProperties> {
         elevation={5}
         // @ts-ignore : The component uses a different version of typing
         style={[styles.container, style]}
+        nativeID={nativeID}
+        testID={testID}
         {...otherProps}
       >
         {childrenMapped}

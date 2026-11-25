@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -26,6 +27,7 @@ export interface DetailsLine {
   value?: string;
   icons?: Array<DetailsIcon>;
   render?: () => React.ReactNode;
+  nativeID?: string;
 }
 
 export interface DetailsProperties {
@@ -85,13 +87,17 @@ export class Details extends React.Component<DetailsProperties> {
     return styles;
   };
 
-  renderIcon = (icon: DetailsIcon, index: number) => {
+  renderIcon = (icon: DetailsIcon, index: number, lineNativeID?: string) => {
     const styles = this.getStyles();
+    const iconNativeID = lineNativeID
+      ? `${lineNativeID}-icon-${icon.name}`
+      : icon.name;
 
     const fa = (
       <FontAwesome
         key={index}
-        testID={getTestID(icon.name)}
+        nativeID={lineNativeID && iconNativeID}
+        testID={Platform.OS === 'web' ? icon.name : getTestID(iconNativeID)}
         name={icon.name}
         color={icon.color}
         size={icon.size}
@@ -114,7 +120,9 @@ export class Details extends React.Component<DetailsProperties> {
     const styles = this.getStyles();
 
     const { lineTitleStyle, lineValueStyle } = this.props;
-    const { title, value, icons, render } = line;
+    const { title, value, icons, render, nativeID } = line;
+    const labelNativeID = nativeID && `${nativeID}-label`;
+    const valueNativeID = nativeID && `${nativeID}-value`;
 
     const sectionStyle = render
       ? styles.lineSectionCustomRender
@@ -124,12 +132,23 @@ export class Details extends React.Component<DetailsProperties> {
       render()
     ) : (
       <>
-        <Text style={[styles.lineText, styles.lineTitle, lineTitleStyle]}>
+        <Text
+          nativeID={labelNativeID}
+          testID={getTestID(labelNativeID)}
+          style={[styles.lineText, styles.lineTitle, lineTitleStyle]}
+        >
           {title}
         </Text>
         <View style={styles.lineValueContainer}>
-          {icons && icons.map(this.renderIcon)}
-          <Text style={[styles.lineText, styles.lineValue, lineValueStyle]}>
+          {icons &&
+            icons.map((icon, iconIndex) =>
+              this.renderIcon(icon, iconIndex, nativeID)
+            )}
+          <Text
+            nativeID={valueNativeID}
+            testID={getTestID(valueNativeID)}
+            style={[styles.lineText, styles.lineValue, lineValueStyle]}
+          >
             {value}
           </Text>
         </View>
@@ -139,7 +158,7 @@ export class Details extends React.Component<DetailsProperties> {
     return (
       <React.Fragment key={index}>
         <Space height={3} />
-        <Card>
+        <Card nativeID={nativeID}>
           <Card.Section style={sectionStyle}>{children}</Card.Section>
         </Card>
       </React.Fragment>
