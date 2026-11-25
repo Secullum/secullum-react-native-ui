@@ -15,7 +15,7 @@ import {
   View
 } from 'react-native';
 
-import { isEdgeToEdge } from '../modules/layout';
+import { isEdgeToEdge, isEdgeToEdgeHandlingEnabled } from '../modules/layout';
 
 export interface KeyboardAvoidingViewProperties {
   extraFieldHeight: number; // To add some extra space after scrolling to the field
@@ -30,6 +30,7 @@ export interface KeyboardAvoidingViewProperties {
 
 export interface KeyboardAvoidingViewState {
   keyboardHeight: number;
+  keyboardScreenY: number; // Top of the keyboard on the screen (0 when hidden)
 }
 
 export class KeyboardAvoidingView extends React.Component<
@@ -48,7 +49,8 @@ export class KeyboardAvoidingView extends React.Component<
   scrollViewRef = React.createRef<ScrollView>();
 
   state: KeyboardAvoidingViewState = {
-    keyboardHeight: 0
+    keyboardHeight: 0,
+    keyboardScreenY: 0
   };
 
   componentDidMount() {
@@ -74,10 +76,45 @@ export class KeyboardAvoidingView extends React.Component<
     const keyboardHeight = event.endCoordinates.height;
     const keyboardPosition = event.endCoordinates.screenY;
 
+    if (isEdgeToEdgeHandlingEnabled()) {
+      // The scroll has to wait for the layout caused by the keyboard. The
+      // `setState` callback runs after React commits it, but Fabric still runs
+      // scroll commands before mounting the new layout in the same frame, so we
+      // wait one more frame.
+      // Related issue on GitLab: 15460
+      this.setState(
+        { keyboardHeight, keyboardScreenY: keyboardPosition },
+        () => {
+          requestAnimationFrame(() => {
+            const { keyboardScreenY } = this.state;
+
+            // The keyboard may have been hidden before the frame
+            if (keyboardScreenY > 0) {
+              this.scrollToFocusedInput(keyboardScreenY);
+            }
+          });
+        }
+      );
+
+      return;
+    }
+
     this.setState({
-      keyboardHeight
+      keyboardHeight,
+      keyboardScreenY: keyboardPosition
     });
 
+    this.scrollToFocusedInput(keyboardPosition);
+  };
+
+  handleKeyboardHide = () => {
+    this.setState({
+      keyboardHeight: 0,
+      keyboardScreenY: 0
+    });
+  };
+
+  scrollToFocusedInput = (keyboardPosition: number) => {
     const scrollView = this.scrollViewRef.current;
 
     if (!scrollView) {
@@ -137,12 +174,6 @@ export class KeyboardAvoidingView extends React.Component<
     );
   };
 
-  handleKeyboardHide = () => {
-    this.setState({
-      keyboardHeight: 0
-    });
-  };
-
   scrollTo = (x: number, y: number) => {
     if (!this.scrollViewRef.current) {
       return;
@@ -170,23 +201,33 @@ export class KeyboardAvoidingView extends React.Component<
       extraWindowHeight
     } = this.props;
 
-    const { keyboardHeight } = this.state;
+    const { keyboardHeight, keyboardScreenY } = this.state;
 
     // Android devices with notch will report less `availableHeight` than it should
     // That's because of this: https://github.com/facebook/react-native/issues/23693
     // If I change it to 'screen', Android devices with virtual buttons will report more than it should
+    //
+    // With edge-to-edge (Android), `window.height` includes the navigation bar but
+    // `keyboardHeight` does not, so `window.height - keyboardHeight` would end below
+    // the top of the keyboard and the last pixels of the scroll would stay hidden
+    // behind it. With `setEdgeToEdgeHandlingEnabled` enabled, while the keyboard is
+    // visible we use its real top instead.
     const availableHeight =
-      Dimensions.get('window').height - keyboardHeight - extraWindowHeight;
+      isEdgeToEdgeHandlingEnabled() && keyboardScreenY > 0
+        ? keyboardScreenY - extraWindowHeight
+        : Dimensions.get('window').height - keyboardHeight - extraWindowHeight;
 
     return (
       <View style={[{ height: availableHeight }, !keyBoardShow && { flex: 1 }]}>
         <ScrollView
-          // On Android 15+ (API 35+), with edge-to-edge enforced, the window is not
+          // On Android 15+ (API 35+), or on any Android version when the app enables
+          // `setEdgeToEdgeHandlingEnabled`, the window is edge-to-edge and is not
           // resized when the keyboard appears, so the ScrollView does not gain any
           // scroll room and may hide focused input fields.
-          // Related issues on GitLab: 11635, 14734
+          // Related issues on GitLab: 11635, 14734, 15460
           contentContainerStyle={
-            isEdgeToEdge() && keyboardHeight > 0
+            (isEdgeToEdge() || isEdgeToEdgeHandlingEnabled()) &&
+            keyboardHeight > 0
               ? { paddingBottom: keyboardHeight }
               : undefined
           }
